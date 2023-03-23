@@ -61,6 +61,28 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
 
         "soundMuteDesc": "음소거",
 
+        "timerDisplayDesc": "클릭: 타이머 시작 / 정지 및 리셋\n우클릭:\n - 타이머 작동 전: 현재 타이머의 증감 적용 초기화\n - 타이머 작동 후: 타이머 일시정지/재개\n휠 Up/Down: 기본 타이머 시간 조정 (정지/일시정지 때만 가능)\n휠 클릭: 기본 타이머 시간을 기본값으로(30초) 되돌리기 (일시정지/작동 중 일 때도 가능)",
+        "timerAdderMinDesc": "클릭: #NO분 추가 (현재 카운터 한정)\n우클릭: #NO분 감소 (현재 카운터 한정)\n휠 Up/Down: 1초 단위 증감 (현재 카운터 한정)\n휠클릭: 현재 카운터 증감 초기화",
+        "timerAdderSecDesc": "클릭: #NO초 추가 (현재 카운터 한정)\n우클릭: #NO초 감소 (현재 카운터 한정)\n휠 Up/Down: 1초 단위 증감 (현재 카운터 한정)\n휠클릭: 현재 카운터 증감 초기화",
+        "timerOptionsSetSoundDesc": "타이머 소리 설정",
+        "timerOptionSoundOnDesc": "타이머 시작/종료/리셋 효과음 On",
+        "timerOptionCounterSoundOnDesc": "타이머 카운터 효과음 On\n - 15초 이상일 때 2초마다\n - 15초 이하일 때 1초마다\n - 10초이하일 때 소리 변경\n - 5초 이하일 때 .5초 추가",
+        "timerOptionsSetInterlockDesc": "타이머 픽업 연동 설정",
+        "timerOptionInterlockSideOnDesc": "픽업 사이드 연동 On\n - 타이머 색상 연동 및 화면 상단 타이머 게이지 활성화\n - 픽업 사이드 변동 시 타이머 자동 초기화",
+        "timerOptionInterlockAmountOnDesc": "픽업 수량 연동 On\n - 픽업 시퀀스 단계 별 현재 타이머 한정 기본 기간 * 픽업 수량 자동 적용",
+        "timerOptionsSetAutomaticDesc": "타이머 자동 시작 및 타임아웃 시 자동 패스 설정",
+        "timerOptionAutomaticStartBanOnDesc": "밴 픽 타이머 자동시작 On",
+        "timerOptionAutomaticStartEntryOnDesc": "엔트리 픽 타이머 자동시작 On",
+        "timerOptionAutomaticPassRanOutOnDesc": "타임오버 시 자동 패스",
+        "timerOptionsSetSetupPhaseDesc": "플레이어 파티 세팅 시간 타이머 설정",
+        "timerOptionAutomaticStartSetupPhaseOnDesc": "세팅 시간 타이머 자동시작 On",
+        "timerOptionDefaultTimeoutSetupPhaseTextDesc": "세팅 시간 타이머 기본값",
+        "timerOptionDefaultTimeoutSetupPhaseMinDesc": "세팅 시간 타이머 기본값 (분 - 최대 16분 39초 == 999초)",
+        "timerOptionDefaultTimeoutSetupPhaseSecDesc": "세팅 시간 타이머 기본값 (초 - 최대 16분 39초 == 999초)",
+        "timerSettingsIconDesc": "클릭: 설정 패널 고정 모드 닫기/열기 토글\n우클릭: 마우스 올리면 보이기 모드 (기본 상태)",
+
+        "accountInfoIndicatorDesc": "계정 정보 세트 인디케이터 - 🟩 정보 없음 / ✅ 정보 있음\n클릭:\n 정보가 있는 경우 - 정보 삭제\n 정보가 없는 경우 - 입력한 이름/UID/계정 점수 초기화\n우클릭: 이전 계정 정보 복원",
+
         "reserved": ""
     },
     "class": {

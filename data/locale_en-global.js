@@ -60,6 +60,28 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
 
         "soundMuteDesc": "Mute",
 
+        "timerDisplayDesc": "Click: Start / stop and reset the timer\nRight-click:\n - Before the timer starts: Reset the increase/decrease application of the current timer\n - After the timer starts: Pause/resume the timer\nWheel Up/Down: Adjust the default timer time (only available when stopped/paused)\nWheel Click: Return the default timer time to the default value (30 seconds) even when paused/operating",
+        "timerAdderMinDesc": "Click: Add #NO minutes (limited to current counter)\nRight-click: Reduce #NO minutes (limited to current counter)\nWheel Up/Down: Increase/decrease by 1 second (limited to current counter)\nWheel click: Reset current counter increase/decrease",
+        "timerAdderSecDesc": "Click: Add #NO seconds (limited to current counter)\nRight-click: Reduce #NO seconds (limited to current counter)\nWheel Up/Down: Increase/decrease by 1 second (limited to current counter)\nWheel click: Reset current counter increase/decrease",
+        "timerOptionsSetSoundDesc": "Set timer sound",
+        "timerOptionSoundOnDesc": "Timer start/stop/reset sound On",
+        "timerOptionCounterSoundOnDesc": "Timer counter sound On\n - Every 2 seconds when 15 seconds or more\n - Every 1 second when less than 15 seconds\n - Sound changed when less than 10 seconds\n - Add .5 seconds when less than 5 seconds",
+        "timerOptionsSetInterlockDesc": "Set up timer pickup interlock",
+        "timerOptionInterlockSideOnDesc": "Side pickup interlock On\n - Connect timer color and activate top timer gauge on the screen\n - Automatically reset the timer when the pickup side changes",
+        "timerOptionInterlockAmountOnDesc": "Amount pickup interlock On\n - Automatically apply default period*number of pickups by pickup sequence step",
+        "timerOptionsSetAutomaticDesc": "Set automatic timer start and timeout pass",
+        "timerOptionAutomaticStartBanOnDesc": "Ban pick timer automatic start On",
+        "timerOptionAutomaticStartEntryOnDesc": "Entry pick timer automatic start On",
+        "timerOptionAutomaticPassRanOutOnDesc": "Automatic pass when time runs out",
+        "timerOptionsSetSetupPhaseDesc": "Set player party setting time timer",
+        "timerOptionAutomaticStartSetupPhaseOnDesc": "Automatic start of setting time timer On",
+        "timerOptionDefaultTimeoutSetupPhaseTextDesc": "Setting time timer default value",
+        "timerOptionDefaultTimeoutSetupPhaseMinDesc": "Setting time timer default value (minutes - maximum 16 minutes 39 seconds == 999 seconds)",
+        "timerOptionDefaultTimeoutSetupPhaseSecDesc": "Setting time timer default value (seconds - maximum 16 minutes 39 seconds == 999 seconds)",
+        "timerSettingsIconDesc": "Click: Toggle close/open setting panel fixed mode\nRight-click: Show on mouse over (default state)",
+
+        "accountInfoIndicatorDesc": "Set of account information indicators - 🟩 No information / ✅ Information available\nClick:\n If there is information - Delete information\n If there is no information - Reset the entered name/UID/account score\nRight-click: Restore previous account information",
+
         "reserved": ""
     },
     "class": {

@@ -1592,6 +1592,12 @@ let sideMaster = {
         this.eachEntries.find(this.entry_icon).click(this.onClickEntryIcon);
     },
 
+    initDesc: function() {
+        let text = lang.text;
+
+        this.eachAccountInfo.attr("title", text.accountInfoIndicatorDesc);
+    },
+
     initSideInfo: function() {
         this.initPlayerUid();
         this.initNameplate();
@@ -3254,6 +3260,8 @@ let localeMaster = {
         
         try {
             this.initLanguageSelectorText();
+            sideMaster.initDesc();
+            timerMaster.initDesc();
             searchMaster.initSearchInputHelps();
             controllerMaster.initButtonTexts();
         } catch (e) {
@@ -3741,6 +3749,8 @@ let timerMaster = {
         this.timerRelayCS1 = this.timerRelayDisplay.find(this.timer_cs_1);
         this.timerRelayCS0 = this.timerRelayDisplay.find(this.timer_cs_0);
 
+        
+        this.initDesc();
 
         this.initGaugesWidth();
         
@@ -3919,7 +3929,48 @@ let timerMaster = {
             ts.attr(tm.folded, "");
             return false;
         });
-  },
+    },
+
+    initDesc: function() {
+        let text = lang.text;
+        let optionSetTitle = "label.option_set_title";
+
+        this.timerDisplay.attr("title", text.timerDisplayDesc);
+
+        this.timerAdderMin5.attr("title", text.timerAdderMinDesc.replace(/#NO/g, "5"));
+        this.timerAdderMin1.attr("title", text.timerAdderMinDesc.replace(/#NO/g, "1"));
+        this.timerAdderSec60.attr("title", text.timerAdderSecDesc.replace(/#NO/g, "60"));
+        this.timerAdderSec30.attr("title", text.timerAdderSecDesc.replace(/#NO/g, "30"));
+        this.timerAdderSec15.attr("title", text.timerAdderSecDesc.replace(/#NO/g, "15"));
+        this.timerAdderSec10.attr("title", text.timerAdderSecDesc.replace(/#NO/g, "10"));
+
+        this.timerOptions.filter("#sound_options").find(optionSetTitle).attr("title", text.timerOptionsSetSoundDesc);
+        this.timerOptions.filter("#interlock_options").find(optionSetTitle).attr("title", text.timerOptionsSetInterlockDesc);
+        this.timerOptions.filter("#automatic_options").find(optionSetTitle).attr("title", text.timerOptionsSetAutomaticDesc);
+        this.timerOptions.filter("#setup_phase_options").find(optionSetTitle).attr("title", text.timerOptionsSetSetupPhaseDesc);
+
+        this.toiSound.find("label").attr("title", text.timerOptionSoundOnDesc);
+        this.timerSoundOn.attr("title", text.timerOptionSoundOnDesc);
+        this.toiCounterSound.find("label").attr("title", text.timerOptionCounterSoundOnDesc);
+        this.timerCounterSoundOn.attr("title", text.timerOptionCounterSoundOnDesc);
+        this.toiInterlockSide.find("label").attr("title", text.timerOptionInterlockSideOnDesc);
+        this.timerInterlockSideOn.attr("title", text.timerOptionInterlockSideOnDesc);
+        this.toiInterlockAmount.find("label").attr("title", text.timerOptionInterlockAmountOnDesc);
+        this.timerInterlockAmountOn.attr("title", text.timerOptionInterlockAmountOnDesc);
+        this.toiAutomaticStartBan.find("label").attr("title", text.timerOptionAutomaticStartBanOnDesc);
+        this.timerAutomaticStartBanOn.attr("title", text.timerOptionAutomaticStartBanOnDesc);
+        this.toiAutomaticStartEntry.find("label").attr("title", text.timerOptionAutomaticStartEntryOnDesc);
+        this.timerAutomaticStartEntryOn.attr("title", text.timerOptionAutomaticStartEntryOnDesc);
+        this.toiAutomaticPassRanOut.find("label").attr("title", text.timerOptionAutomaticPassRanOutOnDesc);
+        this.timerAutomaticPassRanOutOn.attr("title", text.timerOptionAutomaticPassRanOutOnDesc);
+        this.toiAutomaticStartSetupPhase.find("label").attr("title", text.timerOptionAutomaticStartSetupPhaseOnDesc);
+        this.timerAutomaticStartSetupPhaseOn.attr("title", text.timerOptionAutomaticStartSetupPhaseOnDesc);
+        this.toiDefaultTimeoutSetupPhase.find("label").attr("title", text.timerOptionDefaultTimeoutSetupPhaseTextDesc);
+        this.timerDefaultTimeoutSetupPhaseMin.attr("title", text.timerOptionDefaultTimeoutSetupPhaseMinDesc);
+        this.timerDefaultTimeoutSetupPhaseSec.attr("title", text.timerOptionDefaultTimeoutSetupPhaseSecDesc);
+
+        this.settingsIcon.attr("title", text.timerSettingsIconDesc);
+    },
 
     hideGauge: function(side) {
         this.getActivatedGauges().attr(this.active, "");
