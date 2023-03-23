@@ -1,0 +1,901 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>원신 챔스 계정 점수 계산기 / 리그 체커  v1.6</title>
+        <meta name="viewport" content="user-scalable=yes, width=720, minimum-scale=0.2, maximum-scale=2.0, initial-scale=1.0">
+        <style>
+
+div.note { display: table; margin: 25px auto; }
+div.subnote { display: table; margin: 10px auto; }
+
+table { margin: 0 auto; padding: 8px 10px; border: ridge 2px #4AF; border-radius: 16px; }
+thead { }
+tfoot { }
+tbody { }
+tr { }
+td { }
+
+input[type=text], input[type=number] { width: 100%; font-size: 100%; text-align: right; }
+textarea { font-family: '맑은 고딕', 'Malgun Gothic', 'Noto Sans KR', NotoSansKR, '나눔고딕', 'Nanum Gothic', NanumGothic, 'Open Sans', '돋움', Dotum, 'Apple SD 산돌고딕 Neo', 'Apple SD Gothic Neo', AppleGothic, Arial, Helvetica, sans-serif; }
+
+table.score_calc { border-spacing: 0px 1px; }
+table.score_calc thead td { border-bottom: solid 2px #08D; }
+table.score_calc tbody td:not([colspan="4"]):nth-child(1) { }
+table.score_calc tbody td:not([colspan="4"]):nth-child(2) { padding: 0 2px 0 12px; font-weight: bold; }
+table.score_calc tbody td:not([colspan="4"]):nth-child(3) { width: 130px; }
+table.score_calc tbody td:not([colspan="4"]):nth-child(4) { width: 60px;}
+table.score_calc tfoot tr:first-child td { padding: 4px 0; border-top: double 6px #08D; font-size: 18px; }
+table.score_calc tfoot tr td { padding: 8px 0 0; border-top: dashed 2px #08D; }
+
+table.league_guide { margin-top: 10px; }
+table.league_guide td:nth-child(2) { padding-left: 12px; font-weight: bold; text-align: right; }
+table.league_guide td:nth-child(3) { padding-left: 18px; text-align: right; }
+
+button#copy_table { cursor: pointer; }
+
+.player_infos div { }
+.player_infos input[type=text], .player_infos input[type=number] { border: solid 1px #777; font-size: 20px; }
+div.player_name { width: calc(100% - 18px); margin-right: 50px; }
+input#player_name { padding: 3px 1px 1px 5px; border-radius: 2px; border-bottom-left-radius: 8px; text-align: left; }
+input#player_uid { padding: 3px 6px 1px; border-radius: 8px; text-align: left; }
+div#treveler_selection { display: table; margin: 0 auto; }
+div#treveler_selection input { cursor: pointer; }
+div#treveler_selection label { margin-right: 4px; font-size: 17px; cursor: pointer; }
+
+textarea#paste_table { display: table; margin: 10px auto 0; text-align: center; overflow: hidden; }
+
+span.cost_add { color: #08C; }
+
+span#gi_rev { color: tomato; font-weight: bold; }
+
+.center  {text-align: center; }
+.right { text-align: right; }
+.bold { font-weight: bold; }
+
+*:focus { outline-color: #06EE; box-shadow: 0 0 6px 0 #037D; transition-duration: 0.3s; }
+
+        </style>
+        <script type="text/javascript" src="./data/rule.js?update=2"></script>
+        <script type="text/javascript" src="./data/spiral_tier_cost.js?update=4"></script>
+    </head>
+    <body>
+        <div class="note">
+            <p>
+                <span>◆ 초기 상시 5성인 <b>진</b>, <b>치치</b>, <b>모나</b>, <b>각청</b>,
+                <b>다이루크</b> 모두 0점(계산 안 함)</span>
+            </p>
+            <p><span>◆ 추가 상시 5성 중 성능에 따른 취급 구분 - <b>타이나리</b>는 계산에 포함, <b>데히야</b>는 미포함</span></p>
+            <p><span>◆ 여행자, 에일로이 게임 내 5성 취급이지만 4성급 성능 상 계산 안 함(0점)</span></p>
+        </div>
+        <table class="score_calc">
+            <thead>
+                <tr>
+                    <td><div><p class="center bold"><span>순서</span></p></div></td>
+                    <td><div><p class="center bold"><span>이름</span></p></div></td>
+                    <td><div><p class="center bold"><span>돌파 (명함=0)</span></p></div></td>
+                    <td><div><p class="center bold"><span>점수</span></p></div></td>
+                    <td><div><p class="center bold"><span>코스트 (참고용)</span></p></div></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><div><p class="right">1</p></div></td>
+                    <td><div><p class="right"><span>벤티</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_venti" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_venti" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_venti"></span> +<span class="cost_add" data-cid="c_venti"></span>)&nbsp;<span data-cid="c_venti" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">2</p></div></td>
+                    <td><div><p class="right"><span>클레</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_klee" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_klee" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_klee"></span> +<span class="cost_add" data-cid="c_klee"></span>)&nbsp;<span data-cid="c_klee" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">3</p></div></td>
+                    <td><div><p class="right"><span>타르탈리아</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_tartaglia" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_tartaglia" style=" font-weight: bold; ">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_tartaglia"></span> +<span class="cost_add" data-cid="c_tartaglia"></span>)&nbsp;<span data-cid="c_tartaglia" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">4</p></div></td>
+                    <td><div><p class="right"><span>종려</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_zhongli" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_zhongli" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_zhongli"></span> +<span class="cost_add" data-cid="c_zhongli"></span>)&nbsp;<span data-cid="c_zhongli" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">5</p></div></td>
+                    <td><div><p class="right"><span>알베도</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_albedo" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_albedo" style=" font-weight: bold; ">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_albedo"></span> +<span class="cost_add" data-cid="c_albedo"></span>)&nbsp;<span data-cid="c_albedo" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">6</p></div></td>
+                    <td><div><p class="right"><span>감우</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_ganyu" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_ganyu" style=" font-weight: bold; ">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_ganyu"></span> +<span class="cost_add" data-cid="c_ganyu"></span>)&nbsp;<span data-cid="c_ganyu" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">7</p></div></td>
+                    <td><div><p class="right"><span>소</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_xiao" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_xiao" style=" font-weight: bold; ">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_xiao"></span> +<span class="cost_add" data-cid="c_xiao"></span>)&nbsp;<span data-cid="c_xiao" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">8</p></div></td>
+                    <td><div><p class="right"><span>호두</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_hutao" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_hutao" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_hutao"></span> +<span class="cost_add" data-cid="c_hutao"></span>)&nbsp;<span data-cid="c_hutao" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">9</p></div></td>
+                    <td><div><p class="right"><span>유라</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_eula" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_eula" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_eula"></span> +<span class="cost_add" data-cid="c_eula"></span>)&nbsp;<span data-cid="c_eula" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">10</p></div></td>
+                    <td><div><p class="right"><span>카에데하라 카즈하</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_kazuha" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_kazuha" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_kazuha"></span> +<span class="cost_add" data-cid="c_kazuha"></span>)&nbsp;<span data-cid="c_kazuha" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">11</p></div></td>
+                    <td><div><p class="right"><span>카미사토 아야카</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_ayaka" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_ayaka" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_ayaka"></span> +<span class="cost_add" data-cid="c_ayaka"></span>)&nbsp;<span data-cid="c_ayaka" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">12</p></div></td>
+                    <td><div><p class="right"><span>요이미야</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_yoimiya" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_yoimiya" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_yoimiya"></span> +<span class="cost_add" data-cid="c_yoimiya"></span>)&nbsp;<span data-cid="c_yoimiya" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">13</p></div></td>
+                    <td><div><p class="right"><span>라이덴 쇼군</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_shogun" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_shogun" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_shogun"></span> +<span class="cost_add" data-cid="c_shogun"></span>)&nbsp;<span data-cid="c_shogun" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">14</p></div></td>
+                    <td><div><p class="right"><span>산고노미야 코코미</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_kokomi" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_kokomi" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_kokomi"></span> +<span class="cost_add" data-cid="c_kokomi"></span>)&nbsp;<span data-cid="c_kokomi" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">15</p></div></td>
+                    <td><div><p class="right"><span>아라타키 이토</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_itto" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_itto" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_itto"></span> +<span class="cost_add" data-cid="c_itto"></span>)&nbsp;<span data-cid="c_itto" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">16</p></div></td>
+                    <td><div><p class="right"><span>신학</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_shenhe" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_shenhe" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_shenhe"></span> +<span class="cost_add" data-cid="c_shenhe"></span>)&nbsp;<span data-cid="c_shenhe" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">17</p></div></td>
+                    <td><div><p class="right"><span>야에 미코</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_yae" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_yae" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_yae"></span> +<span class="cost_add" data-cid="c_yae"></span>)&nbsp;<span data-cid="c_yae" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">18</p></div></td>
+                    <td><div><p class="right"><span>카미사토 아야토</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_ayato" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_ayato" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_ayato"></span> +<span class="cost_add" data-cid="c_ayato"></span>)&nbsp;<span data-cid="c_ayato" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">19</p></div></td>
+                    <td><div><p class="right"><span>야란</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_yelan" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_yelan" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_yelan"></span> +<span class="cost_add" data-cid="c_yelan"></span>)&nbsp;<span data-cid="c_yelan" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">20</p></div></td>
+                    <td><div><p class="right"><span>타이나리</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_tighnari" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_tighnari" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_tighnari"></span> +<span class="cost_add" data-cid="c_tighnari"></span>)&nbsp;<span data-cid="c_tighnari" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">21</p></div></td>
+                    <td><div><p class="right"><span>사이노</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_cyno" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_cyno" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_cyno"></span> +<span class="cost_add" data-cid="c_cyno"></span>)&nbsp;<span data-cid="c_cyno" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">22</p></div></td>
+                    <td><div><p class="right"><span>닐루</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_nilou" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_nilou" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_nilou"></span> +<span class="cost_add" data-cid="c_nilou"></span>)&nbsp;<span data-cid="c_nilou" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">23</p></div></td>
+                    <td><div><p class="right"><span>나히다</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_nahida" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_nahida" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_nahida"></span> +<span class="cost_add" data-cid="c_nahida"></span>)&nbsp;<span data-cid="c_nahida" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">24</p></div></td>
+                    <td><div><p class="right"><span>방랑자</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_wanderer" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_wanderer" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_wanderer"></span> +<span class="cost_add" data-cid="c_wanderer"></span>)&nbsp;<span data-cid="c_wanderer" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td><div><p class="right">25</p></div></td>
+                    <td><div><p class="right"><span>알하이탐</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_alhaitham" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_alhaitham" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_alhaitham"></span> +<span class="cost_add" data-cid="c_alhaitham"></span>)&nbsp;<span data-cid="c_alhaitham" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <!-- <tr>
+                    <td><div><p class="right">26</p></div></td>
+                    <td><div><p class="right"><span>데히야</span></p></div></td>
+                    <td colspan="3"><div><p class="center"><span style="color: #B60; font-size: 12px;">
+                        신규 캐릭터 현재 챔스 사용 불가 (계산 안함)
+                    </span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_dehya" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_dehya" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_dehya"></span> +<span class="cost_add" data-cid="c_dehya"></span>)&nbsp;<span data-cid="c_dehya" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr> -->
+                <tr>
+                    <td colspan="4"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"><div><p class="center"><span>
+                        <b>리그 구분 / 합산</b>
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="res_league_class" class="bold">?</span><span id="league_tail"> 리그</span></span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="acc_score_total" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <button id="copy_table" class="bold">계정 정보 복사</button>
+                    </p></div></td>
+                </tr>
+                <tr class="player_infos">
+                    <td colspan="2"><div class="player_name">
+                        <input type="text" id="player_name" size="12" maxlength="12" placeholder="챔스에 사용할 닉네임" />
+                    </div></td>
+                    <td><div class="player_uid">
+                        <input type="number" id="player_uid" min="800000000" maxlength="9" placeholder="원신 UID" />
+                    </div></td>
+                    <td colspan="2"><div id="treveler_selection">
+                        <input type="radio" id="trevelerF" name="trevelers" value="0" checked /><label for="trevelerF">여행자</label>
+                        <input type="radio" id="trevelerM" name="trevelers" value="1" /><label for="trevelerM">남행자</label>
+                    </div></td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="subnote center">
+            <span>◆ <b>계정 정보 복사</b> 버튼으로 복사 후 메모장 등에 보관해 두시면<br />아래의 <b>붙여넣기 영역</b>에 붙여넣어서 입력했던 내용을 다시 불러올 수 있습니다 ◆</span>
+        </div>
+        <textarea id="paste_table" rows="1" placeholder="계정 정보 붙여넣기"></textarea>
+        <div class="subnote center">
+            <span>◆ 현재 코스트 기준은 원신 <span id="gi_ver">3.4</span> 페이즈<span id="gi_phase">3</span> (<span id="gi_spiral">2월 하반기</span>)<span id="gi_rev"></span> 입니다 ◆</span>
+        </div>
+        <table class="league_guide">
+            <tbody id="leagues">
+                <tr>
+                    <td><b>무인검</b> 리그</td>
+                    <td>10~19점</td>
+                    <td>22코스트</td>
+                </tr>
+                <tr>
+                    <td><b>흑술창</b> 리그</td>
+                    <td>20~34점</td>
+                    <td>24코스트</td>
+                </tr>
+                <tr>
+                    <td><b>제례활</b> 리그</td>
+                    <td>35~54점</td>
+                    <td>26코스트</td>
+                </tr>
+                <tr>
+                    <td><b>이무기</b> 리그</td>
+                    <td>55~84점</td>
+                    <td>26코스트</td>
+                </tr>
+                <tr>
+                    <td><b>카구라</b> 리그</td>
+                    <td>85~124점</td>
+                    <td>28코스트</td>
+                </tr>
+                <tr>
+                    <td><b>일태도</b> 리그</td>
+                    <td>125점 이상</td>
+                    <td>코스트 무제한</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="subnote center">
+            <span class="bold" style="line-height: 28px; ">- <span id="rule_title">앙챔스 룰북</span> <span id="rule_version">1.3</span> 기준 - </span>
+            <br />
+            <span class="bold">GCALC v1.6</span>
+            <br />
+            <span>Release 2023.03.19</span>
+        </div>
+    </body>
+    <script>
+
+document.getElementById("gi_ver").innerText = costTable != null ? costTable.version : "???";
+document.getElementById("gi_phase").innerText = costTable != null ? costTable.phase : "???";
+document.getElementById("gi_spiral").innerText = costTable != null ? costTable.month + "월 " + (costTable.half === 1 ? "상" : "하") + "반기" : "???";
+document.getElementById("gi_rev").innerText = costTable != null && costTable.revision > 0 ? " rev." + costTable.revision : "";
+
+function getInputs() {
+    return document.querySelectorAll('input.char_constells');
+}
+
+let leagueCalc = function () {
+    var totals = 0;
+    getInputs().forEach(input => {
+        var v = parseInt(input.value);
+        if (v != null && !isNaN(v)) totals += v + 1;
+    });
+    var hideTail = false;
+    var l = null;
+    // if (totals < 10) {
+    //     l = '참여 조건 미달';
+    //     hideTail = true;
+    // }
+    // else if (totals < 20) l = '무인검';
+    // else if (totals < 30) l = '흑술창';
+    // else if (totals < 60) l = '제례활';
+    // else if (totals < 100) l = '카구라';
+    // else if (totals < 176) l = '일태도';
+    // else l = '?????';
+
+    let ra = rules.rule_alter;
+    for (var i=0; i < ra.length; i++) {
+        let cr = ra[i];
+        if (!cr.established) continue;
+        let scr = cr.score_range;
+
+        if (scr.indexOf("+") > -1) {
+            let scl = parseInt(scr.replace("+", ""));
+            if (totals >= scl) {
+                l = cr.name.replace(" 리그", "");
+                break;
+            }
+        } else {
+            let scrs = scr.split("-");
+            if (totals >= parseInt(scrs[0]) && totals <= parseInt(scrs[1])) {
+                l = cr.name.replace(" 리그", "");
+                break;
+            }
+        }
+    }
+    if (l == null) {
+        l = '참여 조건 미달';
+        hideTail = true;
+    }
+    
+    document.getElementById('res_league_class').innerText = l;
+    document.getElementById('league_tail').style.display = hideTail ? "none" : "initial";
+    document.getElementById('acc_score_total').innerText = totals;
+}
+
+let lineCalc = function (e) {
+    var v = e.target.value;
+    v = v != null && !isNaN(parseInt(v)) ? Math.max(Math.min(parseInt(v), 6), 0) : "";
+    e.target.value = v;
+    let val = parseInt(e.target.value);
+    let cid = e.target.getAttribute('data-cid');
+    document.getElementById(cid).innerText = !isNaN(val) ? v + 1 : 0;
+    addCost(cid, v);
+    leagueCalc();
+
+    if (v !== "") {
+        let list = getInputs();
+        var index = null;
+        for (i in list) {
+            let item = list[i];
+            if (item == e.target) {
+                index = parseInt(i);
+                
+                if (index + 1 == list.length) {
+                    document.getElementById("copy_table").focus();
+                    break;
+                }
+            } else if (index != null && i == index + 1) {
+                item.focus();
+                break;
+            }
+        }
+    }
+};
+
+let focused = function (e) {
+    e.target.select();
+}
+
+
+//cost calc
+let setCost = function (cid, basic) {
+    let constells = document.querySelector('input[data-cid="' + cid + '"]');
+    if (constells == null) return;
+    let cons = constells.value;
+    var add = getAddCost(cons);
+    if (add == null) add = 0;
+    let costBasic = document.querySelector('span[class="cost_basic"][data-cid="' + cid + '"]');
+    if (costBasic != null) costBasic.innerText = basic;
+    let cosAdd = document.querySelector('span[class="cost_add"][data-cid="' + cid + '"]')
+    if (cosAdd != null) cosAdd.innerText = add;
+    let cosSum = document.querySelector('span[class*="cost_sum"][data-cid="' + cid + '"]')
+    if (cosSum != null) cosSum.innerText = isNaN(add) ? basic : basic + add;
+}
+
+let addCost = function (cid, cons) {
+    var add = getAddCost(cons);
+    if (add == null) add = 0;
+    let costBasic = document.querySelector('span[class="cost_basic"][data-cid="' + cid + '"]');
+    if (costBasic != null) {
+        let basic = parseInt(costBasic.innerText);
+        let cosAdd = document.querySelector('span[class="cost_add"][data-cid="' + cid + '"]')
+        if (cosAdd != null) cosAdd.innerText = add;
+        let cosSum = document.querySelector('span[class*="cost_sum"][data-cid="' + cid + '"]')
+        if (cosSum != null) cosSum.innerText = isNaN(add) ? basic : basic + add;
+    }
+}
+
+let getAddCost = function (constell = 0) {
+    // var add = null;
+    // if (cons != null && cons != "") {
+    //     if (cons == 0) add = 0;
+    //     else if (cons < 3) add = 1;
+    //     else if (cons > 5) add = 3;
+    //     else if (cons > 2 && cons < 6) add = 2;
+    // }
+    // return add;
+    let conds = rules.additional_cost.conditions;
+    var adds = 0;
+    for (var i=0; i < conds.length; i++) {
+        let cond = conds[i];
+        // if (cond.c_class != null) {
+        //     if (info.class != cond.c_class) continue;
+        // }
+        if (cond.c_constellations != null) {
+            let cons = cond.c_constellations.split(" ");
+            let con =  parseInt(cons[1]);
+
+            switch (cons[0]) {
+                case "===":
+                    if (!(constell == con)) continue;
+                    break;
+
+                case "!==":
+                    if (!(constell == con)) continue;
+                    break;
+
+                case ">=":
+                    if (!(constell >= con)) continue;
+                    break;
+
+                case "<=":
+                    if (!(constell <= con)) continue;
+                    break;
+
+                case "<":
+                    if (!(constell < con)) continue;
+                    break;
+
+                case ">":
+                    if (!(constell > con)) continue;
+                    break;
+
+                default:
+                    continue;
+            }
+        }
+        adds += parseInt(cond.cost);
+    }
+
+    return adds;
+}
+
+if (costTable != null) {
+
+    for (var i in costTable.tier1) {
+        var cid = costTable.tier1[i];
+        setCost("c_" + cid, 5);
+    }
+
+    for (var i in costTable.tier2) {
+        var cid = costTable.tier2[i];
+        setCost("c_" + cid, 4);
+    }
+
+    for (var i in costTable.tier3) {
+        var cid = costTable.tier3[i];
+        setCost("c_" + cid, 3);
+    }
+
+    for (var i in costTable.tier4) {
+        var cid = costTable.tier4[i];
+        setCost("c_" + cid, 2);
+    }
+
+    for (var i in costTable.else) {
+        var cid = costTable.else[i];
+        setCost("c_" + cid, 1);
+    }
+
+}
+
+
+getInputs().forEach(input => {
+    input.onfocus = focused;
+    input.oninput = lineCalc;
+    input.oncut = lineCalc;
+    input.onpaste = lineCalc;
+});
+
+let pasteTable = document.getElementById("paste_table");
+
+document.getElementById("copy_table").onclick = function(e) {
+    packDataSet();
+};
+document.getElementById("copy_table").oncontextmenu = function(e) {
+    e.preventDefault();
+
+    packDataSet(true);
+
+    return false;
+};
+
+let packDataSet = function(pureJson = false) {
+    var data = {};
+
+    let name = document.getElementById("player_name").value;
+    let uid = document.getElementById("player_uid").value;
+    let treveler = document.querySelector("input[name=trevelers]:checked").value;
+
+    let player = { name: escape(name), uid: uid, treveler: treveler };
+
+    data["player"] = player;
+    var collect = "";
+
+    getInputs().forEach(input => {
+        let id = input.getAttribute("data-cid").split("_")[1];
+
+        let value = input.value;
+
+        data[id] = value == "" ? null : parseInt(value);
+        collect += value;
+    });
+
+    if (collect.length < 1) return;
+
+    let json = JSON.stringify(data);
+
+    let fV = 1;
+
+    var text;
+    if (pureJson) text = json;
+    else text = "@GCBPSv" + fV + ":" + btoa(json) + ";";
+
+    copyToClipboard(text);
+}
+
+let ontake = function(e) {
+    let self = e.target;
+
+    setTimeout(function() {
+        clearing(self);
+    }, 100);
+}
+
+let clearing = function(self) {
+    self.value = "";
+    self.blur();
+}
+
+let forParse = function(e) {
+    let self = e.target == null ? e : e.target;
+    setTimeout(function() {
+        parsePasted(self.value);
+        clearing(self)
+    }, 10);
+}
+
+// pasteTable.onblur = ontake;
+// pasteTable.oninput = ontake;
+pasteTable.onchange = ontake;
+pasteTable.onpaste = forParse;
+
+pasteTable.onfocus = function(e) {
+    getInputs().forEach(input => {
+        let cid = input.getAttribute("data-cid");
+        input.value = "";
+        document.getElementById(cid).innerText = 0;
+        addCost(cid, 0);
+    });
+}
+
+
+let parsePasted = function(text) {
+    if (text == null || text == "") return false;
+
+    text = text.trim();
+    try {
+        if (text.substr(0, 7) == "@GCBPSv") {
+            let texts = text.split(":");
+            let header = texts[0];
+            let version = header.split("v")[1];
+            let base64 = texts[1].replace(/;/g, "");
+            text = atob(base64);
+        }
+
+        let data = JSON.parse(text);
+
+        for (var i in data) {
+            let cons = data[i];
+
+            if (i == "player") {
+                document.getElementById("player_name").value = unescape(cons.name);
+                document.getElementById("player_uid").value = cons.uid;
+                document.querySelector('input[name=trevelers][value="' + cons.treveler + '"]').checked = true;
+
+                continue;
+            }
+
+            let consI = parseInt(data[i]);
+            let cid = "c_" + i;
+
+            document.querySelector('input.char_constells[data-cid="' + cid + '"]').value = cons;
+            document.getElementById(cid).innerText = cons != null && !isNaN(cons) ? consI + 1 : 0;
+            addCost(cid, consI);
+        }
+        leagueCalc();
+
+        return true;
+    } catch(e) {
+        console.error(e.name, e.message, e.stack);
+    }
+    return false;
+}
+
+let copyToClipboard = function(text) {
+    if (!navigator.clipboard) {
+        pasteTable.value = text;
+        pasteTable.select();
+        document.execCommand("copy");
+        setTimeout(function() { forParse(pasteTable); }, 10);
+    } else {
+        navigator.clipboard.writeText(text)
+            .then(() => {
+                console.log("Text copied to clipboard...")
+            })
+            .catch(err => {
+                console.log('Something went wrong', err);
+            });
+    }
+}
+
+let leagues = document.getElementById("leagues");
+leagues.innerHTML = "";
+for (var i=0; i < rules.rule_alter.length; i++) {
+    let cr = rules.rule_alter[i];
+    if (!cr.established) continue;
+
+    let ca = cr.cost_amount != null ? cr.cost_amount : rules.base_rule.cost_amount;
+    let scr = cr.score_range;
+    let crs = cr.name.split(" ");
+
+    var scrt;
+    if (scr.indexOf("+") > -1) scrt = scr.replace("+", "점 이상");
+    else scrt = scr.replace("-", "~") + "점";
+
+    var cst;
+    if (ca < 64) cst = "<b>" + ca + "</b>코스트";
+    else cst = "<b>무제한</b>";
+
+    let tr = document.createElement("tr");
+    let td1 = document.createElement("td");
+    td1.innerHTML = "<b>" + crs[0] + "</b> " + crs[1];
+    tr.append(td1);
+    let td2 = document.createElement("td");
+    td2.innerHTML = scrt;
+    tr.append(td2);
+    let td3 = document.createElement("td");
+    td3.innerHTML = cst;
+    tr.append(td3);
+
+    leagues.append(tr);
+}
+
+document.getElementById("rule_title").innerText = rules.rule_title;
+document.getElementById("rule_version").innerText = rules.rule_version;
+
+
+
+document.querySelector('input.char_constells').focus();
+
+    </script>
+</html>

@@ -1,0 +1,3 @@
+let settings = {
+    useEmptyPick: false
+}
