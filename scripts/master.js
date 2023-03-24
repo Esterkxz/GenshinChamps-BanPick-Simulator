@@ -1712,7 +1712,7 @@ let sideMaster = {
                 let texts = text.split(":");
                 let header = texts[0];
                 let version = header.split("v")[1];
-                let base64 = texts[1];
+                let base64 = texts[1].split(";")[0];
                 text = atob(base64);
             }
     
