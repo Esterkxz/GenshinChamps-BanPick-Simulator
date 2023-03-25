@@ -3565,6 +3565,10 @@ let timerMaster = {
     timer_sound_on: "input#timer_sound_on",
     toi_counter_sound: "li#toi_counter_sound",
     timer_counter_sound_on: "input#timer_counter_sound_on",
+    toi_control_sound_volume: "li#toi_control_sound_volume",
+    timer_control_sound_volume: "input#timer_control_sound_volume",
+    toi_counter_sound_volume: "li#toi_counter_sound_volume",
+    timer_counter_sound_volume: "input#timer_counter_sound_volume",
     toi_interlock_side: "li#toi_interlock_side",
     timer_interlock_side_on: "input#timer_interlock_side_on",
     toi_interlock_amount: "li#toi_interlock_amount",
@@ -3632,6 +3636,10 @@ let timerMaster = {
     timerSoundOn: null,
     toiCounterSound: null,
     timerCounterSoundOn: null,
+    toiControlSoundVolume: null,
+    timerControlSoundVolume: null,
+    toiCounterSoundVolume: null,
+    timerCounterSoundVolume: null,
     toiInterlockSide: null,
     timerInterlockSideOn: null,
     toiInterlockAmount: null,
@@ -3670,6 +3678,8 @@ let timerMaster = {
     settings: {
         sound: true,
         counterSound: true,
+        controlSoundVolume: 70,
+        counterSoundVolume: 90,
         interlockSide: true,
         interlockAmount: true,
         autoStartBan: false,
@@ -3717,6 +3727,10 @@ let timerMaster = {
         this.timerSoundOn = this.toiSound.find(this.timer_sound_on);
         this.toiCounterSound = this.timerOptions.find(this.toi_counter_sound);
         this.timerCounterSoundOn = this.toiCounterSound.find(this.timer_counter_sound_on);
+        this.toiControlSoundVolume = this.timerOptions.find(this.toi_control_sound_volume);
+        this.timerControlSoundVolume = this.toiControlSoundVolume.find(this.timer_control_sound_volume);
+        this.toiCounterSoundVolume = this.timerOptions.find(this.toi_counter_sound_volume);
+        this.timerCounterSoundVolume = this.toiCounterSoundVolume.find(this.timer_counter_sound_volume);
         this.toiInterlockSide = this.timerOptions.find(this.toi_interlock_side);
         this.timerInterlockSideOn = this.toiInterlockSide.find(this.timer_interlock_side_on);
         this.toiInterlockAmount = this.timerOptions.find(this.toi_interlock_amount);
@@ -3857,6 +3871,24 @@ let timerMaster = {
             let state = $(this).is(":checked");
             timerMaster.settings.counterSound = state;
         });
+        this.toiControlSoundVolume.find("label").click(function(e) {
+            let input = timerMaster.timerControlSoundVolume;
+            input.val(input.attr("data-default"));
+            timerMaster.releaseControlSoundVolume();
+        });
+        this.timerControlSoundVolume.on("input change", function(e) {
+            let volume = $(this).val();
+            timerMaster.releaseControlSoundVolume(volume);
+        });
+        this.toiCounterSoundVolume.find("label").click(function(e) {
+            let input = timerMaster.timerCounterSoundVolume;
+            input.val(input.attr("data-default"));
+            timerMaster.releaseCounterSoundVolume();
+        });
+        this.timerCounterSoundVolume.on("input change", function(e) {
+            let volume = $(this).val();
+            timerMaster.releaseCounterSoundVolume(volume);
+        });
         this.timerInterlockSideOn.change(function(e) {
             let state = $(this).is(":checked");
             timerMaster.settings.interlockSide = state;
@@ -3934,6 +3966,8 @@ let timerMaster = {
     initDesc: function() {
         let text = lang.text;
         let optionSetTitle = "label.option_set_title";
+        let val = "#VALUE";
+        let def = "data-default";
 
         this.timerDisplay.attr("title", text.timerDisplayDesc);
 
@@ -3953,6 +3987,10 @@ let timerMaster = {
         this.timerSoundOn.attr("title", text.timerOptionSoundOnDesc);
         this.toiCounterSound.find("label").attr("title", text.timerOptionCounterSoundOnDesc);
         this.timerCounterSoundOn.attr("title", text.timerOptionCounterSoundOnDesc);
+        this.toiControlSoundVolume.find("label").attr("title", text.timerOptionControlSoundVolumeDesc + "\n" + text.timerOptionSoundVolumeDefaultDesc.replace(val, this.timerControlSoundVolume.attr(def)));
+        this.timerControlSoundVolume.attr("title", text.timerOptionControlSoundVolumeDesc);
+        this.toiCounterSoundVolume.find("label").attr("title", text.timerOptionCounterSoundVolumeDesc + "\n" + text.timerOptionSoundVolumeDefaultDesc.replace(val, this.timerCounterSoundVolume.attr(def)));
+        this.timerCounterSoundVolume.attr("title", text.timerOptionCounterSoundVolumeDesc);
         this.toiInterlockSide.find("label").attr("title", text.timerOptionInterlockSideOnDesc);
         this.timerInterlockSideOn.attr("title", text.timerOptionInterlockSideOnDesc);
         this.toiInterlockAmount.find("label").attr("title", text.timerOptionInterlockAmountOnDesc);
@@ -3970,6 +4008,18 @@ let timerMaster = {
         this.timerDefaultTimeoutSetupPhaseSec.attr("title", text.timerOptionDefaultTimeoutSetupPhaseSecDesc);
 
         this.settingsIcon.attr("title", text.timerSettingsIconDesc);
+    },
+
+    releaseControlSoundVolume: function(vol = this.timerControlSoundVolume.val()) {
+        if (vol == null || isNaN(vol)) return;
+        this.toiControlSoundVolume.find("span.value_indicator").text(vol);
+        this.settings.controlSoundVolume = parseInt(vol);
+    },
+
+    releaseCounterSoundVolume: function(vol = this.timerCounterSoundVolume.val()) {
+        if (vol == null || isNaN(vol)) return;
+        this.toiCounterSoundVolume.find("span.value_indicator").text(vol);
+        this.settings.counterSoundVolume = parseInt(vol);
     },
 
     hideGauge: function(side) {
@@ -4050,7 +4100,7 @@ let timerMaster = {
                 this.releaseTimerDisplay(0, 0);
                 this.releaseGaugeProgress();
                 setTimeout(function() {
-                    if (timerMaster.settings.sound) playSound("뾷");
+                    if (timerMaster.settings.sound) playSoundV("뾷", timerMaster.settings.controlSoundVolume);
                     timerMaster.initTimer();
 
                     if (timerMaster.settings.autoPassTimeout) {
@@ -4079,12 +4129,12 @@ let timerMaster = {
         else this.applySide(null);
 
 
-        if (byUser && this.settings.sound) playSound("흽");
+        if (byUser && this.settings.sound) playSoundV("흽", this.settings.controlSoundVolume);
     },
     
 
     startTimer: function(byUser = true) {
-        if (byUser && this.settings.sound) playSound("훱");
+        if (byUser && this.settings.sound) playSoundV("훱", this.settings.controlSoundVolume);
         this.timerBegin = Date.now();
         this.currentTimer = setInterval(this.timerProcessor, 15);
         this.runningTimers.push(this.currentTimer);
@@ -4095,7 +4145,7 @@ let timerMaster = {
 
     pauseTimer: function() {
         if (this.currentTimer == null) return;
-        if (this.settings.sound) playSound("덥");
+        if (this.settings.sound) playSoundV("덥", this.settings.controlSoundVolume);
 
         let remains = this.getTimeRamains();
         this.finishCurrentTimer();
@@ -4111,7 +4161,7 @@ let timerMaster = {
     resumeTimer: function() {
         if (this.timerBegin == null) return true;
         if (this.currentTimer != null) return false;
-        if (this.settings.sound) playSound("뜝");
+        if (this.settings.sound) playSoundV("뜝", this.settings.controlSoundVolume);
         this.startTimer(false);
     },
 
@@ -4239,19 +4289,19 @@ let timerMaster = {
         let remains = tm.getTimeRamains();
 
         if (remains <= 15) {
-            if (tm.settings.sound || tm.settings.counterSound) playSound("뾱");
+            if (tm.settings.sound || tm.settings.counterSound) playSoundV("뾱", Math.max(tm.settings.controlSoundVolume, tm.settings.counterSoundVolume));
         } else {
             let curSec = Math.floor(remains / 1000);
             let latestSec = tm.latestSec;
 
             if (curSec != latestSec) {
                 if (latestSec > 15) {
-                    if (tm.settings.counterSound && latestSec % 2 == 0) playSound("뻡");
+                    if (tm.settings.counterSound && latestSec % 2 == 0) playSoundV("뻡", tm.settings.counterSoundVolume);
                 } else if (latestSec > 10) {
-                    if (tm.settings.counterSound) playSound("뻡");
+                    if (tm.settings.counterSound) playSoundV("뻡", tm.settings.counterSoundVolume);
                 } else {
-                    if (latestSec <= 5) setTimeout(function() { if (tm.settings.counterSound) playSound("뻡"); }, 500);
-                    if (tm.settings.counterSound) playSound("떵");
+                    if (latestSec <= 5) setTimeout(function() { if (tm.settings.counterSound) playSoundV("뻡", tm.settings.counterSoundVolume); }, 500);
+                    if (tm.settings.counterSound) playSoundV("떵", tm.settings.counterSoundVolume);
                 }
 
                 tm.latestSec = curSec;
@@ -4772,13 +4822,23 @@ let soundsMaster = {
     }
 }
 
-function playSound(id, delay) {
-    if (delay != null && parseInt(delay) != NaN) {
+function playSound(id, delay, volume) {
+    if (delay != null && !isNaN(delay)) {
         setTimeout(function () { playSound(id) }, delay);
     } else {
         let audio = soundsMaster.findAudioBy(id);
-        if (audio.length > 0) playAudio(audio[0]);
+        if (audio.length > 0) {
+            if (volume != null && !isNaN(volume)) {
+                playAudio(audio[0], volume);
+            } else {
+                playAudio(audio[0]);
+            }
+        }
     }
+}
+
+function playSoundV(id, volume, delay = null) {
+    playSound(id, delay, volume);
 }
 
 function playAudio(a, volume = soundsMaster.volumeControlSlider.val()) {

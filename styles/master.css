@@ -1088,6 +1088,11 @@ div.float_layer#timer div#timer_setting div.stack_holder ul.timer_options li inp
 div.float_layer#timer div#timer_setting div.stack_holder ul.timer_options li input[type="number"]:hover { border-color: rgba(var(--main-color) / 50%); }
 div.float_layer#timer div#timer_setting div.stack_holder ul.timer_options li label { letter-spacing: -0.7px; cursor: pointer; }
 div.float_layer#timer div#timer_setting div.stack_holder ul.timer_options li label[for="timer_adefault_timeout_setup_phase_min"] { margin-right: 2px; }
+div.float_layer#timer div#timer_setting div.stack_holder ul.timer_options.volume_handler { }
+div.float_layer#timer div#timer_setting div.stack_holder ul.timer_options.volume_handler li { display: flex; width: -webkit-fill-available; cursor: default; }
+div.float_layer#timer div#timer_setting div.stack_holder ul.timer_options.volume_handler li label { width: 74px; font-weight: bold; cursor: pointer; }
+div.float_layer#timer div#timer_setting div.stack_holder ul.timer_options.volume_handler li span.value_indicator { width: 26px; text-align: right; }
+div.float_layer#timer div#timer_setting div.stack_holder ul.timer_options.volume_handler li input[type="range"] { flex-grow: 1; }
 div.float_layer#timer div#timer_setting div.settings_area { position: absolute; display: inline-block; top: 0; right: 62px; width: 70px; }
 div.float_layer#timer div#timer_setting div.settings_area div#timer_default_display { position: absolute; display: table; margin: 1px 0; color: rgba(var(--plain-text-base) / 40%); font-size: 16px; font-weight: bold; line-height: 13px; opacity: 0; transition-duration: 0.3s; transition-timing-function: ease-out; }
 div.float_layer#timer div#timer_setting[data-folded="0"] div.settings_area div#timer_default_display { opacity: 1; }

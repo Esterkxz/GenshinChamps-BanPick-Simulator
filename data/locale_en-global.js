@@ -23,6 +23,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
 
         "pickCursorBan": "Pick",
         "pickCursorEntry": "Jail",
+        "pickCursorBanWeapon": "Shut out",
 
         "pickUnallowed": "Unallowed",
 
@@ -66,6 +67,9 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "timerOptionsSetSoundDesc": "Set timer sound",
         "timerOptionSoundOnDesc": "Timer start/stop/reset sound On",
         "timerOptionCounterSoundOnDesc": "Timer counter sound On\n - Every 2 seconds when 15 seconds or more\n - Every 1 second when less than 15 seconds\n - Sound changed when less than 10 seconds\n - Add .5 seconds when less than 5 seconds",
+        "timerOptionControlSoundVolumeDesc": "Timer start/stop/reset sound volume",
+        "timerOptionCounterSoundVolumeDesc": "Timer counter sound volume",
+        "timerOptionSoundVolumeDefaultDesc": "Click: set default value (#VALUE)",
         "timerOptionsSetInterlockDesc": "Set up timer pickup interlock",
         "timerOptionInterlockSideOnDesc": "Side pickup interlock On\n - Connect timer color and activate top timer gauge on the screen\n - Automatically reset the timer when the pickup side changes",
         "timerOptionInterlockAmountOnDesc": "Amount pickup interlock On\n - Automatically apply default period*number of pickups by pickup sequence step",
