@@ -4514,7 +4514,7 @@ let timerMaster = {
         }
         let seq = rules.sequence[step];
         let triggerStep = step;
-        if (seq != null) switch (seq.pick) {
+        if (seq != null && seq.amount > 0) switch (seq.pick) {
             case "ban":
             case "ban weapon":
                 if (this.settings.autoStartBan) setTimeout(function() { if (triggerStep == step) timerMaster.startTimer(); }, 500);

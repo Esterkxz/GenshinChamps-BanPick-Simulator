@@ -572,6 +572,7 @@ div#sequence_milestone ul#sequence_steps li.sequence_item[data-target="C"][data-
 div#sequence_milestone ul#sequence_steps li.sequence_item[data-target="C"][data-pick="B"] span::after { content: 'BAN'; }
 div#sequence_milestone ul#sequence_steps li.sequence_item[data-target="W"][data-pick="E"] span::after { content: 'PICK WEP'; }
 div#sequence_milestone ul#sequence_steps li.sequence_item[data-target="W"][data-pick="B"] span::after { content: 'BAN WEP'; }
+div#sequence_milestone ul#sequence_steps li.sequence_item[data-amount="0"] span::before { content: 'Fill\A'; }
 div#sequence_milestone ul#sequence_steps li.sequence_item[data-amount="1"] span::before { content: '1\A'; }
 div#sequence_milestone ul#sequence_steps li.sequence_item[data-amount="2"] span::before { content: '2\A'; }
 div#sequence_milestone ul#sequence_steps li.sequence_item[data-amount="3"] span::before { content: '3\A'; }

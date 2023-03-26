@@ -34,6 +34,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             { "side": "blue", "pick": 'entry', "amount": "2" },
             { "side": "red", "pick": 'entry', "amount": "2" },
             { "side": "blue", "pick": 'entry', "amount": "1" },
+            { "side": "red", "pick": 'entry', "amount": "0" },
+            { "side": "blue", "pick": 'entry', "amount": "0" },
             "reserved"
         ],
     
@@ -64,6 +66,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 { "side": "blue", "pick": 'entry', "amount": "2" },
                 { "side": "red", "pick": 'entry', "amount": "2" },
                 { "side": "blue", "pick": 'entry', "amount": "1" },
+                { "side": "red", "pick": 'entry', "amount": "0" },
+                { "side": "blue", "pick": 'entry', "amount": "0" },
                 "reserved"
             ],
     
@@ -125,7 +129,9 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 { "side": "blue", "pick": 'entry', "amount": "2" },
                 { "side": "red", "pick": 'entry', "amount": "2" },
                 { "side": "blue", "pick": 'entry', "amount": "1" },
-                "reserved"
+                { "side": "red", "pick": 'entry', "amount": "0" },
+                { "side": "blue", "pick": 'entry', "amount": "0" },
+                    "reserved"
             ],
                 
             "cost_amount": 64,
@@ -151,6 +157,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 { "side": "blue", "pick": 'entry', "amount": "2" },
                 { "side": "red", "pick": 'entry', "amount": "2" },
                 { "side": "blue", "pick": 'entry', "amount": "1" },
+                { "side": "red", "pick": 'entry', "amount": "0" },
+                { "side": "blue", "pick": 'entry', "amount": "0" },
                 { "side": "red", "pick": 'ban weapon', "amount": "2" },
                 { "side": "blue", "pick": 'ban weapon', "amount": "2" },
                 "reserved"
@@ -179,6 +187,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 { "side": "red", "pick": 'entry', "amount": "1" },
                 { "side": "blue", "pick": 'entry', "amount": "1" },
                 { "side": "red", "pick": 'entry', "amount": "1" },
+                { "side": "red", "pick": 'entry', "amount": "0" },
+                { "side": "blue", "pick": 'entry', "amount": "0" },
                 "reserved"
             ],
             
@@ -207,6 +217,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 { "side": "red", "pick": 'proffer', "amount": "1" },
                 { "side": "blue", "pick": 'entry', "amount": "1" },
                 { "side": "red", "pick": 'entry', "amount": "1" },
+                { "side": "red", "pick": 'entry', "amount": "0" },
+                { "side": "blue", "pick": 'entry', "amount": "0" },
                 "reserved"
             ],
             
