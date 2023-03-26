@@ -268,11 +268,16 @@ let sequenceMaster = {
     },
 
     releaseStepStateDisplay: function() {
-        this.releaseActionStateByStep();
-        this.updateSequenceIndicators(step);
-        this.setSequenceTitleByCurrent(step);
-        sideMaster.updatePickCursor(step);
-        if (step >= rules.sequence.length && searchMaster.searchInput.is(":focus")) searchMaster.searchInput.blur();
+        let seq = rules.sequence[step];
+        if (seq != null && seq.amount == "0" && seq.pick == "entry" && this.checkUpdateCurrentStepComplition()) {
+            this.releaseStepStateDisplay();
+        } else {
+            this.releaseActionStateByStep();
+            this.updateSequenceIndicators(step);
+            this.setSequenceTitleByCurrent(step);
+            sideMaster.updatePickCursor(step);
+            if (step >= rules.sequence.length && searchMaster.searchInput.is(":focus")) searchMaster.searchInput.blur();
+        }
     },
 
     releaseActionStateByStep: function() {
@@ -536,7 +541,10 @@ let sequenceMaster = {
                 break;
         }
 
-        if (rem == 0) step++;
+        if (rem == 0) {
+            step++;
+            return true;
+        } else return false;
     },
 
     countEachPickAmountTotal: function(res = {
