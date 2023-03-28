@@ -1734,45 +1734,45 @@ let sideMaster = {
     },
 
     loadAccInfo(data, side, reload = false) {
-        if (data != null) switch(side) {
-            case "red":
-                this.setAccountInfo(side, data, reload);
+        if (data != null && side != null) {
+            this.setAccountInfo(side, data, reload);
+            var point = 0;
 
-                var point = 0;
-                for(var i in data) {
-                    if (i == "player") {
-                        let p = data.player;
-                        if (p.uid != null && p.uid != "") this.redPlayerUidInput.val(p.uid);
-                        if (p.name != null && p.name != "") this.redNameplateInput.val(unescape(p.name));
-                        if (p.treveler != null && p.treveler != "") {
-                            //행자 선택 구현
-                        }
-                    } else {
-                        let cons = data[i];
-                        if (cons != null) point += parseInt(cons) + 1;
+            for(var i in data) {
+                if (i != "player") {
+                    let cons = data[i];
+                    let info = charactersInfo.list[charactersInfo[i]];
+                    if (cons != null && info.class == "limited") point += parseInt(cons) + 1;
+                }
+            }
+
+            let playerInfo = data.player;
+            this.setPlayerInfo(side, point, playerInfo);
+        }
+    },
+
+    setPlayerInfo: function(side, point, p) {
+        switch(side) {
+            case "red":
+                if (p != null) {
+                    if (p.uid != null && p.uid != "") this.redPlayerUidInput.val(p.uid);
+                    if (p.name != null && p.name != "") this.redNameplateInput.val(unescape(p.name));
+                    if (p.treveler != null && p.treveler != "") {
+                        //행자 선택 구현 - 필요 없음
                     }
                 }
-                this.redAccountPointInput.val(point);
+                if (point != null) this.redAccountPointInput.val(point);
                 break;
 
             case "blue":
-                this.setAccountInfo(side, data, reload);
-
-                var point = 0;
-                for(var i in data) {
-                    if (i == "player") {
-                        let p = data.player;
-                        if (p.uid != null && p.uid != "") this.bluePlayerUidInput.val(p.uid);
-                        if (p.name != null && p.name != "") this.blueNameplateInput.val(unescape(p.name));
-                        if (p.treveler != null && p.treveler != "") {
-                            //행자 선택 구현
-                        }
-                    } else {
-                        let cons = data[i];
-                        if (cons != null) point += parseInt(cons) + 1;
+                if (p != null) {
+                    if (p.uid != null && p.uid != "") this.bluePlayerUidInput.val(p.uid);
+                    if (p.name != null && p.name != "") this.blueNameplateInput.val(unescape(p.name));
+                    if (p.treveler != null && p.treveler != "") {
+                        //행자 선택 구현 - 필요 없음
                     }
                 }
-                this.blueAccountPointInput.val(point);
+                if (point != null) this.blueAccountPointInput.val(point);
                 break;
         }
     },
