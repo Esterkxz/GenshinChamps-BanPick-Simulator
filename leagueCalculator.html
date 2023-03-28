@@ -496,9 +496,9 @@ span#gi_rev { color: tomato; font-weight: bold; }
         <div class="subnote center">
             <span class="bold" style="line-height: 28px; ">- <span id="rule_title">앙챔스 룰북</span> <span id="rule_version">1.3</span> 기준 - </span>
             <br />
-            <span class="bold">GCALC v1.6</span>
+            <span class="bold">GCALC v1.7</span>
             <br />
-            <span>Release 2023.03.19</span>
+            <span>Release 2023.03.29</span>
         </div>
     </body>
     <script>
@@ -828,9 +828,13 @@ let parsePasted = function(text) {
             let consI = parseInt(data[i]);
             let cid = "c_" + i;
 
-            document.querySelector('input.char_constells[data-cid="' + cid + '"]').value = cons;
-            document.getElementById(cid).innerText = cons != null && !isNaN(cons) ? consI + 1 : 0;
-            addCost(cid, consI);
+            let constell = document.querySelector('input.char_constells[data-cid="' + cid + '"]')
+            if (constell != null) constell.value = cons;
+            let point = document.getElementById(cid)
+            if (point != null) {
+                point.innerText = cons != null && !isNaN(cons) ? consI + 1 : 0;
+                addCost(cid, consI);
+            }
         }
         leagueCalc();
 

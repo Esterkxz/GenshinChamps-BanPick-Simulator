@@ -585,7 +585,7 @@ div#pick_pool div.pool_cost_area { position: relative; --cost-icon-height: 26px;
 div#pick_pool div.pool_cost_area > * { z-index: 1; }
 div#pick_pool div.pool_cost_area div.cost_title_area { position: absolute; left: 0; right: 0; width: fit-content; margin: auto; margin-top: calc(var(--cost-icon-height) * -1); transform-style: preserve-3d; perspective-origin: bottom center; perspective: 100px; }
 div#pick_pool div.pool_cost_area ul.cost_title { position: relative; display: inline-flex; margin: 0; padding: 0; transform-style: preserve-3d; perspective-origin: bottom left; perspective: 175px; filter: drop-shadow(2px 4px 2px #000D); transition-duration: 0.4s; transition-timing-function: ease; cursor: grabbing; }
-div#pick_pool div.pool_cost_area:hover ul.cost_title { z-index: 100; transform: translateY(-10px) translateZ(20px); filter: drop-shadow(8px 10px 10px #0008) brightness(1.1); }
+div#pick_pool div.pool_cost_area:hover ul.cost_title { z-index: 100; /* transform: translateY(-10px) translateZ(20px); */ transform: translateY(-18px) scale(1.25); filter: drop-shadow(8px 10px 10px #0008) brightness(1.1); }
 div#pick_pool div.pool_cost_area ul.cost_title:active { cursor: pointer; }
 div#pick_pool div.pool_cost_area ul.cost_title > li.cost_icon { display: block; width: var(--icon-size); height: var(--icon-size); margin: 0 10px; background-image: var(--icon-cost); background-repeat: no-repeat; background-position: center; background-size: var(--icon-src-size); transition-duration: 0.3s; transition-timing-function: ease-out; }
 div#pick_pool div.pool_cost_area ul.cost_title > li.cost_icon:hover { transform: rotateX(6deg) rotateY(10deg); filter: brightness(0.97); }
