@@ -103,12 +103,16 @@ function checkInView(container, element, partial) {
 //center top sequence indicator section
 let sequenceMaster = {
 
+    hide: "data-hide",
+    shift: "data-shift",
+
     side: "data-side",
     target: "data-target",
     pick: "data-pick",
     amount: "data-amount",
     current: "data-current",
 
+    sequence_block: "div#sequence_block",
     sequence_milestone: "div#sequence_milestone",
     sequence_steps: "ul#sequence_steps",
     sequence_item: "li.sequence_item",
@@ -120,6 +124,7 @@ let sequenceMaster = {
     main_action: "button#main_action",
 
 
+    sequenceBlock: null,
     sequenceMilestone: null,
     stepHolder: null,
 
@@ -136,7 +141,8 @@ let sequenceMaster = {
         console.log("init sequenceMaster");
 
         //set element
-        this.sequenceMilestone = $(this.sequence_milestone);
+        this.sequenceBlock = $(this.sequence_block);
+        this.sequenceMilestone = this.sequenceBlock.find(this.sequence_milestone);
         this.stepHolder = this.sequenceMilestone.find(this.sequence_steps);
 
         this.sequenceTitleHolder = $(this.sequence_title);
@@ -304,7 +310,6 @@ let sequenceMaster = {
         redName = sideMaster.redNameplateInput.val();
         blueName = sideMaster.blueNameplateInput.val();
 
-        //구현
         playSound("힇");
 
         this.releaseStepStateDisplay();
@@ -383,6 +388,7 @@ let sequenceMaster = {
 
     passPick: function() {
         stepHistory.push(buildStepHistory(rules.sequence[step]))
+        latestStep = step;
         step++;
         this.releaseStepStateDisplay();
     },
@@ -392,6 +398,7 @@ let sequenceMaster = {
         let last = stepHistory.pop();
 
         if (last == null) {
+            latestStep = step;
             step--;
             this.releaseStepStateDisplay();
             return;
@@ -399,6 +406,7 @@ let sequenceMaster = {
 
         //process roll back
         if (last.isPassed()) {
+            latestStep = step;
             step--;
         } else {
             let picked = last.picked;
@@ -406,7 +414,10 @@ let sequenceMaster = {
             let prev = stepHistory[stepHistory.length-1];
             let isCharacterPick = ref.pick.indexOf("weapon") < 0;
 
-            if (ref != seq) step--;
+            if (ref != seq) {
+                latestStep = step;
+                step--;
+            }
 
 
             //변경사항 출력 되돌리기 구현
@@ -446,6 +457,7 @@ let sequenceMaster = {
     },
 
     finishPick: function() {
+        latestStep = step;
         step++;
         this.setSequenceTitle(lang.text.titleVersus);
         this.releaseActionStateByStep();
@@ -453,12 +465,36 @@ let sequenceMaster = {
         //VERSUS 시퀀스 구현
         playSound("훻");
 
+        timerMaster.pauseTimer();
+
+        this.sequenceTitleHolder.attr(this.shift, "1");
+        this.sequenceBlock.attr(this.hide, "1");
+        poolMaster.poolBlock.attr(this.hide, "1");
+        poolMaster.unavailables.attr(this.hide, "1");
+        sideMaster.eachPlayerBoard.attr(this.hide, "1");
+        sideMaster.banPickBoard.attr(this.hide, "1");
+        timerMaster.timerGauges.attr(this.hide, "1");
+        timerMaster.timerHost.attr(this.hide, "1");
+        timerMaster.timerRelay.attr(this.hide, "1");
     },
 
     undoFinishPick: function() {
+        latestStep = step;
         step = rules.sequence.length;
         this.setSequenceTitleByCurrent(step);
         this.releaseActionStateByStep();
+
+        timerMaster.resumeTimer();
+
+        this.sequenceTitleHolder.attr(this.shift, "");
+        this.sequenceBlock.attr(this.hide, "");
+        poolMaster.poolBlock.attr(this.hide, "");
+        poolMaster.unavailables.attr(this.hide, "");
+        sideMaster.eachPlayerBoard.attr(this.hide, "");
+        sideMaster.banPickBoard.attr(this.hide, "");
+        timerMaster.timerGauges.attr(this.hide, "");
+        timerMaster.timerHost.attr(this.hide, "");
+        timerMaster.timerRelay.attr(this.hide, "");
     },
 
     checkUpdateCurrentStepComplition: function() {
@@ -542,6 +578,7 @@ let sequenceMaster = {
         }
 
         if (rem == 0) {
+            latestStep = step;
             step++;
             return true;
         } else return false;
@@ -817,6 +854,7 @@ let poolMaster = {
     // redCharacterNameDisplay: null,
     // blueCharacterNameDisplay: null,
 
+    pool_block: "div#pool_block",
     pick_pool: "div#pick_pool",
     pool_cost_area: "div.pool_cost_area",
 
@@ -845,6 +883,7 @@ let poolMaster = {
 
     title: "data-title",
 
+    poolBlock: null,
     pickPool: null,
     poolCostArea: null,
     pool5Area: null,
@@ -900,7 +939,8 @@ let poolMaster = {
         // this.redCharacterNameDisplay = this.eachCharacterNameDisplay.filter(this.red);
         // this.blueCharacterNameDisplay = this.eachCharacterNameDisplay.filter(this.blue);
 
-        this.pickPool = $(this.pick_pool);
+        this.poolBlock = $(this.pool_block);
+        this.pickPool = this.poolBlock.find(this.pick_pool);
         this.poolCostArea = this.pickPool.find(this.pool_cost_area);
         this.pool5Area = this.poolCostArea.filter(this.cost5);
         this.pool4Area = this.poolCostArea.filter(this.cost4);
@@ -1400,7 +1440,7 @@ let sideMaster = {
     eachTextPartyCost: null,
     eachCostUsedCount: null,
 
-    eachBanPickBoard: null,
+    banPickBoard: null,
     eachBanSide: null,
     eachBanPickTitle: null,
     eachBanPickArea: null,
@@ -1501,8 +1541,8 @@ let sideMaster = {
         this.eachTextPartyCost = this.eachCostUsed.find(this.text_party_cost);
         this.eachCostUsedCount = this.eachCostUsed.find(this.cost_used_count);
 
-        this.eachBanPickBoard = $(this.ban_pick_board);
-        this.eachBanSide = this.eachBanPickBoard.find(this.ban_side);
+        this.banPickBoard = $(this.ban_pick_board);
+        this.eachBanSide = this.banPickBoard.find(this.ban_side);
         this.eachBanPickTitle = this.eachBanSide.find(this.ban_pick_title);
         this.eachBanPickArea = this.eachBanSide.find(this.ban_pick_side_area);
         this.eachBanPickCharacterHolder = this.eachBanPickArea.find(this.ban_pick_side_holder + this.ban_character);
@@ -3415,6 +3455,7 @@ let controllerMaster = {
                 master.triggerCount++;
             } else {
                 master.triggerCount = 0;
+                poolMaster.rollCursorRandom();
                 sequenceMaster.autoRandomPick();
             }
 
@@ -4125,7 +4166,7 @@ let timerMaster = {
 
         this.timerBegin = null;
         this.finishCurrentTimer();
-        if (this.settings.autoStartSetupPhase && step != null && step == rules.sequence.length) this.applyTimeSet(this.settings.setupPhaseTimeSet);
+        if (this.settings.autoStartSetupPhase && step != null && step == rules.sequence.length && latestStep < step) this.applyTimeSet(this.settings.setupPhaseTimeSet);
         else this.applyTimeSetWithAmount();
 
         this.releaseTimerDisplay();
@@ -4160,6 +4201,7 @@ let timerMaster = {
 
         let sec = Math.floor(remains / 1000);
         let ms = Math.floor(remains % 1000);
+        this.timeSet.min = 0;
         this.timeSet.sec = sec;
         this.timeSet.ms = ms;
 
@@ -4550,7 +4592,8 @@ function initializeStep() {
     blueNamePrev = blueName;
     redName = "";
     blueName = "";
-    latestStep = null;
+    latestStep = -2;
+    latestStepSide = null;
 
     //initialize step sequence indicator & sequence title
     sequenceMaster.releaseStepStateDisplay();
@@ -4609,16 +4652,17 @@ function getCurrentSide() {
     else return null;
 }
 
-var latestStep = null;
+var latestStep = -2;
+var latestStepSide = null;
 
 function onChangedStep() {
     let cur = getCurrentSide();
 
-    if (cur != latestStep) {
+    if (cur != latestStepSide) {
         timerMaster.onChangedSide();
         poolMaster.onChangedSide(cur);
         if (step < 0 || step >= rules.sequence.length) poolMaster.stopRollRandomCursor();
-        latestStep = cur;
+        latestStepSide = cur;
     }
 }
 

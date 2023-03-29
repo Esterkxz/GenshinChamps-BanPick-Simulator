@@ -159,14 +159,14 @@ function getPathA(id, group = "", type = "sounds") {
             </div>
         </div>
         <div id="full_behind">
-            <div id="timer_gauges">
+            <div id="timer_gauges" data-hide="0">
                 <div id="neutral_side_gauge" data-active=""><div class="gauge_elapsed"></div><div class="gauge_remains" data-impend=""></div><div class="gauge_elapsed"></div></div>
                 <div id="red_side_gauge" data-active=""><div class="gauge_remains" data-impend=""></div><div class="gauge_elapsed"></div></div>
                 <div id="blue_side_gauge" data-active=""><div class="gauge_elapsed"></div><div class="gauge_remains" data-impend=""></div></div>
             </div>
         </div>
         <div id="center_area">
-            <div id="sequence_block" class="block_area">
+            <div id="sequence_block" class="block_area" data-hide="0">
                 <div id="sequence_milestone">
                     <ul id="sequence_steps">
                         <li class="sequence_item" data-side="R" data-target="C" data-pick="B" data-amount="2" data-current="2"><hr /><span></span></li>
@@ -188,8 +188,8 @@ function getPathA(id, group = "", type = "sounds") {
                     </ul>
                 </div>
             </div>
-            <div id="sequence_title"><span class="sprite_point_bg">Current Step</span></div>
-            <div id="pool_block" class="block_area">
+            <div id="sequence_title" data-shift="0"><span class="sprite_point_bg">Current Step</span></div>
+            <div id="pool_block" class="block_area" data-hide="0">
                 <div id="pick_pool">
                     <div id="cost5" class="pool_cost_area" data-cost="5">
                         <div class="cost_title_area">
@@ -375,18 +375,18 @@ function getPathA(id, group = "", type = "sounds") {
                 </div>
             </div>
         </div>
-        <div id="red_side" class="player_board side_root red">
-            <div class="player_uid">
+        <div id="red_side" class="player_board side_root red" data-hide="0">
+            <div class="player_info_block player_uid">
                 <input type="text" class="red_side" tabindex="3" placeholder="UID" title="플레이어 UID" />
             </div>
-            <div class="nameplate">
+            <div class="player_info_block nameplate">
                 <div class="plate_back"><div class="plate_back_paint"></div></div>
                 <input type="text" class="red_side" tabindex="1" value="RED" placeholder="Player1" />
             </div>
-            <div class="account_point">
+            <div class="player_info_block account_point">
                 <input type="text" class="red_side" tabindex="2" placeholder="A.P." title="플레이어 계정 점수 (리그 구분용)" />
             </div>
-            <div class="account_info" data-filled="" title="계정 정보 세트 인디케이터 - 🟩 정보 없음 / ✅ 정보 있음&#13;&#10;클릭:&#13;&#10; 정보가 있는 경우 - 정보 삭제&#13;&#10; 정보가 없는 경우 - 입력한 이름/UID/계정 점수 초기화&#13;&#10;우클릭: 이전 계정 정보 복원"><span class="red"></span></div>
+            <div class="player_info_block account_info" data-filled="" title="계정 정보 세트 인디케이터 - 🟩 정보 없음 / ✅ 정보 있음&#13;&#10;클릭:&#13;&#10; 정보가 있는 경우 - 정보 삭제&#13;&#10; 정보가 없는 경우 - 입력한 이름/UID/계정 점수 초기화&#13;&#10;우클릭: 이전 계정 정보 복원"><span class="red"></span></div>
             <div class="entry_slots_area">
                 <ul class="entry_slots">
                     <li class="entry red" data-picked="1"><div class="entry_icon"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png" title="별자리 돌파 입력/수정" /><input type="text" class="entry_constell" size="1" maxlength="1" placeholder="?" data-constell="" /></div><div class="entry_info"><div class="entry_cost"><span class="base_cost">5</span><span class="additional_cost">+3</span></div></div></li>
@@ -435,18 +435,18 @@ function getPathA(id, group = "", type = "sounds") {
                 </div>
             </div>
         </div>
-        <div id="blue_side" class="player_board side_root blue">
-            <div class="player_uid">
+        <div id="blue_side" class="player_board side_root blue" data-hide="0">
+            <div class="player_info_block player_uid">
                 <input type="text" class="blue_side" tabindex="6" placeholder="UID" title="플레이어 UID" />
             </div>
-            <div class="nameplate">
+            <div class="player_info_block nameplate">
                 <div class="plate_back"><div class="plate_back_paint"></div></div>
                 <input type="text" class="blue_side" tabindex="4" value="BLUE" placeholder="Player2" />
             </div>
-            <div class="account_point">
+            <div class="player_info_block account_point">
                 <input type="text" class="blue_side" tabindex="5" placeholder="A.P." title="플레이어 계정 점수 (리그 구분용)" />
             </div>
-            <div class="account_info" data-filled="" title="계정 정보 세트 인디케이터 - 🟩 정보 없음 / ✅ 정보 있음&#13;&#10;클릭:&#13;&#10; 정보가 있는 경우 - 정보 삭제&#13;&#10; 정보가 없는 경우 - 입력한 이름/UID/계정 점수 초기화&#13;&#10;우클릭: 이전 계정 정보 복원"><span class="blue"></span></div>
+            <div class="player_info_block account_info" data-filled="" title="계정 정보 세트 인디케이터 - 🟩 정보 없음 / ✅ 정보 있음&#13;&#10;클릭:&#13;&#10; 정보가 있는 경우 - 정보 삭제&#13;&#10; 정보가 없는 경우 - 입력한 이름/UID/계정 점수 초기화&#13;&#10;우클릭: 이전 계정 정보 복원"><span class="blue"></span></div>
             <div class="entry_slots_area">
                 <ul class="entry_slots">
                     <li class="entry blue"><div class="entry_icon"><img src="./images/character_iconic/UI_AvatarIcon_PlayerBoy.png" /><input type="text" class="entry_constell" size="1" maxlength="1" value="6" placeholder="?" /></div><div class="entry_info"><div class="entry_cost"><span class="base_cost">5</span><span class="additional_cost">+3</span></div></div></li>
@@ -495,7 +495,7 @@ function getPathA(id, group = "", type = "sounds") {
                 </div>
             </div>
         </div>
-        <div id="ban_pick_board">
+        <div id="ban_pick_board" class="block_area" data-hide="0">
             <div id="red_side_ban" class="ban_side side_root red">
                 <div class="ban_pick_title"><span data-ban-title="Ban picks"></span></div>
                 <div class="ban_pick_side_area red">
@@ -537,7 +537,7 @@ function getPathA(id, group = "", type = "sounds") {
         <div id="character_board" class="pickup_board">
 
         </div>
-        <div id="timer" class="float_layer" data-side="">
+        <div id="timer" class="float_layer" data-side="" data-hide="0">
             <div id="timer_display" title="클릭: 타이머 시작 / 정지 및 리셋&#13;&#10;우클릭:&#13;&#10; - 타이머 작동 전: 현재 타이머의 증감 적용 초기화&#13;&#10; - 타이머 작동 후: 타이머 일시정지/재개&#13;&#10;휠 Up/Down: 기본 타이머 시간 조정 (정지/일시정지 때만 가능)&#13;&#10;휠 클릭: 기본 타이머 시간을 기본값으로(30초) 되돌리기 (일시정지/작동 중 일 때도 가능)">
                 <div id="timer_icon_animated">
                     <lottie-player background="transparent" speed="1"></lottie-player>
@@ -605,7 +605,7 @@ function getPathA(id, group = "", type = "sounds") {
                 </div>
             </div>
         </div>
-        <div id="timer_relay" class="float_layer" data-side="">
+        <div id="timer_relay" class="float_layer" data-side="" data-hide="0">
             <div id="timer_display">
                 <span class="num_place sec_place" id="timer_sec_2"></span>
                 <span class="num_place sec_place" id="timer_sec_1">3</span>
