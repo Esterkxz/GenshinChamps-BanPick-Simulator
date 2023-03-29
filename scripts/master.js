@@ -4160,6 +4160,7 @@ let timerMaster = {
 
         let sec = Math.floor(remains / 1000);
         let ms = Math.floor(remains % 1000);
+        this.timeSet.min = 0;
         this.timeSet.sec = sec;
         this.timeSet.ms = ms;
 
