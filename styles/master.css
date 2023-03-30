@@ -641,12 +641,12 @@ body[data-ctrl="1"] div#pick_pool div.pool_cost_area ul.each_cost_pool > li.char
 
 div.block_area#sequence_block { perspective-origin: top center; }
 div.block_area#sequence_block > * { transition-delay: 0.1s; transition-timing-function: ease; }
-div.block_area#sequence_block[data-hide="1"] > * { transform: rotateX(-90deg) translateY(-20%) translateZ(-100px); filter: blur(8px); }
+div.block_area#sequence_block:is([data-hide="1"], [data-hide="2"]) > * { transform: rotateX(-90deg) translateY(-20%) translateZ(-100px); filter: blur(8px) opacity(0); }
 div#sequence_title[data-shift="1"] { transform: translateY(-70px); }
 div.block_area#pool_block { perspective-origin: center; }
 div.block_area#pool_block > * { transition-timing-function: ease; }
-div.block_area#pool_block[data-hide="1"] > * { transform: translateZ(-500px); filter: blur(12px); }
-div.block_area[data-hide="1"] { opacity: 0; }
+div.block_area#pool_block:is([data-hide="1"], [data-hide="2"]) > * { transform: translateZ(-500px); filter: blur(12px) opacity(0); }
+div.block_area#pool_block[data-hide="2"] > * { transform: translateZ(-500px) scale(0); }
 
 div#underplacer { position: relative; width: 100%; height: 0; overflow: visible; }
 div#unavailables { --char-icon-size: 48px; position: absolute; top: 6px; right: 96px; min-width: 144px; margin: 4px; padding: 12px; border: double 6px rgba(var(--color-negative) / 0.4); border-radius: 16px; cursor: not-allowed; transition-duration: 0.4s; transition-timing-function: ease-in; }
@@ -713,6 +713,11 @@ input#search_input:focus { z-index: 2100; outline: none; box-shadow: 0 0 4px 1px
 input#search_input:hover { }
 input#search_input:active { }
 input#search_input:disabled { }
+
+
+div#center_area div#main_controller[data-hide="1"] { }
+div#center_area div#main_controller[data-hide="1"] > * { opacity: 0; transition-duration: 0.4s; transition-timing-function: ease; }
+div#center_area div#main_controller[data-hide="1"] > *:is(:focus, :hover) { opacity: 1; }
 
 
 /* Player board */
@@ -798,23 +803,37 @@ div.player_board div.entry_slots_area div.cost_counter_holder div.cost_used span
 
 div.player_board { perspective-origin: 150px; transform-style: preserve-3d; }
 div.player_board div.player_info_block { perspective-origin: 150px; transform-style: preserve-3d; transition-delay: 0.5s; }
-div.player_board[data-hide="1"] div.player_info_block { filter: blur(8px) opacity(0); }
+div.player_board:is([data-hide="1"], [data-hide="2"]) div.player_info_block { filter: blur(8px) opacity(0); }
 div.player_board.red div.player_info_block { transform-origin: top left; transition-timing-function: ease; }
-div.player_board.red[data-hide="1"] div.player_info_block { transform: rotateY(-80deg) translateX(-120px) translateZ(-40px); }
+div.player_board.red:is([data-hide="1"], [data-hide="2"]) div.player_info_block { transform: rotateY(-80deg) translateX(-120px) translateZ(-40px); }
 div.player_board.blue div.player_info_block { transform-origin: top right; transition-timing-function: ease; }
-div.player_board.blue[data-hide="1"] div.player_info_block { transform: rotateY(80deg) translateX(120px) translateZ(-40px); }
+div.player_board.blue:is([data-hide="1"], [data-hide="2"]) div.player_info_block { transform: rotateY(80deg) translateX(120px) translateZ(-40px); }
+div.player_board:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area ul.entry_slots li.entry div.entry_icon { transition-duration: 0.4s; transition-timing-function: ease; }
+div.player_board:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area ul.entry_slots li.entry:nth-child(1) div.entry_icon { transition-delay: 0.6s; }
+div.player_board:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area ul.entry_slots li.entry:nth-child(2) div.entry_icon { transition-delay: 0.8s; }
+div.player_board:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area ul.entry_slots li.entry:nth-child(3) div.entry_icon { transition-delay: 1.0s; }
+div.player_board:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area ul.entry_slots li.entry:nth-child(4) div.entry_icon { transition-delay: 1.2s; }
+div.player_board:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area ul.entry_slots li.entry:nth-child(5) div.entry_icon { transition-delay: 1.4s; }
+div.player_board:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area ul.entry_slots li.entry:nth-child(6) div.entry_icon { transition-delay: 1.6s; }
+div.player_board:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area ul.entry_slots li.entry:nth-child(7) div.entry_icon { transition-delay: 1.8s; }
+div.player_board:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area ul.entry_slots li.entry:nth-child(8) div.entry_icon { transition-delay: 2.0s; }
+div.player_board[data-hide="2"] div.entry_slots_area ul.entry_slots li.entry div.entry_icon { transform: scale(0.4, 1.8) translateY(-18px); filter: blur(12px) opacity(0); }
 div.player_board div.entry_slots_area ul.entry_slots li.entry div.entry_info { transition-delay: 0.2s; transition-timing-function: ease; }
-div.player_board[data-hide="1"] div.entry_slots_area ul.entry_slots li.entry div.entry_info { filter: blur(4px) opacity(0); }
-div.player_board.red[data-hide="1"] div.entry_slots_area ul.entry_slots li.entry div.entry_info { transform: translateX(-60px) scale(0.5); }
-div.player_board.blue[data-hide="1"] div.entry_slots_area ul.entry_slots li.entry div.entry_info { transform: translateX(60px) scale(0.5); }
+div.player_board:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area ul.entry_slots li.entry div.entry_info { filter: blur(4px) opacity(0); }
+div.player_board.red:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area ul.entry_slots li.entry div.entry_info { transform: translateX(-60px) scale(0.5); }
+div.player_board.blue:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area ul.entry_slots li.entry div.entry_info { transform: translateX(60px) scale(0.5); }
 div.player_board div.entry_slots_area div.cost_counter_holder ul.cost_stack { transition-delay: 0.3s; transition-timing-function: ease; }
-div.player_board[data-hide="1"] div.entry_slots_area div.cost_counter_holder ul.cost_stack { filter: sepia(0.4) saturate(1); }
-div.player_board.red[data-hide="1"] div.entry_slots_area div.cost_counter_holder ul.cost_stack { transform: unset; }
-div.player_board.blue[data-hide="1"] div.entry_slots_area div.cost_counter_holder ul.cost_stack { transform: translateX(95px); }
-div.player_board div.entry_slots_area div.cost_counter_holder span { transition-delay: 0.3s; transition-timing-function: ease; }
-div.player_board[data-hide="1"] div.entry_slots_area div.cost_counter_holder span { filter: sepia(1.0) blur(12px) opacity(0); }
-div.player_board.red[data-hide="1"] div.entry_slots_area div.cost_counter_holder span { transform: translateX(24px); }
-div.player_board.blue[data-hide="1"] div.entry_slots_area div.cost_counter_holder span { transform: translateX(-24px); }
+/* div.player_board[data-hide="1"] div.entry_slots_area div.cost_counter_holder ul.cost_stack { transition-delay: 0s; } */
+div.player_board:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area div.cost_counter_holder ul.cost_stack { transition-delay: 0s; filter: sepia(0.4) saturate(1); }
+div.player_board[data-hide="2"] div.entry_slots_area div.cost_counter_holder ul.cost_stack { height: 0; margin-top: 16px; }
+div.player_board.red[data-hide="2"] div.entry_slots_area div.cost_counter_holder ul.cost_stack { margin-left: -62px; }
+div.player_board.blue[data-hide="2"] div.entry_slots_area div.cost_counter_holder ul.cost_stack { margin-left: -78px; }
+div.player_board.red:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area div.cost_counter_holder ul.cost_stack { transform: unset; }
+div.player_board.blue:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area div.cost_counter_holder ul.cost_stack { transform: translateX(95px); }
+div.player_board div.entry_slots_area div.cost_counter_holder > span { transition-delay: 0.3s; transition-timing-function: ease; }
+div.player_board:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area div.cost_counter_holder > span { filter: sepia(1.0) blur(12px) opacity(0); }
+div.player_board.red:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area div.cost_counter_holder > span { transform: translateX(24px); }
+div.player_board.blue:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area div.cost_counter_holder > span { transform: translateX(-24px); }
 
 /* Player board common */
 div.player_board {

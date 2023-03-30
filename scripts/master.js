@@ -471,6 +471,7 @@ let sequenceMaster = {
         this.sequenceBlock.attr(this.hide, "1");
         poolMaster.poolBlock.attr(this.hide, "1");
         poolMaster.unavailables.attr(this.hide, "1");
+        controllerMaster.mainController.attr(this.hide, "1");
         sideMaster.eachPlayerBoard.attr(this.hide, "1");
         sideMaster.banPickBoard.attr(this.hide, "1");
         timerMaster.timerGauges.attr(this.hide, "1");
@@ -490,6 +491,7 @@ let sequenceMaster = {
         this.sequenceBlock.attr(this.hide, "");
         poolMaster.poolBlock.attr(this.hide, "");
         poolMaster.unavailables.attr(this.hide, "");
+        controllerMaster.mainController.attr(this.hide, "");
         sideMaster.eachPlayerBoard.attr(this.hide, "");
         sideMaster.banPickBoard.attr(this.hide, "");
         timerMaster.timerGauges.attr(this.hide, "");
@@ -3440,7 +3442,10 @@ let controllerMaster = {
                 break;
     
             default:
-                sequenceMaster.passPick();
+                if (step > rules.sequence.length) {
+                    poolMaster.poolBlock.attr(sequenceMaster.hide, "2");
+                    sideMaster.eachPlayerBoard.attr(sequenceMaster.hide, "2");
+                } else sequenceMaster.passPick();
                 break;
         }
     },
