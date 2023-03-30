@@ -463,7 +463,7 @@ let sequenceMaster = {
         this.releaseActionStateByStep();
 
         //VERSUS 시퀀스 구현
-        playSound("훻");
+        //playSound("훻");
 
         timerMaster.pauseTimer();
 
@@ -477,6 +477,10 @@ let sequenceMaster = {
         timerMaster.timerGauges.attr(this.hide, "1");
         timerMaster.timerHost.attr(this.hide, "1");
         timerMaster.timerRelay.attr(this.hide, "1");
+        $("div#bg_video_area").attr("data-show", "1");
+        let curStep = step;
+        let video = $("video#spiral_enterence")[0];
+        setTimeout(function() { if (step == curStep && video != null) video.play(); }, 300);
     },
 
     undoFinishPick: function() {
@@ -497,7 +501,13 @@ let sequenceMaster = {
         timerMaster.timerGauges.attr(this.hide, "");
         timerMaster.timerHost.attr(this.hide, "");
         timerMaster.timerRelay.attr(this.hide, "");
-    },
+        $("div#bg_video_area").attr("data-show", "");
+        let video = $("video#spiral_enterence")[0];
+        if (video != null) {
+            video.pause();
+            video.currentTime = 0;
+        }
+},
 
     checkUpdateCurrentStepComplition: function() {
         if (step < 0 || step >= rules.sequence.length) return;
@@ -3443,6 +3453,7 @@ let controllerMaster = {
     
             default:
                 if (step > rules.sequence.length) {
+                    $("div#bg_video_area").attr("data-show", "2");
                     poolMaster.poolBlock.attr(sequenceMaster.hide, "2");
                     sideMaster.eachPlayerBoard.attr(sequenceMaster.hide, "2");
                 } else sequenceMaster.passPick();

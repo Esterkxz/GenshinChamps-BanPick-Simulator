@@ -441,6 +441,15 @@ body.dark .side_root {
 div.block_area { opacity: 1; perspective: 500px; transform-style: preserve-3d; transition-duration: 0.5s; }
 div.block_area > * { transition-duration: 0.8s; }
 
+/* BG area */
+div#bg_area { position: absolute; z-index: -2; top: 0; left: 0; right: 0; bottom: 0; }
+div#bg_area div#bg_video_area { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: black; overflow: hidden; opacity: 0; transition-duration: 0.5s; transition-timing-function: ease; }
+div#bg_area div#bg_video_area:is([data-show="1"], [data-show="2"]) { transition-delay: 0.7s; }
+div#bg_area div#bg_video_area:is([data-show="1"], [data-show="2"]) { opacity: 1; }
+div#bg_area div#bg_video_area div#bg_video_holder { position: relative; width: 100%; aspect-ratio: 16 / 8.78; overflow: hidden; opacity: 1; transition-duration: 0.4s; transition-timing-function: ease; }
+div#bg_area div#bg_video_area[data-show="2"] div#bg_video_holder { opacity: 0; }
+div#bg_area div#bg_video_area div#bg_video_holder video#spiral_enterence { width: 100%; }
+
 /* Center area */
 div#center_behind { position: absolute; z-index: -1; width: 100%; height: 960px; }
 div#center_behind div { position: absolute; top: 0; left: 0; right: 0; }
