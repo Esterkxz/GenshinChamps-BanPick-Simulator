@@ -963,7 +963,7 @@ div#ban_pick_board div.ban_side div.ban_pick_side_area > * { position: absolute;
 div#ban_pick_board div.ban_side div.ban_pick_side_area > *[data-appear="1"] { opacity: 0; z-index: -1; }
 div#ban_pick_board div.ban_side div.ban_pick_side_area > *[data-appear="-1"] { opacity: 0; z-index: -1; }
 div#ban_pick_board div.ban_side ul.ban_selection { display: flex; list-style: none; flex-wrap: nowrap; flex-direction: var(--flex-row-direction); margin: 0; margin-bottom: 32px; padding: 0; }
-div#ban_pick_board div.ban_side ul.ban_selection li.ban_entry { position: relative; width: var(--ban-pick-char-icon-size); height: var(--ban-pick-char-icon-size); background-color: rgba(var(--signature-color-dark) / 0.4); border-radius: 8%; box-shadow: inset 1px 2px 3px 2px #5554, inset -1px -2px 2px 1px #eee4; transition-duration: 0.5s; }
+div#ban_pick_board div.ban_side ul.ban_selection li.ban_entry { position: relative; width: var(--ban-pick-char-icon-size); height: var(--ban-pick-char-icon-size); background-color: rgba(var(--signature-color-dark) / 0.4); border-radius: 8%; box-shadow: inset 1px 2px 3px 2px #5554, inset -1px -2px 2px 1px #eee4; overflow: hidden; transition-duration: 0.5s; }
 div#ban_pick_board div.ban_side ul.ban_selection li.ban_entry[data-picking="1"] { background-color: rgba(var(--signature-color-dark) / 0.7); }
 div#ban_pick_board div.ban_side ul.ban_selection li.ban_entry::before { position: absolute; z-index: -1; top: 0; bottom: 0; left: 0; right: 0; margin: auto; color: rgba(var(--signature-color-darker) / 0.5333); font-size: 56px; text-align: center; transition-duration: 0.5s; }
 div#ban_pick_board div.ban_side ul.ban_selection li.ban_entry[data-picking="1"]::before { color: rgba(var(--signature-color-darker) / 0.9); }
