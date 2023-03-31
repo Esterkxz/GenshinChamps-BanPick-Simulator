@@ -849,7 +849,7 @@ div.player_board.blue {
     --margin-entry-slot-area-left: var(--var-auto);
     --margin-entry-slot-area-right: var(--margin-entry-slot-area);
     --margin-entry-cost-left: var(--var-auto);
-    --margin-entry-cost-right: calc(var(--margin-entry-cost) + 10px);
+    --margin-entry-cost-right: calc(var(--margin-entry-cost) + 4px);
     --margin-entry-cost-additional-left: 13px;
     --margin-cost-counter-holder-left: var(--var-unset);
     --margin-cost-counter-holder-right: var(--margin-cost-counter-holder);
