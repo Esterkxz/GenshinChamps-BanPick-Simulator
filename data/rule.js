@@ -134,6 +134,34 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                     "reserved"
             ],
                 
+            "cost_amount": 36,
+            "": ""
+        },
+        {
+            "name": "일태도(무제한)",
+            "name_full": "무한의 일태도",
+            "score_range": "125+",
+            "established": false,
+            "sequence": [
+                { "side": "red", "pick": 'ban', "amount": "2" },
+                { "side": "blue", "pick": 'ban', "amount": "2" },
+                { "side": "red", "pick": 'entry', "amount": "1" },
+                { "side": "blue", "pick": 'entry', "amount": "2" },
+                { "side": "red", "pick": 'entry', "amount": "2" },
+                { "side": "blue", "pick": 'entry', "amount": "2" },
+                { "side": "red", "pick": 'entry', "amount": "1" },
+                { "side": "blue", "pick": 'ban', "amount": "2" },
+                { "side": "red", "pick": 'ban', "amount": "2" },
+                { "side": "blue", "pick": 'entry', "amount": "1" },
+                { "side": "red", "pick": 'entry', "amount": "2" },
+                { "side": "blue", "pick": 'entry', "amount": "2" },
+                { "side": "red", "pick": 'entry', "amount": "2" },
+                { "side": "blue", "pick": 'entry', "amount": "1" },
+                { "side": "red", "pick": 'entry', "amount": "0" },
+                { "side": "blue", "pick": 'entry', "amount": "0" },
+                    "reserved"
+            ],
+                
             "cost_amount": 64,
             "": ""
         },
