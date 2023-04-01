@@ -477,10 +477,61 @@ let sequenceMaster = {
         timerMaster.timerGauges.attr(this.hide, "1");
         timerMaster.timerHost.attr(this.hide, "1");
         timerMaster.timerRelay.attr(this.hide, "1");
+        this.prefetchVersusEntries();
         $("div#bg_video_area").attr("data-show", "1");
         let curStep = step;
         let video = $("video#spiral_enterence")[0];
-        setTimeout(function() { if (step == curStep && video != null) video.play(); }, 300);
+        setTimeout(function() {
+            if (step == curStep) {
+                if (video != null) video.play();
+                setTimeout(function() {
+                    if (step == curStep) {
+                        $("div#bg_versus").attr("data-show", "1");
+                        $("div#bg_video_area").attr("data-show", "2");
+                        poolMaster.poolBlock.attr(sequenceMaster.hide, "2");
+                        sideMaster.eachPlayerBoard.attr(sequenceMaster.hide, "2");
+
+                        setTimeout(function() {
+                            if (step == curStep) {
+                                let entrySide = $("div#versus_entry_area div.versus_entry_side");
+                                let redEntries = entrySide.filter(".red").find("div.versus_entry");
+                                let blueEntries = entrySide.filter(".blue").find("div.versus_entry");
+
+                                for (var i=0; i < redEntries.length; i++) {
+                                    let entry = redEntries[i];
+                                    if (redEntries != null) {
+                                        setTimeout(function() { $(entry).attr("data-show", "1"); }, 200 * i);
+                                    }
+                                }
+                                for (var i=0; i < blueEntries.length; i++) {
+                                    let entry = blueEntries[i];
+                                    if (redEntries != null) {
+                                        setTimeout(function() { $(entry).attr("data-show", "1"); }, 200 * i);
+                                    }
+                                }
+
+                                setTimeout(function() {
+                                    if (step == curStep) {
+                                        for (var i=redEntries.length-1; i > -1; i--) {
+                                            let entry = redEntries[i];
+                                            if (redEntries != null) {
+                                                setTimeout(function() { $(entry).attr("data-show", "2"); }, 200 * i);
+                                            }
+                                        }
+                                        for (var i=blueEntries.length-1; i > -1; i--) {
+                                            let entry = blueEntries[i];
+                                            if (redEntries != null) {
+                                                setTimeout(function() { $(entry).attr("data-show", "2"); }, 200 * i);
+                                            }
+                                        }
+                                    }
+                                }, 2000);
+                            }
+                        }, 800);
+                    }
+                }, 3000);
+            }
+        }, 200);
     },
 
     undoFinishPick: function() {
@@ -502,12 +553,52 @@ let sequenceMaster = {
         timerMaster.timerHost.attr(this.hide, "");
         timerMaster.timerRelay.attr(this.hide, "");
         $("div#bg_video_area").attr("data-show", "");
+        $("div#bg_versus").attr("data-show", "");
         let video = $("video#spiral_enterence")[0];
         if (video != null) {
             video.pause();
             video.currentTime = 0;
         }
-},
+        let entrySide = $("div#versus_entry_area div.versus_entry_side");
+        let redEntries = entrySide.filter(".red").find("div.versus_entry").attr("data-show", "0");
+        let blueEntries = entrySide.filter(".blue").find("div.versus_entry").attr("data-show", "0");
+    },
+
+    prefetchVersusEntries: function() {
+        let entrySide = $("div#versus_entry_area div.versus_entry_side");
+        entrySide.empty();
+        let redEntrySide = entrySide.filter(".red");
+        let blueEntrySide = entrySide.filter(".blue");
+        let reds = sideMaster.entryPicked["red"];
+        let blues = sideMaster.entryPicked["blue"];
+        for (var i=0; i < reds.length; i++) redEntrySide.append(this.buildVersusEntry(reds[i], "red"));
+        for (var i=0; i < blues.length; i++) blueEntrySide.append(this.buildVersusEntry(blues[i], "blue"));
+
+        // let redEntries = redEntrySide.find("div.versus_entry");
+        // let blueEntries = blueEntrySide.find("div.versus_entry");
+    },
+
+    buildVersusEntry: function(info, side) {
+        if (info == null) return;
+        let entry = document.createElement("div");
+        entry.setAttribute("class", "versus_entry");
+        entry.setAttribute("data-show", "0");
+        entry.setAttribute("data-rarity", info.rarity);
+        var src = "--src: url('" + getPath("images", "character_back", info.res_back) + "'); ";
+        entry.setAttribute("style", src);
+        let bg = document.createElement("div");
+        bg.setAttribute("class", "bg_disc");
+        entry.append(bg);
+        let char = document.createElement("div");
+        char.setAttribute("class", "character");
+        entry.append(char);
+        let element = document.createElement("img");
+        element.setAttribute("class", "element_icon");
+        let charElement = commonInfo.element.res_icon[info.element];
+        element.setAttribute("src", charElement == null ? tpGif : getPathR("images", "element_icon", charElement));
+        entry.append(element);
+        return entry;
+    },
 
     checkUpdateCurrentStepComplition: function() {
         if (step < 0 || step >= rules.sequence.length) return;
@@ -3453,9 +3544,7 @@ let controllerMaster = {
     
             default:
                 if (step > rules.sequence.length) {
-                    $("div#bg_video_area").attr("data-show", "2");
-                    poolMaster.poolBlock.attr(sequenceMaster.hide, "2");
-                    sideMaster.eachPlayerBoard.attr(sequenceMaster.hide, "2");
+
                 } else sequenceMaster.passPick();
                 break;
         }

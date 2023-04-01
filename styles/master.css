@@ -443,21 +443,57 @@ div.block_area > * { transition-duration: 0.8s; }
 
 /* BG area */
 div#bg_area { position: absolute; z-index: -2; top: 0; left: 0; right: 0; bottom: 0; }
-div#bg_area div#bg_video_area { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: black; overflow: hidden; opacity: 0; transition-duration: 0.5s; transition-timing-function: ease; }
+div#bg_area div { position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
+div#bg_area div#bg_versus { display: none; background-color: #888D; }
+div#bg_area div#bg_versus[data-show="1"] { display: initial; }
+div#bg_area div#bg_video_area { background-color: black; overflow: hidden; opacity: 0; transition-duration: 0.5s; transition-timing-function: ease; }
 div#bg_area div#bg_video_area:is([data-show="1"], [data-show="2"]) { transition-delay: 0.7s; }
-div#bg_area div#bg_video_area:is([data-show="1"], [data-show="2"]) { opacity: 1; }
+div#bg_area div#bg_video_area[data-show="1"] { opacity: 1; }
 div#bg_area div#bg_video_area div#bg_video_holder { position: relative; width: 100%; aspect-ratio: 16 / 8.78; overflow: hidden; opacity: 1; transition-duration: 0.4s; transition-timing-function: ease; }
-div#bg_area div#bg_video_area[data-show="2"] div#bg_video_holder { opacity: 0; }
+/* div#bg_area div#bg_video_area[data-show="2"] div#bg_video_holder { opacity: 0; } */
 div#bg_area div#bg_video_area div#bg_video_holder video#spiral_enterence { width: 100%; }
 
 /* Center area */
-div#center_behind { position: absolute; z-index: -1; width: 100%; height: 960px; }
-div#center_behind div { position: absolute; top: 0; left: 0; right: 0; }
+div#center_behind { position: absolute; z-index: -1; width: 100%; height: 1080px; }
+div#center_behind > div { position: absolute; top: 0; left: 0; right: 0; }
 div#center_behind div#center_behind_area { width: calc(100% - 200px); margin: auto; }
 div#center_behind div#center_behind_area div#league_title { left: 0; right: 0; margin: 100px auto 54px; color: rgba(var(--plain-text-base) / 20%); font-size: 144px; font-weight: bold; text-align: center; line-height: 128%; }
 div#center_behind div#center_behind_area div#league_title span {  }
 div#center_behind div#center_behind_area div#league_title span.league_name { font-family: 'Noto Sans KR'; line-height: 76%; }
 div#center_behind div#center_behind_area div#league_title span.league_tail { display: block; margin-top: 30px; color: rgba(var(--plain-text-base) / 13.333%); font-family: Lato; font-size: 256px; line-height: 86%; }
+div#center_behind div#versus_entry_area { --entry-img-size: auto 720px; display: flex; width: calc(100% - max(10%, 64px)); height: 100%; margin: auto; transition-duration: 0.4s; transition-timing-function: ease; }
+div#center_behind div#versus_entry_area > div { height: 100%; transition-duration: 1.2s; transition-timing-function: ease; }
+div#center_behind div#versus_entry_area div.versus_divider { width: 100px; }
+div#center_behind div#versus_entry_area div.versus_divider[data-wide="1"] { width: 600px; }
+div#center_behind div#versus_entry_area div.versus_entry_side { display: flex; flex-grow: 1; }
+div#center_behind div#versus_entry_area div.versus_entry_side.red { --entry-bg: #A888; --entry-gradient: #A88A; flex-direction: row; justify-content: right; }
+div#center_behind div#versus_entry_area div.versus_entry_side.blue { --entry-bg: #89A8; --entry-gradient: #89AA; flex-direction: row-reverse; justify-content: left; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry[data-rarity="4"] { --rarity-edge: #A9BE 60.75%, #BAC 61%, #86B 61.25%, #86B 61.75%, #BAC 62%, #D9F9 64%, #98A3 66%; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry[data-rarity="5"] { --rarity-edge: #BA8E 60.75%, #DB8 61%, #C84 61.25%, #C84 61.75%, #DB8 62%, #FC89 64%, #9743 66%; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry[data-rarity="5.1"] { --rarity-edge: #B89E 60.75%, #D8A 61%, #C45 61.25%, #C45 61.75%, #D8A 62%, #F8A9 64%, #9453 66%; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry { position: relative; max-width: 500px; height: 100%; flex-grow: 0; transition-duration: 0.25s; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry > div { position: absolute; top:0; bottom: 0; left: 0; right: 0; background-repeat: no-repeat; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry div.bg_disc { background-image: radial-gradient(var(--entry-bg) 50%, var(--entry-bg) 58.5%, var(--rarity-edge), transparent 70%); background-position: center; background-size: 0%; filter: brightness(0) invert(1) blur(4px) opacity(0); transition-duration: 0.25s; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry div.character { background-image: var(--src); background-position: center; background-size: var(--entry-img-size); background-blend-mode: color-burn; -webkit-mask-image: linear-gradient(0deg, transparent 18.5%, black 19%, black 84.5%, transparent 85%); filter: drop-shadow(0 0 0 #888) brightness(0) invert(1) blur(4px) drop-shadow(0px 2px 2px black); transition-duration: 0.25s; }
+div#center_behind div#versus_entry_area div.versus_entry_side.red > div.versus_entry[data-show="0"]:nth-child(odd) div.character { background-position: 40% 65%; }
+div#center_behind div#versus_entry_area div.versus_entry_side.blue > div.versus_entry[data-show="0"]:nth-child(odd) div.character { background-position: 60% 65%; }
+div#center_behind div#versus_entry_area div.versus_entry_side.red > div.versus_entry[data-show="0"]:nth-child(even) div.character { background-position: 40% 35%; }
+div#center_behind div#versus_entry_area div.versus_entry_side.blue > div.versus_entry[data-show="0"]:nth-child(even) div.character { background-position: 60% 35%; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry:is([data-show="1"], [data-show="2"]) { flex-shrink: 1; transition-timing-function: ease; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry:is([data-show="1"], [data-show="2"]) div.bg_disc { transition-timing-function: ease; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry:is([data-show="1"], [data-show="2"]) div.character { transition-timing-function: ease; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry[data-show="1"] { flex-grow: 1.5; transition-duration: 0.6s; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry[data-show="1"] div.bg_disc { filter: brightness(0) drop-shadow(0px 2px 4px black); transition-duration: 0.6s; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry[data-show="1"] div.character { filter: drop-shadow(0 0 0 var(--entry-bg)) brightness(0) invert(0) blur(0) drop-shadow(0px 2px 2px black); transition-duration: 0.6s; }
+div#center_behind div#versus_entry_area div.versus_entry_side.red > div.versus_entry[data-show="1"]:nth-child(odd) div.character { background-position: 60% 49.5%; }
+div#center_behind div#versus_entry_area div.versus_entry_side.blue > div.versus_entry[data-show="1"]:nth-child(odd) div.character { background-position: 40% 49.5%; }
+div#center_behind div#versus_entry_area div.versus_entry_side.red > div.versus_entry[data-show="1"]:nth-child(even) div.character { background-position: 60% 50.5%; }
+div#center_behind div#versus_entry_area div.versus_entry_side.blue > div.versus_entry[data-show="1"]:nth-child(even) div.character { background-position: 40% 50.5%; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry[data-show="2"] { flex-grow: 1; transition-duration: 1.0s; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry[data-show="2"] div.bg_disc { background-size: 185% 100%; filter: drop-shadow(0px 2px 4px black); transition-duration: 1.0s; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry[data-show="2"] div.character { background-position: center; background-size: var(--entry-img-size); filter: drop-shadow(0 0 0 var(--entry-bg)) brightness(1) invert(0) blur(0) drop-shadow(0px 12px 8px black); transition-duration: 1.0s; }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry img.element_icon { position: absolute; bottom: 150px; left: 0; right: 0; width: 0; margin: auto; filter: drop-shadow(0px 2px 2px black); }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry[data-show="2"] img.element_icon { width: auto; }
 
 /* Side selection area */
 div.side_selection_area { position: absolute; z-index: 0; width: 100%; height: 100%; --bg-top-margin: 30px; overflow: hidden; }
