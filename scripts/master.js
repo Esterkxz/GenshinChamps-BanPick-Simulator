@@ -497,16 +497,26 @@ let sequenceMaster = {
                                 let redEntries = entrySide.filter(".red").find("div.versus_entry");
                                 let blueEntries = entrySide.filter(".blue").find("div.versus_entry");
 
-                                for (var i=0; i < redEntries.length; i++) {
+                                for (var i=0; i <= redEntries.length; i++) {
+                                    let prev = i - 1;
+                                    let prevEntry = prev < 0 ? null : redEntries[prev];
                                     let entry = redEntries[i];
-                                    if (redEntries != null) {
-                                        setTimeout(function() { $(entry).attr("data-show", "1"); }, 200 * i);
+                                    if (entry != null || prevEntry != null) {
+                                        setTimeout(function() {
+                                            if (prevEntry != null) $(prevEntry).attr("data-show", "2");
+                                            if (entry != null) $(entry).attr("data-show", "1");
+                                        }, 200 * i);
                                     }
                                 }
-                                for (var i=0; i < blueEntries.length; i++) {
+                                for (var i=0; i <= blueEntries.length; i++) {
+                                    let prev = i - 1;
+                                    let prevEntry = prev < 0 ? null : blueEntries[prev];
                                     let entry = blueEntries[i];
-                                    if (redEntries != null) {
-                                        setTimeout(function() { $(entry).attr("data-show", "1"); }, 200 * i);
+                                    if (entry != null || prevEntry != null) {
+                                        setTimeout(function() {
+                                            if (prevEntry != null) $(prevEntry).attr("data-show", "2");
+                                            if (entry != null) $(entry).attr("data-show", "1");
+                                        }, 200 * i);
                                     }
                                 }
 
@@ -515,13 +525,13 @@ let sequenceMaster = {
                                         for (var i=redEntries.length-1; i > -1; i--) {
                                             let entry = redEntries[i];
                                             if (redEntries != null) {
-                                                setTimeout(function() { $(entry).attr("data-show", "2"); }, 200 * i);
+                                                setTimeout(function() { $(entry).attr("data-show", "3"); }, 200 * i);
                                             }
                                         }
                                         for (var i=blueEntries.length-1; i > -1; i--) {
                                             let entry = blueEntries[i];
                                             if (redEntries != null) {
-                                                setTimeout(function() { $(entry).attr("data-show", "2"); }, 200 * i);
+                                                setTimeout(function() { $(entry).attr("data-show", "3"); }, 200 * i);
                                             }
                                         }
                                     }
