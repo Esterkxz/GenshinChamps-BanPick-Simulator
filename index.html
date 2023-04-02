@@ -565,6 +565,277 @@ function getPathA(id, group = "", type = "sounds") {
                 </div>
             </div>
         </div>
+        <div id="versus_record_board" data-show="0">
+            <div class="side_record_board side_root red">
+                <div class="side_player_info">
+                    <span class="side_player_name">RED</span>
+                </div>
+                <div class="side_record_stage stage1">
+                    <div class="time_record">
+                        <div class="record_time_remains">
+                            <label>남은 시간</label>
+                            <div class="remains_set">
+                                <input class="remains min" type="number" maxlength="2" min="0" max="60" placeholder="분" />
+                                <span class="divider">:</span>
+                                <input class="remains sec" type="number" maxlength="2" min="0" max="60" placeholder="초" />
+                            </div>
+                        </div>
+                        <div class="record_time_clear">
+                            <label>소요 시간</label>
+                            <div class="clear_time_set">
+                                <span class="clear_time min"></span>
+                                <span class="divider">:</span>
+                                <span class="clear_time sec"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tko_selection">
+                        <div class="tko_summary">
+                            <label>TKO 선택</label>
+                            <span class="tko_selected"></span>
+                        </div>
+                        <div class="tko_selection_layer">
+                            <div class="tko_selections first_half">
+                                <label>전반</label>
+                                <button class="tko_caused_by timeover">Timeover</button>
+                                <button class="tko_caused_by powerloss">Powerloss</button>
+                                <button class="tko_caused_by surrender">Surrender/Etc.</button>
+                            </div>
+                            <div class="tko_selections second_half">
+                                <label>후반</label>
+                                <button class="tko_caused_by timeover">Timeover</button>
+                                <button class="tko_caused_by powerloss">Powerloss</button>
+                                <button class="tko_caused_by surrender">Surrender/Etc.</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="side_record_stage stage2">
+                    <div class="time_record">
+                        <div class="record_time_remains">
+                            <label>남은 시간</label>
+                            <div class="remains_set">
+                                <input class="remains min" type="number" maxlength="2" min="0" max="60" placeholder="분" />
+                                <span class="divider">:</span>
+                                <input class="remains sec" type="number" maxlength="2" min="0" max="60" placeholder="초" />
+                            </div>
+                        </div>
+                        <div class="record_time_clear">
+                            <label>소요 시간</label>
+                            <div class="clear_time_set">
+                                <span class="clear_time min"></span>
+                                <span class="divider">:</span>
+                                <span class="clear_time sec"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tko_selection">
+                        <div class="tko_summary">
+                            <label>TKO 선택</label>
+                            <span class="tko_selected"></span>
+                        </div>
+                        <div class="tko_selection_layer">
+                            <div class="tko_selections first_half">
+                                <label>전반</label>
+                                <button class="tko_caused_by timeover">Timeover</button>
+                                <button class="tko_caused_by powerloss">Powerloss</button>
+                                <button class="tko_caused_by surrender">Surrender/Etc.</button>
+                            </div>
+                            <div class="tko_selections second_half">
+                                <label>후반</label>
+                                <button class="tko_caused_by timeover">Timeover</button>
+                                <button class="tko_caused_by powerloss">Powerloss</button>
+                                <button class="tko_caused_by surrender">Surrender/Etc.</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="side_record_stage stage3">
+                    <div class="time_record">
+                        <div class="record_time_remains">
+                            <label>남은 시간</label>
+                            <div class="remains_set">
+                                <input class="remains min" type="number" maxlength="2" min="0" max="60" placeholder="분" />
+                                <span class="divider">:</span>
+                                <input class="remains sec" type="number" maxlength="2" min="0" max="60" placeholder="초" />
+                            </div>
+                        </div>
+                        <div class="record_time_clear">
+                            <label>소요 시간</label>
+                            <div class="clear_time_set">
+                                <span class="clear_time min"></span>
+                                <span class="divider">:</span>
+                                <span class="clear_time sec"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tko_selection">
+                        <div class="tko_summary">
+                            <label>TKO 선택</label>
+                            <span class="tko_selected"></span>
+                        </div>
+                        <div class="tko_selection_layer">
+                            <div class="tko_selections first_half">
+                                <label>전반</label>
+                                <button class="tko_caused_by timeover">Timeover</button>
+                                <button class="tko_caused_by powerloss">Powerloss</button>
+                                <button class="tko_caused_by surrender">Surrender/Etc.</button>
+                            </div>
+                            <div class="tko_selections second_half">
+                                <label>후반</label>
+                                <button class="tko_caused_by timeover">Timeover</button>
+                                <button class="tko_caused_by powerloss">Powerloss</button>
+                                <button class="tko_caused_by surrender">Surrender/Etc.</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="versus_progress_panel">
+                <div class="progress_panel stage stage1">
+                    <div class="title"><span>1번 방</span></div>
+                    <div class="superiority"><div class="graph red"></div><div class="graph blue"></div><span class="time_differ">-15s</span></div>
+                </div>
+                <div class="progress_panel stage stage2">
+                    <div class="title"><span>2번 방</span></div>
+                    <div class="superiority"><div class="graph red"></div><div class="graph blue"></div><span class="time_differ">-15s</span></div>
+                </div>
+                <div class="progress_panel stage stage3">
+                    <div class="title"><span>3번 방</span></div>
+                    <div class="superiority"><div class="graph red"></div><div class="graph blue"></div><span class="time_differ">-15s</span></div>
+                </div>
+                <div class="progress_panel result">
+                    <div class="title"><span>전체</span></div>
+                    <div class="superiority"><div class="graph red"></div><div class="graph blue"></div><span class="time_differ">-15s</span></div>
+                </div>
+            </div>
+            <div class="side_record_board side_root blue">
+                <div class="side_player_info">
+                    <span class="side_player_name">BLUE</span>
+                </div>
+                <div class="side_record_stage stage1">
+                    <div class="time_record">
+                        <div class="record_time_clear">
+                            <label>소요 시간</label>
+                            <div class="clear_time_set">
+                                <span class="clear_time min"></span>
+                                <span class="divider">:</span>
+                                <span class="clear_time sec"></span>
+                            </div>
+                        </div>
+                        <div class="record_time_remains">
+                            <label>남은 시간</label>
+                            <div class="remains_set">
+                                <input class="remains min" type="number" maxlength="2" min="0" max="60" placeholder="분" />
+                                <span class="divider">:</span>
+                                <input class="remains sec" type="number" maxlength="2" min="0" max="60" placeholder="초" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tko_selection">
+                        <div class="tko_summary">
+                            <span class="tko_selected"></span>
+                            <label>TKO 선택</label>
+                        </div>
+                        <div class="tko_selection_layer">
+                            <div class="tko_selections first_half">
+                                <button class="tko_caused_by timeover">Timeover</button>
+                                <button class="tko_caused_by powerloss">Powerloss</button>
+                                <button class="tko_caused_by surrender">Surrender/Etc.</button>
+                                <label>전반</label>
+                            </div>
+                            <div class="tko_selections second_half">
+                                <button class="tko_caused_by timeover">Timeover</button>
+                                <button class="tko_caused_by powerloss">Powerloss</button>
+                                <button class="tko_caused_by surrender">Surrender/Etc.</button>
+                                <label>후반</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="side_record_stage stage2">
+                    <div class="time_record">
+                        <div class="record_time_clear">
+                            <label>소요 시간</label>
+                            <div class="clear_time_set">
+                                <span class="clear_time min"></span>
+                                <span class="divider">:</span>
+                                <span class="clear_time sec"></span>
+                            </div>
+                        </div>
+                        <div class="record_time_remains">
+                            <label>남은 시간</label>
+                            <div class="remains_set">
+                                <input class="remains min" type="number" maxlength="2" min="0" max="60" placeholder="분" />
+                                <span class="divider">:</span>
+                                <input class="remains sec" type="number" maxlength="2" min="0" max="60" placeholder="초" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tko_selection">
+                        <div class="tko_summary">
+                            <span class="tko_selected"></span>
+                            <label>TKO 선택</label>
+                        </div>
+                        <div class="tko_selection_layer">
+                            <div class="tko_selections first_half">
+                                <button class="tko_caused_by timeover">Timeover</button>
+                                <button class="tko_caused_by powerloss">Powerloss</button>
+                                <button class="tko_caused_by surrender">Surrender/Etc.</button>
+                                <label>전반</label>
+                            </div>
+                            <div class="tko_selections second_half">
+                                <button class="tko_caused_by timeover">Timeover</button>
+                                <button class="tko_caused_by powerloss">Powerloss</button>
+                                <button class="tko_caused_by surrender">Surrender/Etc.</button>
+                                <label>후반</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="side_record_stage stage3">
+                    <div class="time_record">
+                        <div class="record_time_clear">
+                            <label>소요 시간</label>
+                            <div class="clear_time_set">
+                                <span class="clear_time min"></span>
+                                <span class="divider">:</span>
+                                <span class="clear_time sec"></span>
+                            </div>
+                        </div>
+                        <div class="record_time_remains">
+                            <label>남은 시간</label>
+                            <div class="remains_set">
+                                <input class="remains min" type="number" maxlength="2" min="0" max="60" placeholder="분" />
+                                <span class="divider">:</span>
+                                <input class="remains sec" type="number" maxlength="2" min="0" max="60" placeholder="초" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tko_selection">
+                        <div class="tko_summary">
+                            <span class="tko_selected"></span>
+                            <label>TKO 선택</label>
+                        </div>
+                        <div class="tko_selection_layer">
+                            <div class="tko_selections first_half">
+                                <button class="tko_caused_by timeover">Timeover</button>
+                                <button class="tko_caused_by powerloss">Powerloss</button>
+                                <button class="tko_caused_by surrender">Surrender/Etc.</button>
+                                <label>전반</label>
+                            </div>
+                            <div class="tko_selections second_half">
+                                <button class="tko_caused_by timeover">Timeover</button>
+                                <button class="tko_caused_by powerloss">Powerloss</button>
+                                <button class="tko_caused_by surrender">Surrender/Etc.</button>
+                                <label>후반</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="character_board" class="pickup_board">
 
         </div>

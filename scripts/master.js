@@ -534,6 +534,8 @@ let sequenceMaster = {
                                                 setTimeout(function() { $(entry).attr("data-show", "3"); }, 200 * i);
                                             }
                                         }
+
+                                        setTimeout(function() { if (step == curStep) sequenceMaster.beginGameRecord(); }, 3200);
                                     }
                                 }, 2000);
                             }
@@ -572,6 +574,8 @@ let sequenceMaster = {
         let entrySide = $("div#versus_entry_area div.versus_entry_side");
         let redEntries = entrySide.filter(".red").find("div.versus_entry").attr("data-show", "0");
         let blueEntries = entrySide.filter(".blue").find("div.versus_entry").attr("data-show", "0");
+
+        sideMaster.hideVersusRecordBoard();
     },
 
     prefetchVersusEntries: function() {
@@ -608,6 +612,18 @@ let sequenceMaster = {
         element.setAttribute("src", charElement == null ? tpGif : getPathR("images", "element_icon", charElement));
         entry.append(element);
         return entry;
+    },
+
+    beginGameRecord: function() {
+        let entries = $("div#versus_entry_area div.versus_entry_side div.versus_entry");
+        entries.attr("data-show", "3");
+
+        sideMaster.showVersusRecordBoard();
+    },
+
+    undoBeginGameRecord: function() {
+        sideMaster.hideVersusRecordBoard();
+        this.undoFinishPick();
     },
 
     checkUpdateCurrentStepComplition: function() {
@@ -1531,6 +1547,35 @@ let sideMaster = {
     text: "data-text",
 
 
+    versus_record_board: "div#versus_record_board",
+
+    show: "data-show",
+
+    side_record_board: "div.side_record_board",
+
+    side_player_info: "div.side_player_info",
+    side_player_name: "div.side_player_name",
+
+    side_record_stage: "div.side_record_stage",
+
+    time_record: "div.time_record",
+    record_time_remains: "div.record_time_remains",
+    input_remains: "input.remains",
+    record_time_clear: "div.record_time_clear",
+    span_clear_time: "span.clear_time",
+    span_divider: "span.divider",
+
+    tko_selection: "div.tko_selection",
+    tko_selected: "span.tko_selected",
+    tko_caused_by: "button.tko_caused_by",
+
+    versus_progress_panel: "div#versus_progress_panel",
+    progress_panel: "div.progress_panel",
+    stage_superiority: "div.superiority",
+    superiority_graph: "div.graph",
+    stage_time_differ: "span.time_differ",
+
+
     eachPlayerBoard: null,
 
     eachPlayerUid: null,
@@ -1619,6 +1664,66 @@ let sideMaster = {
     blueBanEntries: null,
     blueWeaponBanSelection: null,
     blueWeaponBanEntries: null,
+
+
+    versusRecordBoard: null,
+
+    eachSideRecordBoard: null,
+
+    eachSidePlayerInfo: null,
+    eachSidePlayerName: null,
+
+    eachSideRecordStage: null,
+
+    eachTimeRecord: null,
+    eachRecordTimeRemains: null,
+    eachInputRemains: null,
+    eachRecordTimeClear: null,
+    eachSpanClearTime: null,
+
+    eachTkoSelection: null,
+    eachTkoSelected: null,
+    eachTkoCausedBy: null,
+
+    redSideRecordBoard: null,
+
+    redSidePlayerInfo: null,
+    redSidePlayerName: null,
+
+    redSideRecordStage: null,
+
+    redTimeRecord: null,
+    redRecordTimeRemains: null,
+    redInputRemains: null,
+    redRecordTimeClear: null,
+    redSpanClearTime: null,
+
+    redTkoSelection: null,
+    redTkoSelected: null,
+    redTkoCausedBy: null,
+
+    blueSideRecordBoard: null,
+
+    blueSidePlayerInfo: null,
+    blueSidePlayerName: null,
+
+    blueSideRecordStage: null,
+
+    blueTimeRecord: null,
+    blueRecordTimeRemains: null,
+    blueInputRemains: null,
+    blueRecordTimeClear: null,
+    blueSpanClearTime: null,
+
+    blueTkoSelection: null,
+    blueTkoSelected: null,
+    blueTkoCausedBy: null,
+
+    versusProgressPanel: null,
+    progressPanel: null,
+    stageSuperiority: null,
+    superiorityGraph: null,
+    stageTimeDiffer: null,
 
 
     entryPicked: {"red": [], "blue": []},
@@ -1719,6 +1824,72 @@ let sideMaster = {
         this.blueWeaponBanEntries = this.blueWeaponBanSelection.find(this.weapon_ban_entry);
 
 
+        this.versusRecordBoard = $(this.versus_record_board);
+
+        this.eachSideRecordBoard = this.versusRecordBoard.find(this.side_record_board);
+
+        this.eachSidePlayerInfo = this.eachSideRecordBoard.find(this.side_player_info);
+        this.eachSidePlayerName = this.eachSidePlayerInfo.find(this.side_player_name);
+    
+        this.eachSideRecordStage = this.versusRecordBoard.find(this.side_record_stage);
+    
+        this.eachTimeRecord = this.eachSideRecordStage.find(this.time_record);
+        this.eachRecordTimeRemains = this.eachTimeRecord.find(this.record_time_remains);
+        this.eachInputRemains = this.eachRecordTimeRemains.find(this.input_remains);
+        this.eachRecordTimeClear = this.eachTimeRecord.find(this.record_time_clear);
+        this.eachSpanClearTime = this.eachRecordTimeClear.find(this.span_clear_time);
+        this.eachSpanDivider = this.eachRecordTimeClear.find(this.span_divider);
+    
+        this.eachTkoSelection = this.eachSideRecordStage.find(this.tko_selection);
+        this.eachTkoSelected = this.eachTkoSelection.find(this.tko_selected);
+        this.eachTkoCausedBy = this.eachTkoSelection.find(this.tko_caused_by);
+
+        
+        this.redSideRecordBoard = this.eachSideRecordBoard.filter(this.red);
+
+        this.redSidePlayerInfo = this.redSideRecordBoard.find(this.side_player_info);
+        this.redSidePlayerName = this.redSidePlayerInfo.find(this.side_player_name);
+    
+        this.redSideRecordStage = this.versusRecordBoard.find(this.side_record_stage);
+    
+        this.redTimeRecord = this.redSideRecordStage.find(this.time_record);
+        this.redRecordTimeRemains = this.redTimeRecord.find(this.record_time_remains);
+        this.redInputRemains = this.redRecordTimeRemains.find(this.input_remains);
+        this.redRecordTimeClear = this.redTimeRecord.find(this.record_time_clear);
+        this.redSpanClearTime = this.redRecordTimeClear.find(this.span_clear_time);
+        this.redSpanDivider = this.redRecordTimeClear.find(this.span_divider);
+    
+        this.redTkoSelection = this.redSideRecordStage.find(this.tko_selection);
+        this.redTkoSelected = this.redTkoSelection.find(this.tko_selected);
+        this.redTkoCausedBy = this.redTkoSelection.find(this.tko_caused_by);
+
+
+        this.blueSideRecordBoard = this.eachSideRecordBoard.filter(this.blue);
+
+        this.blueSidePlayerInfo = this.blueSideRecordBoard.find(this.side_player_info);
+        this.blueSidePlayerName = this.blueSidePlayerInfo.find(this.side_player_name);
+    
+        this.blueSideRecordStage = this.versusRecordBoard.find(this.side_record_stage);
+    
+        this.blueTimeRecord = this.blueSideRecordStage.find(this.time_record);
+        this.blueRecordTimeRemains = this.blueTimeRecord.find(this.record_time_remains);
+        this.blueInputRemains = this.blueRecordTimeRemains.find(this.input_remains);
+        this.blueRecordTimeClear = this.blueTimeRecord.find(this.record_time_clear);
+        this.blueSpanClearTime = this.blueRecordTimeClear.find(this.span_clear_time);
+        this.blueSpanDivider = this.blueRecordTimeClear.find(this.span_divider);
+    
+        this.blueTkoSelection = this.blueSideRecordStage.find(this.tko_selection);
+        this.blueTkoSelected = this.blueTkoSelection.find(this.tko_selected);
+        this.blueTkoCausedBy = this.blueTkoSelection.find(this.tko_caused_by);
+
+        
+        this.versusProgressPanel = this.versusRecordBoard.find(this.side_record_board);
+        this.progressPanel = this.versusProgressPanel.find(this.progress_panel);
+        this.stageSuperiority = this.progressPanel.find(this.stage_superiority);
+        this.superiorityGraph = this.stageSuperiority.find(this.superiority_graph);
+        this.stageTimeDiffer = this.stageSuperiority.find(this.stage_time_differ);
+    
+
 
         //initialize
         this.initSideInfo();
@@ -1733,6 +1904,8 @@ let sideMaster = {
         this.initBanEntries();
 
         this.initBanWeapons();
+
+        this.hideVersusRecordBoard();
 
         
         //set event
@@ -1751,6 +1924,15 @@ let sideMaster = {
         this.blueAccountInfo.contextmenu(this.onRightClickBlueAccountInfo);
 
         this.eachEntries.find(this.entry_icon).click(this.onClickEntryIcon);
+        
+        //매치 현황 패널 이벤트 구현
+        this.eachInputRemains.on("input change", function(e) {
+
+        });
+
+        this.eachTkoCausedBy.click(function(e) {
+
+        });
     },
 
     initDesc: function() {
@@ -2879,6 +3061,24 @@ let sideMaster = {
             }
         }
 
+    },
+
+
+    //versus record
+
+    showVersusRecordBoard: function() {
+        $("div#versus_entry_area div.versus_divider").attr("data-wide", "1");
+
+        this.versusRecordBoard.attr(this.show, "1");
+        setTimeout(function() { if (sideMaster.versusRecordBoard.attr(sideMaster.show) === "1") sideMaster.versusRecordBoard.attr(sideMaster.show, "2") }, 10);
+
+
+    },
+
+    hideVersusRecordBoard: function() {
+        $("div#versus_entry_area div.versus_divider").attr("data-wide", "0");
+
+        this.versusRecordBoard.attr(this.show, "0");
     },
 
     eoo: eoo
