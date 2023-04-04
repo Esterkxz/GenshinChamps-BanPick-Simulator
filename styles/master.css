@@ -1195,7 +1195,7 @@ div#versus_record_board div.side_record_board div.side_record_stage div.tko_sele
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_summary { display: flex; }
 div#versus_record_board div.side_record_board.red div.side_record_stage div.tko_selection div.tko_summary { justify-content: left; }
 div#versus_record_board div.side_record_board.blue div.side_record_stage div.tko_selection div.tko_summary { justify-content: right; }
-div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_summary > * { font-size: 22px; }
+div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_summary > * { font-size: 22px; font-weight: bold; }
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_summary label { width: 100px; text-align: center; transition-duration: 0.3s; }
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection:hover div.tko_summary label { color: rgba(var(--signature-color) / 90%); }
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_summary span { font-weight: bold; }
