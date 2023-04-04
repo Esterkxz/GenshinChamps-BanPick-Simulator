@@ -464,7 +464,7 @@ div#center_behind div#center_behind_area div#league_title span.league_tail { dis
 div#center_behind div#versus_entry_area { --entry-img-size: auto 720px; display: flex; width: calc(100% - max(10%, 64px)); height: 100%; margin: auto; transition-duration: 0.4s; transition-timing-function: ease; }
 div#center_behind div#versus_entry_area > div { height: 100%; transition-duration: 0.8s; transition-timing-function: ease; }
 div#center_behind div#versus_entry_area div.versus_divider { width: 100px; }
-div#center_behind div#versus_entry_area div.versus_divider[data-wide="1"] { width: 400px; }
+div#center_behind div#versus_entry_area div.versus_divider[data-wide="1"] { width: 23.2%; max-width: 400px; min-width: 250px; }
 div#center_behind div#versus_entry_area div.versus_entry_side { display: flex; flex-grow: 1; }
 div#center_behind div#versus_entry_area div.versus_entry_side.red { --entry-bg: #A888; --entry-gradient: #A88A; flex-direction: row; justify-content: right; }
 div#center_behind div#versus_entry_area div.versus_entry_side.blue { --entry-bg: #89A8; --entry-gradient: #89AA; flex-direction: row-reverse; justify-content: left; }
@@ -1207,7 +1207,7 @@ div#versus_record_board div.side_record_board div.side_record_stage div.tko_sele
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_selection_layer div.tko_selections label { color: rgba(var(--signature-color) / 90%); font-size: 20px; font-weight: bold; line-height: 22px; vertical-align: text-top; transition-duration: 0.3s; }
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_selection_layer div.tko_selections button { font-size: 19px; cursor: pointer; }
 div#versus_record_board div.side_record_board div.side_record_stage:last-child { margin-bottom: 0; }
-div#versus_record_board div#versus_progress_panel { position: relative; width: 360px; }
+div#versus_record_board div#versus_progress_panel { position: relative; width: 20.931%; max-width: 360px; min-width: 220px; }
 div#versus_record_board div#versus_progress_panel > div { }
 div#versus_record_board div#versus_progress_panel div.progress_panel { height: 100px; margin-bottom: 20px; }
 div#versus_record_board div#versus_progress_panel div.progress_panel.stage3 { margin-bottom: 0; }
