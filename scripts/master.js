@@ -3416,6 +3416,7 @@ let controllerMaster = {
                 master.triggerCount++;
             } else {
                 master.triggerCount = 0;
+                poolMaster.rollCursorRandom();
                 sequenceMaster.autoRandomPick();
             }
 
