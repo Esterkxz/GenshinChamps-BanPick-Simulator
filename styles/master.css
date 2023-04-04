@@ -463,7 +463,7 @@ div#center_behind div#center_behind_area div#league_title span.league_name { fon
 div#center_behind div#center_behind_area div#league_title span.league_tail { display: block; margin-top: 30px; color: rgba(var(--plain-text-base) / 13.333%); font-family: Lato; font-size: 256px; line-height: 86%; }
 div#center_behind div#versus_entry_area { --entry-img-size: auto 720px; display: flex; width: calc(100% - max(10%, 64px)); height: 100%; margin: auto; transition-duration: 0.4s; transition-timing-function: ease; }
 div#center_behind div#versus_entry_area > div { height: 100%; transition-duration: 0.8s; transition-timing-function: ease; }
-div#center_behind div#versus_entry_area div.versus_divider { width: 100px; }
+div#center_behind div#versus_entry_area div.versus_divider { width: 5.788%; max-width: 100px; min-width: 66px; }
 div#center_behind div#versus_entry_area div.versus_divider[data-wide="1"] { width: 23.2%; max-width: 400px; min-width: 250px; }
 div#center_behind div#versus_entry_area div.versus_entry_side { display: flex; flex-grow: 1; }
 div#center_behind div#versus_entry_area div.versus_entry_side.red { --entry-bg: #A888; --entry-gradient: #A88A; flex-direction: row; justify-content: right; }
