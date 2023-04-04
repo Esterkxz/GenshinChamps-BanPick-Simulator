@@ -54,6 +54,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "stepTitle": "<span class=\"#CLASS\">#SIDE</span> #TYPE #AMOUNT",
         "amountPick": "#AMOUNT개",
         "amountPickCharacter": "#AMOUNT명",
+        "amountFillCharacter": "마무리",
         "titlePicked": "픽업 종료",
         "titleVersus": "VERSUS",
 

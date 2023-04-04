@@ -51,9 +51,10 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "readyForVersus": "Press VERSUS button to start for game",
 
         "titleReady": "Ready",
-        "stepTitle": "<span class=\"#CLASS\">#SIDE</span> Pick #AMOUNT character(s) for #TYPE",
-        "amountPick": "#AMOUNT",
-        "amountPickCharacter": "#AMOUNT",
+        "stepTitle": "<span class=\"#CLASS\">#SIDE</span> Pick #AMOUNT for #TYPE",
+        "amountPick": "#AMOUNT weapon(s)",
+        "amountPickCharacter": "#AMOUNT character(s)",
+        "amountFillCharacter": "character(s) place to fill",
         "titlePicked": "Pick finished",
         "titleVersus": "VERSUS",
 
