@@ -194,6 +194,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "alhaitham": "Alhaitham",
         "dehya": "Dehya",
         "mika": "Mika",
+        "kaveh": "Kaveh",
+        "baizhu": "Baizhu",
         "reserved": ""
     },
     "characters_short": {
@@ -262,6 +264,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "alhaitham": "Alhaitham",
         "dehya": "Dehya",
         "mika": "Mika",
+        "kaveh": "Kaveh",
+        "baizhu": "Baizhu",
         "reserved": ""
     },
     "weapons": {
