@@ -844,5 +844,7 @@ let charactersInfo = {
     "alhaitham": 63,
     "dehya": 64,
     "mika": 65,
+    "kaveh": 66,
+    "baizhu": 67,
     "reserved": 6
 }
