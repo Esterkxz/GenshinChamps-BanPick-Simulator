@@ -720,13 +720,37 @@ let charactersInfo = {
         {
             "id": "mika",
             "class": "ordinary",
-            "version": "3.4h",
+            "version": "3.5h",
             "rarity": "4",
             "weapon": "polearm",
             "element": "cryo",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Mika@2x.png",
             "res_icon": "UI_AvatarIcon_Mika.png"
+        },
+        {
+            "comment": "temporary data for pre-official release",
+            "id": "kaveh",
+            "class": "ordinary",
+            "version": "3.6h",
+            "rarity": "4",
+            "weapon": "claymore",
+            "element": "dendro",
+            "continent": "sumeru",
+            "res_back": "UI_AvatarIcon_Kaveh@x2.png",
+            "res_icon": "UI_AvatarIcon_Kaveh.png"
+        },
+        {
+            "comment": "temporary data for pre-official release",
+            "id": "baizhu",
+            "class": "limited",
+            "version": "3.6h",
+            "rarity": "5",
+            "weapon": "catalyst",
+            "element": "dendro",
+            "continent": "liyue",
+            "res_back": "UI_AvatarIcon_Baizhuer@x2.png",
+            "res_icon": "UI_AvatarIcon_Baizhuer.png"
         },
         {
             "comment": "temporary data for pre-official release",
@@ -820,5 +844,7 @@ let charactersInfo = {
     "alhaitham": 63,
     "dehya": 64,
     "mika": 65,
+    "kaveh": 66,
+    "baizhu": 67,
     "reserved": 6
 }

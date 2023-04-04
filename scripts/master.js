@@ -261,7 +261,8 @@ let sequenceMaster = {
                 case "ban":
                 case "entry":
                 case "proffer":
-                    tAmount = text.amountPickCharacter.replace("#AMOUNT", seq.amount)
+                    if (seq.amount < 1) tAmount = text.amountFillCharacter
+                    else tAmount = text.amountPickCharacter.replace("#AMOUNT", seq.amount)
                     break;
                 case "ban weapon":
                     tAmount = text.amountPick.replace("#AMOUNT", seq.amount)

@@ -209,12 +209,12 @@ weaponsInfo = {
         {
             "id": "ct_morax",
             "class": "unreleased",
-            "version": "3.6f",
+            "version": "3.6h",
             "rarity": "5",
             "serise": "morax",
             "type": "catalyst",
             "continent": "liyue",
-            "favority": [""],
+            "favority": ["baizhu"],
             "res_icon": "UI_EquipIcon_Catalyst_Morax.png"
         },
 

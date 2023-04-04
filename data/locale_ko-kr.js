@@ -54,6 +54,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "stepTitle": "<span class=\"#CLASS\">#SIDE</span> #TYPE #AMOUNT",
         "amountPick": "#AMOUNT개",
         "amountPickCharacter": "#AMOUNT명",
+        "amountFillCharacter": "마무리",
         "titlePicked": "픽업 종료",
         "titleVersus": "VERSUS",
 
@@ -194,6 +195,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "alhaitham": "알하이탐",
         "dehya": "데히야",
         "mika": "미카",
+        "kaveh": "카베",
+        "baizhu": "백출",
         "reserved": ""
     },
     "characters_short": {
@@ -262,6 +265,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "alhaitham": "알하이탐",
         "dehya": "데히야",
         "mika": "미카",
+        "kaveh": "카베",
+        "baizhu": "백출",
         "reserved": ""
     },
     "weapons": {
@@ -283,7 +288,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "cm_morax": { "name": "고래 비녀", "aliases": [""] }, 
         "pl_morax": { "name": "화박연", "aliases": [""] },
         "bw_morax": { "name": "현려천균", "aliases": [""] },
-        "ct_morax": { "name": "푸른 낙하의 소리", "aliases": ["정토옥규"] },
+        "ct_morax": { "name": "벽락의 옥", "aliases": ["정토옥규"] },
         "pl_homa": { "name": "호마의 지팡이", "aliases": [""] },
         "sw_widsith": { "name": "오래된 자유의 서약", "aliases": ["오자서"] },
         "cm_widsith": { "name": "송뢰가 울릴 무렵", "aliases": [""] },
