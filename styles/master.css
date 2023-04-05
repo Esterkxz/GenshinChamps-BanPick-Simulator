@@ -1152,12 +1152,12 @@ div#ban_pick_board div.ban_side.blue ul.weapon_ban_selection li.weapon_ban_entry
 
 
 /* Versus progress board */
-div#versus_record_board { position: fixed; display: none; flex-direction: row; flex-wrap: nowrap; top: 0; left: 0; right: 0; margin: 392px 100px 0; background-image: linear-gradient(90deg, transparent 0%, #422A 4%, #4228 40%, #1248 60%, #124A 96%, transparent 100%); background-size: 100%; background-position: center bottom; background-repeat: no-repeat; transition-duration: 0.4s; user-select: none; }
+div#versus_record_board { position: fixed; display: none; flex-direction: row; flex-wrap: nowrap; top: 0; left: 0; right: 0; --vs-borad-width: calc(100% - max(10%, 64px)); width: var(--vs-borad-width); margin: 392px auto 0; background-image: linear-gradient(90deg, transparent 0%, #422A 4%, #4228 40%, #1248 60%, #124A 96%, transparent 100%); background-size: 100%; background-position: center bottom; background-repeat: no-repeat; transition-duration: 0.4s; user-select: none; }
 div#versus_record_board:is([data-show="1"], [data-show="2"]) { display: flex; }
 div#versus_record_board[data-show="1"] { opacity: 0; }
 div#versus_record_board[data-show="2"] { opacity: 1; }
 div#versus_record_board > div { }
-div#versus_record_board div.side_record_board { position: relative; flex-grow: 1; max-width: calc((100% - 340px) / 2); }
+div#versus_record_board div.side_record_board { position: relative; flex-grow: 1; max-width: calc(var(--vs-borad-width) / 2); }
 div#versus_record_board div.side_record_board > div { display: table; margin: 0 auto 20px;}
 div#versus_record_board div.side_record_board div.side_player_info { margin-bottom: -94px; position: absolute; bottom: 0; left: 0; right: 0; height: 0; }
 div#versus_record_board div.side_record_board div.side_player_info span.side_player_name { color: rgb(var(--signature-color-light)); font-size: 64px; font-weight: bold; text-align: center; text-shadow: 0px 0px 10px rgba(var(--signature-color-lighter) / 75%); filter: drop-shadow(0 6px 8px black); }
@@ -1205,7 +1205,10 @@ div#versus_record_board div.side_record_board.red div.side_record_stage div.tko_
 div#versus_record_board div.side_record_board.blue div.side_record_stage div.tko_selection div.tko_selection_layer { text-align: right; }
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_selection_layer div.tko_selections { }
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_selection_layer div.tko_selections label { color: rgba(var(--signature-color) / 90%); font-size: 20px; font-weight: bold; line-height: 22px; vertical-align: text-top; transition-duration: 0.3s; }
-div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_selection_layer div.tko_selections button { font-size: 19px; cursor: pointer; }
+div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_selection_layer div.tko_selections button { margin: 1px 0; border: solid 1px rgba(var(--main-color) / 40%); border-radius: 5px; background-color: rgba(var(--bgcolor-base) / 75%); color: rgba(var(--main-color) / 75%); font-size: 19px; cursor: pointer; transition-duration: 0.3s; }
+div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_selection_layer div.tko_selections button:focus { outline: none; box-shadow: 0 0 5px 0.25px rgba(var(--main-color) / 90%); }
+div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_selection_layer div.tko_selections button:hover { background-color: rgba(var(--signature-color-lighter) / 80%); }
+div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_selection_layer div.tko_selections button:active { background-color: rgba(var(--signature-color-highlighter) / 90%); }
 div#versus_record_board div.side_record_board div.side_record_stage:last-child { margin-bottom: 0; }
 div#versus_record_board div#versus_progress_panel { position: relative; width: 20.931%; max-width: 360px; min-width: 220px; }
 div#versus_record_board div#versus_progress_panel > div { }
@@ -1214,10 +1217,10 @@ div#versus_record_board div#versus_progress_panel div.progress_panel.stage3 { ma
 div#versus_record_board div#versus_progress_panel div.progress_panel > div { text-align: center; }
 div#versus_record_board div#versus_progress_panel div.progress_panel div.title { }
 div#versus_record_board div#versus_progress_panel div.progress_panel div.title span { color: rgba(var(--color-focusive-light) / 90%); font-size: 34px; font-weight: bold; font-family: 'Noto Sans KR';  text-shadow: 0 0 5px rgba(var(--main-color) / 70%); }
-div#versus_record_board div#versus_progress_panel div.progress_panel div.superiority { margin: 10px 0; }
+div#versus_record_board div#versus_progress_panel div.progress_panel div.superiority { position: relative; margin: 10px 0; }
 div#versus_record_board div#versus_progress_panel div.progress_panel div.superiority div { }
 div#versus_record_board div#versus_progress_panel div.progress_panel div.superiority div.graph { }
-div#versus_record_board div#versus_progress_panel div.progress_panel div.superiority span { }
+div#versus_record_board div#versus_progress_panel div.progress_panel div.superiority span { position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto; }
 div#versus_record_board div#versus_progress_panel div.progress_panel div.superiority span.time_differ { }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result { position: absolute; bottom: 0; left: 0; right: 0; height: 70px; margin-bottom: -70px; }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result div.title span { font-size: 22px; }
