@@ -1554,10 +1554,14 @@ let sideMaster = {
 
     side_record_board: "div.side_record_board",
 
+    side: "data-side",
+
     side_player_info: "div.side_player_info",
     side_player_name: "div.side_player_name",
 
     side_record_stage: "div.side_record_stage",
+
+    stage: "data-stage",
 
     time_record: "div.time_record",
     record_time_remains: "div.record_time_remains",
@@ -1570,10 +1574,11 @@ let sideMaster = {
     tko_selected: "span.tko_selected",
     tko_caused_by: "button.tko_caused_by",
 
+    tko: "data-tko",
+
     versus_progress_panel: "div#versus_progress_panel",
     progress_panel: "div.progress_panel",
     stage_superiority: "div.superiority",
-    superiority_graph: "div.graph",
     stage_time_differ: "span.time_differ",
 
 
@@ -1721,10 +1726,10 @@ let sideMaster = {
     blueTkoCausedBy: null,
 
     versusProgressPanel: null,
-    progressPanel: null,
-    stageSuperiority: null,
-    superiorityGraph: null,
-    stageTimeDiffer: null,
+    progressPanels: null,
+    progressPanel: [],
+    stageSuperiority: [],
+    stageTimeDiffer: [],
 
 
     entryPicked: {"red": [], "blue": []},
@@ -1733,6 +1738,16 @@ let sideMaster = {
 
     sideAccInfo: { "red": null, "blue": null },
     sideAccInfoPrev: { "red": null, "blue": null },
+
+    vsTimeRemains: { "red": [], "blue": [] },
+    vsClearTime: { "red": [], "blue": [] },
+
+    TKO_FIRST_HALF: 0,
+    TKO_SECOND_HALF: -1,
+
+    TKO_BY_TIMEOVER: -1,
+    TKO_BY_POWERLOSS: -3,
+    TKO_BY_SURRENDER: -5,
 
     init: function() {
         console.log("init sideMaster");
@@ -1832,7 +1847,7 @@ let sideMaster = {
         this.eachSidePlayerInfo = this.eachSideRecordBoard.find(this.side_player_info);
         this.eachSidePlayerName = this.eachSidePlayerInfo.find(this.side_player_name);
     
-        this.eachSideRecordStage = this.versusRecordBoard.find(this.side_record_stage);
+        this.eachSideRecordStage = this.eachSideRecordBoard.find(this.side_record_stage);
     
         this.eachTimeRecord = this.eachSideRecordStage.find(this.time_record);
         this.eachRecordTimeRemains = this.eachTimeRecord.find(this.record_time_remains);
@@ -1851,7 +1866,7 @@ let sideMaster = {
         this.redSidePlayerInfo = this.redSideRecordBoard.find(this.side_player_info);
         this.redSidePlayerName = this.redSidePlayerInfo.find(this.side_player_name);
     
-        this.redSideRecordStage = this.versusRecordBoard.find(this.side_record_stage);
+        this.redSideRecordStage = this.redSideRecordBoard.find(this.side_record_stage);
     
         this.redTimeRecord = this.redSideRecordStage.find(this.time_record);
         this.redRecordTimeRemains = this.redTimeRecord.find(this.record_time_remains);
@@ -1870,7 +1885,7 @@ let sideMaster = {
         this.blueSidePlayerInfo = this.blueSideRecordBoard.find(this.side_player_info);
         this.blueSidePlayerName = this.blueSidePlayerInfo.find(this.side_player_name);
     
-        this.blueSideRecordStage = this.versusRecordBoard.find(this.side_record_stage);
+        this.blueSideRecordStage = this.blueSideRecordBoard.find(this.side_record_stage);
     
         this.blueTimeRecord = this.blueSideRecordStage.find(this.time_record);
         this.blueRecordTimeRemains = this.blueTimeRecord.find(this.record_time_remains);
@@ -1885,10 +1900,22 @@ let sideMaster = {
 
         
         this.versusProgressPanel = this.versusRecordBoard.find(this.side_record_board);
-        this.progressPanel = this.versusProgressPanel.find(this.progress_panel);
-        this.stageSuperiority = this.progressPanel.find(this.stage_superiority);
-        this.superiorityGraph = this.stageSuperiority.find(this.superiority_graph);
-        this.stageTimeDiffer = this.stageSuperiority.find(this.stage_time_differ);
+        this.progressPanels = this.versusProgressPanel.find(this.progress_panel);
+        this.progressPanel = new Array(4);
+        this.progressPanel[0] = this.progressPanels.filter(".result");
+        this.progressPanel[1] = this.progressPanels.filter(".stage1");
+        this.progressPanel[2] = this.progressPanels.filter(".stage2");
+        this.progressPanel[3] = this.progressPanels.filter(".stage3");
+        this.stageSuperiority = new Array(4);
+        this.stageSuperiority[0] = this.progressPanel[0].find(this.stage_superiority);
+        this.stageSuperiority[1] = this.progressPanel[1].find(this.stage_superiority);
+        this.stageSuperiority[2] = this.progressPanel[2].find(this.stage_superiority);
+        this.stageSuperiority[3] = this.progressPanel[3].find(this.stage_superiority);
+        this.stageTimeDiffer = new Array(4);
+        this.stageTimeDiffer[0] = this.stageSuperiority[0].find(this.stage_time_differ);
+        this.stageTimeDiffer[1] = this.stageSuperiority[1].find(this.stage_time_differ);
+        this.stageTimeDiffer[2] = this.stageSuperiority[2].find(this.stage_time_differ);
+        this.stageTimeDiffer[3] = this.stageSuperiority[3].find(this.stage_time_differ);
     
 
 
@@ -1927,13 +1954,11 @@ let sideMaster = {
         this.eachEntries.find(this.entry_icon).click(this.onClickEntryIcon);
         
         //매치 현황 패널 이벤트 구현
-        this.eachInputRemains.on("input change", function(e) {
+        this.eachInputRemains.on("input change", this.onVersusInputRemains);
+        this.eachInputRemains.focus(function(e) { $(this).select(); });
+        this.eachInputRemains.keydown(this.onKeydownVersusInputRemains);
 
-        });
-
-        this.eachTkoCausedBy.click(function(e) {
-
-        });
+        this.eachTkoCausedBy.click(this.onClickTkoButton);
     },
 
     initDesc: function() {
@@ -3071,7 +3096,9 @@ let sideMaster = {
         $("div#versus_entry_area div.versus_divider").attr("data-wide", "1");
 
         this.versusRecordBoard.attr(this.show, "1");
-        setTimeout(function() { if (sideMaster.versusRecordBoard.attr(sideMaster.show) === "1") sideMaster.versusRecordBoard.attr(sideMaster.show, "2") }, 10);
+        setTimeout(function() {
+            if (sideMaster.versusRecordBoard.attr(sideMaster.show) === "1") sideMaster.versusRecordBoard.attr(sideMaster.show, "2");
+        }, 10);
 
 
     },
@@ -3080,6 +3107,194 @@ let sideMaster = {
         $("div#versus_entry_area div.versus_divider").attr("data-wide", "0");
 
         this.versusRecordBoard.attr(this.show, "0");
+    },
+
+    onVersusInputRemains: function(e) {
+        let self = $(this);
+        let side = self.closest(sideMaster.side_record_board).attr(sideMaster.side);
+        let stage = parseInt(self.closest(sideMaster.side_record_stage).attr(sideMaster.stage));
+        let isMin = self.hasClass("min");
+
+        sideMaster.releaseVersusRecordBoard(side, stage, isMin);
+    },
+
+    onClickTkoButton: function(e) {
+        let self = $(this);
+        let side = self.closest(sideMaster.side_record_board).attr(sideMaster.side);
+        let stage = parseInt(self.closest(sideMaster.side_record_stage).attr(sideMaster.stage));
+        let cause = parseInt(self.attr(sideMaster.tko));
+
+        sideMaster.releaseVersusRecordBoard(side, stage, null, cause);
+    },
+
+    releaseVersusRecordBoard: function(side, stage, isMin, tkoCausedBy) {
+        if (side == null || stage == null || (isMin == null && tkoCausedBy == null)) return;
+        var minInput;
+        var secInput;
+        switch (side) {
+            case "red":
+                minInput = this.redInputRemains.filter(".min.stage" + stage);
+                secInput = this.redInputRemains.filter(".sec.stage" + stage);
+                break;
+
+            case "blue":
+                minInput = this.blueInputRemains.filter(".min.stage" + stage);
+                secInput = this.blueInputRemains.filter(".sec.stage" + stage);
+                break;
+        }
+        if (tkoCausedBy == null) {//잔여시간 입력
+            let minValue = minInput.val();
+            let secValue = secInput.val();
+            let isMinEmpty = minValue.length < 1 || isNaN(minValue);
+            let isSecEmpty = secValue.length < 1 || isNaN(secValue);
+            if (isMinEmpty) minInput.val("0");
+            else if (isSecEmpty && !isMin) {
+                secValue = "0";
+                secInput.val(secValue);
+                secInput.select();
+            }
+
+            if (!isSecEmpty || isMinEmpty) {
+                let min = isMinEmpty ? 0 : parseInt(minValue);
+                let sec = parseInt(secValue);
+                let seconds = (min * 60) + sec;
+                this.vsTimeRemains[side][stage] = seconds;
+            } else {
+                this.vsTimeRemains[side][stage] = null;
+                return;
+            }
+        } else {//TKO 선택
+            minInput.val("");
+            secInput.val("");
+            this.vsTimeRemains[side][stage] = tkoCausedBy;
+        }
+
+        this.releaseVersusTimeAttackDisplay(stage, side);
+    },
+
+    releaseVersusTimeAttackDisplay: function(stage, side) {
+        if (stage == null || side == null) return;
+        var clearTime = null;
+        var clearTimeDivider = null;
+        var tkoSelected = null;
+        switch (side) {
+            case "red":
+                clearTime = this.redSpanClearTime.filter(".stage" + stage);
+                clearTimeDivider = this.redSpanDivider.filter(".stage" + stage);
+                tkoSelected = this.redTkoSelected.filter(".stage" + stage);
+                break;
+
+            case "blue":
+                clearTime = this.blueSpanClearTime.filter(".stage" + stage);
+                clearTimeDivider = this.blueSpanDivider.filter(".stage" + stage);
+                tkoSelected = this.blueTkoSelected.filter(".stage" + stage);
+                break;
+        }
+        let clearTimeMin = clearTime.filter(".min");
+        let clearTimeSec = clearTime.filter(".sec");
+
+        let remains = this.vsTimeRemains[side][stage];
+        if (remains < 0) {
+            let tko = remains * -1;
+            let tkoHalf = tko % 2;
+            let tkoText = "#HALF TKO".replace("#HALF", tkoHalf === 1 ? "전반" : "후반");
+            var tkoCausedBy = "";
+            switch (remains) {
+                case -1:
+                case -2:
+                    tkoCausedBy = "시간 초과";
+                    break;
+                    
+                case -3:
+                case -4:
+                    tkoCausedBy = "전력 상실";
+                    break;
+    
+                case -5:
+                case -6:
+                    tkoCausedBy = "포기·기타";
+                    break;
+            }
+
+            clearTimeMin.text("");
+            clearTimeSec.text("");
+            clearTimeDivider.text(tkoText);
+            tkoSelected.text(tkoCausedBy);
+        } else {
+            let sec1min = 60
+            let sec10min = 10 * sec1min;
+            let elapsed = sec10min - remains;
+
+            let elapsedMin = Math.floor(elapsed / sec1min);
+            let elapsedSec = elapsed % sec1min;
+
+            clearTimeMin.text("" + elapsedMin);
+            clearTimeSec.text(("" + elapsedSec).padStart(2, "0"));
+            clearTimeDivider.text(":");
+            tkoSelected.text("");
+        }
+
+        //중앙 우세율 출력 구현
+    },
+
+    onKeydownVersusInputRemains: function(e) {
+        let self = $(this);
+        let side = self.closest(sideMaster.side_record_board).attr(sideMaster.side);
+        let stage = parseInt(self.closest(sideMaster.side_record_stage).attr(sideMaster.stage));
+        let isMin = self.hasClass("min");
+
+        switch (e.keyCode) {
+            case 9:
+                if (e.shiftKey) {
+                    if (isMin) {
+                        if (side == "red") {
+                            if (stage > 1) {
+                                sideMaster.blueInputRemains.filter(".sec.stage" + (stage - 1)).focus();
+                                e.preventDefault();
+                                return false;
+                            }
+                        } else {
+                            sideMaster.redInputRemains.filter(".sec.stage" + stage).focus();
+                            e.preventDefault();
+                            return false;
+                        }
+                    }
+                } else {
+                    if (!isMin) {
+                        if (side == "blue") {
+                            if (stage < 3) {
+                                sideMaster.redInputRemains.filter(".min.stage" + (stage + 1)).focus();
+                                e.preventDefault();
+                                return false;
+                            }
+                        } else {
+                            sideMaster.blueInputRemains.filter(".min.stage" + stage).focus();
+                            e.preventDefault();
+                            return false;
+                        }
+                    }
+                }
+                break;
+
+            case 13:
+                var target = null;
+                if (isMin) {//분 입력
+                    if (side == "red") target = sideMaster.redInputRemains.filter(".sec.stage" + stage);
+                    else target = sideMaster.blueInputRemains.filter(".sec.stage" + stage);
+                } else {//초 입력
+                    if (side == "red") target = sideMaster.blueInputRemains.filter(".min.stage" + stage);
+                    else if (stage < 3) target = sideMaster.redInputRemains.filter(".min.stage" + (stage + 1));
+                    else self.blur();
+                }
+                if (target != null) {
+                    target.focus();
+                    e.preventDefault();
+                    //그래프 출력 처리 메소드 호출?
+                    return false;
+                }
+                //그래프 출력 처리 메소드 호출?
+                break;
+        }
     },
 
     eoo: eoo
