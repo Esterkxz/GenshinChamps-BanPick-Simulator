@@ -468,6 +468,8 @@ let sequenceMaster = {
 
         timerMaster.pauseTimer();
 
+        if (controllerMaster.mainActionButton.is(":focus")) controllerMaster.mainActionButton.blur();
+
         this.sequenceTitleHolder.attr(this.shift, "1");
         this.sequenceBlock.attr(this.hide, "1");
         poolMaster.poolBlock.attr(this.hide, "1");
@@ -555,6 +557,10 @@ let sequenceMaster = {
 
         timerMaster.resumeTimer();
 
+        this.closeVersusSequenceShowing();
+    },
+
+    closeVersusSequenceShowing: function() {
         this.sequenceTitleHolder.attr(this.shift, "");
         this.sequenceBlock.attr(this.hide, "");
         poolMaster.poolBlock.attr(this.hide, "");
@@ -1579,7 +1585,10 @@ let sideMaster = {
     versus_progress_panel: "div#versus_progress_panel",
     progress_panel: "div.progress_panel",
     stage_superiority: "div.superiority",
+    graph: "div.graph",
     stage_time_differ: "span.time_differ",
+
+    superior: "data-superior",
 
 
     eachPlayerBoard: null,
@@ -1899,7 +1908,7 @@ let sideMaster = {
         this.blueTkoCausedBy = this.blueTkoSelection.find(this.tko_caused_by);
 
         
-        this.versusProgressPanel = this.versusRecordBoard.find(this.side_record_board);
+        this.versusProgressPanel = this.versusRecordBoard.find(this.versus_progress_panel);
         this.progressPanels = this.versusProgressPanel.find(this.progress_panel);
         this.progressPanel = new Array(4);
         this.progressPanel[0] = this.progressPanels.filter(".result");
@@ -1956,6 +1965,7 @@ let sideMaster = {
         //매치 현황 패널 이벤트 구현
         this.eachInputRemains.on("input change", this.onVersusInputRemains);
         this.eachInputRemains.focus(function(e) { $(this).select(); });
+        this.eachInputRemains.blur(this.onBlurVersusInputRemains);
         this.eachInputRemains.keydown(this.onKeydownVersusInputRemains);
 
         this.eachTkoCausedBy.click(this.onClickTkoButton);
@@ -3118,6 +3128,15 @@ let sideMaster = {
         sideMaster.releaseVersusRecordBoard(side, stage, isMin);
     },
 
+    onBlurVersusInputRemains: function(e) {
+        let self = $(this);
+        let side = self.closest(sideMaster.side_record_board).attr(sideMaster.side);
+        let stage = parseInt(self.closest(sideMaster.side_record_stage).attr(sideMaster.stage));
+        let isMin = self.hasClass("min");
+
+        sideMaster.releaseVersusSuperiorityGraph(stage);
+    },
+
     onClickTkoButton: function(e) {
         let self = $(this);
         let side = self.closest(sideMaster.side_record_board).attr(sideMaster.side);
@@ -3147,15 +3166,18 @@ let sideMaster = {
             let secValue = secInput.val();
             let isMinEmpty = minValue.length < 1 || isNaN(minValue);
             let isSecEmpty = secValue.length < 1 || isNaN(secValue);
-            if (isMinEmpty) minInput.val("0");
-            else if (isSecEmpty && !isMin) {
+            if (isMinEmpty) {
+                minValue = "0";
+                minInput.val(minValue);
+                minInput.select();
+            } else if (isSecEmpty && !isMin) {
                 secValue = "0";
                 secInput.val(secValue);
                 secInput.select();
             }
 
-            if (!isSecEmpty || isMinEmpty) {
-                let min = isMinEmpty ? 0 : parseInt(minValue);
+            if (!isSecEmpty) {
+                let min = parseInt(minValue);
                 let sec = parseInt(secValue);
                 let seconds = (min * 60) + sec;
                 this.vsTimeRemains[side][stage] = seconds;
@@ -3170,6 +3192,7 @@ let sideMaster = {
         }
 
         this.releaseVersusTimeAttackDisplay(stage, side);
+        if (this.progressPanel[stage].attr(this.show) == "1") this.releaseVersusSuperiorityGraph(stage);
     },
 
     releaseVersusTimeAttackDisplay: function(stage, side) {
@@ -3289,12 +3312,104 @@ let sideMaster = {
                 if (target != null) {
                     target.focus();
                     e.preventDefault();
-                    //그래프 출력 처리 메소드 호출?
+                    //sideMaster.releaseVersusSuperiorityGraph(stage);
                     return false;
                 }
-                //그래프 출력 처리 메소드 호출?
+                sideMaster.releaseVersusSuperiorityGraph(stage);
                 break;
         }
+    },
+
+    releaseVersusSuperiorityGraph: function(stage) {
+        if (stage == null || isNaN(stage) || stage < 0) return;
+        stage = parseInt(stage);
+
+        let redRemains = this.vsTimeRemains["red"][stage];
+        let blueRemains = this.vsTimeRemains["blue"][stage];
+
+        if (redRemains == null || blueRemains == null) return;
+
+        var isRedTko = false;
+        var isBlueTko = false;
+        if (redRemains < 0) {
+            isRedTko = true;
+            redRemains = (((redRemains * -1) - 1) % 2) + 1;
+        }
+        if (blueRemains < 0) {
+            isBlueTko = true;
+            blueRemains = (((blueRemains * -1) - 1) % 2) + 1;
+        }
+        let isTko = isRedTko || isBlueTko;
+        let isDoubleTko = isRedTko && isBlueTko;
+
+        if (redRemains < 1 || blueRemains < 1) return;
+        
+        if (this.progressPanel[stage].attr(this.show) != "1") {
+            this.progressPanel[stage].attr(this.show, "1");
+            setTimeout(function() { sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains, isTko); }, 1000);
+        } else this.updateVersusSuperiorityGraph(stage, redRemains, blueRemains, isTko);
+
+        if (stage > 0) this.checkUpdateVersusResultGraph();
+    },
+
+    updateVersusSuperiorityGraph: function(stage, redRemains, blueRemains, isTko = false) {
+        let sup = this.stageSuperiority[stage];
+        let redGraph = sup.find(this.graph + ".red");
+        let blueGraph = sup.find(this.graph + ".blue");
+        let timeDiffer = this.stageTimeDiffer[stage];
+        let differ = Math.min(redRemains, blueRemains) - Math.max(redRemains, blueRemains);
+
+        redGraph.css("flex-grow", "" + redRemains);
+        blueGraph.css("flex-grow", "" + blueRemains);
+        redGraph.attr(this.superior, redRemains > blueRemains ? "1" : "0")
+        blueGraph.attr(this.superior, redRemains < blueRemains ? "1" : "0")
+        timeDiffer.text(isTko && stage > 0 ? "TKO" : differ + "s");
+    },
+
+    checkUpdateVersusResultGraph: function() {
+        let redRemains1 = this.vsTimeRemains["red"][1];
+        let blueRemains1 = this.vsTimeRemains["blue"][1];
+        let redRemains2 = this.vsTimeRemains["red"][2];
+        let blueRemains2 = this.vsTimeRemains["blue"][2];
+        let redRemains3 = this.vsTimeRemains["red"][3];
+        let blueRemains3 = this.vsTimeRemains["blue"][3];
+
+        let isStage1Complete = redRemains1 != null && blueRemains1 != null;
+        let isStage2Complete = redRemains2 != null && blueRemains2 != null;
+        let isStage3Complete = redRemains3 != null && blueRemains3 != null;
+        let isComplete = isStage1Complete && isStage1Complete && isStage1Complete;
+        let isRedTko = redRemains1 < 0 || redRemains2 < 0 || redRemains3 < 0;
+        let isBlueTko = blueRemains1 < 0 || blueRemains2 < 0 || blueRemains3 < 0;
+        let isTko = isRedTko || isBlueTko;
+        let isStage1Tko = redRemains1 < 0 || blueRemains1 < 0;
+        let isStage2Tko = redRemains2 < 0 || blueRemains2 < 0;
+        let isStage3Tko = redRemains3 < 0 || blueRemains3 < 0;
+        let isTkoEnd = (isStage1Tko && isStage1Complete) || (isStage2Tko && isStage2Complete) || (isStage3Tko && isStage3Complete);
+        let isDoubleTko = isRedTko && isBlueTko;
+
+        let redRemains = (redRemains1 != null && redRemains1 > 0 ? Math.abs(redRemains1) : 0) + (redRemains2 != null && redRemains2 > 0 ? Math.abs(redRemains2) : 0) + (redRemains3 != null && redRemains3 > 0 ? Math.abs(redRemains3) : 0);
+        let blueRemains = (blueRemains1 != null && blueRemains1 > 0 ? Math.abs(blueRemains1) : 0) + (blueRemains2 != null && blueRemains2 > 0 ? Math.abs(blueRemains2) : 0) + (blueRemains3 != null && blueRemains3 > 0 ? Math.abs(blueRemains3) : 0);
+
+        this.vsTimeRemains["red"][0] = redRemains;
+        this.vsTimeRemains["blue"][0] = blueRemains;
+
+        if (isComplete || isTkoEnd || isDoubleTko) this.releaseVersusSuperiorityGraph(0);
+        else this.updateVersusSuperiorityGraph(0, redRemains, blueRemains, isTko);
+    },
+
+    initVersusRecordBoard: function() {
+        this.eachInputRemains.val("");
+        this.eachSpanClearTime.text("");
+        this.eachSpanDivider.text("-");
+        this.eachTkoSelected.text("");
+        this.progressPanels.attr(this.show, "0");
+        let stageSuperiorities = this.progressPanels.find(this.stage_superiority);
+        stageSuperiorities.find(this.graph + ".side_root").css("flex-grow", "").attr(sideMaster.superior, "");
+        stageSuperiorities.find(this.stage_time_differ).text("");
+        this.vsTimeRemains["red"] = [];
+        this.vsTimeRemains["blue"] = [];
+        this.vsClearTime["red"] = [];
+        this.vsClearTime["blue"] = [];
     },
 
     eoo: eoo
@@ -5148,6 +5263,12 @@ function initializeStep() {
 
     //initialize each side weapon ban picks
     sideMaster.initBanWeapons();
+
+    //initialize versus sequence showing
+    sequenceMaster.closeVersusSequenceShowing();
+
+    //initialize versus record board
+    sideMaster.initVersusRecordBoard();
 
     controllerMaster.triggerCount = 0;
 

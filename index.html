@@ -397,7 +397,7 @@ function getPathA(id, group = "", type = "sounds") {
                     <input type="text" id="search_input" placeholder="search word" />
                 </div>
                 <div id="version_info">
-                    <span title="release 2023.03.29">v0.3.0</span>
+                    <span title="release 2023.04.07">v0.3.0</span>
                 </div>
                 <div id="tool_infos">
                     <span id="popup_credits"><button class="text_type">Credits</button></span>
@@ -575,9 +575,9 @@ function getPathA(id, group = "", type = "sounds") {
                         <div class="record_time_remains">
                             <label>남은 시간</label>
                             <div class="remains_set">
-                                <input class="remains min stage1" type="number" maxlength="2" min="0" max="60" placeholder="분" />
+                                <input class="remains min stage1" type="number" maxlength="2" min="0" max="59" placeholder="분" />
                                 <span class="divider">:</span>
-                                <input class="remains sec stage1" type="number" maxlength="2" min="0" max="60" placeholder="초" />
+                                <input class="remains sec stage1" type="number" maxlength="2" min="0" max="59" placeholder="초" />
                             </div>
                         </div>
                         <div class="record_time_clear">
@@ -615,9 +615,9 @@ function getPathA(id, group = "", type = "sounds") {
                         <div class="record_time_remains">
                             <label>남은 시간</label>
                             <div class="remains_set">
-                                <input class="remains min stage2" type="number" maxlength="2" min="0" max="60" placeholder="분" />
+                                <input class="remains min stage2" type="number" maxlength="2" min="0" max="59" placeholder="분" />
                                 <span class="divider">:</span>
-                                <input class="remains sec stage2" type="number" maxlength="2" min="0" max="60" placeholder="초" />
+                                <input class="remains sec stage2" type="number" maxlength="2" min="0" max="59" placeholder="초" />
                             </div>
                         </div>
                         <div class="record_time_clear">
@@ -655,9 +655,9 @@ function getPathA(id, group = "", type = "sounds") {
                         <div class="record_time_remains">
                             <label>남은 시간</label>
                             <div class="remains_set">
-                                <input class="remains min stage3" type="number" maxlength="2" min="0" max="60" placeholder="분" />
+                                <input class="remains min stage3" type="number" maxlength="2" min="0" max="59" placeholder="분" />
                                 <span class="divider">:</span>
-                                <input class="remains sec stage3" type="number" maxlength="2" min="0" max="60" placeholder="초" />
+                                <input class="remains sec stage3" type="number" maxlength="2" min="0" max="59" placeholder="초" />
                             </div>
                         </div>
                         <div class="record_time_clear">
@@ -692,22 +692,22 @@ function getPathA(id, group = "", type = "sounds") {
                 </div>
             </div>
             <div id="versus_progress_panel">
-                <div class="progress_panel stage stage1">
+                <div class="progress_panel stage stage1" data-show="0">
                     <div class="title"><span>1번 방</span></div>
-                    <div class="superiority"><div class="graph red"></div><div class="graph blue"></div><div class="graph empty"></div><span class="time_differ">-15s</span></div>
+                    <div class="superiority"><div class="graph side_root red"></div><div class="graph empty"></div><div class="graph side_root blue"></div><span class="time_differ">-15s</span></div>
                 </div>
-                <div class="progress_panel stage stage2">
+                <div class="progress_panel stage stage2" data-show="0">
                     <div class="title"><span>2번 방</span></div>
-                    <div class="superiority"><div class="graph red"></div><div class="graph blue"></div><div class="graph empty"></div><span class="time_differ">-15s</span></div>
+                    <div class="superiority"><div class="graph side_root red"></div><div class="graph empty"></div><div class="graph side_root blue"></div><span class="time_differ">-15s</span></div>
                 </div>
-                <div class="progress_panel stage stage3">
+                <div class="progress_panel stage stage3" data-show="0">
                     <div class="title"><span>3번 방</span></div>
-                    <div class="superiority"><div class="graph red"></div><div class="graph blue"></div><div class="graph empty"></div><span class="time_differ">-15s</span></div>
+                    <div class="superiority"><div class="graph side_root red"></div><div class="graph empty"></div><div class="graph side_root blue"></div><span class="time_differ">-15s</span></div>
                 </div>
                 <div class="versus">VERSUS</div>
-                <div class="progress_panel result">
+                <div class="progress_panel result" data-show="0">
                     <div class="title"><span>전체</span></div>
-                    <div class="superiority"><div class="graph red"></div><div class="graph blue"></div><div class="graph empty"></div><span class="time_differ">-15s</span></div>
+                    <div class="superiority"><div class="graph side_root red"></div><div class="graph empty"></div><div class="graph side_root blue"></div><span class="time_differ">-15s</span></div>
                 </div>
             </div>
             <div class="side_record_board side_root blue" data-side="blue">
@@ -727,9 +727,9 @@ function getPathA(id, group = "", type = "sounds") {
                         <div class="record_time_remains">
                             <label>남은 시간</label>
                             <div class="remains_set">
-                                <input class="remains min stage1" type="number" maxlength="2" min="0" max="60" placeholder="분" />
+                                <input class="remains min stage1" type="number" maxlength="2" min="0" max="59" placeholder="분" />
                                 <span class="divider">:</span>
-                                <input class="remains sec stage1" type="number" maxlength="2" min="0" max="60" placeholder="초" />
+                                <input class="remains sec stage1" type="number" maxlength="2" min="0" max="59" placeholder="초" />
                             </div>
                         </div>
                     </div>
@@ -767,9 +767,9 @@ function getPathA(id, group = "", type = "sounds") {
                         <div class="record_time_remains">
                             <label>남은 시간</label>
                             <div class="remains_set">
-                                <input class="remains min stage2" type="number" maxlength="2" min="0" max="60" placeholder="분" />
+                                <input class="remains min stage2" type="number" maxlength="2" min="0" max="59" placeholder="분" />
                                 <span class="divider">:</span>
-                                <input class="remains sec stage2" type="number" maxlength="2" min="0" max="60" placeholder="초" />
+                                <input class="remains sec stage2" type="number" maxlength="2" min="0" max="59" placeholder="초" />
                             </div>
                         </div>
                     </div>
@@ -807,9 +807,9 @@ function getPathA(id, group = "", type = "sounds") {
                         <div class="record_time_remains">
                             <label>남은 시간</label>
                             <div class="remains_set">
-                                <input class="remains min stage3" type="number" maxlength="2" min="0" max="60" placeholder="분" />
+                                <input class="remains min stage3" type="number" maxlength="2" min="0" max="59" placeholder="분" />
                                 <span class="divider">:</span>
-                                <input class="remains sec stage3" type="number" maxlength="2" min="0" max="60" placeholder="초" />
+                                <input class="remains sec stage3" type="number" maxlength="2" min="0" max="59" placeholder="초" />
                             </div>
                         </div>
                     </div>
