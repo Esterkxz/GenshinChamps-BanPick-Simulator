@@ -1563,7 +1563,7 @@ let sideMaster = {
     side: "data-side",
 
     side_player_info: "div.side_player_info",
-    side_player_name: "div.side_player_name",
+    side_player_name: "span.side_player_name",
 
     side_record_stage: "div.side_record_stage",
 
@@ -3102,8 +3102,28 @@ let sideMaster = {
 
     //versus record
 
+    initVersusRecordBoard: function() {
+        this.redSidePlayerName.text("RED");
+        this.blueSidePlayerName.text("BLUE");
+        this.eachInputRemains.val("");
+        this.eachSpanClearTime.text("");
+        this.eachSpanDivider.text("-");
+        this.eachTkoSelected.text("");
+        this.progressPanels.attr(this.show, "0");
+        let stageSuperiorities = this.progressPanels.find(this.stage_superiority);
+        stageSuperiorities.find(this.graph + ".side_root").css("flex-grow", "").attr(sideMaster.superior, "");
+        stageSuperiorities.find(this.stage_time_differ).text("");
+        this.vsTimeRemains["red"] = [];
+        this.vsTimeRemains["blue"] = [];
+        this.vsClearTime["red"] = [];
+        this.vsClearTime["blue"] = [];
+    },
+
     showVersusRecordBoard: function() {
         $("div#versus_entry_area div.versus_divider").attr("data-wide", "1");
+
+        this.redSidePlayerName.text(redName);
+        this.blueSidePlayerName.text(blueName);
 
         this.versusRecordBoard.attr(this.show, "1");
         setTimeout(function() {
@@ -3395,21 +3415,6 @@ let sideMaster = {
 
         if (isComplete || isTkoEnd || isDoubleTko) this.releaseVersusSuperiorityGraph(0);
         else this.updateVersusSuperiorityGraph(0, redRemains, blueRemains, isTko);
-    },
-
-    initVersusRecordBoard: function() {
-        this.eachInputRemains.val("");
-        this.eachSpanClearTime.text("");
-        this.eachSpanDivider.text("-");
-        this.eachTkoSelected.text("");
-        this.progressPanels.attr(this.show, "0");
-        let stageSuperiorities = this.progressPanels.find(this.stage_superiority);
-        stageSuperiorities.find(this.graph + ".side_root").css("flex-grow", "").attr(sideMaster.superior, "");
-        stageSuperiorities.find(this.stage_time_differ).text("");
-        this.vsTimeRemains["red"] = [];
-        this.vsTimeRemains["blue"] = [];
-        this.vsClearTime["red"] = [];
-        this.vsClearTime["blue"] = [];
     },
 
     eoo: eoo
