@@ -931,7 +931,7 @@ div.player_board.red {
     --side-degree-wide-up: 67deg; --side-degree-plate-back: 4deg;
     --nameplate-input-background-gradient-begin: rgba(var(--signature-color-dark) / 0.8) 0%;
     --nameplate-input-background-gradient-end: transparent 65%;
-    --nameplate-input-transform: skew(3deg, 1.6deg) rotateY(8deg) rotateZ(1deg) translate(35px, 8px) scale(0.6, 1.1) matrix(2, 0, 0, 1, 0, 0);
+    --nameplate-input-transform: skew(3deg, 1.6deg) rotateY(8deg) rotateZ(1deg) translate(20px, 8px) translateZ(100px) scale(0.6, 1.1) matrix(2, 0, 0, 1, 0, 0);
     --account-point-input-background-gradient-begin: transparent 35%;
     --account-point-input-background-gradient-end: rgba(var(--signature-color-dark) / 0.8) 100%;
     --cost-stack-transform: scale(1.15) rotate3d(15.5, 1.5, 3, 40deg) translate(74px, -56px);
@@ -969,7 +969,7 @@ div.player_board.blue {
     --side-degree-wide-up: 67deg; --side-degree-plate-back: -4deg;
     --nameplate-input-background-gradient-begin: transparent 35%;
     --nameplate-input-background-gradient-end: rgba(var(--signature-color-dark) / 0.8) 100%;
-    --nameplate-input-transform: skew(-3deg, -1.6deg) rotateY(8deg) rotateZ(-1deg) translate(-35px, 8px) scale(0.6, 1.1) matrix(2, 0, 0, 1, 0, 0);
+    --nameplate-input-transform: skew(-3deg, -1.6deg) rotateY(8deg) rotateZ(-1deg) translate(-50px, 8px) translateZ(100px) scale(0.6, 1.1) matrix(2, 0, 0, 1, 0, 0);
     --cost-stack-transform: scale(1.15) rotate3d(15.5, -1.5, 3, -40deg) translate(13px, -41px);
     --account-point-input-background-gradient-begin: rgba(var(--signature-color-dark) / 0.8) 0%;
     --account-point-input-background-gradient-end: transparent 65%;
