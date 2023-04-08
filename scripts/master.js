@@ -3397,7 +3397,7 @@ let sideMaster = {
         let isStage1Complete = redRemains1 != null && blueRemains1 != null;
         let isStage2Complete = redRemains2 != null && blueRemains2 != null;
         let isStage3Complete = redRemains3 != null && blueRemains3 != null;
-        let isComplete = isStage1Complete && isStage1Complete && isStage1Complete;
+        let isComplete = isStage1Complete && isStage2Complete && isStage3Complete;
         let isRedTko = redRemains1 < 0 || redRemains2 < 0 || redRemains3 < 0;
         let isBlueTko = blueRemains1 < 0 || blueRemains2 < 0 || blueRemains3 < 0;
         let isTko = isRedTko || isBlueTko;
