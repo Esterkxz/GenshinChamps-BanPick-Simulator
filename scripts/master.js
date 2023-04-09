@@ -3136,11 +3136,15 @@ let sideMaster = {
         setTimeout(function() {
             if (sideMaster.versusRecordBoard.attr(sideMaster.show) === "1") sideMaster.versusRecordBoard.attr(sideMaster.show, "2");
 
-            setTimeout(function() { showCursorWholeScreen(); }, 500);
+            setTimeout(function() {
+                showCursorWholeScreen();
+                $(document.body).attr("data-side-area", "1");
+            }, 500);
         }, 10);
     },
 
     hideVersusRecordBoard: function() {
+        $(document.body).attr("data-side-area", "0");
         $("div#versus_entry_area div.versus_divider").attr("data-wide", "0");
 
         this.versusRecordBoard.attr(this.show, "0");
