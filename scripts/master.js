@@ -470,6 +470,7 @@ let sequenceMaster = {
 
         if (controllerMaster.mainActionButton.is(":focus")) controllerMaster.mainActionButton.blur();
 
+        $(":focus").blur();
         setTimeout(function() { hideCursorWholeScreen(); }, 800);
 
         this.sequenceTitleHolder.attr(this.shift, "1");
