@@ -1240,7 +1240,7 @@ div#versus_record_board div#versus_progress_panel div.progress_panel[data-show="
 div#versus_record_board div#versus_progress_panel div.progress_panel[data-show="1"] div.superiority div.graph.red[data-superior="1"] { box-shadow: inset 6px 6px 6px 5px #FFF6, 8px 0 16px 4px rgba(var(--signature-color-lighter) / 100%); }
 div#versus_record_board div#versus_progress_panel div.progress_panel[data-show="1"] div.superiority div.graph.blue[data-superior="1"] { box-shadow: inset 6px 6px 6px 5px #FFF6, -8px 0 16px 4px rgba(var(--signature-color-lighter) / 100%); }
 div#versus_record_board div#versus_progress_panel div.progress_panel div.superiority span { position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto; }
-div#versus_record_board div#versus_progress_panel div.progress_panel div.superiority span.time_differ { color: #000E; opacity: 0; transition-duration: 0.5s; transition-timing-function: ease; }
+div#versus_record_board div#versus_progress_panel div.progress_panel div.superiority span.time_differ { color: #000E; font-family: 'Lato'; font-size: 20px; font-weight: 600; text-shadow: 0 0 4px white; line-height: 22px; opacity: 0; transition-duration: 0.5s; transition-timing-function: ease; }
 div#versus_record_board div#versus_progress_panel div.progress_panel[data-show="1"] div.superiority span.time_differ { opacity: 1; transition-delay: 0.5s; }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result { position: absolute; bottom: 0; left: 0; right: 0; height: 70px; margin-bottom: -70px; }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result { }
