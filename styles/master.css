@@ -1206,7 +1206,7 @@ div#versus_record_board div.side_record_board.blue div.side_record_stage div.tko
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_summary > * { font-size: 22px; font-weight: bold; }
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_summary label { width: 100px; padding: 0 57px; text-align: center; transition-duration: 0.3s; }
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection:hover div.tko_summary label { color: rgba(var(--signature-color) / 90%); }
-div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_summary span { font-weight: bold; color: rgba(var(--signature-color) / 80%); text-shadow: 0 0 0 #888, 0 0 1.5px rgba(var(--main-color) / 90%); }
+div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_summary span { font-weight: bold; color: rgba(var(--signature-color-light) / 80%); text-shadow: 0 0 0 #888, 0 0 2px rgba(var(--main-color) / 90%); }
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_summary span.tko_selected { margin: auto; }
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_selection_layer { position: absolute; display: none; z-index: 10; bottom: -67px; left: 0; right: 0; margin: auto; padding: 5px 10px 6px; border-radius: 10px; background-color: #FFF8; }
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection:hover div.tko_selection_layer { display: block; }
