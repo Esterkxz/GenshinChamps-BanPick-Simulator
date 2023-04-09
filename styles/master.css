@@ -1252,6 +1252,9 @@ div#versus_record_board div#versus_progress_panel div.progress_panel[data-show="
 div#versus_record_board div#versus_progress_panel div.progress_panel.result { position: absolute; bottom: 0; left: 0; right: 0; height: 70px; margin-bottom: -70px; }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result { }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result:hover { }
+div#versus_record_board div#versus_progress_panel div.progress_panel.result div.title { opacity: 0.6; transition-duration: 0.3s; transition-timing-function: ease; }
+div#versus_record_board div#versus_progress_panel div.progress_panel.result:hover div.title { opacity: 1; }
+div#versus_record_board div#versus_progress_panel div.progress_panel.result[data-show="1"] div.title { opacity: 1; }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result div.title span { font-size: 22px; line-height: 32px; filter: drop-shadow(0 6px 8px black); transition-duration: 0.3s; transition-timing-function: ease; }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result[data-show="1"] div.title span { font-size: 30px; }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result div.superiority { height: 30px; margin: 9px 0; box-shadow: inset 0 0 4px 1px rgba(var(--main-color) / 90%), 0 0 8px 0 rgba(var(--highlighted-text-base) / 30%), 0 6px 8px 6px #333C; opacity: 0; transition-delay: 0.3s; }
