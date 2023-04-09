@@ -1178,6 +1178,7 @@ div#versus_record_board div.side_record_board div.side_record_stage div.time_rec
 div#versus_record_board div.side_record_board div.side_record_stage div.time_record > div { width: 180px; padding: 0 16px; display: table-cell; text-align: center; }
 div#versus_record_board div.side_record_board div.side_record_stage div.time_record > div > label { font-size: 22px; opacity: 0; transition-duration: 0.3s; transition-timing-function: ease; }
 div#versus_record_board div.side_record_board div.side_record_stage div.time_record:is(:focus-within, :hover) > div > label { opacity: 1; }
+div#versus_record_board div.side_record_board div.side_record_stage[data-result="clear"] div.time_record > div > label { opacity: 1; }
 div#versus_record_board div.side_record_board div.side_record_stage div.time_record > div > div { }
 div#versus_record_board div.side_record_board div.side_record_stage div.time_record > div > div label { }
 div#versus_record_board div.side_record_board div.side_record_stage div.time_record > div > div input { width: 60px; height: 36px; border: none; border-bottom: 2px solid rgba(var(--signature-color) / 90%); color: rgba(var(--signature-color-lighter) / 92%); font-size: 36px; font-weight: bold; text-shadow: 0 0 2px black; background: transparent; transition-duration: 0.3s; }
@@ -1190,6 +1191,9 @@ div#versus_record_board div.side_record_board div.side_record_stage div.time_rec
 div#versus_record_board div.side_record_board div.side_record_stage div.time_record div.record_time_remains { }
 div#versus_record_board div.side_record_board div.side_record_stage div.time_record div.record_time_remains label { }
 div#versus_record_board div.side_record_board div.side_record_stage div.time_record div.record_time_remains div { }
+div#versus_record_board div.side_record_board div.side_record_stage div.time_record div.record_time_remains div.remains_set { transition-duration: 0.3s; transition-timing-function: ease; }
+div#versus_record_board div.side_record_board div.side_record_stage[data-result="tko"] div.time_record div.record_time_remains div.remains_set { opacity: 0; }
+div#versus_record_board div.side_record_board div.side_record_stage[data-result="tko"]:is(:focus-within, :hover) div.time_record div.record_time_remains div.remains_set { opacity: 1; }
 div#versus_record_board div.side_record_board div.side_record_stage div.time_record div.record_time_remains div input { }
 div#versus_record_board div.side_record_board div.side_record_stage div.time_record div.record_time_remains div span { }
 div#versus_record_board div.side_record_board div.side_record_stage div.time_record div.record_time_clear { }
@@ -1206,6 +1210,8 @@ div#versus_record_board div.side_record_board.blue div.side_record_stage div.tko
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_summary > * { font-size: 22px; font-weight: bold; }
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_summary label { width: 100px; padding: 0 57px; text-align: center; transition-duration: 0.3s; }
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection:hover div.tko_summary label { color: rgba(var(--signature-color) / 90%); }
+div#versus_record_board div.side_record_board div.side_record_stage:not([data-result=""]) div.tko_selection div.tko_summary label { opacity: 0; }
+div#versus_record_board div.side_record_board div.side_record_stage:not([data-result=""]):is(:focus-within, :hover) div.tko_selection div.tko_summary label { opacity: 1; }
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_summary span { font-weight: bold; color: rgba(var(--signature-color-light) / 80%); text-shadow: 0 0 0 #888, 0 0 2px rgba(var(--main-color) / 90%); }
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_summary span.tko_selected { margin: auto; }
 div#versus_record_board div.side_record_board div.side_record_stage div.tko_selection div.tko_selection_layer { position: absolute; display: none; z-index: 10; bottom: -67px; left: 0; right: 0; margin: auto; padding: 5px 10px 6px; border-radius: 10px; background-color: #FFF8; }

@@ -1568,6 +1568,7 @@ let sideMaster = {
     side_record_stage: "div.side_record_stage",
 
     stage: "data-stage",
+    result: "data-result",
 
     time_record: "div.time_record",
     record_time_remains: "div.record_time_remains",
@@ -3104,6 +3105,7 @@ let sideMaster = {
     //versus record
 
     initVersusRecordBoard: function() {
+        this.eachSideRecordStage.attr(this.result, "");
         this.redSidePlayerName.text("RED");
         this.blueSidePlayerName.text("BLUE");
         this.eachInputRemains.val("");
@@ -3170,15 +3172,18 @@ let sideMaster = {
 
     releaseVersusRecordBoard: function(side, stage, isMin, tkoCausedBy) {
         if (side == null || stage == null || (isMin == null && tkoCausedBy == null)) return;
+        var recordStage;
         var minInput;
         var secInput;
         switch (side) {
             case "red":
+                recordStage = this.redSideRecordStage.filter('[' + this.stage + '="' + stage + '"]')
                 minInput = this.redInputRemains.filter(".min.stage" + stage);
                 secInput = this.redInputRemains.filter(".sec.stage" + stage);
                 break;
 
             case "blue":
+                recordStage = this.blueSideRecordStage.filter('[' + this.stage + '="' + stage + '"]')
                 minInput = this.blueInputRemains.filter(".min.stage" + stage);
                 secInput = this.blueInputRemains.filter(".sec.stage" + stage);
                 break;
@@ -3202,14 +3207,17 @@ let sideMaster = {
                 let min = parseInt(minValue);
                 let sec = parseInt(secValue);
                 let seconds = (min * 60) + sec;
+                recordStage.attr(this.result, "clear");
                 this.vsTimeRemains[side][stage] = seconds;
             } else {
+                recordStage.attr(this.result, "");
                 this.vsTimeRemains[side][stage] = null;
                 return;
             }
         } else {//TKO 선택
             minInput.val("");
             secInput.val("");
+            recordStage.attr(this.result, "tko");
             this.vsTimeRemains[side][stage] = tkoCausedBy;
         }
 
