@@ -3165,6 +3165,7 @@ let sideMaster = {
         let cause = parseInt(self.attr(sideMaster.tko));
 
         sideMaster.releaseVersusRecordBoard(side, stage, null, cause);
+        sideMaster.releaseVersusSuperiorityGraph(stage);
     },
 
     releaseVersusRecordBoard: function(side, stage, isMin, tkoCausedBy) {
