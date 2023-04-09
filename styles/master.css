@@ -396,6 +396,8 @@ body.dark {
 body.dark::-webkit-scrollbar-thumb:hover { background: #AAAC; }
 body.dark::-webkit-scrollbar-thumb:active { background: #CCCE; }
 
+body.hideCursor * { cursor: none !important; }
+
 body > div { z-index: 1; }
 
 body .textRed { color: rgb(var(--color-text-for-red)); }

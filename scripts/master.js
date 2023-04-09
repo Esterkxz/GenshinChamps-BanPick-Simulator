@@ -470,6 +470,8 @@ let sequenceMaster = {
 
         if (controllerMaster.mainActionButton.is(":focus")) controllerMaster.mainActionButton.blur();
 
+        setTimeout(function() { hideCursorWholeScreen(); }, 800);
+
         this.sequenceTitleHolder.attr(this.shift, "1");
         this.sequenceBlock.attr(this.hide, "1");
         poolMaster.poolBlock.attr(this.hide, "1");
@@ -3131,15 +3133,17 @@ let sideMaster = {
         this.versusRecordBoard.attr(this.show, "1");
         setTimeout(function() {
             if (sideMaster.versusRecordBoard.attr(sideMaster.show) === "1") sideMaster.versusRecordBoard.attr(sideMaster.show, "2");
+
+            setTimeout(function() { showCursorWholeScreen(); }, 500);
         }, 10);
-
-
     },
 
     hideVersusRecordBoard: function() {
         $("div#versus_entry_area div.versus_divider").attr("data-wide", "0");
 
         this.versusRecordBoard.attr(this.show, "0");
+
+        showCursorWholeScreen();
     },
 
     onVersusInputRemains: function(e) {
@@ -5368,6 +5372,20 @@ function onChangedStep() {
         if (step < 0 || step >= rules.sequence.length) poolMaster.stopRollRandomCursor();
         latestStepSide = cur;
     }
+}
+
+function hideCursorWholeScreen() {
+    let body = $(document.body);
+    body.addClass("hideCursor");
+    body.on("mousemove", function(e) {
+        showCursorWholeScreen();
+    });
+}
+
+function showCursorWholeScreen() {
+    let body = $(document.body);
+    body.removeClass("hideCursor");
+    body.off("mousemove");
 }
 
 
