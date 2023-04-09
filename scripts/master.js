@@ -3315,7 +3315,10 @@ let sideMaster = {
                 } else {
                     if (!isMin) {
                         if (side == "blue") {
-                            if (stage < 3) {
+                            if (sideMaster.vsTimeRemains["red"][stage] == null) {
+                                sideMaster.redInputRemains.filter(".min.stage" + stage).focus();
+                                return false;
+                            } else if (stage < 3) {
                                 sideMaster.redInputRemains.filter(".min.stage" + (stage + 1)).focus();
                                 e.preventDefault();
                                 return false;
@@ -3336,6 +3339,7 @@ let sideMaster = {
                     else target = sideMaster.blueInputRemains.filter(".sec.stage" + stage);
                 } else {//초 입력
                     if (side == "red") target = sideMaster.blueInputRemains.filter(".min.stage" + stage);
+                    else if (sideMaster.vsTimeRemains["red"][stage] == null) target = sideMaster.redInputRemains.filter(".min.stage" + stage);
                     else if (stage < 3) target = sideMaster.redInputRemains.filter(".min.stage" + (stage + 1));
                     else self.blur();
                 }
