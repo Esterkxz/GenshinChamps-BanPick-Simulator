@@ -1942,6 +1942,7 @@ let sideMaster = {
 
         this.initBanWeapons();
 
+        this.initVersusRecordBoard();
         this.hideVersusRecordBoard();
 
         
