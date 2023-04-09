@@ -3157,7 +3157,7 @@ let sideMaster = {
         let stage = parseInt(self.closest(sideMaster.side_record_stage).attr(sideMaster.stage));
         let isMin = self.hasClass("min");
 
-        sideMaster.releaseVersusSuperiorityGraph(stage);
+        sideMaster.releaseVersusSuperiorityGraph(stage, side);
     },
 
     onClickTkoButton: function(e) {
@@ -3167,7 +3167,7 @@ let sideMaster = {
         let cause = parseInt(self.attr(sideMaster.tko));
 
         sideMaster.releaseVersusRecordBoard(side, stage, null, cause);
-        sideMaster.releaseVersusSuperiorityGraph(stage);
+        sideMaster.releaseVersusSuperiorityGraph(stage, side);
     },
 
     releaseVersusRecordBoard: function(side, stage, isMin, tkoCausedBy) {
@@ -3222,7 +3222,7 @@ let sideMaster = {
         }
 
         this.releaseVersusTimeAttackDisplay(stage, side);
-        if (this.progressPanel[stage].attr(this.show) == "1") this.releaseVersusSuperiorityGraph(stage);
+        if (this.progressPanel[stage].attr(this.show) == "1") this.releaseVersusSuperiorityGraph(stage, side);
     },
 
     releaseVersusTimeAttackDisplay: function(stage, side) {
@@ -3342,15 +3342,15 @@ let sideMaster = {
                 if (target != null) {
                     target.focus();
                     e.preventDefault();
-                    //sideMaster.releaseVersusSuperiorityGraph(stage);
+                    //sideMaster.releaseVersusSuperiorityGraph(stage, side);
                     return false;
                 }
-                sideMaster.releaseVersusSuperiorityGraph(stage);
+                sideMaster.releaseVersusSuperiorityGraph(stage, side);
                 break;
         }
     },
 
-    releaseVersusSuperiorityGraph: function(stage) {
+    releaseVersusSuperiorityGraph: function(stage, side) {
         if (stage == null || isNaN(stage) || stage < 0) return;
         stage = parseInt(stage);
 
@@ -3359,41 +3359,74 @@ let sideMaster = {
 
         if (redRemains == null || blueRemains == null) return;
 
-        var isRedTko = false;
-        var isBlueTko = false;
-        if (redRemains < 0) {
-            isRedTko = true;
-            redRemains = (((redRemains * -1) - 1) % 2) + 1;
-        }
-        if (blueRemains < 0) {
-            isBlueTko = true;
-            blueRemains = (((blueRemains * -1) - 1) % 2) + 1;
-        }
-        let isTko = isRedTko || isBlueTko;
-        let isDoubleTko = isRedTko && isBlueTko;
-
-        if (redRemains < 1 || blueRemains < 1) return;
-        
         if (this.progressPanel[stage].attr(this.show) != "1") {
             this.progressPanel[stage].attr(this.show, "1");
-            setTimeout(function() { sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains, isTko); }, 1000);
-        } else this.updateVersusSuperiorityGraph(stage, redRemains, blueRemains, isTko);
+            setTimeout(function() { sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains); }, 1000);
+        } else this.updateVersusSuperiorityGraph(stage, redRemains, blueRemains, side);
 
         if (stage > 0) this.checkUpdateVersusResultGraph();
     },
 
-    updateVersusSuperiorityGraph: function(stage, redRemains, blueRemains, isTko = false) {
+    updateVersusSuperiorityGraph: function(stage, redRemains, blueRemains, side) {
         let sup = this.stageSuperiority[stage];
         let redGraph = sup.find(this.graph + ".red");
         let blueGraph = sup.find(this.graph + ".blue");
         let timeDiffer = this.stageTimeDiffer[stage];
-        let differ = Math.min(redRemains, blueRemains) - Math.max(redRemains, blueRemains);
+        let minimum = Math.min(redRemains, blueRemains);
+        let differ = minimum - Math.max(redRemains, blueRemains);
+        let lowcut = Math.max(3, minimum - 3);
 
-        redGraph.css("flex-grow", "" + redRemains);
-        blueGraph.css("flex-grow", "" + blueRemains);
-        redGraph.attr(this.superior, redRemains > blueRemains ? "1" : "0")
-        blueGraph.attr(this.superior, redRemains < blueRemains ? "1" : "0")
-        timeDiffer.text(isTko && stage > 0 ? "TKO" : differ + "s");
+        if (stage > 0) {
+            var isRedTko = false;
+            var isBlueTko = false;
+            var redGrows;
+            var blueGrows;
+            if (redRemains < 0) {
+                isRedTko = true;
+                redGrows = (((redRemains * -1) - 1) % 2) + 1;
+            } else redGrows = redRemains - minimum + 3;
+            if (blueRemains < 0) {
+                isBlueTko = true;
+                blueGrows = (((blueRemains * -1) - 1) % 2) + 1;
+            } else blueGrows = blueRemains - minimum + 3;
+            let isTko = isRedTko || isBlueTko;
+            let isDoubleTko = isRedTko && isBlueTko;
+
+            let redWins = redGrows > blueGrows;
+            let blueWins = redGrows < blueGrows;
+    
+            if (side != null) {//업데이트
+                switch (side) {
+                    case "red":
+                        redGraph.css("flex-grow", "" + redGrows);
+                        break;
+
+                    case "blue":
+                        blueGraph.css("flex-grow", "" + blueGrows);
+                        break;
+                }
+            } else if (isDoubleTko) {//
+                if (redWins) blueGraph.css("flex-grow", "2");
+                if (blueWins) redGraph.css("flex-grow", "2");
+            } else {
+                if (redWins) redGraph.css("flex-grow", "" + redGrows);
+                if (blueWins) blueGraph.css("flex-grow", "" + blueGrows);
+            }
+            redGraph.attr(this.superior, redWins ? "1" : "0")
+            blueGraph.attr(this.superior, blueWins ? "1" : "0")
+            timeDiffer.text(isTko ? "TKO" : differ + "s");
+        } else {
+            let redWins = redRemains > blueRemains;
+            let blueWins = redRemains < blueRemains;
+            let redTotal = "" + redRemains;
+            let blueTotal = "" + blueRemains;
+
+            if (redGraph.css("flex-grow") != redTotal) redGraph.css("flex-grow", redTotal);
+            if (blueGraph.css("flex-grow") != blueTotal) blueGraph.css("flex-grow", blueTotal);
+            redGraph.attr(this.superior, redWins ? "1" : "0")
+            blueGraph.attr(this.superior, blueWins ? "1" : "0")
+            timeDiffer.text(differ + "s");
+        }
     },
 
     checkUpdateVersusResultGraph: function() {
@@ -3424,7 +3457,7 @@ let sideMaster = {
         this.vsTimeRemains["blue"][0] = blueRemains;
 
         if (isComplete || isTkoEnd || isDoubleTko) this.releaseVersusSuperiorityGraph(0);
-        else this.updateVersusSuperiorityGraph(0, redRemains, blueRemains, isTko);
+        else this.updateVersusSuperiorityGraph(0, redRemains, blueRemains);
     },
 
     eoo: eoo

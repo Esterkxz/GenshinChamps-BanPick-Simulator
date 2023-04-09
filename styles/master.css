@@ -1239,7 +1239,7 @@ div#versus_record_board div#versus_progress_panel div.progress_panel div.superio
 div#versus_record_board div#versus_progress_panel div.progress_panel div.superiority div.graph:is(.red, .blue) { flex-grow: 0; background-color: rgba(var(--signature-color) / 80%); }
 div#versus_record_board div#versus_progress_panel div.progress_panel div.superiority div.graph.empty { flex-grow: 1; }
 div#versus_record_board div#versus_progress_panel div.progress_panel:is([data-show="1"], [data-show="2"]) div.superiority div.graph.empty { flex-grow: 0; }
-div#versus_record_board div#versus_progress_panel div.progress_panel[data-show="1"] div.superiority div.graph:is(.red, .blue) { flex-grow: 1; }
+div#versus_record_board div#versus_progress_panel div.progress_panel[data-show="1"] div.superiority div.graph:is(.red, .blue) { flex-grow: 3; }
 div#versus_record_board div#versus_progress_panel div.progress_panel[data-show="1"] div.superiority div.graph[data-superior="0"]:is(.red, .blue) { background-color: rgba(var(--signature-color) / 50%); }
 div#versus_record_board div#versus_progress_panel div.progress_panel[data-show="1"] div.superiority div.graph[data-superior="1"]:is(.red, .blue) { background-color: rgba(var(--signature-color-highlighter) / 95%); box-shadow: rgba(var(--signature-color-lighter) / 100%); }
 div#versus_record_board div#versus_progress_panel div.progress_panel[data-show="1"] div.superiority div.graph.red[data-superior="1"] { box-shadow: inset 6px 6px 6px 5px #FFF6, 8px 0 16px 4px rgba(var(--signature-color-lighter) / 100%); }
