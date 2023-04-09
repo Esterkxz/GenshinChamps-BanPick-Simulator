@@ -3108,6 +3108,7 @@ let sideMaster = {
     //versus record
 
     initVersusRecordBoard: function() {
+        $("div#versus_entry_area").attr("data-wins", "");
         this.eachSideRecordStage.attr(this.result, "");
         this.redSidePlayerName.text("RED");
         this.blueSidePlayerName.text("BLUE");
@@ -3446,16 +3447,23 @@ let sideMaster = {
         let redRemains3 = this.vsTimeRemains["red"][3];
         let blueRemains3 = this.vsTimeRemains["blue"][3];
 
+        let isRedTko1 = redRemains1 < 0;
+        let isRedTko2 = redRemains2 < 0;
+        let isRedTko3 = redRemains3 < 0;
+        let isBlueTko1 = blueRemains1 < 0;
+        let isBlueTko2 = blueRemains2 < 0;
+        let isBlueTko3 = blueRemains3 < 0;
+
         let isStage1Complete = redRemains1 != null && blueRemains1 != null;
         let isStage2Complete = redRemains2 != null && blueRemains2 != null;
         let isStage3Complete = redRemains3 != null && blueRemains3 != null;
         let isComplete = isStage1Complete && isStage2Complete && isStage3Complete;
-        let isRedTko = redRemains1 < 0 || redRemains2 < 0 || redRemains3 < 0;
-        let isBlueTko = blueRemains1 < 0 || blueRemains2 < 0 || blueRemains3 < 0;
+        let isRedTko = isRedTko1 || isRedTko2 || isRedTko3;
+        let isBlueTko = isBlueTko1 || isBlueTko2 || isBlueTko3;
         let isTko = isRedTko || isBlueTko;
-        let isStage1Tko = redRemains1 < 0 || blueRemains1 < 0;
-        let isStage2Tko = redRemains2 < 0 || blueRemains2 < 0;
-        let isStage3Tko = redRemains3 < 0 || blueRemains3 < 0;
+        let isStage1Tko = isRedTko1 || isBlueTko1;
+        let isStage2Tko = isRedTko2 || isBlueTko2;
+        let isStage3Tko = isRedTko3 || isBlueTko3;
         let isTkoEnd = (isStage1Tko && isStage1Complete) || (isStage2Tko && isStage2Complete) || (isStage3Tko && isStage3Complete);
         let isDoubleTko = isRedTko && isBlueTko;
 
@@ -3465,8 +3473,83 @@ let sideMaster = {
         this.vsTimeRemains["red"][0] = redRemains;
         this.vsTimeRemains["blue"][0] = blueRemains;
 
-        if (isComplete || isTkoEnd || isDoubleTko) this.releaseVersusSuperiorityGraph(0);
-        else this.updateVersusSuperiorityGraph(0, redRemains, blueRemains);
+        if (isComplete || isTkoEnd || isDoubleTko) {
+            var redWins = false;
+            var blueWins = false;
+            if (isTko) {
+                let stage1Tko = isRedTko1 && isBlueTko1 ? "both" : (isRedTko1 ? "red" : (isBlueTko1 ? "blue" : "neither"));
+                let stage2Tko = isRedTko2 && isBlueTko2 ? "both" : (isRedTko2 ? "red" : (isBlueTko2 ? "blue" : "neither"));
+                let stage3Tko = isRedTko3 && isBlueTko3 ? "both" : (isRedTko3 ? "red" : (isBlueTko3 ? "blue" : "neither"));
+                let redTkoHalf1 = (((redRemains1 * -1) - 1) % 2) + 1;
+                let blueTkoHalf1 = (((blueRemains1 * -1) - 1) % 2) + 1;
+                let redTkoHalf2 = (((redRemains2 * -1) - 1) % 2) + 1;
+                let blueTkoHalf2 = (((blueRemains2 * -1) - 1) % 2) + 1;
+                let redTkoHalf3 = (((redRemains3 * -1) - 1) % 2) + 1;
+                let blueTkoHalf3 = (((blueRemains3 * -1) - 1) % 2) + 1;
+
+                if (isStage1Tko) {
+                    switch (stage1Tko) {
+                        case "red":
+                            blueWins = true;
+                            break;
+
+                        case "blue":
+                            redWins = true;
+                            break;
+
+                        case "both":
+                            if (redTkoHalf1 > blueTkoHalf1) redWins = true;
+                            else blueWins = true;
+                            break;
+                    }
+                } else if (isStage2Tko) {
+                    switch (stage2Tko) {
+                        case "red":
+                            blueWins = true;
+                            break;
+
+                        case "blue":
+                            redWins = true;
+                            break;
+
+                        case "both":
+                            if (redTkoHalf2 > blueTkoHalf2) redWins = true;
+                            else blueWins = true;
+                            break;
+                    }
+                } else if (isStage3Tko) {
+                    switch (stage3Tko) {
+                        case "red":
+                            blueWins = true;
+                            break;
+
+                        case "blue":
+                            redWins = true;
+                            break;
+
+                        case "both":
+                            if (redTkoHalf3 > blueTkoHalf3) redWins = true;
+                            else blueWins = true;
+                            break;
+                    }
+                }
+            } else {
+                redWins = redRemains > blueRemains;
+                blueWins = redRemains < blueRemains;
+            }
+            if (redWins || blueWins) {
+                let wins = redWins ? "red" : "blue";
+                if (this.progressPanel[0].attr(this.show) != "1") {
+                    setTimeout(function() { $("div#versus_entry_area").attr("data-wins", wins); }, 1000);
+                } else $("div#versus_entry_area").attr("data-wins", wins);
+
+                sequenceMaster.setSequenceTitle((wins == "red" ? redName : blueName) + (isTko ? " TKO" : "") + " 승");
+            } else {
+                sequenceMaster.setSequenceTitle(isTko ? "Double TKO" : "무승부");
+            }
+
+            this.releaseVersusSuperiorityGraph(0);
+        } else this.updateVersusSuperiorityGraph(0, redRemains, blueRemains);
     },
 
     eoo: eoo
