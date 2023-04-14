@@ -317,7 +317,7 @@ let sequenceMaster = {
     },
     
     onPick: function(id, item) {
-        if (item != null && item.attr(poolMaster.picked) != "") return;
+        if (item != null && item.attr(poolMaster.banned) != "") return;
         if (step < 0) {
             this.setSequenceTitle(lang.text.readyForStart, 3000);
             return;
@@ -330,10 +330,13 @@ let sequenceMaster = {
         let isCharacterPick = seq.pick.indexOf("weapon") < 0;
         let isProfferPick = seq.pick == "proffer";
         let counterSide = seq.side == "red" ? "blue" : "red";
+        let pickingSide = isProfferPick ? counterSide : seq.side;
+        let pickingCounter = isProfferPick ? seq.side : counterSide;
 
         if (isCharacterPick) {//캐릭터 픽
             //if (item.weapon == null) return;
             if (id.indexOf("_") > -1) return;
+            if (item.attr(poolMaster.picked + "-" + (seq.pick != "ban" ? pickingSide : pickingCounter)) == "1") return;
             if (id == "treveler" && item.attr(poolMaster.treveler) == "1") id += "M";
         } else {//무기 픽
             //if (item.serise == null) return;
@@ -354,7 +357,7 @@ let sequenceMaster = {
 
             case "entry":
             case "proffer":
-                extra = sideMaster.onPickedEntry(id, isProfferPick ? counterSide : seq.side);
+                extra = sideMaster.onPickedEntry(id, pickingSide);
                 pickNote = lang.text.pickedEntry;
                 break;
 
@@ -367,10 +370,21 @@ let sequenceMaster = {
 
         //update pick pool
         if (isCharacterPick) {
-            item.attr(poolMaster.pick_side, isProfferPick ? counterSide : seq.side);
+            item.attr(poolMaster.pick_side, pickingSide);
             item.attr(poolMaster.pick_type, seq.pick);
-            item.attr(poolMaster.pick_note, pickNote);
             item.attr(poolMaster.picked, "1");
+            if (seq.pick == "ban") {
+                item.attr(poolMaster.banned, "1");
+                item.attr(poolMaster.pick_note, pickNote);
+            } else switch (pickingSide) {
+                case "red":
+                    item.attr(poolMaster.picked_red, "1");
+                    break;
+                    
+                case "blue":
+                    item.attr(poolMaster.picked_blue, "1");
+                    break;
+            }
             setTimeout(function() {
                 item.attr(poolMaster.picked, "2");
             }, 600);
@@ -414,7 +428,10 @@ let sequenceMaster = {
             let ref = last.stepReference;
             let prev = stepHistory[stepHistory.length-1];
             let isCharacterPick = ref.pick.indexOf("weapon") < 0;
-
+            let isProfferPick = ref.pick == "proffer";
+            let counterSide = ref.side == "red" ? "blue" : "red";
+            let pickingSide = isProfferPick ? counterSide : ref.side;
+    
             if (ref != seq) {
                 latestStep = step;
                 step--;
@@ -426,26 +443,39 @@ let sequenceMaster = {
             //픽/밴 엔트리 캐릭터 검색 복원 구현
             switch (ref.pick) {
                 case "ban":
-                    sideMaster.onUndoPickBan(picked.id);
+                    sideMaster.onUndoPickBan(picked.id, pickingSide);
                     break;
 
                 case "entry":
                 case "proffer":
-                    sideMaster.onUndoPickEntry(picked.id);
+                    sideMaster.onUndoPickEntry(picked.id, pickingSide);
                     break;
                     
                 case "ban weapon":
-                    sideMaster.onUndoPickBanWeapon(picked.id);
+                    sideMaster.onUndoPickBanWeapon(picked.id, pickingSide);
                     break;
             }
 
             //코스트 테이블 캐릭터 검색 복원
             if (isCharacterPick) {
                 let item = poolMaster.eachCostCharacters.filter('[' + poolMaster.id  + '="' + picked.id + '"]');
-                item.attr(poolMaster.pick_side, "");
-                item.attr(poolMaster.pick_type, "");
-                item.attr(poolMaster.pick_note, null);
-                item.attr(poolMaster.picked, "");
+                if (ref.pick == "ban") {
+                    item.attr(poolMaster.banned, "");
+                    item.attr(poolMaster.pick_side, "");
+                    item.attr(poolMaster.pick_type, "");
+                    item.attr(poolMaster.pick_note, null);
+                } else switch (pickingSide) {
+                    case "red":
+                        item.attr(poolMaster.picked_red, "");
+                        break;
+                        
+                    case "blue":
+                        item.attr(poolMaster.picked_blue, "");
+                        break;
+                }
+                if (item.attr(poolMaster.banned) == "" && item.attr(poolMaster.picked_red) == "" && item.attr(poolMaster.picked_blue) == "") {
+                    item.attr(poolMaster.picked, "");
+                }
             }
         }
 
@@ -1015,6 +1045,9 @@ let poolMaster = {
     pick_type: "data-pick-type",
     pick_note: "data-pick-note",
     picked: "data-picked",
+    picked_red: "data-picked-red",
+    picked_blue: "data-picked-blue",
+    banned: "data-banned",
     view: "data-view",
     cursor: "data-cursor",
 
@@ -1281,6 +1314,9 @@ let poolMaster = {
             item.setAttribute(this.pick_side, "");
             item.setAttribute(this.pick_type, "");
             item.setAttribute(this.picked, "");
+            item.setAttribute(this.picked_red, "");
+            item.setAttribute(this.picked_blue, "");
+            item.setAttribute(this.banned, "");
         }
         item.append(img);
         if (info != null && info.id == "treveler") {
@@ -1294,6 +1330,14 @@ let poolMaster = {
             element.setAttribute("src", charElement == null ? tpGif : getPathR("images", "element_icon", charElement));
         }
         item.prepend(element);
+        let pickCardRed = document.createElement("span");
+        pickCardRed.setAttribute("class", "pick_card red");
+        pickCardRed.innerHTML = lang.text.pickedEntryShort;
+        item.append(pickCardRed);
+        let pickCardBlue = document.createElement("span");
+        pickCardBlue.setAttribute("class", "pick_card blue");
+        pickCardBlue.innerHTML = lang.text.pickedEntryShort;
+        item.append(pickCardBlue);
         let nametag = document.createElement("span");
         nametag.setAttribute("class", "name_tag");
         if (info != null) {
@@ -1327,6 +1371,9 @@ let poolMaster = {
         items.attr(this.pick_side, "");
         items.attr(this.pick_type, "");
         items.attr(this.picked, "");
+        items.attr(this.picked_red, "");
+        items.attr(this.picked_blue, "");
+        items.attr(this.banned, "");
         
         this.toggleTrevelerAlter(0);
     },
@@ -1352,11 +1399,13 @@ let poolMaster = {
         let pick = seq.pick
         let side = seq.side;
         item = $(item);
-        let picked = item.attr(this.picked);
-        let isPicked = picked != null && picked != "";
         let isProfferPick = pick == "proffer";
         let isEntryPick = pick == "entry" || isProfferPick;
         let counterSide = side == "red" ? "blue" : "red";
+        let pickingSide = isProfferPick ? counterSide : seq.side
+        let picked = item.attr(this.picked + "-" + pickingSide);//item.attr(this.picked);
+        let isPicked = picked != null && picked != "";
+        let isBanned = item.attr(this.banned);
 
         playSound(isEntryPick ? "떻" : "뚁");
 
@@ -1364,7 +1413,7 @@ let poolMaster = {
 
         this.displayCharacterName(pick, side, item.attr(this.name));
 
-        if (isEntryPick && !isPicked) this.insertSideSelectionView(item, isProfferPick ? counterSide : side);
+        if (isEntryPick && !isBanned && !isPicked) this.insertSideSelectionView(item, isProfferPick ? counterSide : side);
     },
 
     setCursorOutCharacter: function(item) {
@@ -1397,7 +1446,10 @@ let poolMaster = {
     },
 
     randomCursorRoller: function() {
+        let seq = rules.sequence[step];
+        let side = seq.type == "proffer" ? (seq.side == "red" ? "blue" : "red") : seq.side;
         let items = poolMaster.eachCostCharacters.filter('[' + poolMaster.picked + '=""]:not([' + poolMaster.cursor + '="1"])');
+        //let items = poolMaster.eachCostCharacters.filter('[' + poolMaster.banned + '=""][' + poolMaster.picked + '-' + side + '=""]:not([' + poolMaster.cursor + '="1"])');
 
         let next = Math.floor(Math.random() * items.length);
 
@@ -2387,34 +2439,32 @@ let sideMaster = {
         else return buildStepHistoryExtra();
     },
 
-    onUndoPickEntry: function(id) {
-        for (side in this.entryPicked) {
-            let sidePicked = this.entryPicked[side];
-            
-            for (i = sidePicked.length-1; i>-1; i--) {
-                let picked = sidePicked[i];
+    onUndoPickEntry: function(id, side) {
+        let sidePicked = this.entryPicked[side];
+        
+        for (i = sidePicked.length-1; i>-1; i--) {
+            let picked = sidePicked[i];
 
-                if (picked.id == id) {
-                    sidePicked.pop();
+            if (picked.id == id) {
+                sidePicked.pop();
 
-                    var slot;
-                    switch (side) {
-                        case "red":
-                            slot = $(this.redEntries[i]);
-                            break;
+                var slot;
+                switch (side) {
+                    case "red":
+                        slot = $(this.redEntries[i]);
+                        break;
 
-                        case "blue":
-                            slot = $(this.blueEntries[i]);
-                            break;
-                    }
-
-                    this.setEntryContent(slot);
-                    this.setEntryAvailable(slot[0]);
-                    slot.attr(this.id, "");
-                    slot.attr(this.rarity, "");
-                    slot.attr(this.enter, "");
-                    break;
+                    case "blue":
+                        slot = $(this.blueEntries[i]);
+                        break;
                 }
+
+                this.setEntryContent(slot);
+                this.setEntryAvailable(slot[0]);
+                slot.attr(this.id, "");
+                slot.attr(this.rarity, "");
+                slot.attr(this.enter, "");
+                break;
             }
         }
     },
@@ -2787,30 +2837,28 @@ let sideMaster = {
         this.setBanEntry(slot, true, info);
     },
 
-    onUndoPickBan: function(id) {
-        for (side in this.banPicked) {
-            let sidePicked = this.banPicked[side];
-            
-            for (i = sidePicked.length-1; i>-1; i--) {
-                let picked = sidePicked[i];
+    onUndoPickBan: function(id, side) {
+        let sidePicked = this.banPicked[side];
+        
+        for (i = sidePicked.length-1; i>-1; i--) {
+            let picked = sidePicked[i];
 
-                if (picked.id == id) {
-                    sidePicked.pop();
+            if (picked.id == id) {
+                sidePicked.pop();
 
-                    var slot;
-                    switch (side) {
-                        case "red":
-                            slot = $(this.redBanEntries[i]);
-                            break;
+                var slot;
+                switch (side) {
+                    case "red":
+                        slot = $(this.redBanEntries[i]);
+                        break;
 
-                        case "blue":
-                            slot = $(this.blueBanEntries[i]);
-                            break;
-                    }
-
-                    this.setBanEntry(slot);
-                    break;
+                    case "blue":
+                        slot = $(this.blueBanEntries[i]);
+                        break;
                 }
+
+                this.setBanEntry(slot);
+                break;
             }
         }
     },
@@ -2925,30 +2973,28 @@ let sideMaster = {
         this.setBanWeaponEntry(slot, info);
     },
 
-    onUndoPickBanWeapon: function(id) {
-        for (side in this.weaponBanPicked) {
-            let sidePicked = this.weaponBanPicked[side];
-            
-            for (i = sidePicked.length-1; i>-1; i--) {
-                let picked = sidePicked[i];
+    onUndoPickBanWeapon: function(id, side) {
+        let sidePicked = this.weaponBanPicked[side];
+        
+        for (i = sidePicked.length-1; i>-1; i--) {
+            let picked = sidePicked[i];
 
-                if (picked.id == id) {
-                    sidePicked.pop();
+            if (picked.id == id) {
+                sidePicked.pop();
 
-                    var slot;
-                    switch (side) {
-                        case "red":
-                            slot = $(this.redWeaponBanEntries[i]);
-                            break;
+                var slot;
+                switch (side) {
+                    case "red":
+                        slot = $(this.redWeaponBanEntries[i]);
+                        break;
 
-                        case "blue":
-                            slot = $(this.blueWeaponBanEntries[i]);
-                            break;
-                    }
-
-                    this.setBanWeaponEntry(slot);
-                    break;
+                    case "blue":
+                        slot = $(this.blueWeaponBanEntries[i]);
+                        break;
                 }
+
+                this.setBanWeaponEntry(slot);
+                break;
             }
         }
     },
@@ -3138,13 +3184,13 @@ let sideMaster = {
 
             setTimeout(function() {
                 showCursorWholeScreen();
-                $(document.body).attr("data-side-area", "1");
+                screenMaster.showSideArea();
             }, 500);
         }, 10);
     },
 
     hideVersusRecordBoard: function() {
-        $(document.body).attr("data-side-area", "0");
+        screenMaster.hideSideArea();
         $("div#versus_entry_area div.versus_divider").attr("data-wide", "0");
 
         this.versusRecordBoard.attr(this.show, "0");
@@ -5373,6 +5419,50 @@ let timerMaster = {
 }
 
 
+let screenMaster = {
+
+    side_area: "data-side-area",
+
+
+    side_area_toggle: "div#side_area_toggle",
+
+    opened: "data-opened",
+
+
+
+    body: null,
+
+    sideAreaToggle: null,
+
+
+    init: function() {
+
+        this.body = $(document.body);
+
+        this.sideAreaToggle = $(this.side_area_toggle);
+
+        
+
+        this.sideAreaToggle.click(function(e) {
+            if (screenMaster.body.attr(screenMaster.side_area) == "1") screenMaster.hideSideArea();
+            else screenMaster.showSideArea();
+        });
+    },
+
+    showSideArea: function() {
+        this.body.attr(this.side_area, "1");
+        this.sideAreaToggle.attr(this.opened, "1");
+    },
+
+    hideSideArea: function() {
+        this.body.attr(this.side_area, "0");
+        this.sideAreaToggle.attr(this.opened, "0");
+    },
+
+    eoo
+}
+
+
 //reset pick progress
 function initializeStep() {
     step = -1;
@@ -5717,6 +5807,9 @@ $(document).ready(function() {
 
     //initializing//
     //Initialize section objects & Generate variable things//
+
+    //screen
+    screenMaster.init();
 
     //rules & rule alters
     rulesMaster.init();

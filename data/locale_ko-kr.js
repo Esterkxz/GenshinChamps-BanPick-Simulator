@@ -20,6 +20,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
 
         "pickedBan": "밴",
         "pickedEntry": "픽",
+        "pickedEntryShort": "픽",
 
         "pickCursorBan": "Pick",
         "pickCursorEntry": "Jail",
