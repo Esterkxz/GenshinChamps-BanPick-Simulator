@@ -381,7 +381,7 @@ let sequenceMaster = {
             case "entry":
             case "proffer":
                 if (usingBanCard) {
-                    extra = sideMaster.onPickedBanCardBan(id);
+                    extra = sideMaster.onPickedBanCardBan(id, pickingSide);
                     pickNote = "[" + lang.text.pickedBan + "]";
                 } else {
                     extra = sideMaster.onPickedEntry(id, pickingSide);
@@ -479,7 +479,8 @@ let sequenceMaster = {
 
                 case "entry":
                 case "proffer":
-                    sideMaster.onUndoPickEntry(picked.id, pickingSide);
+                    if (last.isBanCardBan) sideMaster.onUndoBanCardBan(picked.id, pickingSide);
+                    else sideMaster.onUndoPickEntry(picked.id, pickingSide);
                     break;
                     
                 case "ban weapon":
@@ -3136,13 +3137,13 @@ let sideMaster = {
         switch(side) {
             case "red":
                 card = this.redEntries.find(this.ban_card_holder + '[' + this.step + '="' + step + '"]').find(this.ban_card);
-                card = $(card[Math.min(card.length - 1, card.length - checkRes.banCardRem)]);
+                card = card[Math.min(card.length - 1, card.length - checkRes.banCardRem)];
                 this.banCardUsed["red"].push(info);
                 break;
 
             case "blue":
                 card = this.blueEntries.find(this.ban_card_holder + '[' + this.step + '="' + step + '"]').find(this.ban_card);
-                card = $(card[Math.min(card.length - 1, card.length - checkRes.banCardRem)]);
+                card = card[Math.min(card.length - 1, card.length - checkRes.banCardRem)];
                 this.banCardUsed["blue"].push(info);
                 break;
         }
@@ -3152,6 +3153,35 @@ let sideMaster = {
         this.setBanCardPlace(card, true, info);
 
         return buildStepHistoryExtraForUsingBanCard();
+    },
+
+    onUndoBanCardBan: function(id, side) {
+        let sidePicked = this.banCardUsed[side];
+        let checkRes = sequenceMaster.checkCurrentStepComplition();
+        
+        for (i = sidePicked.length-1; i>-1; i--) {
+            let picked = sidePicked[i];
+
+            if (picked.id == id) {
+                sidePicked.pop();
+
+                var slot;
+                switch (side) {
+                    case "red":
+                        card = this.redEntries.find(this.ban_card_holder + '[' + this.step + '="' + step + '"]').find(this.ban_card);
+                        card = card[Math.min(card.length - 1, card.length - checkRes.banCardRem)];
+                        break;
+
+                    case "blue":
+                        card = this.blueEntries.find(this.ban_card_holder + '[' + this.step + '="' + step + '"]').find(this.ban_card);
+                        card = card[Math.min(card.length - 1, card.length - checkRes.banCardRem)];
+                        break;
+                }
+
+                this.setBanCardPlace(card);
+                break;
+            }
+        }
     },
 
     setBanCardPlace: function(card, pick, info) {
