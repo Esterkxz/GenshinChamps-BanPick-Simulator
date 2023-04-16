@@ -491,7 +491,7 @@ let sequenceMaster = {
             //코스트 테이블 캐릭터 검색 복원
             if (isCharacterPick) {
                 let item = poolMaster.eachCharacters.filter('[' + poolMaster.id  + '="' + picked.id + '"]');
-                if (ref.pick == "ban") {
+                if (ref.pick == "ban" || (last.isBanCardBan)) {
                     item.attr(poolMaster.banned, "");
                     item.attr(poolMaster.pick_side, "");
                     item.attr(poolMaster.pick_type, "");
