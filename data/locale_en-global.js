@@ -17,10 +17,13 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "pickEntry": "Party ENTRY",
         "pickProffer": "PROFFER Entry",
         "pickBanWeapon": "BAN Weapons",
+        "pickUseBanCard": "target for use BAN CARD",
 
         "pickedBan": "BAN",
         "pickedEntry": "PICK",
         "pickedEntryShort": "P",
+        "banCardTitle": "BAN",
+        "banCardTitleShort": "B",
 
         "pickCursorBan": "Pick",
         "pickCursorEntry": "Jail",
@@ -29,6 +32,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "pickUnallowed": "Unallowed",
 
         "entryCostDesc": "Left click or Wheel up: Increase one additional cost\nRight click or Wheel down: Decrease one additional cost",
+        "entryBanCardDesc": "Hands with the Ban card",
 
         "btnStart": "START",
         "btnPass": "PASS",

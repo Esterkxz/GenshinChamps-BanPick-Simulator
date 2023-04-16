@@ -52,12 +52,22 @@ function buildStepHistory(seqReference, id = null, extra = buildStepHistoryExtra
         picked: id == null ? null : (seqReference.pick.indexOf("weapon") > -1 ? weaponsInfo.list.find(item => item.id == id) : charactersInfo.list[charactersInfo[id]]),
         c_constellations: extra.c_constellations,
         additionalCost: extra.addCost,
+        withBanCard: extra.banCard,
+        isBanCardBan: extra.usingBanCard,
         isPassed: function() { return this.picked == null }
     };
 }
 
-function buildStepHistoryExtra(contell = 0, add = 0) {
-    return { c_constellations: contell, addCost: add };
+function buildStepHistoryExtra(contell = 0, add = 0, usingBanCard = false, banCard) {
+    return { c_constellations: contell, addCost: add, usingBanCard: usingBanCard, banCard: banCard };
+}
+
+function buildStepHistoryExtraForBanCard(banCard, usingBanCard = false) {
+    return buildStepHistoryExtra(0, 0, usingBanCard, banCard);
+}
+
+function buildStepHistoryExtraForUsingBanCard() {
+    return buildStepHistoryExtraForBanCard(null, true);
 }
 
 //common static values
@@ -134,6 +144,8 @@ let sequenceMaster = {
 
     mainButton: null,
 
+
+    checkRes: null,
 
     rollingRandomPicks: null,
 
@@ -229,6 +241,7 @@ let sequenceMaster = {
     setSequenceTitleByCurrent: function(newStep = step) {
         let text = lang.text;
         let seq = rules.sequence[newStep];
+        let isBanCardUsingPhase = this.checkRes != null ? this.checkRes.banCardRem > 0 : false;
 
         var message = "";
 
@@ -242,7 +255,8 @@ let sequenceMaster = {
             let eClass = seq.side == "red" ? "textRed" : "textBlue";
             let tSide = seq.side == "red" ? redName : blueName;
             var tType = "?";
-            switch (seq.pick) {
+            if (isBanCardUsingPhase) tType = text.pickUseBanCard;
+            else switch (seq.pick) {
                 case "ban":
                     tType = text.pickBan;
                     break;
@@ -261,7 +275,8 @@ let sequenceMaster = {
                 case "ban":
                 case "entry":
                 case "proffer":
-                    if (seq.amount < 1) tAmount = text.amountFillCharacter
+                    if (isBanCardUsingPhase) tAmount = text.amountPickCharacter.replace("#AMOUNT", "" + this.checkRes.res[seq.side == "red" ?  "bccstr" : "bccstb"]);
+                    else if (seq.amount < 1) tAmount = text.amountFillCharacter
                     else tAmount = text.amountPickCharacter.replace("#AMOUNT", seq.amount)
                     break;
                 case "ban weapon":
@@ -316,7 +331,7 @@ let sequenceMaster = {
         this.releaseStepStateDisplay();
     },
     
-    onPick: function(id, item) {
+    onPick: function(id, item, usingBanCard = false) {
         if (item != null && item.attr(poolMaster.banned) != "") return;
         if (step < 0) {
             this.setSequenceTitle(lang.text.readyForStart, 3000);
@@ -332,18 +347,26 @@ let sequenceMaster = {
         let counterSide = seq.side == "red" ? "blue" : "red";
         let pickingSide = isProfferPick ? counterSide : seq.side;
         let pickingCounter = isProfferPick ? seq.side : counterSide;
+        let isTreveler = id == "treveler";
+        var treveler = null;
+        var banCard = false;
 
         if (isCharacterPick) {//캐릭터 픽
             //if (item.weapon == null) return;
             if (id.indexOf("_") > -1) return;
             if (item.attr(poolMaster.picked + "-" + (seq.pick != "ban" ? pickingSide : pickingCounter)) == "1") return;
-            if (id == "treveler" && item.attr(poolMaster.treveler) == "1") id += "M";
+            treveler = item.attr(poolMaster.treveler);
+            if (isTreveler && treveler == "1") id += "M";
+            banCard = rules.ban_card_accure[id];
         } else {//무기 픽
             //if (item.serise == null) return;
             if (id.indexOf("_") < 0) return;
         }
 
         playSound("픽", 0);
+
+        let res = this.checkCurrentStepComplition();
+        if (!usingBanCard && res.rem == 0 && res.banCardRem > 0) usingBanCard = true;
 
         var extra = buildStepHistoryExtra();
 
@@ -357,8 +380,13 @@ let sequenceMaster = {
 
             case "entry":
             case "proffer":
-                extra = sideMaster.onPickedEntry(id, pickingSide);
-                pickNote = lang.text.pickedEntry;
+                if (usingBanCard) {
+                    extra = sideMaster.onPickedBanCardBan(id);
+                    pickNote = "[" + lang.text.pickedBan + "]";
+                } else {
+                    extra = sideMaster.onPickedEntry(id, pickingSide);
+                    pickNote = lang.text.pickedEntry;
+                }
                 break;
 
             case "ban weapon":
@@ -370,10 +398,11 @@ let sequenceMaster = {
 
         //update pick pool
         if (isCharacterPick) {
+            if (isTreveler) item = poolMaster.eachCharacters.filter('[' + poolMaster.id + '="treveler"]');
             item.attr(poolMaster.pick_side, pickingSide);
             item.attr(poolMaster.pick_type, seq.pick);
             item.attr(poolMaster.picked, "1");
-            if (seq.pick == "ban") {
+            if (seq.pick == "ban" || usingBanCard) {
                 item.attr(poolMaster.banned, "1");
                 item.attr(poolMaster.pick_note, pickNote);
             } else switch (pickingSide) {
@@ -388,6 +417,8 @@ let sequenceMaster = {
             setTimeout(function() {
                 item.attr(poolMaster.picked, "2");
             }, 600);
+            
+            if (isTreveler) item.filter('[' + poolMaster.treveler + '="' + (treveler == "1" ? "0" : "1") + '"]').attr(poolMaster.picked, "2");
         }
         
         //add step history
@@ -458,7 +489,7 @@ let sequenceMaster = {
 
             //코스트 테이블 캐릭터 검색 복원
             if (isCharacterPick) {
-                let item = poolMaster.eachCostCharacters.filter('[' + poolMaster.id  + '="' + picked.id + '"]');
+                let item = poolMaster.eachCharacters.filter('[' + poolMaster.id  + '="' + picked.id + '"]');
                 if (ref.pick == "ban") {
                     item.attr(poolMaster.banned, "");
                     item.attr(poolMaster.pick_side, "");
@@ -668,10 +699,23 @@ let sequenceMaster = {
 
     checkUpdateCurrentStepComplition: function() {
         if (step < 0 || step >= rules.sequence.length) return;
+        let res = this.checkCurrentStepComplition();
+        this.checkRes = res;
+
+        if (res.rem == 0 && res.banCardRem == 0) {
+            latestStep = step;
+            step++;
+            return true;
+        } else return false;
+    },
+
+    checkCurrentStepComplition: function() {
+        if (step < 0 || step >= rules.sequence.length) return;
         let seq = rules.sequence[step];
         let res = this.checkHistoryProcessed();
 
         var rem;
+        var banCardRem = 0;
         switch (seq.side) {
             case "red":
                 switch (seq.pick) {
@@ -689,6 +733,7 @@ let sequenceMaster = {
                             if (res.rp[i].isPassed()) { if (settings.useEmptyPick) rem--; }
                             else rem--;
                         }
+                        banCardRem = res.bccstr - res.bccsur;
                         break;
 
                     case "proffer":
@@ -725,6 +770,7 @@ let sequenceMaster = {
                             if (res.bp[i].isPassed()) { if (settings.useEmptyPick) rem--; }
                             else rem--;
                         }
+                        banCardRem = res.bccstb - res.bccsub;
                         break;
 
                     case "proffer":
@@ -746,11 +792,7 @@ let sequenceMaster = {
                 break;
         }
 
-        if (rem == 0) {
-            latestStep = step;
-            step++;
-            return true;
-        } else return false;
+        return { res: res, rem: rem, banCardRem: banCardRem };
     },
 
     countEachPickAmountTotal: function(res = {
@@ -826,12 +868,23 @@ let sequenceMaster = {
             rbw: [],
             bb: [],
             bp: [],
-            bbw: []
+            bbw: [],
+            //ban card count
+            bctr: 0,//hands width a ban card total red
+            bctb: 0,//hands width a ban card total blue
+            bcur: 0,//ban card used total red
+            bcub: 0,//ban card used total blue
+            bccstr: 0,//hands width a ban card current step red
+            bccstb: 0,//hands width a ban card current step blue
+            bccsur: 0,//ban card used current step red
+            bccsub: 0,//ban card used current step blue
         }, Math.min(step + 1, rules.sequence.length));
 
         for (var i in stepHistory) {
             let cur = stepHistory[i];
             let ref = cur.stepReference;
+            let seq = rules.sequence[step];
+            let isCurrentStep = ref == seq;
 
             switch (ref.side) {
                 case "red":
@@ -841,11 +894,25 @@ let sequenceMaster = {
                             break;
 
                         case "entry":
-                            res.rp.push(cur);
+                            if (cur.isBanCardBan) {
+                                res.bcur++;
+                                if (isCurrentStep) res.bccsur++;
+                            } else {
+                                res.rp.push(cur);
+                                if (cur.withBanCard) {
+                                    res.bctr++;
+                                    if (isCurrentStep) res.bccstr++;
+                                }
+                            }
                             break;
 
                         case "proffer":
                             res.bp.push(cur);
+                            if (cur.withBanCard) {
+                                res.bctb++;
+                                if (isCurrentStep) res.bccstb++;
+                            }
+                            // ** proffer 케이스에 대한 밴 카드 사용 처리 구현 보류 **
                             break;
 
                         case "ban weapon":
@@ -861,11 +928,25 @@ let sequenceMaster = {
                             break;
 
                         case "entry":
-                            res.bp.push(cur);
+                            if (cur.isBanCardBan) {
+                                res.bcub++;
+                                if (isCurrentStep) res.bccsub++;
+                            } else {
+                                res.bp.push(cur);
+                                if (cur.withBanCard) {
+                                    res.bctb++;
+                                    if (isCurrentStep) res.bccstb++;
+                                }
+                            }
                             break;
 
                         case "proffer":
                             res.rp.push(cur);
+                            if (cur.withBanCard) {
+                                res.bctr++;
+                                if (isCurrentStep) res.bccstr++;
+                            }
+                            // ** proffer 케이스에 대한 밴 카드 사용 처리 구현 보류 **
                             break;
 
                         case "ban weapon":
@@ -1024,7 +1105,16 @@ let poolMaster = {
     // blueCharacterNameDisplay: null,
 
     pool_block: "div#pool_block",
-    pick_pool: "div#pick_pool",
+    pick_pool: "div.pick_pool",
+
+    ban_card_pool: "#ban_card_pool",
+    pool_element_area: "div.pool_element_area",
+    each_element_pool_area: "div.each_element_pool_area",
+    each_element_pool: "ul.each_element_pool",
+
+    element: "data-element",
+
+    cost_pool: "#cost_pool",
     pool_cost_area: "div.pool_cost_area",
 
     cost5: "#cost5",
@@ -1048,6 +1138,7 @@ let poolMaster = {
     picked_red: "data-picked-red",
     picked_blue: "data-picked-blue",
     banned: "data-banned",
+    ban_card: "data-ban-card",
     view: "data-view",
     cursor: "data-cursor",
 
@@ -1056,7 +1147,25 @@ let poolMaster = {
     title: "data-title",
 
     poolBlock: null,
+    pickPools: null,
     pickPool: null,
+
+    banCardPool: null,
+    eachElementArea: null,
+    eachElementPoolArea: null,
+    eachElementPool: null,
+    elementPool: {
+        "switchable": { "host": null, "0": null, "1": null },
+        "pyro": { "host": null, "5": null, "4": null },
+        "hydro": { "host": null, "5": null, "4": null },
+        "anemo": { "host": null, "5": null, "4": null },
+        "electro": { "host": null, "5": null, "4": null },
+        "dendro": { "host": null, "5": null, "4": null },
+        "cryo": { "host": null, "5": null, "4": null },
+        "geo": { "host": null, "5": null, "4": null },
+    },
+
+    costPool: null,
     poolCostArea: null,
     pool5Area: null,
     pool4Area: null,
@@ -1075,7 +1184,8 @@ let poolMaster = {
     cost3Pool: null,
     cost2Pool: null,
     cost1Pool: null,
-    eachCostCharacters: null,
+
+    eachCharacters: null,
 
 
     underplacer: "div#underplacer",
@@ -1112,8 +1222,31 @@ let poolMaster = {
         // this.blueCharacterNameDisplay = this.eachCharacterNameDisplay.filter(this.blue);
 
         this.poolBlock = $(this.pool_block);
-        this.pickPool = this.poolBlock.find(this.pick_pool);
-        this.poolCostArea = this.pickPool.find(this.pool_cost_area);
+        this.pickPools = this.poolBlock.find(this.pick_pool);
+
+        this.banCardPool = this.pickPools.filter(this.ban_card_pool);
+        this.eachElementArea = this.banCardPool.find(this.pool_element_area);
+        this.eachElementPoolArea = this.eachElementArea.find(this.each_element_pool_area);
+        this.eachElementPool = this.eachElementPoolArea.find(this.each_element_pool);
+
+        var ce;
+        var host;
+        let elements = ["pyro", "hydro", "anemo", "electro", "dendro", "cryo", "geo"];
+        for (i in elements) {
+            ce = elements[i];
+            host = this.eachElementArea.filter('[' + this.element + '="' + ce + '"]');
+            this.elementPool[ce]["host"] = host;
+            this.elementPool[ce]["5"] = host.find(this.each_element_pool_area + '[' + this.rarity + '="5"]').find(this.each_element_pool);
+            this.elementPool[ce]["4"] = host.find(this.each_element_pool_area + '[' + this.rarity + '="4"]').find(this.each_element_pool);
+        }
+        ce = "switchable";
+        host = this.eachElementArea.filter('[' + this.element + '="' + ce + '"]');
+        this.elementPool[ce]["host"] = host;
+        this.elementPool[ce]["0"] = host.find(this.each_element_pool_area + '[' + this.treveler + '="0"]').find(this.each_element_pool);
+        this.elementPool[ce]["1"] = host.find(this.each_element_pool_area + '[' + this.treveler + '="1"]').find(this.each_element_pool);
+
+        this.costPool = this.pickPools.filter(this.cost_pool)
+        this.poolCostArea = this.costPool.find(this.pool_cost_area);
         this.pool5Area = this.poolCostArea.filter(this.cost5);
         this.pool4Area = this.poolCostArea.filter(this.cost4);
         this.pool3Area = this.poolCostArea.filter(this.cost3);
@@ -1143,9 +1276,9 @@ let poolMaster = {
 
         this.initUnavailables();
 
-        this.initCostTable();
+        this.initPickPool();
 
-        this.pickPool.contextmenu(this.onRightClickPickPool);
+        this.costPool.contextmenu(this.onRightClickPickPool);
     },
 
     initSideSelectionArea: function() {
@@ -1228,6 +1361,54 @@ let poolMaster = {
         setTimeout(function() { view.attr(poolMaster.shift, ""); }, 900);
     },
 
+    initPickPool: function() {
+        switch(rules.rule_type) {
+            case "ban card":
+                this.initBanCardTable();
+                break;
+
+            case "cost":
+                this.initCostTable();
+                break;
+        }
+
+        $(document.body).attr("data-rule-type", rules.rule_type);
+
+        let items = this.eachCharacters;
+        items.mouseenter(this.onCharacterItemMouseEnter);
+        items.mouseleave(this.onCharacterItemMouseLeave);
+        items.click(this.onCharacterItemClick);
+
+        this.unavailables.attr(this.title, lang.text.pickUnallowed);
+    },
+
+    initBanCardTable: function() {
+        table = rules.ban_card_accure;
+
+        this.eachElementPool.empty();
+        this.unallowedPool.empty();
+
+        
+        charactersInfo.list.forEach((info, i) => {
+            let id = info.id;
+            if (id == eoa) return;
+
+            let self = poolMaster;
+            let bancard = table[id];
+
+            if (id == "treveler") {
+                let treveler = "" + i;
+                self.elementPool[info.element][treveler].append(self.buildCharacterItem(info, bancard, treveler));
+            } else {
+                let item = self.buildCharacterItem(info, bancard);
+                if (bancard == null) self.unallowedPool.append(item);//사용불가 캐릭터
+                else self.elementPool[info.element][info.rarity == "5" ? "5" : "4"].append(item);
+            }
+        });
+
+        this.eachCharacters = this.eachElementPool.find(this.character);
+    },
+
     initCostTable: function(table = costTable) {
         this.table = table;
 
@@ -1288,8 +1469,8 @@ let poolMaster = {
             self.cost1Pool.append(self.buildCharacterItem(self.getCharacterInfo(id)));
         };
 
-        this.eachCostCharacters = this.eachCostPool.find(this.character);
-        let items = this.eachCostCharacters;
+        this.eachCharacters = this.eachCostPool.find(this.character);
+        let items = this.eachCharacters;
         items.mouseenter(this.onCharacterItemMouseEnter);
         items.mouseleave(this.onCharacterItemMouseLeave);
         items.click(this.onCharacterItemClick);
@@ -1297,7 +1478,7 @@ let poolMaster = {
         this.unavailables.attr(this.title, lang.text.pickUnallowed);
     },
 
-    buildCharacterItem: function(info) {
+    buildCharacterItem: function(info, bancard, treveler) {
         let item = document.createElement("li");
         item.setAttribute("class", "character");
         let img = this.buildCharacterIcon(info);
@@ -1317,9 +1498,11 @@ let poolMaster = {
             item.setAttribute(this.picked_red, "");
             item.setAttribute(this.picked_blue, "");
             item.setAttribute(this.banned, "");
+            item.setAttribute(this.ban_card, bancard ? "1" : "");
+            if (treveler != null) item.setAttribute(this.treveler, treveler);
         }
         item.append(img);
-        if (info != null && info.id == "treveler") {
+        if (info != null && treveler == null && info.id == "treveler") {
             item.setAttribute(this.treveler, "0");
             item.append(this.buildCharacterIcon(charactersInfo.list[charactersInfo.trevelerM]));
         }
@@ -1330,6 +1513,10 @@ let poolMaster = {
             element.setAttribute("src", charElement == null ? tpGif : getPathR("images", "element_icon", charElement));
         }
         item.prepend(element);
+        let banCard = document.createElement("span");
+        banCard.setAttribute("class", "ban_card");
+        banCard.innerHTML = lang.text.banCardTitle;
+        item.append(banCard);
         let pickCardRed = document.createElement("span");
         pickCardRed.setAttribute("class", "pick_card red");
         pickCardRed.innerHTML = lang.text.pickedEntryShort;
@@ -1367,7 +1554,7 @@ let poolMaster = {
     },
 
     initPickState: function() {
-        let items = this.eachCostCharacters;
+        let items = this.eachCharacters;
         items.attr(this.pick_side, "");
         items.attr(this.pick_type, "");
         items.attr(this.picked, "");
@@ -1431,7 +1618,7 @@ let poolMaster = {
     },
 
     getCurrentCursor: function() {
-        return this.eachCostCharacters.filter('[' + this.cursor + '="1"]');
+        return this.eachCharacters.filter('[' + this.cursor + '="1"]');
     },
 
     clearCursorOnPool: function() {
@@ -1448,8 +1635,8 @@ let poolMaster = {
     randomCursorRoller: function() {
         let seq = rules.sequence[step];
         let side = seq.type == "proffer" ? (seq.side == "red" ? "blue" : "red") : seq.side;
-        let items = poolMaster.eachCostCharacters.filter('[' + poolMaster.picked + '=""]:not([' + poolMaster.cursor + '="1"])');
-        //let items = poolMaster.eachCostCharacters.filter('[' + poolMaster.banned + '=""][' + poolMaster.picked + '-' + side + '=""]:not([' + poolMaster.cursor + '="1"])');
+        let items = poolMaster.eachCharacters.filter('[' + poolMaster.picked + '=""]:not([' + poolMaster.cursor + '="1"])');
+        //let items = poolMaster.eachCharacters.filter('[' + poolMaster.banned + '=""][' + poolMaster.picked + '-' + side + '=""]:not([' + poolMaster.cursor + '="1"])');
 
         let next = Math.floor(Math.random() * items.length);
 
@@ -1503,7 +1690,9 @@ let poolMaster = {
     },
 
     toggleTrevelerAlter(forced) {
-        let item = this.eachCostCharacters.filter('[' + this.id + '="treveler"]');
+        if (rules.rule_type != "cost") return;
+
+        let item = this.eachCharacters.filter('[' + this.id + '="treveler"]');
         if (item.length < 1) return;
 
         let cur = item.attr(this.treveler);
@@ -1567,6 +1756,10 @@ let sideMaster = {
     entry_icon: "div.entry_icon",
     entry_info: "div.entry_info",
 
+    ban_card_holder: "div.ban_card_holder",
+    ban_card: "div.ban_card",
+    ban_entry_place: "div.ban_entry_place",
+    
     entry_constell: "input.entry_constell",
 
     id: "data-id",
@@ -1799,6 +1992,7 @@ let sideMaster = {
 
     entryPicked: {"red": [], "blue": []},
     banPicked: {"red": [], "blue": []},
+    banCardUsed: {"red": [], "blue": []},
     weaponBanPicked: {"red": [], "blue": []},
 
     sideAccInfo: { "red": null, "blue": null },
@@ -2390,9 +2584,8 @@ let sideMaster = {
 
         let constell = this.sideAccInfo[side] != null ? this.sideAccInfo[side][id] : null;
 
-        let cost = this.getCostByCharacter(id);
         let adds = constell != null ? this.getAdditionalCost(id, parseInt(constell)) : 0;
-        this.setEntryContent(slot, this.buildEntryIcon(info), this.buildEntryInfoArea(cost, adds), info);
+        this.setEntryContent(slot, this.buildEntryIcon(info), this.buildEntryInfoArea(id, adds), info);
         slot.attr(this.id, info.id);
         slot.attr(this.rarity, info.rarity);
         setTimeout(function() {
@@ -2405,6 +2598,8 @@ let sideMaster = {
         } else setTimeout(function() {
             constInput.focus();
         }, 100);
+
+        let banCard = rules.rule_type == "ban card" ? rules.ban_card_accure[id] : null;
 
         //추가 코스트 이벤트(클릭/휠) 핸들
         slot = $(slot);
@@ -2435,8 +2630,8 @@ let sideMaster = {
             }
         });
 
-        if (constell != null) return buildStepHistoryExtra(constell, adds);
-        else return buildStepHistoryExtra();
+        if (constell != null) return buildStepHistoryExtra(constell, adds, false, banCard);
+        else return buildStepHistoryExtraForBanCard(banCard);
     },
 
     onUndoPickEntry: function(id, side) {
@@ -2536,20 +2731,43 @@ let sideMaster = {
         return input;
     },
 
-    buildEntryInfoArea: function(cost, add = 0) {
-        //구현
+    buildEntryInfoArea: function(id, add = 0) {
         let info = document.createElement("div");
-        info.setAttribute("class", "entry_cost");
-        info.setAttribute("title", lang.text.entryCostDesc);
-        info.setAttribute(this.step, stepHistory.length);
-        let baseCost = document.createElement("span");
-        baseCost.setAttribute("class", "base_cost");
-        baseCost.innerText = cost;
-        info.append(baseCost);
-        let addCost = document.createElement("span");
-        addCost.setAttribute("class", "additional_cost");
-        addCost.innerText = add > 0 ? "+" + add : (add == 0 ? "" : add);
-        info.append(addCost);
+        switch(rules.rule_type) {
+            case "cost":
+                info.setAttribute(this.step, stepHistory.length);
+                let cost = this.getCostByCharacter(id);
+                info.setAttribute("class", "entry_cost");
+                info.setAttribute("title", lang.text.entryCostDesc);
+                let baseCost = document.createElement("span");
+                baseCost.setAttribute("class", "base_cost");
+                baseCost.innerText = cost;
+                info.append(baseCost);
+                let addCost = document.createElement("span");
+                addCost.setAttribute("class", "additional_cost");
+                addCost.innerText = add > 0 ? "+" + add : (add == 0 ? "" : add);
+                info.append(addCost);
+                break;
+
+            case "ban card":
+                info.setAttribute(this.step, step);
+                info.setAttribute("class", "ban_card_holder");
+                if (rules.ban_card_accure[id]) {
+                    info.setAttribute("title", lang.text.entryBanCardDesc);
+                    let banCard = document.createElement("div");
+                    banCard.setAttribute("class", "ban_card");
+                    let banEntryPlace = document.createElement("div");
+                    banEntryPlace.setAttribute("class", "ban_entry_place");
+                    let banEntry = document.createElement("img");
+                    banEntry.setAttribute("class", "character_icon");
+                    banEntry.setAttribute("src", tpGif);
+                    banEntryPlace.append(banEntry);
+                    banCard.append(banEntryPlace);
+                    info.append(banCard);
+                }
+
+                break;
+        }
         return info;
     },
 
@@ -2908,6 +3126,62 @@ let sideMaster = {
         if (self.attr(sideMaster.picked) == "1") playSound("촉");
     },
 
+
+    //ban card ban
+    onPickedBanCardBan: function(id, side = rules.sequence[step].side) {
+        let info = charactersInfo.list[charactersInfo[id]];
+        let checkRes = sequenceMaster.checkRes;
+
+        var card;
+        switch(side) {
+            case "red":
+                card = this.redEntries.find(this.ban_card_holder + '[' + this.step + '="' + step + '"]').find(this.ban_card);
+                card = $(card[Math.min(card.length - 1, card.length - checkRes.banCardRem)]);
+                this.banCardUsed["red"].push(info);
+                break;
+
+            case "blue":
+                card = this.blueEntries.find(this.ban_card_holder + '[' + this.step + '="' + step + '"]').find(this.ban_card);
+                card = $(card[Math.min(card.length - 1, card.length - checkRes.banCardRem)]);
+                this.banCardUsed["blue"].push(info);
+                break;
+        }
+
+        playSound("쪕", 100);
+
+        this.setBanCardPlace(card, true, info);
+
+        return buildStepHistoryExtraForUsingBanCard();
+    },
+
+    setBanCardPlace: function(card, pick, info) {
+        card = $(card);
+        let entryPlace = card.find(this.ban_entry_place);
+        let isPicked = pick == true;
+        let hasInfo = info != null;
+        card.attr(this.picking, isPicked && !hasInfo ? "1" : null);
+        card.attr(this.picked, isPicked && hasInfo ? "1" : null);
+        card.attr(this.rarity, isPicked && hasInfo ? info.rarity : null);
+
+        let img = entryPlace.find("img.character_icon");
+        img.attr("src", info != null ? getPathR("images", "character_icon", info.res_icon) : tpGif);
+        
+        // let element = card.find("img.element_icon");
+        // let nametag = card.find("span.name_tag");
+        // if (info != null) {
+        //     let charElement = commonInfo.element.res_icon[info.element];
+        //     element.attr("src", charElement == null ? tpGif : getPathR("images", "element_icon", charElement));
+
+        //     try {
+        //         nametag.html(info.name[loca]);
+        //     } catch (e) {
+
+        //     }
+        // } else {
+        //     element.attr("src", tpGif)
+        //     nametag.html("");
+        // }
+    },
 
     //ban weapon
 
@@ -4029,8 +4303,10 @@ let rulesMaster = {
     onSelectedAlter: function(e) {
         let self = $(this);
 
-        rulesMaster.applyRuleAlterSelection(self.val());
+        rulesMaster.applyRuleAlterSelection(parseInt(self.val()));
 
+        if (rules.rule_type == "ban card") poolMaster.initPickPool();
+        
         sideMaster.releaseCostAmountChanged();
 
         sideMaster.initBanEntries();
@@ -4047,7 +4323,7 @@ let rulesMaster = {
         this.loadRuleSet(base);
 
         let alter = rules.rule_alter[offset];
-        this.loadRuleSet(alter);
+        this.loadRuleSet(alter, offset);
 
         this.leagueName.html(rules.name_full.replace(/\n/g, "<br />"));
         this.leagueTail.html(rules.league_tail.replace(/\n/g, "<br />"));
@@ -4057,13 +4333,29 @@ let rulesMaster = {
         sequenceMaster.setSequenceTitle(alter.name, 3000);
     },
 
-    loadRuleSet: function(ruleset) {
+    loadRuleSet: function(ruleset, offset) {
+        let alter = rules.rule_alter;
+        if (ruleset == null && offset != null) ruleset = alter[offset];
+        if (ruleset == null) return;
         for (var def in ruleset) {
             if (def == "" || def == eoo) break;
             let rule = ruleset[def];
 
-            rules[def] = rule;
+            if (def.indexOf("accure") > -1) {
+                if (typeof rule == "object") {
+                    if(rules[def] == null || offset == null) {
+                        rules[def] = Array.isArray(rule) ? [] : {};
+                        this.loadRuleDetailAccure(rules[def], rule);
+                    } else for (i=0; i < Math.min(alter.length, offset + 1); i++) this.loadRuleDetailAccure(rules[def], alter[i][def]);
+                }
+            } else rules[def] = rule;
         };
+    },
+
+    loadRuleDetailAccure: function(to, from) {
+        if (to == null || from == null) return;
+        if (!Array.isArray(from)) for (k in from) to[k] = from[k];
+        else for (i in from) if (to.indexOf(rule[i]) < 0) to.push(from[i]);
     },
 
     eoo
@@ -4151,7 +4443,7 @@ let localeMaster = {
         }
 
         //apply character name
-        poolMaster.initCostTable();
+        poolMaster.initPickPool();
         
         //replace texts
         sequenceMaster.releaseStepStateDisplay();

@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>앙챔스 계정 점수 계산기 / 리그 체커  v1.8</title>
+        <title>앙챔스 계정 점수 계산기 / 리그 체커  v1.7</title>
         <meta name="viewport" content="user-scalable=yes, width=720, minimum-scale=0.2, maximum-scale=2.0, initial-scale=1.0">
         <style>
 
@@ -19,19 +19,17 @@ input[type=text], input[type=number] { width: 100%; font-size: 100%; text-align:
 textarea { font-family: '맑은 고딕', 'Malgun Gothic', 'Noto Sans KR', NotoSansKR, '나눔고딕', 'Nanum Gothic', NanumGothic, 'Open Sans', '돋움', Dotum, 'Apple SD 산돌고딕 Neo', 'Apple SD Gothic Neo', AppleGothic, Arial, Helvetica, sans-serif; }
 
 table.score_calc { border-spacing: 0px 1px; }
-table.score_calc td:not([colspan="4"]):nth-child(5) { width: 113px; }
 table.score_calc thead td { border-bottom: solid 2px #08D; }
 table.score_calc tbody td:not([colspan="4"]):nth-child(1) { }
 table.score_calc tbody td:not([colspan="4"]):nth-child(2) { padding: 0 2px 0 12px; font-weight: bold; }
 table.score_calc tbody td:not([colspan="4"]):nth-child(3) { width: 130px; }
-table.score_calc tbody td:not([colspan="4"]):nth-child(4) { width: 60px; }
-table.score_calc tbody td:not([colspan="4"]):nth-child(5) { display: none; }
+table.score_calc tbody td:not([colspan="4"]):nth-child(4) { width: 60px;}
 table.score_calc tfoot tr:first-child td { padding: 4px 0; border-top: double 6px #08D; font-size: 18px; }
 table.score_calc tfoot tr td { padding: 8px 0 0; border-top: dashed 2px #08D; }
 
 table.league_guide { margin-top: 10px; }
 table.league_guide td:nth-child(2) { padding-left: 12px; font-weight: bold; text-align: right; }
-table.league_guide td:nth-child(3) { display: none; padding-left: 18px; text-align: right; }
+table.league_guide td:nth-child(3) { padding-left: 18px; text-align: right; }
 
 button#copy_table { cursor: pointer; }
 
@@ -57,19 +55,8 @@ span#gi_rev { color: tomato; font-weight: bold; }
 *:focus { outline-color: #06EE; box-shadow: 0 0 6px 0 #037D; transition-duration: 0.3s; }
 
         </style>
-        <script>let rules = {};</script>
-        <script>let ruleBooks = {};</script>
-        <script type="text/javascript" src="./data/rulebook.js"></script>
-        <script>var costTable = null;</script>
-        <!-- <script type="text/javascript" src="./data/rule.js?update=4"></script> -->
-        <!-- <script type="text/javascript" src="./data/spiral_tier_cost.js?update=5"></script> -->
-        <script>
-//rule book load
-for (book in ruleBooks) {
-    rules = ruleBooks[book];
-    break;
-}
-        </script>
+        <script type="text/javascript" src="./data/rule.js?update=4"></script>
+        <script type="text/javascript" src="./data/spiral_tier_cost.js?update=5"></script>
     </head>
     <body>
         <div class="note">
@@ -87,7 +74,7 @@ for (book in ruleBooks) {
                     <td><div><p class="center bold"><span>이름</span></p></div></td>
                     <td><div><p class="center bold"><span>돌파 (명함=0)</span></p></div></td>
                     <td><div><p class="center bold"><span>점수</span></p></div></td>
-                    <td><div><p class="center bold"><span>코스트 (폐지)</span></p></div></td>
+                    <td><div><p class="center bold"><span>코스트 (참고용)</span></p></div></td>
                 </tr>
             </thead>
             <tbody>
@@ -469,7 +456,7 @@ for (book in ruleBooks) {
             <span>◆ <b>계정 정보 복사</b> 버튼으로 복사 후 메모장 등에 보관해 두시면<br />아래의 <b>붙여넣기 영역</b>에 붙여넣어서 입력했던 내용을 다시 불러올 수 있습니다 ◆</span>
         </div>
         <textarea id="paste_table" rows="1" placeholder="계정 정보 붙여넣기"></textarea>
-        <div id="cost_table_info" class="subnote center">
+        <div class="subnote center">
             <span>◆ 현재 코스트 기준은 원신 <span id="gi_ver">3.4</span> 페이즈<span id="gi_phase">3</span> (<span id="gi_spiral">2월 하반기</span>)<span id="gi_rev"></span> 입니다 ◆</span>
         </div>
         <table class="league_guide">
@@ -509,19 +496,17 @@ for (book in ruleBooks) {
         <div class="subnote center">
             <span class="bold" style="line-height: 28px; ">- <span id="rule_title">앙챔스 룰북</span> <span id="rule_version">1.3</span> 기준 - </span>
             <br />
-            <span class="bold">GCALC v1.8</span>
+            <span class="bold">GCALC v1.7</span>
             <br />
-            <span>Release 2023.04.16</span>
+            <span>Release 2023.04.04</span>
         </div>
     </body>
     <script>
 
-if (rules.rule_type == "cost") {
-    document.getElementById("gi_ver").innerText = costTable != null ? costTable.version : "???";
-    document.getElementById("gi_phase").innerText = costTable != null ? costTable.phase : "???";
-    document.getElementById("gi_spiral").innerText = costTable != null ? costTable.month + "월 " + (costTable.half === 1 ? "상" : "하") + "반기" : "???";
-    document.getElementById("gi_rev").innerText = costTable != null && costTable.revision > 0 ? " rev." + costTable.revision : "";
-} else document.querySelector("#cost_table_info").style.display = "none";
+document.getElementById("gi_ver").innerText = costTable != null ? costTable.version : "???";
+document.getElementById("gi_phase").innerText = costTable != null ? costTable.phase : "???";
+document.getElementById("gi_spiral").innerText = costTable != null ? costTable.month + "월 " + (costTable.half === 1 ? "상" : "하") + "반기" : "???";
+document.getElementById("gi_rev").innerText = costTable != null && costTable.revision > 0 ? " rev." + costTable.revision : "";
 
 function getInputs() {
     return document.querySelectorAll('input.char_constells');

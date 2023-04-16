@@ -17,10 +17,13 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "pickEntry": "픽",
         "pickProffer": "상대 픽",
         "pickBanWeapon": "무기 밴",
+        "pickUseBanCard": "밴카드 사용",
 
         "pickedBan": "밴",
         "pickedEntry": "픽",
         "pickedEntryShort": "픽",
+        "banCardTitle": "BAN",
+        "banCardTitleShort": "B",
 
         "pickCursorBan": "Pick",
         "pickCursorEntry": "Jail",
@@ -29,6 +32,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "pickUnallowed": "선택 불가",
 
         "entryCostDesc": "좌 클릭 또는 휠 Up: 추가 코스트 1 증가\n우 클릭 또는 휠 Down: 추가 코스트 1 감소",
+        "entryBanCardDesc": "밴 카드 보유",
 
         "btnStart": "START",
         "btnPass": "PASS",

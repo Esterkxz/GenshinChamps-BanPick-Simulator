@@ -1,4 +1,4 @@
-let rules = {
+ruleBooks["AngChamps v1"] = {
     "comment": "\
 Rule refferenced by 앙리형 (Angri-hyung / brother Henry - Streamer & Youtuber)\n\
 Youtube: https://www.youtube.com/@angri_hyung \n\
@@ -13,6 +13,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
     ",
     "rule_title": "앙챔스 룰북",
     "rule_version": 1.5,
+
+    "rule_type": "cost",
 
     "sequence": null,
     "cost_amount": -1,

@@ -20,9 +20,20 @@
         <script type="text/javascript" src="./data/locale_ko-kr.js"></script>
         <script type="text/javascript" src="./data/characters.js"></script>
         <script type="text/javascript" src="./data/weapons.js"></script>
-        <script type="text/javascript" src="./data/rule.js"></script>
+        <script>let rules = {};</script>
+        <script>let ruleBooks = {};</script>
+        <script type="text/javascript" src="./data/rulebook.js"></script>
+        <script type="text/javascript" src="./data/rulebook_ac1.5.js"></script>
         <script type="text/javascript" src="./data/spiral_tier_cost.js"></script>
         <script>
+
+//rule book load
+for (book in ruleBooks) {
+    rules = ruleBooks[book];
+    break;
+}
+
+
 /* < Unuse for local running case >
        <script type="module">
 import commonInfo from "./data/common.json" assert { type: "json" };
@@ -136,7 +147,7 @@ function getPathA(id, group = "", type = "sounds") {
         </script>
         <script type="text/javascript" src="./scripts/master.js"></script>
     </head>
-    <body data-ctrl="" data-side-area="0">
+    <body data-rule-type="ban card" data-ctrl="" data-side-area="0">
         <div id="main_screen">
             <div id="bg_area">
                 <div id="bg_versus" data-show=""></div>
@@ -222,7 +233,183 @@ function getPathA(id, group = "", type = "sounds") {
                 </div>
                 <div id="sequence_title" data-shift="0"><span class="sprite_point_bg">Current Step</span></div>
                 <div id="pool_block" class="block_area" data-hide="0">
-                    <div id="pick_pool">
+                    <div id="ban_card_pool" class="pick_pool">
+                        <div id="trevelers" class="pool_element_area" data-element="switchable">
+                            <div id="pyro5" class="each_element_pool_area" data-treveler="0">
+                                <ul class="each_pool_block each_element_pool">
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked="" data-treveler="0"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                </ul>
+                            </div>
+                            <div id="pyro4" class="each_element_pool_area" data-treveler="1">
+                                <ul class="each_pool_block each_element_pool">
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked="" data-treveler="1"><img src="./images/character_iconic/UI_AvatarIcon_PlayerBoy.png"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="eogPyro" class="pool_element_area" data-element="pyro">
+                            <div id="pyro5" class="each_element_pool_area" data-rarity="5">
+                                <ul class="each_pool_block each_element_pool">
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                </ul>
+                            </div>
+                            <div class="element_icon_area">
+                                <img src="./images/elemental_iconic/UI_Buff_Element_Fire.5d7fae03.png" />
+                            </div>
+                            <div id="pyro4" class="each_element_pool_area" data-rarity="4">
+                                <ul class="each_pool_block each_element_pool">
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="eogHydro" class="pool_element_area" data-element="hydro">
+                            <div id="hydro5" class="each_element_pool_area" data-rarity="5">
+                                <ul class="each_pool_block each_element_pool">
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                </ul>
+                            </div>
+                            <div class="element_icon_area">
+                                <img src="./images/elemental_iconic/UI_Buff_Element_Water.b6c53c5a.png" />
+                            </div>
+                            <div id="hydro4" class="each_element_pool_area" data-rarity="4">
+                                <ul class="each_pool_block each_element_pool">
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="eogAnemo" class="pool_element_area" data-element="anemo">
+                            <div id="anemo5" class="each_element_pool_area" data-rarity="5">
+                                <ul class="each_pool_block each_element_pool">
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                </ul>
+                            </div>
+                            <div class="element_icon_area">
+                                <img src="./images/elemental_iconic/UI_Buff_Element_Wind.df5c5ebb.png" />
+                            </div>
+                            <div id="anemo4" class="each_element_pool_area" data-rarity="4">
+                                <ul class="each_pool_block each_element_pool">
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="eogElectro" class="pool_element_area" data-element="electro">
+                            <div id="electro5" class="each_element_pool_area" data-rarity="5">
+                                <ul class="each_pool_block each_element_pool">
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                </ul>
+                            </div>
+                            <div class="element_icon_area">
+                                <img src="./images/elemental_iconic/UI_Buff_Element_Elect.0a028170.png" />
+                            </div>
+                            <div id="electro4" class="each_element_pool_area" data-rarity="4">
+                                <ul class="each_pool_block each_element_pool">
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="eogDendro" class="pool_element_area" data-element="dendro">
+                            <div id="dendro5" class="each_element_pool_area" data-rarity="5">
+                                <ul class="each_pool_block each_element_pool">
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                </ul>
+                            </div>
+                            <div class="element_icon_area">
+                                <img src="./images/elemental_iconic/UI_Buff_Element_Grass.c77bf16c.png" />
+                            </div>
+                            <div id="dendro4" class="each_element_pool_area" data-rarity="4">
+                                <ul class="each_pool_block each_element_pool">
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="eogCryo" class="pool_element_area" data-element="cryo">
+                            <div id="cryo5" class="each_element_pool_area" data-rarity="5">
+                                <ul class="each_pool_block each_element_pool">
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                </ul>
+                            </div>
+                            <div class="element_icon_area">
+                                <img src="./images/elemental_iconic/UI_Buff_Element_Frost.91ff296b.png" />
+                            </div>
+                            <div id="cryo4" class="each_element_pool_area" data-rarity="4">
+                                <ul class="each_pool_block each_element_pool">
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="eogGeo" class="pool_element_area" data-element="geo">
+                            <div id="cgeo5" class="each_element_pool_area" data-rarity="5">
+                                <ul class="each_pool_block each_element_pool">
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                </ul>
+                            </div>
+                            <div class="element_icon_area">
+                                <img src="./images/elemental_iconic/UI_Buff_Element_Roach.2ed0cb50.png" />
+                            </div>
+                            <div id="cgeo4" class="each_element_pool_area" data-rarity="4">
+                                <ul class="each_pool_block each_element_pool">
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                    <li class="character" data-id="treveler" data-rarity="4" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="cost_pool" class="pick_pool">
                         <div id="cost5" class="pool_cost_area" data-cost="5">
                             <div class="cost_title_area">
                                 <ul class="cost_title">
@@ -234,7 +421,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </ul>
                             </div>
                             <div class="each_cost_pool_area">
-                                <ul class="each_cost_pool">
+                                <ul class="each_pool_block each_cost_pool">
                                     <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자" data-pick-side="" data-pick-type="" data-picked=""><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
                                     <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
                                     <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
@@ -254,7 +441,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </ul>
                             </div>
                             <div class="each_cost_pool_area">
-                                <ul class="each_cost_pool">
+                                <ul class="each_pool_block each_cost_pool">
                                     <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
                                     <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
                                     <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
@@ -278,7 +465,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </ul>
                             </div>
                             <div class="each_cost_pool_area">
-                                <ul class="each_cost_pool">
+                                <ul class="each_pool_block each_cost_pool">
                                     <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
                                     <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
                                     <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
@@ -299,7 +486,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </ul>
                             </div>
                             <div class="each_cost_pool_area">
-                                <ul class="each_cost_pool">
+                                <ul class="each_pool_block each_cost_pool">
                                     <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
                                     <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
                                     <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
@@ -326,7 +513,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </ul>
                             </div>
                             <div class="each_cost_pool_area">
-                                <ul class="each_cost_pool">
+                                <ul class="each_pool_block each_cost_pool">
                                     <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
                                     <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
                                     <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
@@ -398,7 +585,7 @@ function getPathA(id, group = "", type = "sounds") {
                         <input type="text" id="search_input" placeholder="search word" />
                     </div>
                     <div id="version_info">
-                        <span title="release 2023.04.15">v0.3.2</span>
+                        <span title="release 2023.04.16">v0.4.0</span>
                     </div>
                     <div id="tool_infos">
                         <span id="popup_credits"><button class="text_type">Credits</button></span>
