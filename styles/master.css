@@ -1253,8 +1253,9 @@ div#versus_record_board[data-show="2"] { opacity: 1; }
 div#versus_record_board > div { }
 div#versus_record_board div.side_record_board { position: relative; flex-grow: 1; max-width: calc(var(--vs-borad-width) / 2); }
 div#versus_record_board div.side_record_board > div { display: table; margin: 0 auto 20px;}
-div#versus_record_board div.side_record_board div.side_player_info { margin-bottom: -94px; position: absolute; bottom: 0; left: 0; right: 0; height: 0; }
-div#versus_record_board div.side_record_board div.side_player_info span.side_player_name { color: rgb(var(--signature-color-light)); font-size: 56px; font-weight: bold; text-align: center; text-shadow: 0px 0px 10px rgba(var(--signature-color-lighter) / 75%); filter: drop-shadow(0 6px 8px black); }
+div#versus_record_board div.side_record_board div.side_player_info { --height: 120px; position: absolute; bottom: calc(var(--height) * -1); left: 0; right: 0; height: 0; width: 100%; height: var(--height); margin: 0; }
+div#versus_record_board div.side_record_board div.side_player_info div.side_player_name_area { position: relative; display: block; top: 0; bottom: 0; left: 0; right: 0; width: 100%; max-height: var(--height); height: fit-content; margin: auto 12px; text-align: center; }
+div#versus_record_board div.side_record_board div.side_player_info div.side_player_name_area span.side_player_name { color: rgb(var(--signature-color-light)); font-size: 56px; font-weight: bold; text-shadow: 0px 0px 10px rgba(var(--signature-color-lighter) / 75%); word-break: break-word; line-height: 54px; filter: drop-shadow(0 6px 8px black); }
 div#versus_record_board div.side_record_board div.side_record_stage { }
 div#versus_record_board div.side_record_board div.side_record_stage:hover { z-index: 10; }
 div#versus_record_board div.side_record_board div.side_record_stage label { color: rgba(var(--highlighted-text-base) / 60%); text-shadow: 0 0 0 #888, 0 0 1.5px rgba(var(--main-color) / 90%); }
