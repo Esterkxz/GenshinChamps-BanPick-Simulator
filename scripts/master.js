@@ -4874,6 +4874,10 @@ let timerMaster = {
     timerRelay: null,
 
 
+    timePreset: {
+        "default": { min: 0, sec: 30, ms: 0 },
+        "ban card": { min: 0, sec: 40, ms: 0 }
+    },
     timeSetOrigin: { min: 0, sec: 30, ms: 0 },
     timeSetDefault: {},
     timeSet: {},
@@ -4969,6 +4973,10 @@ let timerMaster = {
         this.timerRelaySec0 = this.timerRelayDisplay.find(this.timer_sec_0);
         this.timerRelayCS1 = this.timerRelayDisplay.find(this.timer_cs_1);
         this.timerRelayCS0 = this.timerRelayDisplay.find(this.timer_cs_0);
+
+
+        let timeSetCurrentRule = this.timePreset[rules.rule_type];
+        this.applyTimeSet(timeSetCurrentRule == null ? this.timePreset.default : timeSetCurrentRule, this.timeSetOrigin);
 
         
         this.initDesc();
@@ -5406,8 +5414,8 @@ let timerMaster = {
         this.applyTimeSet(this.timeSetDefault, this.timeSet, magnify);
     },
 
-    applyTimeSetOrigin() {
-        this.applyTimeSet(this.timeSetOrigin, this.timeSetDefault);
+    applyTimeSetOrigin(def = this.timeSetDefault) {
+        this.applyTimeSet(this.timeSetOrigin, def);
     },
 
     appendMin: function(mins = 1) {
