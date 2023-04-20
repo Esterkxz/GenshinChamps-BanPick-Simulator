@@ -317,7 +317,7 @@ let sequenceMaster = {
             controllerMaster.hideRandomButton();
         }
         this.releaseMainButton(step);
-        onChangedStep();
+        checkOnChangedSide();
     },
 
     startPick: function() {
@@ -434,8 +434,7 @@ let sequenceMaster = {
 
     passPick: function() {
         stepHistory.push(buildStepHistory(rules.sequence[step]))
-        latestStep = step;
-        step++;
+        this.shiftStep();
         this.releaseStepStateDisplay();
     },
 
@@ -444,16 +443,14 @@ let sequenceMaster = {
         let last = stepHistory.pop();
 
         if (last == null) {
-            latestStep = step;
-            step--;
+            this.shiftStep(false);
             this.releaseStepStateDisplay();
             return;
         }
 
         //process roll back
         if (last.isPassed()) {
-            latestStep = step;
-            step--;
+            this.shiftStep(false);
         } else {
             let picked = last.picked;
             let ref = last.stepReference;
@@ -463,10 +460,7 @@ let sequenceMaster = {
             let counterSide = ref.side == "red" ? "blue" : "red";
             let pickingSide = isProfferPick ? counterSide : ref.side;
     
-            if (ref != seq) {
-                latestStep = step;
-                step--;
-            }
+            if (ref != seq) this.shiftStep(false);
 
 
             //변경사항 출력 되돌리기 구현
@@ -520,8 +514,7 @@ let sequenceMaster = {
     },
 
     finishPick: function() {
-        latestStep = step;
-        step++;
+        this.shiftStep();
         this.setSequenceTitle(lang.text.titleVersus);
         this.releaseActionStateByStep();
 
@@ -615,8 +608,7 @@ let sequenceMaster = {
     },
 
     undoFinishPick: function() {
-        latestStep = step;
-        step = rules.sequence.length;
+        this.shiftStep(rules.sequence.length);
         this.setSequenceTitleByCurrent(step);
         this.releaseActionStateByStep();
 
@@ -698,14 +690,22 @@ let sequenceMaster = {
         this.undoFinishPick();
     },
 
+    shiftStep: function(alt = true) {
+        if (alt == null || typeof alt == "string" || typeof alt == "object" || !(typeof alt == "boolean" || Number.isInteger(alt))) return;
+        latestStep = step;
+        if (alt === true) step++;
+        else if (alt === false) step--;
+        else step = alt;
+        onChangedStep();
+    },
+
     checkUpdateCurrentStepComplition: function() {
         if (step < 0 || step >= rules.sequence.length) return;
         let res = this.checkCurrentStepComplition();
         this.checkRes = res;
 
         if (res.rem == 0 && res.banCardRem == 0) {
-            latestStep = step;
-            step++;
+            this.shiftStep();
             return true;
         } else return false;
     },
@@ -5716,7 +5716,7 @@ let timerMaster = {
         return false;
     },
 
-    onChangedSide: function() {
+    onChangedStep: function() {
         if (this.settings.interlockSide) {
             this.initTimer();
         }
@@ -5863,15 +5863,20 @@ function getCurrentSide() {
 var latestStep = -2;
 var latestStepSide = null;
 
-function onChangedStep() {
+function checkOnChangedSide() {
     let cur = getCurrentSide();
 
-    if (cur != latestStepSide) {
-        timerMaster.onChangedSide();
-        poolMaster.onChangedSide(cur);
-        if (step < 0 || step >= rules.sequence.length) poolMaster.stopRollRandomCursor();
-        latestStepSide = cur;
-    }
+    if (cur != latestStepSide) onChangedSide(cur);
+}
+
+function onChangedSide(cur) {
+    poolMaster.onChangedSide(cur);
+    latestStepSide = cur;
+}
+
+function onChangedStep() {
+    timerMaster.onChangedStep();
+    if (step < 0 || step >= rules.sequence.length) poolMaster.stopRollRandomCursor();
 }
 
 function hideCursorWholeScreen() {
