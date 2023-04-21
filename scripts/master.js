@@ -1485,7 +1485,7 @@ let poolMaster = {
 
             if (id == "treveler") {
                 let treveler = "" + i;
-                self.elementPool[info.element][treveler].append(self.buildCharacterItem(info, bancard, treveler));
+                self.unallowedPool.append(self.buildCharacterItem(info, bancard, treveler));
             } else {
                 let item = self.buildCharacterItem(info, bancard);
                 self.unallowedPool.append(item);
@@ -1539,7 +1539,7 @@ let poolMaster = {
         gea.setAttribute(this.element, info.element);
         let ul = document.createElement("ul");
         ul.setAttribute("class", this.each_pool_block + " " + this.each_grade_element_pool);
-        ul.append(this.buildCharacterItem(info, bancard, "0"));
+        ul.append(this.buildCharacterItem(info, bancard, treveler));
         gea.append(ul);
 
         return gea;
