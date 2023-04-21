@@ -677,7 +677,7 @@ div#ban_card_pool[data-league="4"] div.ban_card_grade_area[data-ban-card-grade="
 div#ban_card_pool[data-league="5"] div.ban_card_grade_area[data-ban-card-grade="6"] { border-color: var(--upper-tier-border-color); filter: var(--upper-tier-filter); }
 div#ban_card_pool[data-league="6"] div.ban_card_grade_area[data-ban-card-grade="7"] { border-color: var(--upper-tier-border-color); filter: var(--upper-tier-filter); }
 div#ban_card_pool div.ban_card_grade_area div.each_grade_rarity_area { position: relative; display: flex; flex-direction: row; flex-wrap: nowrap; width: var(--area-width); margin: auto; }
-div#ban_card_pool div.ban_card_grade_area div.each_grade_rarity_area div.each_grade_element_area { position: relative; display: block; flex-grow: 1; height: fit-content; max-width: calc(100% / 7); min-width: calc(var(--char-icon-size) * 2); }
+div#ban_card_pool div.ban_card_grade_area div.each_grade_rarity_area div.each_grade_element_area { position: relative; display: block; flex-grow: 1; max-width: calc(100% / 7); min-width: calc(var(--char-icon-size) * 2); }
 div#ban_card_pool div.ban_card_grade_area div.each_grade_rarity_area[data-rarity="5"] div.each_grade_element_area { }
 div#ban_card_pool div.ban_card_grade_area div.each_grade_rarity_area[data-rarity="4"] div.each_grade_element_area {  }
 div#ban_card_pool div.ban_card_grade_area div.each_grade_element_area ul.each_grade_element_pool { position: relative; display: flex; flex-direction: row; width: 100%; height: 100%; margin: 0 auto; padding: 0; justify-content: center; align-content: flex-start; }
