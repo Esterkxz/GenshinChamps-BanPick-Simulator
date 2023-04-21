@@ -1105,10 +1105,28 @@ let poolMaster = {
     // redCharacterNameDisplay: null,
     // blueCharacterNameDisplay: null,
 
+    elements: ["pyro", "hydro", "anemo", "electro", "dendro", "cryo", "geo"],
+    rarities: { "5": null, "4": null },
+
     pool_block: "div#pool_block",
     pick_pool: "div.pick_pool",
 
+    each_pool_block: "each_pool_block",
+
     ban_card_pool: "#ban_card_pool",
+    bcp_base_grade: "div#base_grade",
+
+    league: "data-league",
+
+    ban_card_grade_area: "ban_card_grade_area",
+    middle_position_holder: "middle_position_holder",
+    each_grade_rarity_area: "each_grade_rarity_area",
+    each_grade_element_area: "each_grade_element_area",
+    each_grade_element_pool: "each_grade_element_pool",
+
+    ban_card_grade: "data-ban-card-grade",
+    
+    elements_pool: "#elements_pool",
     pool_element_area: "div.pool_element_area",
     each_element_pool_area: "div.each_element_pool_area",
     each_element_pool: "ul.each_element_pool",
@@ -1152,6 +1170,12 @@ let poolMaster = {
     pickPool: null,
 
     banCardPool: null,
+    bcpBaseGrade: null,
+
+    eachGradeRarityArea: null,//[{ "host": null, "5": { "host": null, "pyro": ... }, "4": null, "middle": { "host": null, "0": ...}, }, ...]
+    eachGradeElementPool: null,
+
+    elementsPool: null,
     eachElementArea: null,
     eachElementPoolArea: null,
     eachElementPool: null,
@@ -1213,7 +1237,7 @@ let poolMaster = {
         this.blueSideSelectionArea = this.eachSideSelectionArea.filter(this.blue);
 
         this.centerBehind = $(this.center_behind);
-
+ 
         this.sideBehind = $(this.side_behind_root);
         this.eachSideBehind = this.sideBehind.find(this.side_behind);
         this.leftSideBehind = this.eachSideBehind.filter(this.left);
@@ -1226,15 +1250,18 @@ let poolMaster = {
         this.pickPools = this.poolBlock.find(this.pick_pool);
 
         this.banCardPool = this.pickPools.filter(this.ban_card_pool);
-        this.eachElementArea = this.banCardPool.find(this.pool_element_area);
+        this.bcpBaseGrade = this.banCardPool.find(this.bcp_base_grade);
+
+
+        this.elementsPool = this.pickPools.filter(this.elements_pool);
+        this.eachElementArea = this.elementsPool.find(this.pool_element_area);
         this.eachElementPoolArea = this.eachElementArea.find(this.each_element_pool_area);
         this.eachElementPool = this.eachElementPoolArea.find(this.each_element_pool);
 
         var ce;
         var host;
-        let elements = ["pyro", "hydro", "anemo", "electro", "dendro", "cryo", "geo"];
-        for (i in elements) {
-            ce = elements[i];
+        for (i in this.elements) {
+            ce = this.elements[i];
             host = this.eachElementArea.filter('[' + this.element + '="' + ce + '"]');
             this.elementPool[ce]["host"] = host;
             this.elementPool[ce]["5"] = host.find(this.each_element_pool_area + '[' + this.rarity + '="5"]').find(this.each_element_pool);
@@ -1366,10 +1393,15 @@ let poolMaster = {
         switch(rules.rule_type) {
             case "ban card":
                 this.initBanCardTable();
+                this.banCardPool.attr(this.league, rules.alterSelected);
                 break;
 
             case "cost":
                 this.initCostTable();
+                break;
+
+            default:
+                this.initElementTable();
                 break;
         }
 
@@ -1384,6 +1416,136 @@ let poolMaster = {
     },
 
     initBanCardTable: function() {
+        table = rules.ban_card_accure;
+
+        this.bcpBaseGrade.empty();
+        this.unallowedPool.empty();
+
+        this.eachGradeRarityArea = [];
+
+        let alters = rules.rule_alter;
+        var bcgArea = this.bcpBaseGrade;
+        for (var i=0; i <= alters.length; i++) {
+            let alt = alters[i];
+
+            this.buildBanCardGrade(i, bcgArea);
+
+            this.eachGradeRarityArea[i] = { "host": null, "5": null, "4": null, "middle": null };
+
+            let gra = this.eachGradeRarityArea[i];
+
+            gra["host"] = bcgArea;
+            for (r in this.rarities) {
+                gra[r] = { "host": null };
+                gea = gra[r];
+                gea["host"] = bcgArea.find('div.' + this.each_grade_rarity_area + '[' + this.rarity + '="' + r + '"]');
+                //gea["switchable"] = null;
+                for (n in this.elements) {
+                    ele = this.elements[n];
+                    gea[ele] = gea["host"].find('div.' + this.each_grade_element_area + '[' + this.element + '="' + ele + '"]');
+                }
+            }
+            gra["middle"] = bcgArea.find("div." + this.middle_position_holder);
+
+            bcgArea = gra["middle"].find("div." + this.ban_card_grade_area);
+        }
+
+        for (var i=0; i <= alters.length; i++) {
+            let alt = alters[i];
+            let acc = i == alters.length ? rules.ban_card_excepted : alt.ban_card_accure;
+
+            for (id in acc) {
+                let bancard = table[id];
+                let info = charactersInfo.list[charactersInfo[id]];
+                if (info == null) continue;
+                let gra = this.eachGradeRarityArea[i];
+                let rar = info.rarity == "5" ? "5" : "4";
+                let ele = info.element;
+                if (id.indexOf("treveler") > -1) {
+                    let mid = gra["middle"];
+                    let isMale = id == "trevelerM";
+                    let item = this.buildTrevelerHolder(info, bancard, isMale ? "1" : "0");
+                    if (isMale) mid.append(item);
+                    else mid.prepend(item);
+                } else {
+                    let item = this.buildCharacterItem(info, bancard);
+                    gra[rar][ele].find("ul." + this.each_grade_element_pool).append(item);
+                }
+            }
+        }
+
+        charactersInfo.list.forEach((info, i) => {
+            let id = info.id;
+            if (id == eoa) return;
+
+            let self = poolMaster;
+            let bancard = table[id];
+
+            if (bancard != null) return;
+
+            if (id == "treveler") {
+                let treveler = "" + i;
+                self.elementPool[info.element][treveler].append(self.buildCharacterItem(info, bancard, treveler));
+            } else {
+                let item = self.buildCharacterItem(info, bancard);
+                self.unallowedPool.append(item);
+            }
+        });
+
+        this.eachGradeElementPool = this.bcpBaseGrade.find("ul." + this.each_grade_element_pool);
+        this.eachCharacters = this.eachGradeElementPool.find(this.character);
+    },
+
+    buildBanCardGrade: function(grade, area) {
+        if (grade == null, area == null) return;
+
+        area.append(this.buildEachGradeRarityArea("5"));
+        let middle = document.createElement("div");
+        middle.setAttribute("class", this.middle_position_holder);
+        if (grade < rules.rule_alter.length) {
+            let bcgArea = document.createElement("div");
+            bcgArea.setAttribute("class", this.ban_card_grade_area);
+            bcgArea.setAttribute(this.ban_card_grade, "" + (grade + 1));
+            middle.append(bcgArea);
+        }
+        area.append(middle);
+        area.append(this.buildEachGradeRarityArea("4"));
+    },
+
+    buildEachGradeRarityArea: function(rar) {
+        let gra = document.createElement("div");
+        gra.setAttribute("class", this.each_grade_rarity_area);
+        gra.setAttribute(this.rarity, rar);
+
+        for (i in this.elements) {
+            let ele = this.elements[i];
+            let gea = document.createElement("div");
+            gea.setAttribute("class", this.each_grade_element_area);
+            gea.setAttribute(this.element, ele);
+            let ul = document.createElement("ul");
+            ul.setAttribute("class", this.each_pool_block + " " + this.each_grade_element_pool);
+            gea.append(ul);
+            gra.append(gea);
+        }
+
+        return gra;
+    },
+
+    buildTrevelerHolder: function(info, bancard, treveler) {
+        let gea = document.createElement("div");
+        gea.setAttribute("id", "bcTrevel" + info.alter);
+        gea.setAttribute("class", this.each_grade_element_area);
+        gea.setAttribute(this.treveler, treveler);
+        gea.setAttribute(this.element, info.element);
+        let ul = document.createElement("ul");
+        ul.setAttribute("class", this.each_pool_block + " " + this.each_grade_element_pool);
+        ul.append(this.buildCharacterItem(info, bancard, "0"));
+        gea.append(ul);
+
+        return gea;
+    },
+
+    initElementTable: function() {
         table = rules.ban_card_accure;
 
         this.eachElementPool.empty();
@@ -4332,8 +4494,9 @@ let rulesMaster = {
 
     onSelectedAlter: function(e) {
         let self = $(this);
+        let offset = parseInt(self.val());
 
-        rulesMaster.applyRuleAlterSelection(parseInt(self.val()));
+        rulesMaster.applyRuleAlterSelection(offset);
 
         if (rules.rule_type == "ban card") poolMaster.initPickPool();
         
@@ -4348,6 +4511,8 @@ let rulesMaster = {
 
     applyRuleAlterSelection: function(offset = rules.alter_default) {
         if (offset < 0 || offset >= rules.rule_alter.length) offset = rules.alter_default;
+        rules.alterSelected = offset;
+
         //base rule apply
         let base = rules.base_rule;
         this.loadRuleSet(base);
