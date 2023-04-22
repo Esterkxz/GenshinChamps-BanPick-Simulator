@@ -663,7 +663,7 @@ div#sequence_title > span { min-height: 46px; margin-top: 3px; margin-bottom: 0;
 
 div.pick_pool { margin: 8px; --char-icon-size: 64px; }
 
-div#ban_card_pool { --area-width: 1024px; --char-icon-size: 64px; --upper-tier-margin: 0 auto; --upper-tier-border-style: outset; --upper-tier-border-width: 5px 2px; --upper-tier-border-color: rgba(var(--color-important-darker) / 90%); --upper-tier-filter: brightness(1.04) drop-shadow(2px 4px 6px rgba(var(--main-color) / 75%)); position: relative; display: flex; flex-direction: row; flex-wrap: wrap; height: 600px; margin: -15px -132px 108px; overflow: visible; }
+div#ban_card_pool { --area-width: 1024px; --char-icon-size: 64px; --upper-tier-margin: 0 auto; --upper-tier-border-style: outset; --upper-tier-border-width: 5px 2px; --upper-tier-border-color: rgba(var(--color-important-darker) / 90%); --upper-tier-filter: brightness(1.04) drop-shadow(2px 4px 6px rgba(var(--main-color) / 75%)); position: relative; display: flex; flex-direction: row; flex-wrap: wrap; height: 600px; margin: -15px -140px 108px; overflow: visible; }
 body:not([data-rule-type="ban card"]) div#ban_card_pool { display: none; }
 div#ban_card_pool div.element_icons { --element-icon-size: 144px; position: absolute; display: flex; flex-direction: row; flex-wrap: nowrap; top: 92px; bottom: 0; left: 0; right: 0; width: var(--area-width); height: fit-content; margin: auto; }
 div#ban_card_pool div.element_icons div.element_icon_area { position: relative; left: 0; right: 0; width: fit-content; height: fit-content; margin: 4px auto; }
