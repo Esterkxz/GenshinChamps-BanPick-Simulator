@@ -1686,10 +1686,13 @@ let poolMaster = {
             element.setAttribute("src", charElement == null ? tpGif : getPathR("images", "element_icon", charElement));
         }
         item.prepend(element);
+        let banCardHolder = document.createElement("div");
+        banCardHolder.setAttribute("class", "ban_card_holder");
         let banCard = document.createElement("span");
         banCard.setAttribute("class", "ban_card");
         banCard.innerHTML = lang.text.banCardTitle;
-        item.append(banCard);
+        banCardHolder.append(banCard);
+        item.append(banCardHolder);
         let pickCardRed = document.createElement("span");
         pickCardRed.setAttribute("class", "pick_card red");
         pickCardRed.innerHTML = lang.text.pickedEntryShort;

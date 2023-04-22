@@ -757,10 +757,11 @@ div.pick_pool ul.each_pool_block > li.character[data-picked=""]:hover > img.char
 div.pick_pool ul.each_pool_block > li.character:active > img.character_icon { cursor: grabbing; }
 div.pick_pool ul.each_pool_block > li.character[data-cursor="1"] { outline-color: rgba(var(--color-focusive-highlight) / 90%); outline-width: 10px; }
 div.pick_pool ul.each_pool_block > li.character span { z-index: 1; position: absolute; display: block; bottom: 0; padding: 4px 0; text-align: center; }
-div.pick_pool ul.each_pool_block > li.character span.ban_card { left: 0; right: 0; width: fit-content; margin: auto; padding: 2px 3px 3px; border-radius: 4px; background-color: #000D; color: #FFF; font-family: 'Lato'; font-size: 13px; text-shadow: 0 0 2px white; line-height: 12px; box-shadow: 0 0 3px 1px #FFFA; opacity: 0; transition-duration: 0.3s; transition-timing-function: ease-in-out; }
-div.pick_pool ul.each_pool_block > li.character[data-ban-card="1"] span.ban_card { opacity: 1; }
-div.pick_pool ul.each_pool_block > li.character[data-ban-card="1"]:hover span.ban_card { opacity: 0.6; transform: translateY(13px); }
-body:not([data-rule-type="ban card"]) div.pick_pool ul.each_pool_block > li.character span.ban_card { display: none; }
+div.pick_pool ul.each_pool_block > li.character div.ban_card_holder { position: absolute; z-index: 1; bottom: 0; left: 0; right: 0; width: fit-content; margin: auto; padding: 0; opacity: 0; transition-duration: 0.3s; transition-timing-function: ease-in-out; }
+div.pick_pool ul.each_pool_block > li.character div.ban_card_holder span.ban_card { position: relative; left: 0; right: 0; width: fit-content; margin: auto; padding: 2px 3px 3px; border-radius: 4px; background-color: #000B; color: #FFF; font-family: 'Lato'; font-size: 13px; text-shadow: 0 0 2px white; line-height: 12px; box-shadow: 0 0 3px 1px #FFFA; transform: rotateZ(-58deg) translate(10px, 4px); transition-duration: 0.3s; transition-timing-function: ease-in-out; }
+div.pick_pool ul.each_pool_block > li.character[data-ban-card="1"] div.ban_card_holder { opacity: 1; }
+div.pick_pool ul.each_pool_block > li.character[data-ban-card="1"]:hover div.ban_card_holder { opacity: 0.6; transform: translateY(13px); }
+body:not([data-rule-type="ban card"]) div.pick_pool ul.each_pool_block > li.character div.ban_card_holder { display: none; }
 div.pick_pool ul.each_pool_block > li.character span.pick_card { margin: auto; border-radius: 4px; font-size: 18px; font-weight: bold; text-shadow: 0 0 2px black; line-height: 16px; opacity: 0; transition-duration: 0.3s; transition-timing-function: ease; }
 div.pick_pool ul.each_pool_block > li.character span.pick_card.red { left: 0; padding: 4px 1.5px 5px 2px; color: rgba(var(--color-side-red-bright) / 92.5%); background-color: rgba(var(--color-side-red) / 50%); box-shadow: 1px -1px 2px 0 rgba(var(--main-color) / 65%);}
 div.pick_pool ul.each_pool_block > li.character span.pick_card.blue { right: 0; padding: 4px 2px 5px 1.5px; color: rgba(var(--color-side-blue-bright) / 92.5%); background-color: rgba(var(--color-side-blue) / 50%); box-shadow: -1px -1px 2px 0 rgba(var(--main-color) / 65%);}
