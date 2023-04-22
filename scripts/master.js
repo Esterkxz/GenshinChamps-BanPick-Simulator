@@ -4014,8 +4014,10 @@ let sideMaster = {
                             break;
 
                         case "both":
-                            if (redTkoHalf1 > blueTkoHalf1) redWins = true;
-                            else blueWins = true;
+                            if (redTkoHalf1 != blueTkoHalf1) {
+                                if (redTkoHalf1 > blueTkoHalf1) redWins = true;
+                                else blueWins = true;
+                            }
                             break;
                     }
                 } else if (isStage2Tko) {
@@ -4029,8 +4031,10 @@ let sideMaster = {
                             break;
 
                         case "both":
-                            if (redTkoHalf2 > blueTkoHalf2) redWins = true;
-                            else blueWins = true;
+                            if (redTkoHalf2 != blueTkoHalf2) {
+                                if (redTkoHalf2 > blueTkoHalf2) redWins = true;
+                                else blueWins = true;
+                            }
                             break;
                     }
                 } else if (isStage3Tko) {
@@ -4044,8 +4048,10 @@ let sideMaster = {
                             break;
 
                         case "both":
-                            if (redTkoHalf3 > blueTkoHalf3) redWins = true;
-                            else blueWins = true;
+                            if (redTkoHalf3 != blueTkoHalf3) {
+                                if (redTkoHalf3 > blueTkoHalf3) redWins = true;
+                                else blueWins = true;
+                            }
                             break;
                     }
                 }
@@ -4056,12 +4062,13 @@ let sideMaster = {
             if (redWins || blueWins) {
                 let wins = redWins ? "red" : "blue";
                 if (this.progressPanel[0].attr(this.show) != "1") {
-                    setTimeout(function() { $("div#versus_entry_area").attr("data-wins", wins); }, 1000);
+                    setTimeout(function() { if (step > rules.sequence.length) $("div#versus_entry_area").attr("data-wins", wins); }, 1000);
                 } else $("div#versus_entry_area").attr("data-wins", wins);
 
                 sequenceMaster.setSequenceTitle((wins == "red" ? redName : blueName) + (isTko ? " TKO" : "") + " 승");
             } else {
                 sequenceMaster.setSequenceTitle(isTko ? "Double TKO" : "무승부");
+                $("div#versus_entry_area").attr("data-wins", "");
             }
 
             this.releaseVersusSuperiorityGraph(0);
