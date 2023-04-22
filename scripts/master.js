@@ -1427,6 +1427,7 @@ let poolMaster = {
 
     initBanCardTable: function() {
         table = rules.ban_card_accure;
+        this.table = table;
 
         this.bcpBaseGrade.empty();
         this.unallowedPool.empty();
@@ -1557,6 +1558,7 @@ let poolMaster = {
 
     initElementTable: function() {
         table = rules.ban_card_accure;
+        this.table = table;
 
         this.eachElementPool.empty();
         this.unallowedPool.empty();
@@ -1649,6 +1651,24 @@ let poolMaster = {
         items.click(this.onCharacterItemClick);
 
         this.unavailables.attr(this.title, lang.text.pickUnallowed);
+    },
+
+    releasePosessionBanCard: function() {
+        table = rules.ban_card_accure;
+        this.table = table;
+
+        this.eachCharacters.each((i, item) => {
+            item = $(item);
+            let self = poolMaster;
+            let id = item.attr(self.id);
+            if (id == null || id == "") return;
+
+            let bancard = table[id];
+            let state = bancard ? "1" : "";
+
+            if (item.attr(self.ban_card) != state) item.attr(self.ban_card, state);
+        });
+        this.banCardPool.attr(this.league, rules.alterSelected);
     },
 
     buildCharacterItem: function(info, bancard, treveler) {
@@ -4518,7 +4538,7 @@ let rulesMaster = {
 
         rulesMaster.applyRuleAlterSelection(offset);
 
-        if (rules.rule_type == "ban card") poolMaster.initPickPool();
+        if (rules.rule_type == "ban card") poolMaster.releasePosessionBanCard();
         
         sideMaster.releaseCostAmountChanged();
 
