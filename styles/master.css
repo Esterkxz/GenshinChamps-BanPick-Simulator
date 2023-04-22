@@ -683,7 +683,7 @@ div#ban_card_pool div.ban_card_grade_area div.each_grade_rarity_area[data-rarity
 div#ban_card_pool div.ban_card_grade_area div.each_grade_element_area ul.each_grade_element_pool { position: relative; display: flex; flex-direction: row; width: 100%; height: 100%; margin: 0 auto; padding: 0; justify-content: center; align-content: flex-start; }
 div#ban_card_pool div.ban_card_grade_area div.each_grade_rarity_area[data-rarity="5"] div.each_grade_element_area ul.each_grade_element_pool { flex-wrap: wrap-reverse; bottom: 0; }
 div#ban_card_pool div.ban_card_grade_area div.each_grade_rarity_area[data-rarity="4"] div.each_grade_element_area ul.each_grade_element_pool { flex-wrap: wrap; top: 0; }
-div#ban_card_pool div.ban_card_grade_area div.middle_position_holder { position: relative; display: flex; flex-direction: row; flex-wrap: nowrap; flex-grow: 1; height: fit-content; }
+div#ban_card_pool div.ban_card_grade_area div.middle_position_holder { position: relative; display: flex; flex-direction: row; flex-wrap: nowrap; flex-grow: 1; z-index: 1; height: fit-content; }
 div#ban_card_pool div.ban_card_grade_area div.middle_position_holder > div.each_grade_element_area { margin: auto; }
 div#ban_card_pool div.ban_card_grade_area div.middle_position_holder > div.each_grade_element_area ul.each_grade_element_pool { width: auto; height: auto; }
 
