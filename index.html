@@ -56,8 +56,11 @@ charactersInfo.list.pop();
 charactersInfo.list.forEach(ch => {
     //load character name every languages
     ch.name = [];
+    ch.nameShort = [];
     for (l in locales) {
-        ch.name[l] = locales[l]["characters"][ch.id];
+        let text = locales[l];
+        ch.name[l] = text["characters"][ch.id];
+        ch.nameShort[l] = text["characters_short"][ch.id];
     }
 
     //override character info for rule

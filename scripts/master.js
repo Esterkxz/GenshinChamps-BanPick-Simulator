@@ -1725,7 +1725,7 @@ let poolMaster = {
         nametag.setAttribute("class", "name_tag");
         if (info != null) {
             try {
-                nametag.innerHTML = info.name[loca];
+                nametag.innerHTML = info.nameShort[loca];
             } catch (e) {
 
             }
