@@ -757,7 +757,7 @@ div.pick_pool ul.each_pool_block > li.character[data-picked=""]:hover > img.char
 div.pick_pool ul.each_pool_block > li.character:active > img.character_icon { cursor: grabbing; }
 div.pick_pool ul.each_pool_block > li.character[data-cursor="1"] { outline-color: rgba(var(--color-focusive-highlight) / 90%); outline-width: 10px; }
 div.pick_pool ul.each_pool_block > li.character span { z-index: 1; position: absolute; display: block; bottom: 0; padding: 4px 0; text-align: center; }
-div.pick_pool ul.each_pool_block > li.character div.ban_card_holder { position: absolute; z-index: 1; bottom: 0; left: 0; right: 0; width: fit-content; margin: auto; padding: 0; opacity: 0; transition-duration: 0.3s; transition-timing-function: ease-in-out; }
+div.pick_pool ul.each_pool_block > li.character div.ban_card_holder { position: absolute; z-index: 1; bottom: 0; right: 0; width: fit-content; margin: auto; padding: 0; opacity: 0; transition-duration: 0.3s; transition-timing-function: ease-in-out; }
 div.pick_pool ul.each_pool_block > li.character div.ban_card_holder span.ban_card { position: relative; left: 0; right: 0; width: fit-content; margin: auto; padding: 2px 3px 3px; border-radius: 4px; background-color: #000B; color: #FFF; font-family: 'Lato'; font-size: 13px; text-shadow: 0 0 2px white; line-height: 12px; box-shadow: 0 0 3px 1px #FFFA; transform: rotateZ(-58deg) translate(10px, 4px); transition-duration: 0.3s; transition-timing-function: ease-in-out; }
 div.pick_pool ul.each_pool_block > li.character[data-ban-card="1"] div.ban_card_holder { opacity: 1; }
 div.pick_pool ul.each_pool_block > li.character[data-ban-card="1"]:hover div.ban_card_holder { opacity: 0.6; transform: translateY(13px); }
