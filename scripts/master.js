@@ -241,7 +241,8 @@ let sequenceMaster = {
     setSequenceTitleByCurrent: function(newStep = step) {
         let text = lang.text;
         let seq = rules.sequence[newStep];
-        let isBanCardUsingPhase = this.checkRes != null ? this.checkRes.banCardRem > 0 : false;
+        let checkRes = this.getCheckRes();
+        let isBanCardUsingPhase = checkRes != null ? (checkRes.banCardRem > 0) : false;
 
         var message = "";
 
@@ -275,7 +276,7 @@ let sequenceMaster = {
                 case "ban":
                 case "entry":
                 case "proffer":
-                    if (isBanCardUsingPhase) tAmount = text.amountPickCharacter.replace("#AMOUNT", "" + this.checkRes.res[seq.side == "red" ?  "bccstr" : "bccstb"]);
+                    if (isBanCardUsingPhase) tAmount = text.amountPickCharacter.replace("#AMOUNT", "" + checkRes.res[seq.side == "red" ?  "bccstr" : "bccstb"]);
                     else if (seq.amount < 1) tAmount = text.amountFillCharacter
                     else tAmount = text.amountPickCharacter.replace("#AMOUNT", seq.amount)
                     break;
@@ -365,7 +366,7 @@ let sequenceMaster = {
 
         playSound("픽", 0);
 
-        let res = this.checkCurrentStepComplition();
+        let res = this.issueCheckRes();
         if (!usingBanCard && res.rem == 0 && res.banCardRem > 0) usingBanCard = true;
 
         var extra = buildStepHistoryExtra();
@@ -701,13 +702,22 @@ let sequenceMaster = {
 
     checkUpdateCurrentStepComplition: function() {
         if (step < 0 || step >= rules.sequence.length) return;
-        let res = this.checkCurrentStepComplition();
-        this.checkRes = res;
+        let res = this.issueCheckRes();
 
         if (res.rem == 0 && res.banCardRem == 0) {
             this.shiftStep();
             return true;
         } else return false;
+    },
+
+    getCheckRes: function() {
+        return this.checkRes != null && this.checkRes.step != step ? this.issueCheckRes() : this.checkRes;
+    },
+
+    issueCheckRes: function() {
+        let res = this.checkCurrentStepComplition();
+        this.checkRes = res;
+        return res;
     },
 
     checkCurrentStepComplition: function() {
@@ -793,7 +803,7 @@ let sequenceMaster = {
                 break;
         }
 
-        return { res: res, rem: rem, banCardRem: banCardRem };
+        return { step: step, res: res, rem: rem, banCardRem: banCardRem };
     },
 
     countEachPickAmountTotal: function(res = {
@@ -3293,7 +3303,7 @@ let sideMaster = {
     //ban card ban
     onPickedBanCardBan: function(id, side = rules.sequence[step].side) {
         let info = charactersInfo.list[charactersInfo[id]];
-        let checkRes = sequenceMaster.checkRes;
+        let checkRes = sequenceMaster.getCheckRes();
 
         var card;
         switch(side) {
@@ -3319,7 +3329,7 @@ let sideMaster = {
 
     onUndoBanCardBan: function(id, side) {
         let sidePicked = this.banCardUsed[side];
-        let checkRes = sequenceMaster.checkCurrentStepComplition();
+        let checkRes = sequenceMaster.issueCheckRes();
         
         for (i = sidePicked.length-1; i>-1; i--) {
             let picked = sidePicked[i];
