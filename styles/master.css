@@ -537,7 +537,7 @@ div.side_selection_area div.character_selection_view[data-id^="treveler#"][data-
 div.side_selection_area div.character_selection_view[data-id^="treveler#"][data-shift="1"][data-treveler="1"] { animation: bgGlich1 0.6s forwards steps(10); }
 div.side_selection_area div.character_selection_view[data-id^="treveler#"][data-shift=""][data-treveler="0"] { background-size: 37.5%, 0%; transform: none; }
 div.side_selection_area div.character_selection_view[data-id^="treveler#"][data-shift=""][data-treveler="1"] { background-size: 0%, 37.5%; transform: none; }
-body[data-rule-type="ban card"] div.side_selection_area { --basic-position: 25px; }
+body[data-rule-type="ban card"] div.side_selection_area { --basic-position: -50px; }
 /* Side selection each side custom */
 div.side_selection_area.red { --side: left; left: 0; }
 div.side_selection_area.blue { --side: right; right: 0; }
@@ -663,19 +663,19 @@ div#sequence_title > span { min-height: 46px; margin-top: 3px; margin-bottom: 0;
 
 div.pick_pool { margin: 8px; --char-icon-size: 64px; }
 
-div#ban_card_pool { --area-width: 820px; --char-icon-size: 56px; --upper-tier-border-color: rgba(var(--color-important-darker) / 90%); --upper-tier-filter: brightness(1.04) drop-shadow(2px 4px 6px rgba(var(--main-color) / 75%)); position: relative; display: flex; flex-direction: row; flex-wrap: wrap; height: 600px; margin: -2px -30px 20px; overflow: visible; }
+div#ban_card_pool { --area-width: 1024px; --char-icon-size: 64px; --upper-tier-margin: 0 auto; --upper-tier-border-style: outset; --upper-tier-border-width: 5px 2px; --upper-tier-border-color: rgba(var(--color-important-darker) / 90%); --upper-tier-filter: brightness(1.04) drop-shadow(2px 4px 6px rgba(var(--main-color) / 75%)); position: relative; display: flex; flex-direction: row; flex-wrap: wrap; height: 600px; margin: -15px -132px 108px; overflow: visible; }
 body:not([data-rule-type="ban card"]) div#ban_card_pool { display: none; }
-div#ban_card_pool div.element_icons { --element-icon-size: 96px; position: absolute; display: flex; flex-direction: row; flex-wrap: nowrap; top: 0; bottom: 0; left: 0; right: 0; width: var(--area-width); height: fit-content; margin: auto; }
+div#ban_card_pool div.element_icons { --element-icon-size: 108px; position: absolute; display: flex; flex-direction: row; flex-wrap: nowrap; top: 0; bottom: 0; left: 0; right: 0; width: var(--area-width); height: fit-content; margin: auto; }
 div#ban_card_pool div.element_icons div.element_icon_area { position: relative; left: 0; right: 0; width: fit-content; height: fit-content; margin: 4px auto; }
-div#ban_card_pool div.element_icons div.element_icon_area img { width: var(--element-icon-size); height: var(--element-icon-size); filter: drop-shadow(0 4px 4px #000C); opacity: 0.8; }
-div#ban_card_pool div.ban_card_grade_area { position: relative; display: inline-flex; flex-direction: column; flex-wrap: nowrap; min-width: var(--area-width); margin: auto; padding: 1px 2px; border: groove 3px #8884; border-left-width: 1px; border-right-width: 1px; border-radius: 32px; background-color: rgba(var(--color-focusive-lighter) / 5%); box-shadow: inset 0px 0px 4px 1px rgba(var(--color-focusive-light) / 40%), 1px 2px 6px 0.25px rgba(var(--color-important-darker) / 70%); transition-duration: 0.3s; transition-timing-function: ease; }
-div#ban_card_pool[data-league="0"] div.ban_card_grade_area[data-ban-card-grade="1"] { border-color: var(--upper-tier-border-color); filter: var(--upper-tier-filter); }
-div#ban_card_pool[data-league="1"] div.ban_card_grade_area[data-ban-card-grade="2"] { border-color: var(--upper-tier-border-color); filter: var(--upper-tier-filter); }
-div#ban_card_pool[data-league="2"] div.ban_card_grade_area[data-ban-card-grade="3"] { border-color: var(--upper-tier-border-color); filter: var(--upper-tier-filter); }
-div#ban_card_pool[data-league="3"] div.ban_card_grade_area[data-ban-card-grade="4"] { border-color: var(--upper-tier-border-color); filter: var(--upper-tier-filter); }
-div#ban_card_pool[data-league="4"] div.ban_card_grade_area[data-ban-card-grade="5"] { border-color: var(--upper-tier-border-color); filter: var(--upper-tier-filter); }
-div#ban_card_pool[data-league="5"] div.ban_card_grade_area[data-ban-card-grade="6"] { border-color: var(--upper-tier-border-color); filter: var(--upper-tier-filter); }
-div#ban_card_pool[data-league="6"] div.ban_card_grade_area[data-ban-card-grade="7"] { border-color: var(--upper-tier-border-color); filter: var(--upper-tier-filter); }
+div#ban_card_pool div.element_icons div.element_icon_area img { width: var(--element-icon-size); height: var(--element-icon-size); filter: drop-shadow(0 4px 4px #000C); opacity: 0.85; }
+div#ban_card_pool div.ban_card_grade_area { position: relative; display: inline-flex; flex-direction: column; flex-wrap: nowrap; min-width: var(--area-width); margin: 1px auto; padding: 1px 2px; border: groove #8884; border-width: 3px 1px; border-radius: 32px; background-color: rgba(var(--color-focusive-lighter) / 5%); box-shadow: inset 0px 0px 4px 1px rgba(var(--color-focusive-light) / 40%), 1px 2px 6px 0.25px rgba(var(--color-important-darker) / 70%); transition-duration: 0.3s; transition-timing-function: ease; }
+div#ban_card_pool[data-league="0"] div.ban_card_grade_area[data-ban-card-grade="1"] { margin: var(--upper-tier-margin); border-style: var(--upper-tier-border-style); border-width: var(--upper-tier-border-width); border-color: var(--upper-tier-border-color); filter: var(--upper-tier-filter); }
+div#ban_card_pool[data-league="1"] div.ban_card_grade_area[data-ban-card-grade="2"] { margin: var(--upper-tier-margin); border-style: var(--upper-tier-border-style); border-width: var(--upper-tier-border-width); border-color: var(--upper-tier-border-color); filter: var(--upper-tier-filter); }
+div#ban_card_pool[data-league="2"] div.ban_card_grade_area[data-ban-card-grade="3"] { margin: var(--upper-tier-margin); border-style: var(--upper-tier-border-style); border-width: var(--upper-tier-border-width); border-color: var(--upper-tier-border-color); filter: var(--upper-tier-filter); }
+div#ban_card_pool[data-league="3"] div.ban_card_grade_area[data-ban-card-grade="4"] { margin: var(--upper-tier-margin); border-style: var(--upper-tier-border-style); border-width: var(--upper-tier-border-width); border-color: var(--upper-tier-border-color); filter: var(--upper-tier-filter); }
+div#ban_card_pool[data-league="4"] div.ban_card_grade_area[data-ban-card-grade="5"] { margin: var(--upper-tier-margin); border-style: var(--upper-tier-border-style); border-width: var(--upper-tier-border-width); border-color: var(--upper-tier-border-color); filter: var(--upper-tier-filter); }
+div#ban_card_pool[data-league="5"] div.ban_card_grade_area[data-ban-card-grade="6"] { margin: var(--upper-tier-margin); border-style: var(--upper-tier-border-style); border-width: var(--upper-tier-border-width); border-color: var(--upper-tier-border-color); filter: var(--upper-tier-filter); }
+div#ban_card_pool[data-league="6"] div.ban_card_grade_area[data-ban-card-grade="7"] { margin: var(--upper-tier-margin); border-style: var(--upper-tier-border-style); border-width: var(--upper-tier-border-width); border-color: var(--upper-tier-border-color); filter: var(--upper-tier-filter); }
 div#ban_card_pool div.ban_card_grade_area div.each_grade_rarity_area { position: relative; display: flex; flex-direction: row; flex-wrap: nowrap; width: var(--area-width); margin: auto; }
 div#ban_card_pool div.ban_card_grade_area div.each_grade_rarity_area div.each_grade_element_area { position: relative; display: block; flex-grow: 1; max-width: calc(100% / 7); min-width: calc(var(--char-icon-size) * 2); }
 div#ban_card_pool div.ban_card_grade_area div.each_grade_rarity_area[data-rarity="5"] div.each_grade_element_area { }
@@ -828,6 +828,7 @@ div#main_controller div#extra_action button#settings { }
 div#main_controller div#extra_action button#reset { }
 div#main_controller div#extra_action select#language { height: fit-content; padding: 6px; }
 div#main_controller div#search_host { min-height: 31px; padding: 6px 0 4px; }
+body[data-rule-type="ban card"] div#main_controller div#search_host { display: none; }
 div#main_controller div#version_info { }
 div#main_controller div#version_info span { color: var(--plain-text-color); }
 div#main_controller div#tool_infos { }
