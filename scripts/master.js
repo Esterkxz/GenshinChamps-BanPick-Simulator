@@ -1125,6 +1125,9 @@ let poolMaster = {
 
     each_pool_block: "each_pool_block",
 
+    simple_ban_card_pool: "#simple_ban_card_pool",
+    each_grade_pool: "each_grade_pool",
+
     ban_card_pool: "#ban_card_pool",
     bcp_base_grade: "div#base_grade",
 
@@ -1181,6 +1184,10 @@ let poolMaster = {
     poolBlock: null,
     pickPools: null,
     pickPool: null,
+
+    simpleBanCardPool: null,
+    eachGradeArea: null,
+    eachGradePool: null,
 
     banCardPool: null,
     bcpBaseGrade: null,
@@ -1261,6 +1268,8 @@ let poolMaster = {
 
         this.poolBlock = $(this.pool_block);
         this.pickPools = this.poolBlock.find(this.pick_pool);
+
+        this.simpleBanCardPool = this.pickPools.filter(this.simple_ban_card_pool);
 
         this.banCardPool = this.pickPools.filter(this.ban_card_pool);
         this.bcpBaseGrade = this.banCardPool.find(this.bcp_base_grade);
@@ -1405,7 +1414,9 @@ let poolMaster = {
     initPickPool: function() {
         switch(rules.rule_type) {
             case "ban card":
-                this.initBanCardTable();
+                this.initSimpleBanCardTable();
+                this.simpleBanCardPool.attr(this.league, rules.alterSelected);
+                //this.initBanCardTable();
                 this.banCardPool.attr(this.league, rules.alterSelected);
                 break;
 
@@ -1426,6 +1437,81 @@ let poolMaster = {
         items.click(this.onCharacterItemClick);
 
         this.unavailables.attr(this.title, lang.text.pickUnallowed);
+    },
+
+    initSimpleBanCardTable: function() {
+        table = rules.ban_card_accure;
+        this.table = table;
+
+        this.simpleBanCardPool.empty();
+        this.unallowedPool.empty();
+
+        let alters = rules.rule_alter;
+        let pool = this.simpleBanCardPool;
+        for (var i=0; i <= alters.length; i++) {
+            let alt = alters[i];
+
+            let banCardGradeArea = document.createElement("div");
+            banCardGradeArea.setAttribute("class", this.ban_card_grade_area);
+            banCardGradeArea.setAttribute(this.ban_card_grade, i);
+            let eachGradePool = document.createElement("ul");
+            eachGradePool.setAttribute("class", this.each_pool_block + " " + this.each_grade_pool);
+            banCardGradeArea.append(eachGradePool);
+            pool.prepend(banCardGradeArea);
+        }
+        this.eachGradeArea = pool.find("div." + this.ban_card_grade_area);
+
+        for (var i=0; i <= alters.length; i++) {
+            let alt = alters[i];
+            let acc = i == alters.length ? rules.ban_card_excepted : alt.ban_card_accure;
+
+            let set = [{}, {}];
+            for (id in acc) {
+                let info = charactersInfo.list[charactersInfo[id]];
+                if (info == null) continue;
+                let rar = info.rarity == "5" ? "5" : "4";
+
+                set[rar == "5" ? 0 : 1][id] = info;
+            }
+
+            for (rar in set) {
+                let list = set[rar];
+                for (id in list) {
+                    let bancard = table[id];
+                    let info = list[id];
+
+                    var item;
+                    if (id.indexOf("treveler") > -1) {
+                        let isMale = id == "trevelerM";
+                        item = this.buildCharacterItem(info, bancard, isMale ? "1" : "0");
+                    } else {
+                        item = this.buildCharacterItem(info, bancard);
+                    }
+                    this.eachGradeArea.filter('[' + this.ban_card_grade + '="' + i + '"]').find("ul." + this.each_grade_pool).append(item);
+                }
+            }
+        }
+
+        charactersInfo.list.forEach((info, i) => {
+            let id = info.id;
+            if (id == eoa) return;
+
+            let self = poolMaster;
+            let bancard = table[id];
+
+            if (bancard != null) return;
+
+            if (id == "treveler") {
+                let treveler = "" + i;
+                self.unallowedPool.append(self.buildCharacterItem(info, bancard, treveler));
+            } else {
+                let item = self.buildCharacterItem(info, bancard);
+                self.unallowedPool.append(item);
+            }
+        });
+
+        this.eachGradePool = this.eachGradeArea.find("ul." + this.each_grade_pool);
+        this.eachCharacters = this.eachGradePool.find(this.character);
     },
 
     initBanCardTable: function() {
@@ -1671,6 +1757,7 @@ let poolMaster = {
 
             if (item.attr(self.ban_card) != state) item.attr(self.ban_card, state);
         });
+        this.simpleBanCardPool.attr(this.league, rules.alterSelected);
         this.banCardPool.attr(this.league, rules.alterSelected);
     },
 

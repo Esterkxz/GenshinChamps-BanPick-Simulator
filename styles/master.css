@@ -663,7 +663,20 @@ div#sequence_title > span { min-height: 46px; margin-top: 3px; margin-bottom: 0;
 
 div.pick_pool { margin: 8px; --char-icon-size: 64px; }
 
+div#simple_ban_card_pool { --grade-divider-border-width: 12px; margin: 28px 0 16px; }
+body:not([data-rule-type="ban card"]) div#simple_ban_card_pool { display: none; }
+div#simple_ban_card_pool div.ban_card_grade_area { position: relative; --icon-src-size: 64px; margin: 10px 0; border-top: dotted 0px #222D; transition-duration: 0.3s; transition-timing-function: ease; }
+div#simple_ban_card_pool[data-league="0"] div.ban_card_grade_area[data-ban-card-grade="0"] { border-top-width: var(--grade-divider-border-width); }
+div#simple_ban_card_pool[data-league="1"] div.ban_card_grade_area[data-ban-card-grade="1"] { border-top-width: var(--grade-divider-border-width); }
+div#simple_ban_card_pool[data-league="2"] div.ban_card_grade_area[data-ban-card-grade="2"] { border-top-width: var(--grade-divider-border-width); }
+div#simple_ban_card_pool[data-league="3"] div.ban_card_grade_area[data-ban-card-grade="3"] { border-top-width: var(--grade-divider-border-width); }
+div#simple_ban_card_pool[data-league="4"] div.ban_card_grade_area[data-ban-card-grade="4"] { border-top-width: var(--grade-divider-border-width); }
+div#simple_ban_card_pool[data-league="5"] div.ban_card_grade_area[data-ban-card-grade="5"] { border-top-width: var(--grade-divider-border-width); }
+div#simple_ban_card_pool[data-league="6"] div.ban_card_grade_area[data-ban-card-grade="6"] { border-top-width: var(--grade-divider-border-width); }
+div#simple_ban_card_pool div.ban_card_grade_area ul.each_grade_pool { position: relative; display: flex; flex-wrap: wrap; padding: 0; justify-content: center; }
+
 div#ban_card_pool { --area-width: 1024px; --char-icon-size: 64px; --upper-tier-margin: 0 auto; --upper-tier-border-style: outset; --upper-tier-border-width: 5px 2px; --upper-tier-border-color: rgba(var(--color-important-darker) / 90%); --upper-tier-filter: brightness(1.04) drop-shadow(2px 4px 6px rgba(var(--main-color) / 75%)); position: relative; display: flex; flex-direction: row; flex-wrap: wrap; height: 600px; min-width: 1190px; margin: -15px max(-140px, calc((100% - 1190px) / 2)) 108px; overflow: visible; }
+div#ban_card_pool { display: none; }
 body:not([data-rule-type="ban card"]) div#ban_card_pool { display: none; }
 div#ban_card_pool div.element_icons { --element-icon-size: 144px; position: absolute; display: flex; flex-direction: row; flex-wrap: nowrap; top: 92px; bottom: 0; left: 0; right: 0; width: var(--area-width); height: fit-content; margin: auto; }
 div#ban_card_pool div.element_icons div.element_icon_area { position: relative; left: 0; right: 0; width: fit-content; height: fit-content; margin: 4px auto; }
@@ -831,7 +844,7 @@ div#main_controller div#extra_action button#settings { }
 div#main_controller div#extra_action button#reset { }
 div#main_controller div#extra_action select#language { height: fit-content; padding: 6px; }
 div#main_controller div#search_host { min-height: 31px; padding: 6px 0 4px; }
-body[data-rule-type="ban card"] div#main_controller div#search_host { display: none; }
+body[data-pool-type="ban card grade complexd"] div#main_controller div#search_host { display: none; }
 div#main_controller div#version_info { }
 div#main_controller div#version_info span { color: var(--plain-text-color); }
 div#main_controller div#tool_infos { }
