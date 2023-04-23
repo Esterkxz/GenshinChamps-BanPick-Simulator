@@ -1852,7 +1852,6 @@ let poolMaster = {
         items.attr(this.picked_blue, "");
         items.attr(this.banned, "");
         items.attr(this.banned_by_card, "");
-        items.attr(this.ban_card, "");
         
         this.toggleTrevelerAlter(0);
     },
