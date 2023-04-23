@@ -405,6 +405,7 @@ let sequenceMaster = {
             item.attr(poolMaster.picked, "1");
             if (seq.pick == "ban" || usingBanCard) {
                 item.attr(poolMaster.banned, "1");
+                item.attr(poolMaster.banned_by_card, usingBanCard ? "1" : "");
                 item.attr(poolMaster.pick_note, pickNote);
             } else switch (pickingSide) {
                 case "red":
@@ -488,6 +489,7 @@ let sequenceMaster = {
                 let item = poolMaster.eachCharacters.filter('[' + poolMaster.id  + '="' + picked.id + '"]');
                 if (ref.pick == "ban" || (last.isBanCardBan)) {
                     item.attr(poolMaster.banned, "");
+                    item.attr(poolMaster.banned_by_card, "");
                     item.attr(poolMaster.pick_side, "");
                     item.attr(poolMaster.pick_type, "");
                     item.attr(poolMaster.pick_note, null);
@@ -1167,6 +1169,7 @@ let poolMaster = {
     picked_red: "data-picked-red",
     picked_blue: "data-picked-blue",
     banned: "data-banned",
+    banned_by_card: "data-banned-by-card",
     ban_card: "data-ban-card",
     view: "data-view",
     cursor: "data-cursor",
@@ -1691,6 +1694,7 @@ let poolMaster = {
             item.setAttribute(this.picked_red, "");
             item.setAttribute(this.picked_blue, "");
             item.setAttribute(this.banned, "");
+            item.setAttribute(this.banned_by_card, "");
             item.setAttribute(this.ban_card, bancard ? "1" : "");
             if (treveler != null) item.setAttribute(this.treveler, treveler);
         }
@@ -1706,6 +1710,9 @@ let poolMaster = {
             element.setAttribute("src", charElement == null ? tpGif : getPathR("images", "element_icon", charElement));
         }
         item.prepend(element);
+        let banCardHole = document.createElement("div");
+        banCardHole.setAttribute("class", "ban_card_hole");
+        item.append(banCardHole);
         let banCardHolder = document.createElement("div");
         banCardHolder.setAttribute("class", "ban_card_holder");
         let banCard = document.createElement("span");
@@ -1757,6 +1764,8 @@ let poolMaster = {
         items.attr(this.picked_red, "");
         items.attr(this.picked_blue, "");
         items.attr(this.banned, "");
+        items.attr(this.banned_by_card, "");
+        items.attr(this.ban_card, "");
         
         this.toggleTrevelerAlter(0);
     },
