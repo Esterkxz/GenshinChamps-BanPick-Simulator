@@ -537,16 +537,19 @@ div.side_selection_area div.character_selection_view[data-id^="treveler#"][data-
 div.side_selection_area div.character_selection_view[data-id^="treveler#"][data-shift="1"][data-treveler="1"] { animation: bgGlich1 0.6s forwards steps(10); }
 div.side_selection_area div.character_selection_view[data-id^="treveler#"][data-shift=""][data-treveler="0"] { background-size: 37.5%, 0%; transform: none; }
 div.side_selection_area div.character_selection_view[data-id^="treveler#"][data-shift=""][data-treveler="1"] { background-size: 0%, 37.5%; transform: none; }
-body[data-rule-type="ban card"] div.side_selection_area { --basic-position: -50px; }
+body[data-rule-type="ban card"] div.side_selection_area { --basic-position: -20px; }
+body[data-pool-type="ban card grade complexd"] div.side_selection_area { --basic-position: -50px; }
 /* Side selection each side custom */
 div.side_selection_area.red { --side: left; left: 0; }
 div.side_selection_area.blue { --side: right; right: 0; }
 
 /* Side area */
 div#side_behind { position: absolute; z-index: 0; width: 100%; height: 960px; }
-div#side_behind div { position: absolute; top: 0; left: 0; right: 0; }
+div#side_behind div { --margin-short: 100px; position: absolute; top: 0; left: 0; right: 0; }
 div#side_behind div#side_behind_area { width: calc(100% - 200px); margin: auto; }
-div#side_behind div.side_behind { bottom: 0; margin: auto 180px auto 100px; }
+div#side_behind div.side_behind.left { bottom: 0; margin: auto 180px auto var(--margin-short); }
+div#side_behind div.side_behind.right { bottom: 0; margin: auto var(--margin-short) auto 180px; }
+body[data-rule-type="ban card"] div#side_behind div.side_behind { --margin-short: 50px; }
 div#side_behind div.side_behind div { position: absolute; }
 div#side_behind div.side_behind div.character_name_display { position: absolute; display: inline-flex; flex-direction: column; flex-wrap: nowrap; justify-content: flex-end; /* bottom: 0; margin: auto 0 200px; */ min-height: 164px; margin: 76px 0 200px; font-family: 'Noto Sans KR'; /* font-size: 230px; */ font-size: 128px; font-weight: bold; transform: scaleX(0.9) skewX(-12deg); opacity: 0; transition-duration: 0.8s; transition-timing-function: ease; }
 div#side_behind div.side_behind div.character_name_display[data-show="1"] { opacity: 1; }
