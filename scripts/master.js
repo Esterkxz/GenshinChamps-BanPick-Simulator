@@ -2952,13 +2952,42 @@ let sideMaster = {
                     info.setAttribute("title", lang.text.entryBanCardDesc);
                     let banCard = document.createElement("div");
                     banCard.setAttribute("class", "ban_card");
+                    let banCardFront = document.createElement("div");
+                    banCardFront.setAttribute("class", "ban_card_front");
                     let banEntryPlace = document.createElement("div");
                     banEntryPlace.setAttribute("class", "ban_entry_place");
                     let banEntry = document.createElement("img");
                     banEntry.setAttribute("class", "character_icon");
                     banEntry.setAttribute("src", tpGif);
                     banEntryPlace.append(banEntry);
-                    banCard.append(banEntryPlace);
+                    banCardFront.append(banEntryPlace);
+                    let banInitial = document.createElement("span");
+                    banInitial.setAttribute("class", "ban_initial fw");
+                    banInitial.textContent = "B";
+                    banCardFront.append(banInitial);
+                    let banInitialR = document.createElement("span");
+                    banInitialR.setAttribute("class", "ban_initial bw");
+                    banInitialR.textContent = "B";
+                    banCardFront.append(banInitialR);
+                    let banEntryElement = document.createElement("img");
+                    banEntryElement.setAttribute("class", "element_icon fw");
+                    banEntryElement.setAttribute("src", tpGif);
+                    banCardFront.append(banEntryElement);
+                    let banEntryElementR = document.createElement("img");
+                    banEntryElementR.setAttribute("class", "element_icon bw");
+                    banEntryElementR.setAttribute("src", tpGif);
+                    banCardFront.append(banEntryElementR);
+                    let nametag = document.createElement("span");
+                    nametag.setAttribute("class", "name_tag");
+                    banCardFront.append(nametag);
+                    banCard.append(banCardFront);
+                    let banCardBack = document.createElement("div");
+                    banCardBack.setAttribute("class", "ban_card_back");
+                    let banCardBehind = document.createElement("span");
+                    banCardBehind.setAttribute("class", "ban_card_behind");
+                    banCardBehind.textContent = "BAN";//뒷면 텍스트 다국어 처리 필요
+                    banCardBack.append(banCardBehind);
+                    banCard.append(banCardBack);
                     info.append(banCard);
                 }
 
@@ -3391,21 +3420,21 @@ let sideMaster = {
         let img = entryPlace.find("img.character_icon");
         img.attr("src", info != null ? getPathR("images", "character_icon", info.res_icon) : tpGif);
         
-        // let element = card.find("img.element_icon");
-        // let nametag = card.find("span.name_tag");
-        // if (info != null) {
-        //     let charElement = commonInfo.element.res_icon[info.element];
-        //     element.attr("src", charElement == null ? tpGif : getPathR("images", "element_icon", charElement));
+        let element = card.find("img.element_icon");
+        let nametag = card.find("span.name_tag");
+        if (info != null) {
+            let charElement = commonInfo.element.res_icon[info.element];
+            element.attr("src", charElement == null ? tpGif : getPathR("images", "element_icon", charElement));
 
-        //     try {
-        //         nametag.html(info.name[loca]);
-        //     } catch (e) {
+            try {
+                nametag.html(info.name[loca]);
+            } catch (e) {
 
-        //     }
-        // } else {
-        //     element.attr("src", tpGif)
-        //     nametag.html("");
-        // }
+            }
+        } else {
+            element.attr("src", tpGif)
+            nametag.html("");
+        }
     },
 
     //ban weapon
