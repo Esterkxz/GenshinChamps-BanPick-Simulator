@@ -3522,7 +3522,7 @@ let sideMaster = {
             element.attr("src", charElement == null ? tpGif : getPathR("images", "element_icon", charElement));
 
             try {
-                nametag.html(info.name[loca]);
+                nametag.html(info.nameShort[loca]);
             } catch (e) {
 
             }
