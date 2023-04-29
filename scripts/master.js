@@ -1764,6 +1764,8 @@ let poolMaster = {
     buildCharacterItem: function(info, bancard, treveler) {
         let item = document.createElement("li");
         item.setAttribute("class", "character");
+        let holder = document.createElement("div");
+        holder.setAttribute("class", "character_holder");
         let img = this.buildCharacterIcon(info);
         if (info != null) {
             item.setAttribute(this.id, info.id);
@@ -1785,7 +1787,8 @@ let poolMaster = {
             item.setAttribute(this.ban_card, bancard ? "1" : "");
             if (treveler != null) item.setAttribute(this.treveler, treveler);
         }
-        item.append(img);
+        holder.append(img);
+        item.append(holder);
         if (info != null && treveler == null && info.id == "treveler") {
             item.setAttribute(this.treveler, "0");
             item.append(this.buildCharacterIcon(charactersInfo.list[charactersInfo.trevelerM]));
@@ -1797,6 +1800,9 @@ let poolMaster = {
             element.setAttribute("src", charElement == null ? tpGif : getPathR("images", "element_icon", charElement));
         }
         item.prepend(element);
+        let bgSheet = document.createElement("div");
+        bgSheet.setAttribute("class", "character_back");
+        item.prepend(bgSheet);
         let banCardHole = document.createElement("div");
         banCardHole.setAttribute("class", "ban_card_hole");
         item.append(banCardHole);
