@@ -729,7 +729,6 @@ let charactersInfo = {
             "res_icon": "UI_AvatarIcon_Mika.png"
         },
         {
-            "comment": "temporary data for pre-official release",
             "id": "kaveh",
             "class": "ordinary",
             "version": "3.6h",
@@ -737,11 +736,10 @@ let charactersInfo = {
             "weapon": "claymore",
             "element": "dendro",
             "continent": "sumeru",
-            "res_back": "UI_AvatarIcon_Kaveh@x2.png",
+            "res_back": "UI_AvatarIcon_Kaveh@2x.png",
             "res_icon": "UI_AvatarIcon_Kaveh.png"
         },
         {
-            "comment": "temporary data for pre-official release",
             "id": "baizhu",
             "class": "limited",
             "version": "3.6h",
@@ -749,8 +747,19 @@ let charactersInfo = {
             "weapon": "catalyst",
             "element": "dendro",
             "continent": "liyue",
-            "res_back": "UI_AvatarIcon_Baizhuer@x2.png",
+            "res_back": "UI_AvatarIcon_Baizhuer@2x.png",
             "res_icon": "UI_AvatarIcon_Baizhuer.png"
+        },
+        {
+            "id": "kirara",
+            "class": "ordinary",
+            "version": "3.7f",
+            "rarity": "4",
+            "weapon": "sword",
+            "element": "dendro",
+            "continent": "sumeru",
+            "res_back": "UI_AvatarIcon_Momoka@2x.png",
+            "res_icon": "UI_AvatarIcon_Momoka.png"
         },
         {
             "comment": "temporary data for pre-official release",
@@ -846,5 +855,6 @@ let charactersInfo = {
     "mika": 65,
     "kaveh": 66,
     "baizhu": 67,
+    "kirara": 68,
     "reserved": 6
 }

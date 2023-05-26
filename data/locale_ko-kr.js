@@ -202,6 +202,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "mika": "미카",
         "kaveh": "카베",
         "baizhu": "백출",
+        "kirara": "키라라",
         "reserved": ""
     },
     "characters_short": {
@@ -272,6 +273,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "mika": "미카",
         "kaveh": "카베",
         "baizhu": "백출",
+        "kirara": "키라라",
         "reserved": ""
     },
     "weapons": {

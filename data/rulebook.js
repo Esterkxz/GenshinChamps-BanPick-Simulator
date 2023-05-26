@@ -111,6 +111,9 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "alhaitham": false,
             "dehya": false,
             "mika": false,
+            "kaveh": false,
+            "baizhu": false,
+            "kirara": false,
         },
         "": ""
     },
@@ -150,6 +153,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "candace": true,
                 "layla": true,
                 "dehya": true,
+                "kaveh": true,
             },
             "": ""
         },
@@ -169,6 +173,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "faruzan": true,
                 "yaoyao": true,
                 "mika": true,
+                "kirara": true,
             },
             "": ""
         },
@@ -207,6 +212,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "shenhe": true,
                 "cyno": true,
                 "nilou": true,
+                "baizhu": true,
             },
             "": ""
         },
