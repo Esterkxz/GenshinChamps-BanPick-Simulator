@@ -1437,6 +1437,11 @@ let poolMaster = {
         items.click(this.onCharacterItemClick);
 
         this.unavailables.attr(this.title, lang.text.pickUnallowed);
+        if (this.unallowedPool.find(this.character).length < 1) {
+            if (this.unavailables.attr("data-hide") != "1") {
+                setTimeout(function() { poolMaster.unavailables.attr("data-hide", "1"); }, 2500);
+            }
+        }
     },
 
     initSimpleBanCardTable: function() {
@@ -1734,12 +1739,6 @@ let poolMaster = {
         };
 
         this.eachCharacters = this.eachCostPool.find(this.character);
-        let items = this.eachCharacters;
-        items.mouseenter(this.onCharacterItemMouseEnter);
-        items.mouseleave(this.onCharacterItemMouseLeave);
-        items.click(this.onCharacterItemClick);
-
-        this.unavailables.attr(this.title, lang.text.pickUnallowed);
     },
 
     releasePosessionBanCard: function() {
