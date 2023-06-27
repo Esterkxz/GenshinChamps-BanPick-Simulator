@@ -235,6 +235,52 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             },
             "": ""
         },
+        {
+            "name": "일태도 미러",
+            "name_full": "동상의 일태도",
+            "score_range": "100+",
+            "established": true,
+            "sequence": [
+                { "side": "red", "pick": 'ban', "amount": "2" },
+                { "side": "blue", "pick": 'ban', "amount": "2" },
+                { "side": "red", "pick": 'entry', "amount": "1" },
+                { "side": "red", "pick": 'proffer', "amount": "1" },
+                { "side": "blue", "pick": 'entry', "amount": "1" },
+                { "side": "blue", "pick": 'proffer', "amount": "1" },
+                { "side": "red", "pick": 'entry', "amount": "1" },
+                { "side": "red", "pick": 'proffer', "amount": "1" },
+                { "side": "blue", "pick": 'entry', "amount": "1" },
+                { "side": "blue", "pick": 'proffer', "amount": "1" },
+                { "side": "red", "pick": 'entry', "amount": "0" },
+                { "side": "blue", "pick": 'entry', "amount": "0" },
+                { "side": "red", "pick": 'ban', "amount": "1" },
+                { "side": "blue", "pick": 'ban', "amount": "1" },
+                { "side": "blue", "pick": 'entry', "amount": "1" },
+                { "side": "blue", "pick": 'proffer', "amount": "1" },
+                { "side": "red", "pick": 'entry', "amount": "1" },
+                { "side": "red", "pick": 'proffer', "amount": "1" },
+                { "side": "blue", "pick": 'entry', "amount": "1" },
+                { "side": "blue", "pick": 'proffer', "amount": "1" },
+                { "side": "red", "pick": 'entry', "amount": "1" },
+                { "side": "red", "pick": 'proffer', "amount": "1" },
+                { "side": "blue", "pick": 'entry', "amount": "0" },
+                { "side": "red", "pick": 'entry', "amount": "0" },
+                "reserved"
+            ],
+                    
+            "ban_card_accure": {
+                "venti": true,
+                "ayaka": true,
+                "yoimiya": true,
+                "itto": true,
+                "yae": true,
+                "ayato": true,
+                "tighnari": true,
+                "wanderer": true,
+                "alhaitham": true,
+            },
+            "": ""
+        },
     ],
 
     "ban_card_excepted": {
