@@ -4668,6 +4668,8 @@ let rulesMaster = {
         rulesMaster.applyRuleAlterSelection(offset);
 
         if (rules.rule_type == "ban card") poolMaster.releasePosessionBanCard();
+
+        $(document.body).attr("data-double-pick", rules.double_pick === true ? "1" : "0")
         
         sideMaster.releaseCostAmountChanged();
 

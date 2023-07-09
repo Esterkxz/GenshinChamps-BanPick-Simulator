@@ -22,6 +22,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 
     "base_rule": {
         "league_tail": "LEAGUE",
+        "double_pick": null,
         "sequence": [
             { "side": "red", "pick": 'ban', "amount": "2" },
             { "side": "blue", "pick": 'ban', "amount": "2" },
@@ -118,13 +119,14 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "": ""
     },
 
-    "alter_default": 2,
+    "alter_default": 3,
 
     "rule_alter": [
         {
-            "name": "무인검 리그",
-            "name_full": "무인검",
-            "score_range": "15-24",
+            "name": "맨손 리그",
+            "name_full": "MAN SON",
+            "score_range": "0-14",
+            "double_pick": true,
             "established": true,
     
             "ban_card_accure": {
@@ -156,6 +158,12 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "kaveh": true,
             },
             "": ""
+        },
+        {
+            "name": "무인검 리그",
+            "name_full": "무인검",
+            "score_range": "15-24",
+            "established": true,
         },
         {
             "name": "흑술창 리그",
@@ -234,6 +242,41 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "alhaitham": true,
             },
             "": ""
+        },
+        {
+            "name": "일태도 미러",
+            "name_full": "동상의 일태도",
+            "score_range": "100+",
+            "established": false,
+            
+            "sequence": [
+                {"side":"red","pick":"ban","amount":"2"},
+                {"side":"blue","pick":"ban","amount":"2"},
+                {"side":"red","pick":"entry","amount":"1"},
+                {"side":"red","pick":"proffer","amount":"1"},
+                {"side":"blue","pick":"entry","amount":"1"},
+                {"side":"blue","pick":"proffer","amount":"1"},
+                {"side":"red","pick":"entry","amount":"1"},
+                {"side":"red","pick":"proffer","amount":"1"},
+                {"side":"blue","pick":"entry","amount":"1"},
+                {"side":"blue","pick":"proffer","amount":"1"},
+                {"side":"red","pick":"entry","amount":"0"},
+                {"side":"blue","pick":"entry","amount":"0"},
+                {"side":"red","pick":"ban","amount":"1"},
+                {"side":"blue","pick":"ban","amount":"1"},
+                {"side":"blue","pick":"entry","amount":"1"},
+                {"side":"blue","pick":"proffer","amount":"1"},
+                {"side":"red","pick":"entry","amount":"1"},
+                {"side":"red","pick":"proffer","amount":"1"},
+                {"side":"blue","pick":"entry","amount":"1"},
+                {"side":"blue","pick":"proffer","amount":"1"},
+                {"side":"red","pick":"entry","amount":"1"},
+                {"side":"red","pick":"proffer","amount":"1"},
+                {"side":"blue","pick":"entry","amount":"0"},
+                {"side":"red","pick":"entry","amount":"0"},
+                "reserved"
+            ],
+            "":""
         },
     ],
 
