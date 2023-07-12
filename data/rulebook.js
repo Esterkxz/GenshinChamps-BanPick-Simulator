@@ -164,6 +164,10 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "name_full": "무인검",
             "score_range": "15-24",
             "established": true,
+
+            "ban_card_accure": {
+            },
+            "":""
         },
         {
             "name": "흑술창 리그",
