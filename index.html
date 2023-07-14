@@ -1473,6 +1473,9 @@ function getPathA(id, group = "", type = "sounds") {
                 <div id="res_character_icon" class="characters">
                     <resource class="res_image res_character_icon" data-id="trevelerF" style="--src: url('./images/character_iconic/UI_AvatarIcon_PlayerGirl.png');"></resource>
                 </div>
+                <div id="res_character_vcut" class="characters">
+                    <resource class="res_image res_character_vcut" data-id="trevelerF" style="--src: url('./images/character_vertical/playergirl_007_gacha_card.webp');"></resource>
+                </div>
                 <div id="res_extras">
                     <div id="res_character_icon_back">
                         <resource class="res_image res_character_icon_back" data-id="4" style="--src: url('../images/character_iconic_class_back/roleStarBg4.1ef36788.png');"></resource>
@@ -1491,6 +1494,7 @@ function getPathA(id, group = "", type = "sounds") {
 //prefetch resources
 $("div#res_character_back").empty()
 $("div#res_character_icon").empty()
+$("div#res_character_vcut").empty()
 charactersInfo.list.forEach(ch => {
     var charBack = document.createElement("resource");
     charBack.setAttribute("class", "res_image res_character_back");
@@ -1498,11 +1502,17 @@ charactersInfo.list.forEach(ch => {
     charBack.setAttribute("style", "--src: url('" + getPath("images", "character_back", ch.res_back) + "')")
     $("div#res_character_back").append(charBack)
 
-    var charBack = document.createElement("resource");
-    charBack.setAttribute("class", "res_image res_character_icon");
-    charBack.setAttribute("data-id", ch.id + (ch.alter != null ? ch.alter : ""));
-    charBack.setAttribute("style", "--src: url('" + getPath("images", "character_icon", ch.res_icon) + "')")
-    $("div#res_character_icon").append(charBack)
+    var charIcon = document.createElement("resource");
+    charIcon.setAttribute("class", "res_image res_character_icon");
+    charIcon.setAttribute("data-id", ch.id + (ch.alter != null ? ch.alter : ""));
+    charIcon.setAttribute("style", "--src: url('" + getPath("images", "character_icon", ch.res_icon) + "')")
+    $("div#res_character_icon").append(charIcon)
+
+    var charVcut = document.createElement("resource");
+    charVcut.setAttribute("class", "res_image res_character_vcut");
+    charVcut.setAttribute("data-id", ch.id + (ch.alter != null ? ch.alter : ""));
+    charVcut.setAttribute("style", "--src: url('" + getPath("images", "character_vcut", ch.res_vcut) + "')")
+    $("div#res_character_vcut").append(charVcut)
 });
             </script>
         </div>

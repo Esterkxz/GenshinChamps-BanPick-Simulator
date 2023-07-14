@@ -1627,7 +1627,9 @@ div#loading_cover.resource_holder div#res_character_back { display: table-row; h
 div#loading_cover.resource_holder div#res_character_back > resource { background-position-y: 30px; background-size: 750%; }
 div#loading_cover.resource_holder div#res_character_icon { display: table-row; height: 200px; }
 div#loading_cover.resource_holder div#res_character_icon > resource { background-size: 323%; background-position: bottom; }
-div#loading_cover.resource_holder div#res_extras { position: absolute; bottom: 9%; width: 100%; height: 256px; }
+div#loading_cover.resource_holder div#res_character_vcut { display: table-row; height: 204.8px; }
+div#loading_cover.resource_holder div#res_character_vcut > resource { background-size: 100%; background-size: cover; }
+div#loading_cover.resource_holder div#res_extras { position: absolute; top: 0; bottom: 0; width: 100%; height: 256px; margin: auto; }
 div#loading_cover.resource_holder div#res_extras > div { position: absolute; top:0; bottom: 0; left: 0; right: 0; margin: auto; }
 div#loading_cover.resource_holder div#res_character_icon_back { position: absolute; display: table; left: 0; right: 0; width: 188px; height: 188px; margin: auto; border-radius: 25px; overflow: hidden; }
 div#loading_cover.resource_holder div#res_character_icon_back > resource { display: table-cell; }

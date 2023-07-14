@@ -10,7 +10,8 @@ let charactersInfo = {
             "element": "switchable",
             "continent": "descendent",
             "res_back": "UI_AvatarIcon_PlayerGirl@2x.png",
-            "res_icon": "UI_AvatarIcon_PlayerGirl.png"
+            "res_icon": "UI_AvatarIcon_PlayerGirl.png",
+            "res_vcut": "playergirl_007_gacha_card.webp"
         },
         {
             "id": "treveler",
@@ -22,7 +23,8 @@ let charactersInfo = {
             "element": "switchable",
             "continent": "descendent",
             "res_back": "UI_AvatarIcon_PlayerBoy@2x.png",
-            "res_icon": "UI_AvatarIcon_PlayerBoy.png"
+            "res_icon": "UI_AvatarIcon_PlayerBoy.png",
+            "res_vcut": "playerboy_005_gacha_card.webp"
         },
         {
             "id": "amber",
@@ -33,7 +35,8 @@ let charactersInfo = {
             "element": "pyro",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Ambor@2x.png",
-            "res_icon": "UI_AvatarIcon_Ambor.png"
+            "res_icon": "UI_AvatarIcon_Ambor.png",
+            "res_vcut": "ambor_021_gacha_card.webp"
         },
         {
             "id": "kaeya",
@@ -44,7 +47,8 @@ let charactersInfo = {
             "element": "cryo",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Kaeya@2x.png",
-            "res_icon": "UI_AvatarIcon_Kaeya.png"
+            "res_icon": "UI_AvatarIcon_Kaeya.png",
+            "res_vcut": "kaeya_015_gacha_card.webp"
         },
         {
             "id": "lisa",
@@ -55,7 +59,8 @@ let charactersInfo = {
             "element": "electro",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Lisa@2x.png",
-            "res_icon": "UI_AvatarIcon_Lisa.png"
+            "res_icon": "UI_AvatarIcon_Lisa.png",
+            "res_vcut": "lisa_006_gacha_card.webp"
         },
         {
             "id": "babara",
@@ -66,7 +71,8 @@ let charactersInfo = {
             "element": "hydro",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Barbara@2x.png",
-            "res_icon": "UI_AvatarIcon_Barbara.png"
+            "res_icon": "UI_AvatarIcon_Barbara.png",
+            "res_vcut": "barbara_014_gacha_card.webp"
         },
         {
             "id": "razor",
@@ -77,7 +83,8 @@ let charactersInfo = {
             "element": "electro",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Razor@2x.png",
-            "res_icon": "UI_AvatarIcon_Razor.png"
+            "res_icon": "UI_AvatarIcon_Razor.png",
+            "res_vcut": "razor_020_gacha_card.webp"
         },
         {
             "id": "xiangling",
@@ -88,7 +95,8 @@ let charactersInfo = {
             "element": "pyro",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Xiangling@2x.png",
-            "res_icon": "UI_AvatarIcon_Xiangling.png"
+            "res_icon": "UI_AvatarIcon_Xiangling.png",
+            "res_vcut": "xiangling_023_gacha_card.webp"
         },
         {
             "id": "beidou",
@@ -99,7 +107,8 @@ let charactersInfo = {
             "element": "electro",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Beidou@2x.png",
-            "res_icon": "UI_AvatarIcon_Beidou.png"
+            "res_icon": "UI_AvatarIcon_Beidou.png",
+            "res_vcut": "beidou_024_gacha_card.webp"
         },
         {
             "id": "xingqiu",
@@ -110,7 +119,8 @@ let charactersInfo = {
             "element": "hydro",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Xingqiu@2x.png",
-            "res_icon": "UI_AvatarIcon_Xingqiu.png"
+            "res_icon": "UI_AvatarIcon_Xingqiu.png",
+            "res_vcut": "xingqiu_025_gacha_card.webp"
         },
         {
             "id": "ningguang",
@@ -121,7 +131,8 @@ let charactersInfo = {
             "element": "geo",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Ningguang@2x.png",
-            "res_icon": "UI_AvatarIcon_Ningguang.png"
+            "res_icon": "UI_AvatarIcon_Ningguang.png",
+            "res_vcut": "ningguang_027_gacha_card.webp"
         },
         {
             "id": "fischl",
@@ -132,7 +143,8 @@ let charactersInfo = {
             "element": "electro",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Fischl@2x.png",
-            "res_icon": "UI_AvatarIcon_Fischl.png"
+            "res_icon": "UI_AvatarIcon_Fischl.png",
+            "res_vcut": "fischl_031_gacha_card.webp"
         },
         {
             "id": "bennett",
@@ -143,7 +155,8 @@ let charactersInfo = {
             "element": "pyro",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Bennett@2x.png",
-            "res_icon": "UI_AvatarIcon_Bennett.png"
+            "res_icon": "UI_AvatarIcon_Bennett.png",
+            "res_vcut": "bennett_032_gacha_card.webp"
         },
         {
             "id": "noelle",
@@ -154,7 +167,8 @@ let charactersInfo = {
             "element": "geo",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Noel@2x.png",
-            "res_icon": "UI_AvatarIcon_Noel.png"
+            "res_icon": "UI_AvatarIcon_Noel.png",
+            "res_vcut": "noel_034_gacha_card.webp"
         },
         {
             "id": "chongyun",
@@ -165,7 +179,8 @@ let charactersInfo = {
             "element": "cryo",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Chongyun@2x.png",
-            "res_icon": "UI_AvatarIcon_Chongyun.png"
+            "res_icon": "UI_AvatarIcon_Chongyun.png",
+            "res_vcut": "chongyun_036_gacha_card.webp"
         },
         {
             "id": "sucrose",
@@ -176,7 +191,8 @@ let charactersInfo = {
             "element": "anemo",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Sucrose@2x.png",
-            "res_icon": "UI_AvatarIcon_Sucrose.png"
+            "res_icon": "UI_AvatarIcon_Sucrose.png",
+            "res_vcut": "sucrose_043_gacha_card.webp"
         },
         {
             "id": "jean",
@@ -187,7 +203,8 @@ let charactersInfo = {
             "element": "anemo",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Qin@2x.png",
-            "res_icon": "UI_AvatarIcon_Qin.png"
+            "res_icon": "UI_AvatarIcon_Qin.png",
+            "res_vcut": "qin_003_gacha_card.webp"
         },
         {
             "id": "diluc",
@@ -198,7 +215,8 @@ let charactersInfo = {
             "element": "pyro",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Diluc@2x.png",
-            "res_icon": "UI_AvatarIcon_Diluc.png"
+            "res_icon": "UI_AvatarIcon_Diluc.png",
+            "res_vcut": "diluc_016_gacha_card.webp"
         },
         {
             "id": "qiqi",
@@ -209,7 +227,8 @@ let charactersInfo = {
             "element": "cryo",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Qiqi@2x.png",
-            "res_icon": "UI_AvatarIcon_Qiqi.png"
+            "res_icon": "UI_AvatarIcon_Qiqi.png",
+            "res_vcut": "qiqi_035_gacha_card.webp"
         },
         {
             "id": "mona",
@@ -220,7 +239,8 @@ let charactersInfo = {
             "element": "hydro",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Mona@2x.png",
-            "res_icon": "UI_AvatarIcon_Mona.png"
+            "res_icon": "UI_AvatarIcon_Mona.png",
+            "res_vcut": "mona_041_gacha_card.webp"
         },
         {
             "id": "keqing",
@@ -231,7 +251,8 @@ let charactersInfo = {
             "element": "electro",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Keqing@2x.png",
-            "res_icon": "UI_AvatarIcon_Keqing.png"
+            "res_icon": "UI_AvatarIcon_Keqing.png",
+            "res_vcut": "keqing_042_gacha_card.webp"
         },
         {
             "id": "venti",
@@ -242,7 +263,8 @@ let charactersInfo = {
             "element": "anemo",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Venti@2x.png",
-            "res_icon": "UI_AvatarIcon_Venti.png"
+            "res_icon": "UI_AvatarIcon_Venti.png",
+            "res_vcut": "venti_022_gacha_card.webp"
         },
         {
             "id": "klee",
@@ -253,7 +275,8 @@ let charactersInfo = {
             "element": "pyro",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Klee@2x.png",
-            "res_icon": "UI_AvatarIcon_Klee.png"
+            "res_icon": "UI_AvatarIcon_Klee.png",
+            "res_vcut": "klee_029_gacha_card.webp"
         },
         {
             "id": "diona",
@@ -264,7 +287,8 @@ let charactersInfo = {
             "element": "cryo",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Diona@2x.png",
-            "res_icon": "UI_AvatarIcon_Diona.png"
+            "res_icon": "UI_AvatarIcon_Diona.png",
+            "res_vcut": "diona_039_gacha_card.webp"
         },
         {
             "id": "tartaglia",
@@ -275,7 +299,8 @@ let charactersInfo = {
             "element": "hydro",
             "continent": "snezhnaya",
             "res_back": "UI_AvatarIcon_Tartaglia@2x.png",
-            "res_icon": "UI_AvatarIcon_Tartaglia.png"
+            "res_icon": "UI_AvatarIcon_Tartaglia.png",
+            "res_vcut": "tartaglia_033_gacha_card.webp"
         },
         {
             "id": "xinyan",
@@ -286,7 +311,8 @@ let charactersInfo = {
             "element": "pyro",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Xinyan@2x.png",
-            "res_icon": "UI_AvatarIcon_Xinyan.png"
+            "res_icon": "UI_AvatarIcon_Xinyan.png",
+            "res_vcut": "xinyan_044_gacha_card.webp"
         },
         {
             "id": "zhongli",
@@ -297,7 +323,8 @@ let charactersInfo = {
             "element": "geo",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Zhongli@2x.png",
-            "res_icon": "UI_AvatarIcon_Zhongli.png"
+            "res_icon": "UI_AvatarIcon_Zhongli.png",
+            "res_vcut": "zhongli_030_gacha_card.webp"
         },
         {
             "id": "albedo",
@@ -308,7 +335,8 @@ let charactersInfo = {
             "element": "geo",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Albedo@2x.png",
-            "res_icon": "UI_AvatarIcon_Albedo.png"
+            "res_icon": "UI_AvatarIcon_Albedo.png",
+            "res_vcut": "albedo_038_gacha_card.webp"
         },
         {
             "id": "ganyu",
@@ -319,7 +347,8 @@ let charactersInfo = {
             "element": "cryo",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Ganyu@2x.png",
-            "res_icon": "UI_AvatarIcon_Ganyu.png"
+            "res_icon": "UI_AvatarIcon_Ganyu.png",
+            "res_vcut": "ganyu_037_gacha_card.webp"
         },
         {
             "id": "xiao",
@@ -330,7 +359,8 @@ let charactersInfo = {
             "element": "anemo",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Xiao@2x.png",
-            "res_icon": "UI_AvatarIcon_Xiao.png"
+            "res_icon": "UI_AvatarIcon_Xiao.png",
+            "res_vcut": "xiao_026_gacha_card.webp"
         },
         {
             "id": "hutao",
@@ -341,7 +371,8 @@ let charactersInfo = {
             "element": "pyro",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Hutao@2x.png",
-            "res_icon": "UI_AvatarIcon_Hutao.png"
+            "res_icon": "UI_AvatarIcon_Hutao.png",
+            "res_vcut": "hutao_046_gacha_card.webp"
         },
         {
             "id": "rosaria",
@@ -352,7 +383,8 @@ let charactersInfo = {
             "element": "cryo",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Rosaria@2x.png",
-            "res_icon": "UI_AvatarIcon_Rosaria.png"
+            "res_icon": "UI_AvatarIcon_Rosaria.png",
+            "res_vcut": "rosaria_045_gacha_card.webp"
         },
         {
             "id": "yanfei",
@@ -363,7 +395,8 @@ let charactersInfo = {
             "element": "pyro",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Feiyan@2x.png",
-            "res_icon": "UI_AvatarIcon_Feiyan.png"
+            "res_icon": "UI_AvatarIcon_Feiyan.png",
+            "res_vcut": "feiyan_048_gacha_card.webp"
         },
         {
             "id": "eula",
@@ -374,7 +407,8 @@ let charactersInfo = {
             "element": "cryo",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Eula@2x.png",
-            "res_icon": "UI_AvatarIcon_Eula.png"
+            "res_icon": "UI_AvatarIcon_Eula.png",
+            "res_vcut": "eula_051_gacha_card.webp"
         },
         {
             "id": "kazuha",
@@ -385,7 +419,8 @@ let charactersInfo = {
             "element": "anemo",
             "continent": "inazuma",
             "res_back": "UI_AvatarIcon_Kazuha@2x.png",
-            "res_icon": "UI_AvatarIcon_Kazuha.png"
+            "res_icon": "UI_AvatarIcon_Kazuha.png",
+            "res_vcut": "kazuha_047_gacha_card.webp"
         },
         {
             "id": "ayaka",
@@ -396,7 +431,8 @@ let charactersInfo = {
             "element": "cryo",
             "continent": "inazuma",
             "res_back": "UI_AvatarIcon_Ayaka@2x.png",
-            "res_icon": "UI_AvatarIcon_Ayaka.png"
+            "res_icon": "UI_AvatarIcon_Ayaka.png",
+            "res_vcut": "ayaka_002_gacha_card.webp"
         },
         {
             "id": "sayu",
@@ -407,7 +443,8 @@ let charactersInfo = {
             "element": "anemo",
             "continent": "inazuma",
             "res_back": "UI_AvatarIcon_Sayu@2x.png",
-            "res_icon": "UI_AvatarIcon_Sayu.png"
+            "res_icon": "UI_AvatarIcon_Sayu.png",
+            "res_vcut": "sayu_053_gacha_card.webp"
         },
         {
             "id": "yoimiya",
@@ -418,7 +455,8 @@ let charactersInfo = {
             "element": "pyro",
             "continent": "inazuma",
             "res_back": "UI_AvatarIcon_Yoimiya@2x.png",
-            "res_icon": "UI_AvatarIcon_Yoimiya.png"
+            "res_icon": "UI_AvatarIcon_Yoimiya.png",
+            "res_vcut": "yoimiya_049_gacha_card.webp"
         },
         {
             "id": "aloy",
@@ -429,7 +467,8 @@ let charactersInfo = {
             "element": "cryo",
             "continent": "castaway",
             "res_back": "UI_AvatarIcon_Aloy@2x.png",
-            "res_icon": "UI_AvatarIcon_Aloy.png"
+            "res_icon": "UI_AvatarIcon_Aloy.png",
+            "res_vcut": "aloy_062_gacha_card.webp"
         },
         {
             "id": "sara",
@@ -440,7 +479,8 @@ let charactersInfo = {
             "element": "electro",
             "continent": "inazuma",
             "res_back": "UI_AvatarIcon_Sara@2x.png",
-            "res_icon": "UI_AvatarIcon_Sara.png"
+            "res_icon": "UI_AvatarIcon_Sara.png",
+            "res_vcut": "sara_056_gacha_card.webp"
         },
         {
             "id": "shogun",
@@ -451,7 +491,8 @@ let charactersInfo = {
             "element": "electro",
             "continent": "inazuma",
             "res_back": "UI_AvatarIcon_Shougun@2x.png",
-            "res_icon": "UI_AvatarIcon_Shougun.png"
+            "res_icon": "UI_AvatarIcon_Shougun.png",
+            "res_vcut": "shougun_052_gacha_card.webp"
         },
         {
             "id": "kokomi",
@@ -462,7 +503,8 @@ let charactersInfo = {
             "element": "hydro",
             "continent": "inazuma",
             "res_back": "UI_AvatarIcon_Kokomi@2x.png",
-            "res_icon": "UI_AvatarIcon_Kokomi.png"
+            "res_icon": "UI_AvatarIcon_Kokomi.png",
+            "res_vcut": "kokomi_054_gacha_card.webp"
         },
         {
             "id": "thoma",
@@ -473,7 +515,8 @@ let charactersInfo = {
             "element": "pyro",
             "continent": "inazuma",
             "res_back": "UI_AvatarIcon_Tohma@2x.png",
-            "res_icon": "UI_AvatarIcon_Tohma.png"
+            "res_icon": "UI_AvatarIcon_Tohma.png",
+            "res_vcut": "tohma_050_gacha_card.webp"
         },
         {
             "id": "gorou",
@@ -484,7 +527,8 @@ let charactersInfo = {
             "element": "geo",
             "continent": "inazuma",
             "res_back": "UI_AvatarIcon_Gorou@2x.png",
-            "res_icon": "UI_AvatarIcon_Gorou.png"
+            "res_icon": "UI_AvatarIcon_Gorou.png",
+            "res_vcut": "gorou_055_gacha_card.webp"
         },
         {
             "id": "itto",
@@ -495,7 +539,8 @@ let charactersInfo = {
             "element": "geo",
             "continent": "inazuma",
             "res_back": "UI_AvatarIcon_Itto@2x.png",
-            "res_icon": "UI_AvatarIcon_Itto.png"
+            "res_icon": "UI_AvatarIcon_Itto.png",
+            "res_vcut": "itto_057_gacha_card.webp"
         },
         {
             "id": "yunjin",
@@ -506,7 +551,8 @@ let charactersInfo = {
             "element": "geo",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Yunjin@2x.png",
-            "res_icon": "UI_AvatarIcon_Yunjin.png"
+            "res_icon": "UI_AvatarIcon_Yunjin.png",
+            "res_vcut": "yunjin_064_gacha_card.webp"
         },
         {
             "id": "shenhe",
@@ -517,7 +563,8 @@ let charactersInfo = {
             "element": "cryo",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Shenhe@2x.png",
-            "res_icon": "UI_AvatarIcon_Shenhe.png"
+            "res_icon": "UI_AvatarIcon_Shenhe.png",
+            "res_vcut": "shenhe_063_gacha_card.webp"
         },
         {
             "id": "yae",
@@ -528,7 +575,8 @@ let charactersInfo = {
             "element": "electro",
             "continent": "inazuma",
             "res_back": "UI_AvatarIcon_Yae@2x.png",
-            "res_icon": "UI_AvatarIcon_Yae.png"
+            "res_icon": "UI_AvatarIcon_Yae.png",
+            "res_vcut": "yae_058_gacha_card.webp"
         },
         {
             "id": "ayato",
@@ -539,7 +587,8 @@ let charactersInfo = {
             "element": "hydro",
             "continent": "inazuma",
             "res_back": "UI_AvatarIcon_Ayato@2x.png",
-            "res_icon": "UI_AvatarIcon_Ayato.png"
+            "res_icon": "UI_AvatarIcon_Ayato.png",
+            "res_vcut": "ayato_066_gacha_card.webp"
         },
         {
             "id": "yelan",
@@ -550,7 +599,8 @@ let charactersInfo = {
             "element": "hydro",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Yelan@2x.png",
-            "res_icon": "UI_AvatarIcon_Yelan.png"
+            "res_icon": "UI_AvatarIcon_Yelan.png",
+            "res_vcut": "yelan_060_gacha_card.webp"
         },
         {
             "id": "shinobu",
@@ -561,7 +611,8 @@ let charactersInfo = {
             "element": "electro",
             "continent": "inazuma",
             "res_back": "UI_AvatarIcon_Shinobu@2x.png",
-            "res_icon": "UI_AvatarIcon_Shinobu.png"
+            "res_icon": "UI_AvatarIcon_Shinobu.png",
+            "res_vcut": "shinobu_065_gacha_card.webp"
         },
         {
             "id": "heizo",
@@ -572,7 +623,8 @@ let charactersInfo = {
             "element": "anemo",
             "continent": "inazuma",
             "res_back": "UI_AvatarIcon_Heizo@2x.png",
-            "res_icon": "UI_AvatarIcon_Heizo.png"
+            "res_icon": "UI_AvatarIcon_Heizo.png",
+            "res_vcut": "heizo_059_gacha_card.webp"
         },
         {
             "id": "collei",
@@ -583,7 +635,8 @@ let charactersInfo = {
             "element": "dendro",
             "continent": "sumeru",
             "res_back": "UI_AvatarIcon_Collei@2x.png",
-            "res_icon": "UI_AvatarIcon_Collei.png"
+            "res_icon": "UI_AvatarIcon_Collei.png",
+            "res_vcut": "collei_067_gacha_card.webp"
         },
         {
             "id": "tighnari",
@@ -594,7 +647,8 @@ let charactersInfo = {
             "element": "dendro",
             "continent": "sumeru",
             "res_back": "UI_AvatarIcon_Tighnari@2x.png",
-            "res_icon": "UI_AvatarIcon_Tighnari.png"
+            "res_icon": "UI_AvatarIcon_Tighnari.png",
+            "res_vcut": "tighnari_069_gacha_card.webp"
         },
         {
             "id": "dori",
@@ -605,7 +659,8 @@ let charactersInfo = {
             "element": "electro",
             "continent": "sumeru",
             "res_back": "UI_AvatarIcon_Dori@2x.png",
-            "res_icon": "UI_AvatarIcon_Dori.png"
+            "res_icon": "UI_AvatarIcon_Dori.png",
+            "res_vcut": "dori_068_gacha_card.webp"
         },
         {
             "id": "candace",
@@ -616,7 +671,8 @@ let charactersInfo = {
             "element": "hydro",
             "continent": "sumeru",
             "res_back": "UI_AvatarIcon_Candace@2x.png",
-            "res_icon": "UI_AvatarIcon_Candace.png"
+            "res_icon": "UI_AvatarIcon_Candace.png",
+            "res_vcut": "candace_072_gacha_card.webp"
         },
         {
             "id": "cyno",
@@ -627,7 +683,8 @@ let charactersInfo = {
             "element": "electro",
             "continent": "sumeru",
             "res_back": "UI_AvatarIcon_Cyno@2x.png",
-            "res_icon": "UI_AvatarIcon_Cyno.png"
+            "res_icon": "UI_AvatarIcon_Cyno.png",
+            "res_vcut": "cyno_071_gacha_card.webp"
         },
         {
             "id": "nilou",
@@ -638,7 +695,8 @@ let charactersInfo = {
             "element": "hydro",
             "continent": "sumeru",
             "res_back": "UI_AvatarIcon_Nilou@2x.png",
-            "res_icon": "UI_AvatarIcon_Nilou.png"
+            "res_icon": "UI_AvatarIcon_Nilou.png",
+            "res_vcut": "nilou_070_gacha_card.webp"
         },
         {
             "id": "nahida",
@@ -649,7 +707,8 @@ let charactersInfo = {
             "element": "dendro",
             "continent": "sumeru",
             "res_back": "UI_AvatarIcon_Nahida@2x.png",
-            "res_icon": "UI_AvatarIcon_Nahida.png"
+            "res_icon": "UI_AvatarIcon_Nahida.png",
+            "res_vcut": "nahida_073_gacha_card.webp"
         },
         {
             "id": "layla",
@@ -660,7 +719,8 @@ let charactersInfo = {
             "element": "cryo",
             "continent": "sumeru",
             "res_back": "UI_AvatarIcon_Layla@2x.png",
-            "res_icon": "UI_AvatarIcon_Layla.png"
+            "res_icon": "UI_AvatarIcon_Layla.png",
+            "res_vcut": "layla_074_gacha_card.webp"
         },
         {
             "id": "faruzan",
@@ -671,7 +731,8 @@ let charactersInfo = {
             "element": "anemo",
             "continent": "sumeru",
             "res_back": "UI_AvatarIcon_Faruzan@2x.png",
-            "res_icon": "UI_AvatarIcon_Faruzan.png"
+            "res_icon": "UI_AvatarIcon_Faruzan.png",
+            "res_vcut": "faruzan_076_gacha_card.webp"
         },
         {
             "id": "wanderer",
@@ -682,7 +743,8 @@ let charactersInfo = {
             "element": "anemo",
             "continent": "sumeru",
             "res_back": "UI_AvatarIcon_Wanderer@2x.png",
-            "res_icon": "UI_AvatarIcon_Wanderer.png"
+            "res_icon": "UI_AvatarIcon_Wanderer.png",
+            "res_vcut": "wanderer_075_gacha_card.webp"
         },
        {
             "id": "yaoyao",
@@ -693,7 +755,8 @@ let charactersInfo = {
             "element": "dendro",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Yaoyao@2x.png",
-            "res_icon": "UI_AvatarIcon_Yaoyao.png"
+            "res_icon": "UI_AvatarIcon_Yaoyao.png",
+            "res_vcut": "yaoyao_077_gacha_card.webp"
         },
         {
             "id": "alhaitham",
@@ -704,7 +767,8 @@ let charactersInfo = {
             "element": "dendro",
             "continent": "sumeru",
             "res_back": "UI_AvatarIcon_Alhatham@2x.png",
-            "res_icon": "UI_AvatarIcon_Alhatham.png"
+            "res_icon": "UI_AvatarIcon_Alhatham.png",
+            "res_vcut": "alhatham_078_gacha_card.webp"
         },
         {
             "id": "dehya",
@@ -715,7 +779,8 @@ let charactersInfo = {
             "element": "pyro",
             "continent": "sumeru",
             "res_back": "UI_AvatarIcon_Dehya@2x.png",
-            "res_icon": "UI_AvatarIcon_Dehya.png"
+            "res_icon": "UI_AvatarIcon_Dehya.png",
+            "res_vcut": "dehya_079_gacha_card.webp"
         },
         {
             "id": "mika",
@@ -726,7 +791,8 @@ let charactersInfo = {
             "element": "cryo",
             "continent": "mondstadt",
             "res_back": "UI_AvatarIcon_Mika@2x.png",
-            "res_icon": "UI_AvatarIcon_Mika.png"
+            "res_icon": "UI_AvatarIcon_Mika.png",
+            "res_vcut": "mika_080_gacha_card.webp"
         },
         {
             "id": "kaveh",
@@ -737,7 +803,8 @@ let charactersInfo = {
             "element": "dendro",
             "continent": "sumeru",
             "res_back": "UI_AvatarIcon_Kaveh@2x.png",
-            "res_icon": "UI_AvatarIcon_Kaveh.png"
+            "res_icon": "UI_AvatarIcon_Kaveh.png",
+            "res_vcut": "kaveh_081_gacha_card.webp"
         },
         {
             "id": "baizhu",
@@ -748,7 +815,8 @@ let charactersInfo = {
             "element": "dendro",
             "continent": "liyue",
             "res_back": "UI_AvatarIcon_Baizhuer@2x.png",
-            "res_icon": "UI_AvatarIcon_Baizhuer.png"
+            "res_icon": "UI_AvatarIcon_Baizhuer.png",
+            "res_vcut": "baizhuer_082_gacha_card.webp"
         },
         {
             "id": "kirara",
@@ -759,19 +827,60 @@ let charactersInfo = {
             "element": "dendro",
             "continent": "sumeru",
             "res_back": "UI_AvatarIcon_Momoka@2x.png",
-            "res_icon": "UI_AvatarIcon_Momoka.png"
+            "res_icon": "UI_AvatarIcon_Momoka.png",
+            "res_vcut": "momoka_061_gacha_card.webp"
+        },
+        {
+            "comment": "temporary data for pre-official release",
+            "id": "lynette",
+            "class": "ordinary",
+            "version": "4.0f",
+            "rarity": "4",
+            "weapon": "sword",
+            "element": "anemo",
+            "continent": "fontaine",
+            "res_back": "UI_AvatarIcon_Linette@2x.png",
+            "res_icon": "UI_AvatarIcon_Linette.png",
+            "res_vcut": "linette_083_gacha_card.webp"
+        },
+        {
+            "comment": "temporary data for pre-official release",
+            "id": "lyney",
+            "class": "limited",
+            "version": "4.0f",
+            "rarity": "5",
+            "weapon": "bow",
+            "element": "pyro",
+            "continent": "fontaine",
+            "res_back": "UI_AvatarIcon_Liney@2x.png",
+            "res_icon": "UI_AvatarIcon_Liney.png",
+            "res_vcut": "liney_084_gacha_card.webp"
+        },
+        {
+            "comment": "temporary data for pre-official release",
+            "id": "freminet",
+            "class": "ordinary",
+            "version": "4.0h",
+            "rarity": "4",
+            "weapon": "claymore",
+            "element": "cryo",
+            "continent": "fontaine",
+            "res_back": "UI_AvatarIcon_Freminet@2x.png",
+            "res_icon": "UI_AvatarIcon_Freminet.png",
+            "res_vcut": "freminet_085_gacha_card.webp"
         },
         {
             "comment": "temporary data for pre-official release",
             "id": "reserved",
             "class": "",
-            "version": "3.",
+            "version": "4.",
             "rarity": "",
             "weapon": "",
             "element": "",
             "continent": "",
             "res_back": "",
-            "res_icon": ""
+            "res_icon": "",
+            "res_vcut": ""
         }
     ],
     "unknown": {
@@ -784,7 +893,8 @@ let charactersInfo = {
         "element": "unknown",
         "continent": "unknown",
         "res_back": "",
-        "res_icon": ""
+        "res_icon": "",
+        "res_vcut": ""
     },
     "treveler": 0,
     "trevelerF": 0,

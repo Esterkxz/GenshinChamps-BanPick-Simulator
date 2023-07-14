@@ -203,6 +203,9 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "kaveh": "카베",
         "baizhu": "백출",
         "kirara": "키라라",
+        "lynette": "리넷",
+        "lyney": "리니",
+        "freminet": "프레미네",
         "reserved": ""
     },
     "characters_short": {
@@ -274,6 +277,9 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "kaveh": "카베",
         "baizhu": "백출",
         "kirara": "키라라",
+        "lynette": "리넷",
+        "lyney": "리니",
+        "freminet": "프레미네",
         "reserved": ""
     },
     "weapons": {

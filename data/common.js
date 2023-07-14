@@ -24,6 +24,7 @@ If need permit to use on broadcast, please contact to 앙리형\n\
             "character_back": "character_back/",
             "character_icon": "character_iconic/",
             "character_icon_back": "character_iconic_class_back/",
+            "character_vcut": "character_vertical/",
             "weapon_icon": "weapon_iconic/",
             "element_icon": "elemental_iconic/",
             "": ""
