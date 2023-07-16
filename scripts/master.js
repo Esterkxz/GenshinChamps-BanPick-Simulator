@@ -1123,6 +1123,8 @@ let poolMaster = {
     pool_block: "div#pool_block",
     pick_pool: "div.pick_pool",
 
+    char_visual_res_type: "data-char-visual-res-type",
+
     each_pool_block: "each_pool_block",
 
     simple_ban_card_pool: "#simple_ban_card_pool",
@@ -1245,6 +1247,8 @@ let poolMaster = {
     pool: null,
 
 
+    charVisualResType: "vcut",//"icon" or "vcut"
+
     sideViewSeq: 0,
     charViews: [{}, {}, {}, {}],
 
@@ -1321,6 +1325,10 @@ let poolMaster = {
         this.unallowedPool = this.unavailables.find(this.unallowed_pool);
 
         this.eachSideBehind.empty();
+
+
+        this.pickPools.attr(this.char_visual_res_type, this.charVisualResType);
+
 
         this.initSideSelectionArea();
 
@@ -1508,9 +1516,9 @@ let poolMaster = {
 
             if (id == "treveler") {
                 let treveler = "" + i;
-                self.unallowedPool.append(self.buildCharacterItem(info, bancard, treveler));
+                self.unallowedPool.append(self.buildCharacterItem(info, bancard, treveler, true));
             } else {
-                let item = self.buildCharacterItem(info, bancard);
+                let item = self.buildCharacterItem(info, bancard, null, true);
                 self.unallowedPool.append(item);
             }
         });
@@ -1590,9 +1598,9 @@ let poolMaster = {
 
             if (id == "treveler") {
                 let treveler = "" + i;
-                self.unallowedPool.append(self.buildCharacterItem(info, bancard, treveler));
+                self.unallowedPool.append(self.buildCharacterItem(info, bancard, treveler, true));
             } else {
-                let item = self.buildCharacterItem(info, bancard);
+                let item = self.buildCharacterItem(info, bancard, null, true);
                 self.unallowedPool.append(item);
             }
         });
@@ -1669,7 +1677,7 @@ let poolMaster = {
                 let treveler = "" + i;
                 self.elementPool[info.element][treveler].append(self.buildCharacterItem(info, bancard, treveler));
             } else {
-                let item = self.buildCharacterItem(info, bancard);
+                let item = self.buildCharacterItem(info, bancard, null, bancard == null ? true : null);
                 if (bancard == null) self.unallowedPool.append(item);//사용불가 캐릭터
                 else self.elementPool[info.element][info.rarity == "5" ? "5" : "4"].append(item);
             }
@@ -1727,7 +1735,7 @@ let poolMaster = {
             let self = poolMaster;
             if (id == eoa) return;
             self.pool[id] = true;
-            self.unallowedPool.append(self.buildCharacterItem(self.getCharacterInfo(id)));
+            self.unallowedPool.append(self.buildCharacterItem(self.getCharacterInfo(id), forceIcon = true));
         });
 
         //else case to single cost pool
@@ -1760,12 +1768,12 @@ let poolMaster = {
         this.banCardPool.attr(this.league, rules.alterSelected);
     },
 
-    buildCharacterItem: function(info, bancard, treveler) {
+    buildCharacterItem: function(info, bancard, treveler, forceIcon) {
         let item = document.createElement("li");
         item.setAttribute("class", "character");
         let holder = document.createElement("div");
         holder.setAttribute("class", "character_holder");
-        let img = this.buildCharacterIcon(info);
+        let img = this.buildCharacterIcon(info, forceIcon === true ? "icon" : null);
         if (info != null) {
             item.setAttribute(this.id, info.id);
             item.setAttribute(this.rarity, info.rarity);
@@ -1790,7 +1798,7 @@ let poolMaster = {
         item.append(holder);
         if (info != null && treveler == null && info.id == "treveler") {
             item.setAttribute(this.treveler, "0");
-            item.append(this.buildCharacterIcon(charactersInfo.list[charactersInfo.trevelerM]));
+            item.append(this.buildCharacterIcon(charactersInfo.list[charactersInfo.trevelerM], forceIcon === true ? "icon" : null));
         }
         let element = document.createElement("img");
         element.setAttribute("class", "element_icon");
@@ -1798,7 +1806,16 @@ let poolMaster = {
             let charElement = commonInfo.element.res_icon[info.element];
             element.setAttribute("src", charElement == null ? tpGif : getPathR("images", "element_icon", charElement));
         }
-        item.prepend(element);
+        switch (this.charVisualResType) {
+            default:
+            case "icon":
+                item.prepend(element);
+                break;
+
+            case "vcut":
+                item.append(element);
+                break;
+        }
         let bgSheet = document.createElement("div");
         bgSheet.setAttribute("class", "character_back");
         item.prepend(bgSheet);
@@ -1834,13 +1851,26 @@ let poolMaster = {
         return item;
     },
 
-    buildCharacterIcon: function(info) {
-        let img = document.createElement("img")
-        img.setAttribute("class", "character_icon");
-        if (info != null) {
-            img.setAttribute("src", getPathR("images", "character_icon", info.res_icon));
+    buildCharacterIcon: function(info, resType = null) {
+        if (resType == null) resType = this.charVisualResType;
+        switch(resType) {
+            default:
+            case "icon":
+                let img = document.createElement("img")
+                img.setAttribute("class", "character_" + resType);
+                if (info != null) {
+                    img.setAttribute("src", getPathR("images", "character_" + resType, info["res_" + resType]));
+                }
+                return img;
+
+            case "vcut":
+                let div = document.createElement("div")
+                div.setAttribute("class", "character_" + resType);
+                if (info != null) {
+                    div.setAttribute("style", "--src: url('" + getPath("images", "character_" + resType, info["res_" + resType]) + "'); ");
+                }
+                return div;
         }
-        return img;
     },
 
     getCharacterInfo: function(id) {

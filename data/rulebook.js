@@ -253,6 +253,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "score_range": "100+",
             "established": false,
             
+            "ban_card_accure": {
+            },
             "sequence": [
                 {"side":"red","pick":"ban","amount":"2"},
                 {"side":"blue","pick":"ban","amount":"2"},
