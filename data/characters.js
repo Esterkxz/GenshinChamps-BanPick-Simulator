@@ -637,7 +637,7 @@ let charactersInfo = {
             "res_back": "UI_AvatarIcon_Ayato@2x.png",
             "res_icon": "UI_AvatarIcon_Ayato.png",
             "res_vcut": "ayato_066_gacha_card.webp",
-            "res_vcut_meta_pos": { "vBasic": "22%", "vHover": "21%" }
+            "res_vcut_meta_pos": { "vBasic": "25%", "vHover": "21%" }
         },
         {
             "id": "yelan",
