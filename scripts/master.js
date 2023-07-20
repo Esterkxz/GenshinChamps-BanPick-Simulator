@@ -1867,7 +1867,7 @@ let poolMaster = {
                 let div = document.createElement("div")
                 div.setAttribute("class", "character_" + resType);
                 if (info != null) {
-                    div.setAttribute("style", "--src: url('" + getPath("images", "character_" + resType, info["res_" + resType]) + "'); ");
+                    div.setAttribute("style", "--src: url('" + getPath("images", "character_" + resType, info["res_" + resType]) + "'); --pos-v-basic: " + info.res_vcut_meta_pos.vBasic + "; --pos-v-hover: " + info.res_vcut_meta_pos.vHover + ";");
                 }
                 return div;
         }
