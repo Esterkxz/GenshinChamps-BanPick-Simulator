@@ -6160,6 +6160,73 @@ let screenMaster = {
 }
 
 
+//popup windows handler
+let popupMaster = {
+
+    handler: {},
+
+
+    preset: {//"name": {"url": "./~", w: 480, h: 640, t: nnn, "l": nnn, r: false, p: false},
+        "remocon": {"url": "about:blank", w: 400, h: 640},
+    },
+
+
+    init: function() {
+        this.register("", document, document.body);
+        window.popups = this;
+    },
+
+    register: function(name, doc, bdy) {
+        this.handler[name] = { "document": doc, "body": bdy};
+    },
+
+    remove: function(name) {
+        this.handler[name] = undefined;
+    },
+
+    new: function(name, w, h, url = "about:blank", t, l, r = true, p = true) {
+        let top = window.top;
+        if (t == null) {
+            var screenY = top.screenY;
+            var outerHeight = top.outerHeight;
+            var innerHeight = top.innerHeight;
+            var shift = 0;
+            if (screenY < 0) {
+                shift = screenY * -1;
+                screenY += shift;
+            }
+            t = Math.floor((screenY / 2) + (outerHeight / 2) + ((outerHeight - innerHeight) / 2) - (h / 2) - shift);
+        }
+        if (l == null) {
+            var screenX = top.screenX;
+            var outerWidth = top.outerWidth;
+            var innerWidth = top.innerWidth;
+            var shift = 0;
+            if (screenX < 0) {
+                shift = screenX * -1;
+                screenX += shift;
+            }
+            l = Math.floor((screenX / 2) + (outerWidth / 2) + ((outerWidth - innerWidth) / 2) - (w / 2) - shift);
+        }
+        return window.open(url, name, (p === true ? "popup": "") + ",innerWidth=" + w + ",innerHeight=" + h + ",screenY=" + t + ",screenX=" + l + (r === true ? ",resizable" : "") + "");
+    },
+
+    call: function(name, url) {
+        let set = this.preset[name];
+        if (set == null) {
+            this.new(url, name);
+            return;
+        }
+        if (this.handler[name] == null) {
+            this.new(name, set.w, set.h, set.url, set.t, set.l, set.r, set.p);
+        } else this.new(name, url = set.url);
+    },
+
+    eoo
+}
+let popupHandler = popupMaster.handler;
+
+
 //reset pick progress
 function initializeStep() {
     step = -1;
@@ -6536,6 +6603,9 @@ $(document).ready(function() {
 
     //timer
     timerMaster.init();
+
+    //popup windows
+    popupMaster.init();
 
     //global event
     $(document).keydown(eventKeydown);
