@@ -243,6 +243,7 @@ let sequenceMaster = {
         let seq = rules.sequence[newStep];
         let checkRes = this.getCheckRes();
         let isBanCardUsingPhase = checkRes != null ? (checkRes.banCardRem > 0) : false;
+        let isBanCardLeftsNotUsed = isBanCardUsingPhase && checkRes.rem < 1;
 
         var message = "";
 
@@ -256,7 +257,7 @@ let sequenceMaster = {
             let eClass = seq.side == "red" ? "textRed" : "textBlue";
             let tSide = seq.side == "red" ? redName : blueName;
             var tType = "?";
-            if (isBanCardUsingPhase) tType = text.pickUseBanCard;
+            if (isBanCardLeftsNotUsed) tType = text.pickUseBanCard;
             else switch (seq.pick) {
                 case "ban":
                     tType = text.pickBan;
@@ -276,7 +277,7 @@ let sequenceMaster = {
                 case "ban":
                 case "entry":
                 case "proffer":
-                    if (isBanCardUsingPhase) tAmount = text.amountPickCharacter.replace("#AMOUNT", "" + checkRes.res[seq.side == "red" ?  "bccstr" : "bccstb"]);
+                    if (isBanCardLeftsNotUsed) tAmount = text.amountPickCharacter.replace("#AMOUNT", "" + checkRes.res[seq.side == "red" ?  "bccstr" : "bccstb"]);
                     else if (seq.amount < 1) tAmount = text.amountFillCharacter
                     else tAmount = text.amountPickCharacter.replace("#AMOUNT", seq.amount)
                     break;
