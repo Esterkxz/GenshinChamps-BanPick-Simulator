@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>GCBPS Remote Controller for operator</title>
+        <link rel="stylesheet" type="text/css" href="./styles/common.css">
+        <link rel="stylesheet" type="text/css" href="./styles/shared.css">
+        <link rel="stylesheet" type="text/css" href="./styles/remocon.css">
+        <style>
+        </style>
+        <script type="text/javascript" src="./scripts/jquery-3.6.3.js"></script>
+        <script>
+
+        </script>
+        <script type="text/javascript" src="./scripts/remocon.js"></script>
+    </head>
+    <body>
+        <div id="info_area">
+            <div class="info_side red" id="red_info">
+                <span class="info_title">RED</span>
+                <input class="info_name" id="red_info_name" value="" placeholder="Name" />
+                <input class="info_uid" id="red_info_uid" value="" placeholder="UID" />
+                <inout class="info_ap" id="red_info_ap" value="" placeholder="Account Point" />
+                <div class="info_treveler">
+                    <input type="radio" id="redTrevelerF" name="redTrevelers" value="0" checked /><label for="redTrevelerF">여행자</label>
+                    <input type="radio" id="redTrevelerM" name="redTr evelers" value="1" /><label for="redTrevelerM">남행자</label>
+                </div>
+                <textarea class="info_code" id="red_info_data_code">Account info data (paste or auto generate)</textarea>
+                <button class="info_copy" id="red_info_copy">계정 정보 복사하기</button>
+            </div>
+            <div class="info_side blue" id="blue_info">
+                <spa class="info_title"n>BLUE</span>
+                <input class="info_name" id="blue_info_name" value="" placeholder="Name" />
+                <input class="info_uid" id="blue_info_uid" value="" placeholder="UID" />
+                <inout class="info_ap" id="blue_info_ap" value="" placeholder="Account Point" />
+                <div class="info_treveler">
+                    <input type="radio" id="blueTrevelerF" name="blueTrevelers" value="0" checked /><label for="blueTrevelerF">여행자</label>
+                    <input type="radio" id="blueTrevelerM" name="blueTr evelers" value="1" /><label for="blueTrevelerM">남행자</label>
+                </div>
+                <textarea class="info_code" id="blue_info_data_code">Account info data (paste or auto generate)</textarea>
+                <button class="info_copy" id="blue_info_copy">계정 정보 복사하기</button>
+            </div>
+        </div>
+        <div id="selection_area">
+            <div class="selection_side red" id="selection_red">
+                <div class="selection_entry" data-entry="1">
+                    <div class="entry_icon">
+                        <input type="text" class="entry_constell" sizw="1" maxlength="1" placeholder="?" />
+                    </div>
+                    <div class="entry_info">
+                        <div class="entry_char">
+                            <span class="char_name"></span>
+                        </div>
+                        <div class="entry_weapon">
+                            <div class="weapon_icon"></div>
+                            <input type="text" class="weapon_refine" sizw="1" maxlength="1" placeholder="?" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="center_float" class="root_float">
+            <div id="center_top">
+                <button id="swap_info" title="RED ↔ BLUE&#13;&#10;입력 정보 스왑">↔</button>
+            </div>
+            <div id="center_bottom">
+                <input type="text" id="search" value="" placeholder="검색" />
+            </div>
+            <div id="controllers">
+                <button id="control_next">START</button>
+                <button id="control_undo">UNDO</button>
+                <button id="control_reset">리셋</button>
+                <button id="control_settings">설정</button>
+                
+            </div>
+        </div>
+    </body>
+</html>

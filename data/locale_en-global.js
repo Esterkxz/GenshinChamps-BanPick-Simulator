@@ -41,6 +41,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "btnMainDesc": "Progress next thing",
         "btnUndo": "UNDO",
         "btnUndoDesc": "Return to previous step and release last picked",
+        "btnRemoconDesc": "Use remote controller (popup window)",
         "btnRandomDesc": "Click: Pick one randomly\nRight click: Auto pick remains randomly.\n stopable with click [!] button",
         "btnSettings": "settings",
         "btnSettingsDesc": "Switch light/dark UI mode in current version",

@@ -1,0 +1,46 @@
+
+
+body { }
+
+
+
+div#info_area { }
+div#info_area div.info_side { }
+div#info_area div.info_side span.info_title { }
+div#info_area div.info_side input.info_name { }
+div#info_area div.info_side input.info_uid { }
+div#info_area div.info_side input.info_ap { }
+div#info_area div.info_side div.info_trevener { }
+div#info_area div.info_side div.info_trevener input[type=radio] { }
+div#info_area div.info_side textarea.info_code { }
+div#info_area div.info_side button.info_copy { }
+
+
+
+div#selection_area { }
+div#selection_area div.selection_side { }
+div#selection_area div.selection_side div.selection_entry { }
+div#selection_area div.selection_side div.selection_entry div.entry_icon { }
+div#selection_area div.selection_side div.selection_entry div.entry_icon input { }
+div#selection_area div.selection_side div.selection_entry div.entry_info { }
+div#selection_area div.selection_side div.selection_entry div.entry_info div.entry_char { }
+div#selection_area div.selection_side div.selection_entry div.entry_info div.entry_char span.char_name { }
+div#selection_area div.selection_side div.selection_entry div.entry_info div.entry_weapon { }
+div#selection_area div.selection_side div.selection_entry div.entry_info div.entry_weapon div.char_weapon_icon { }
+div#selection_area div.selection_side div.selection_entry div.entry_info div.entry_weapon input.weapon_refine { }
+
+
+
+.root_float { }
+
+
+div#center_float { }
+
+div#center_float div#center_top { }
+div#center_float div#center_top button#swap_info { }
+
+div#center_float div#center_bottom { }
+div#center_float div#center_bottom input#search { }
+
+div#center_float div#controllers { }
+div#center_float div#controllers button { }

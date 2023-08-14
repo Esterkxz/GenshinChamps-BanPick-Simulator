@@ -41,6 +41,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "btnMainDesc": "다음 단계로 넘어갑니다",
         "btnUndo": "UNDO",
         "btnUndoDesc": "마지막 픽업을 취소하고 직전 단계로 돌아갑니다",
+        "btnRemoconDesc": "리모컨 호출 (팝업 창 사용)",
         "btnRandomDesc": "클릭: 랜덤하게 1회 픽업합니다\n우클릭: 남은 픽을 자동 랜덤으로 진행합니다.\n [!]버튼을 눌러 중단할 수 있습니다",
         "btnSettings": "설정",
         "btnSettingsDesc": "현재 버전에선 라이트/다크 UI 모드 전환 기능으로 작동합니다",

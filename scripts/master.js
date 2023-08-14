@@ -26,6 +26,9 @@ SOFTWARE.
 
 */
 
+//page established(loaded unique value)
+let established = Date.now;
+
 //end of array alias
 let eoa = "reserved";
 //end of object alias
@@ -4871,6 +4874,7 @@ let controllerMaster = {
     main_action: "button#main_action",
     sub_action: "button#sub_action",
 
+    use_remocon: "button#use_remocon",
     random_picker: "button#random_picker",
 
     extra_action: "div#extra_action",
@@ -4914,6 +4918,7 @@ let controllerMaster = {
         this.buttonSettings = this.extraActions.find(this.settings);
         this.buttonReset = this.extraActions.find(this.reset);
 
+        this.remoconCallerButton = this.mainController.find(this.use_remocon);
         this.randomPickButton = this.mainController.find(this.random_picker);
 
         this.toolInfos = this.mainController.find(this.tool_infos);
@@ -4926,6 +4931,7 @@ let controllerMaster = {
         this.mainActionButton.click(this.mainButton);
         this.mainActionButton.contextmenu(this.mainButtonRight);
         this.subActionButton.click(this.subButton);
+        this.remoconCallerButton.click(this.remoconButton);
         this.randomPickButton.click(this.randomButton);
         this.randomPickButton.contextmenu(this.randomButtonRight);
         this.randomPickButton.mouseenter(this.randomButtonHover);
@@ -4947,6 +4953,7 @@ let controllerMaster = {
 
         this.mainActionButton.attr("title", text.btnMainDesc);
         this.subActionButton.attr("title", text.btnUndoDesc);
+        this.remoconCallerButton.attr("title", text.btnRemoconDesc);
         this.randomPickButton.attr("title", text.btnRandomDesc);
         this.buttonSettings.attr("title", text.btnSettingsDesc);
         this.buttonReset.attr("title", text.btnResetDesc);
@@ -4986,6 +4993,10 @@ let controllerMaster = {
 
             return false;
         }
+    },
+
+    remoconButton: function(e) {
+        popupMaster.call("remocon");
     },
 
     randomButton: function(e) {
@@ -6163,11 +6174,14 @@ let screenMaster = {
 //popup windows handler
 let popupMaster = {
 
+    widthDefault: 360,
+    heightDefault: 640,
+
     handler: {},
 
 
     preset: {//"name": {"url": "./~", w: 480, h: 640, t: nnn, "l": nnn, r: false, p: false},
-        "remocon": {"url": "about:blank", w: 400, h: 640},
+        "remocon": {"url": "./remocon.html", w: 640, h: 640},
     },
 
 
@@ -6176,15 +6190,15 @@ let popupMaster = {
         window.popups = this;
     },
 
-    register: function(name, doc, bdy) {
-        this.handler[name] = { "document": doc, "body": bdy};
+    register: function(name, port, wnd, doc, bdy) {
+        this.handler[name] = { "port": port, "window": wnd, "document": doc, "body": bdy, };
     },
 
     remove: function(name) {
         this.handler[name] = undefined;
     },
 
-    new: function(name, w, h, url = "about:blank", t, l, r = true, p = true) {
+    new: function(name, url = "about:blank", w, h, t, l, r = true, p = true) {
         let top = window.top;
         if (t == null) {
             var screenY = top.screenY;
@@ -6208,23 +6222,62 @@ let popupMaster = {
             }
             l = Math.floor((screenX / 2) + (outerWidth / 2) + ((outerWidth - innerWidth) / 2) - (w / 2) - shift);
         }
-        return window.open(url, name, (p === true ? "popup": "") + ",innerWidth=" + w + ",innerHeight=" + h + ",screenY=" + t + ",screenX=" + l + (r === true ? ",resizable" : "") + "");
+        let wind = window.open(url, name, (p === true ? "popup": "") + ",innerWidth=" + w + ",innerHeight=" + h + ",screenY=" + t + ",screenX=" + l + (r === true ? ",resizable" : "") + "");
+        let mesCh = new MessageChannel();
+        mesCh.port1.addEventListener('message', this.messageReceiver);
+        wind.postMessage("called", location.href.replace("index.html", "") + url.replace("./", ""), [mesCh.port2]);
+        this.register(name, mesCh.port1 , wind);
+        return wind;
     },
 
     call: function(name, url) {
         let set = this.preset[name];
         if (set == null) {
-            this.new(url, name);
-            return;
+            return this.new(name, url);
         }
         if (this.handler[name] == null) {
-            this.new(name, set.w, set.h, set.url, set.t, set.l, set.r, set.p);
-        } else this.new(name, url = set.url);
+            return this.new(name, set.url, set.w, set.h, set.t, set.l, set.r, set.p);
+        } else return this.new(name, url = set.url);
+    },
+
+    bind: function(window) {
+        bindCommonHandles(window);
+    },
+
+    messageReceiver: function(e) {
+        let handler = this.handler;
+        console.log(e.data);
+        let data = e.data;
+        if (data != null) {
+            switch (data["op"]) {
+                case "init":
+                    if (handler[e.name] == null) return;
+                    let handle = handler[e.name];
+                    handle["document"] = data["document"];
+                    handle["body"] = data["body"];
+
+                    break;
+            }
+        }
     },
 
     eoo
 }
 let popupHandler = popupMaster.handler;
+
+
+var let = {
+    it: function(thing) {
+        this[thing] = eval(thing);
+    }
+}
+
+function bindCommonHandles(window) {
+    // window[""] = ;
+    // window[""] = ;
+    // window[""] = ;
+    // window[""] = ;
+}
 
 
 //reset pick progress
@@ -6573,6 +6626,25 @@ function playAudio(a, volume = soundsMaster.volumeControlSlider.val()) {
 
 //onload
 $(document).ready(function() {
+
+    let.it("established");
+    let.it("eoa");
+    let.it("eoo");
+    let.it("tpGif");
+
+    let.it("sequenceMaster");
+    let.it("poolMaster");
+    let.it("sideMaster");
+    let.it("searchMaster");
+    let.it("rulesMaster");
+    let.it("localeMaster");
+    let.it("controllerMaster");
+    let.it("timerMaster");
+    let.it("popupMaster");
+    let.it("popupHandler");
+    let.it("sounds");
+    let.it("soundsMaster");
+
 
     //initializing//
     //Initialize section objects & Generate variable things//

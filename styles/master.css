@@ -915,6 +915,8 @@ div#main_controller button:not(.text_type):hover, div#main_controller select:hov
 div#main_controller button:not(.text_type):active, div#main_controller select:active { text-shadow: -8px -4px 5px rgba(var(--color-text-for-red) / 0.2), 8px 4px 5px rgba(var(--color-text-for-blue) / 0.2); box-shadow: 0 0 10px 1px #000A; }
 div#main_controller button:not(.text_type) { padding: 7px 12px; }
 div#main_controller div#main_actions { margin: auto; }
+div#main_controller div#main_actions button.emoji_button { font-size: 26px; line-height: 26px; }
+div#main_controller div#main_actions button#use_remocon { padding: 0 10px; }
 div#main_controller div#main_actions div.side_placer { position: relative; width: 0; }
 div#main_controller div#main_actions div.side_placer div { position: absolute; top: 0; bottom: 0; }
 div#main_controller div#main_actions div.side_placer div.left_place { right: 0; }
