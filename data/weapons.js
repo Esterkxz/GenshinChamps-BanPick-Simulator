@@ -495,6 +495,19 @@ weaponsInfo = {
             "res_icon": "UI_EquipIcon_Catalyst_Alaya.png"
         },
 
+        //Extra 9? - Pledge
+        {
+            "id": "bw_pledge",
+            "class": "limited",
+            "version": "4.0f",
+            "rarity": "5",
+            "type": "bow",
+            "serise": "standalone",
+            "continent": "fontaine",
+            "favority": ["lyney"],
+            "res_icon": "UI_EquipIcon_Bow_Pledge.png"
+        },
+
 
         {
             "id": "reserved",

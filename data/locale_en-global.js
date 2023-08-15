@@ -326,6 +326,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "cm_deshret": { "name": "Beacon of the Reed Sea", "aliases": [""] },
         "pl_deshret": { "name": "Staff of the Scarlet Sands", "aliases": [""] },
         "ct_alaya": { "name": "Tullaytullah’s Remembrance", "aliases": [""] },
+        "bw_pledge": { "name": "The First Great Magic", "aliases": [""] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }

@@ -326,6 +326,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "cm_deshret": { "name": "갈대 바다의 표지", "aliases": [""] },
         "pl_deshret": { "name": "적색 사막의 지팡이", "aliases": ["적사지"] },
         "ct_alaya": { "name": "툴레이툴라의 기억", "aliases": ["툴툴"] },
+        "bw_pledge": { "name": "최초의 대마술", "aliases": ["마술", "마술활"] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }
