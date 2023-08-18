@@ -900,7 +900,6 @@ let charactersInfo = {
             "res_vcut_meta_pos": { "vBasic": "22%", "vHover": "8%" }
         },
         {
-            "comment": "temporary data for pre-official release",
             "id": "lynette",
             "class": "ordinary",
             "version": "4.0f",
@@ -911,10 +910,9 @@ let charactersInfo = {
             "res_back": "UI_AvatarIcon_Linette@2x.png",
             "res_icon": "UI_AvatarIcon_Linette.png",
             "res_vcut": "linette_083_gacha_card.webp",
-            "res_vcut_meta_pos": { "vBasic": "20%", "vHover": "10%" }
+            "res_vcut_meta_pos": { "vBasic": "25%", "vHover": "38%" }
         },
         {
-            "comment": "temporary data for pre-official release",
             "id": "lyney",
             "class": "limited",
             "version": "4.0f",
@@ -925,7 +923,7 @@ let charactersInfo = {
             "res_back": "UI_AvatarIcon_Liney@2x.png",
             "res_icon": "UI_AvatarIcon_Liney.png",
             "res_vcut": "liney_084_gacha_card.webp",
-            "res_vcut_meta_pos": { "vBasic": "20%", "vHover": "10%" }
+            "res_vcut_meta_pos": { "vBasic": "28%", "vHover": "28%" }
         },
         {
             "comment": "temporary data for pre-official release",
@@ -1038,5 +1036,8 @@ let charactersInfo = {
     "kaveh": 66,
     "baizhu": 67,
     "kirara": 68,
-    "reserved": 6
+    "lynette": 69,
+    "lyney": 70,
+    "freminet": 71,
+    "reserved": 7
 }

@@ -1,4 +1,4 @@
-ruleBooks["AngChamps v3"] = {
+ruleBooks["AngChamps v2"] = {
     "comment": "\
 Rule refferenced by 앙리형 (Angri-hyung / brother Henry - Streamer & Youtuber)\n\
 Youtube: https://www.youtube.com/@angri_hyung \n\
@@ -12,7 +12,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard.\n\
     ",
     "rule_title": "앙챔스 룰북",
-    "rule_version": "3.0",
+    "rule_version": "2.0",
 
     "rule_type": "ban card",
 
@@ -115,8 +115,6 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "kaveh": false,
             "baizhu": false,
             "kirara": false,
-            "lynette": false,
-            "lyney": false,
         },
         "": ""
     },
@@ -188,7 +186,6 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "yaoyao": true,
                 "mika": true,
                 "kirara": true,
-                "lynette": true,
             },
             "": ""
         },
@@ -247,7 +244,6 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "tighnari": true,
                 "wanderer": true,
                 "alhaitham": true,
-                "lyney": true,
             },
             "": ""
         },

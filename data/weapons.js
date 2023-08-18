@@ -408,7 +408,7 @@ weaponsInfo = {
             "type": "bow",
             "serise": "standalone",
             "continent": "liyue",
-            "favority": ["yelan", "tartaglia", "tighnari", "faruzan"],
+            "favority": ["yelan", "liney", "tartaglia", "tighnari", "faruzan"],
             "res_icon": "UI_EquipIcon_Bow_Kirin.png"
         },
 
