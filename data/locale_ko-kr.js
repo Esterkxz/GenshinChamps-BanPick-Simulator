@@ -63,6 +63,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "amountFillCharacter": "마무리",
         "titlePicked": "픽업 종료",
         "titleVersus": "VERSUS",
+        "titleLeagueMatch": "#NAME #TAIL MATCH",
 
         "setConstellationDesc": "별자리 돌파 입력/수정",
 
@@ -207,6 +208,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "lynette": "리넷",
         "lyney": "리니",
         "freminet": "프레미네",
+        "wriothesley": "라이오슬리",
+        "neuvillette": "느비예트",
         "reserved": ""
     },
     "characters_short": {
@@ -281,6 +284,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "lynette": "리넷",
         "lyney": "리니",
         "freminet": "프레미네",
+        "wriothesley": "라이오슬리",
+        "neuvillette": "느비예트",
         "reserved": ""
     },
     "weapons": {
@@ -327,6 +332,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "pl_deshret": { "name": "적색 사막의 지팡이", "aliases": ["적사지"] },
         "ct_alaya": { "name": "툴레이툴라의 기억", "aliases": ["툴툴"] },
         "bw_pledge": { "name": "최초의 대마술", "aliases": ["마술", "마술활"] },
+        "ct_wheatley": { "name": "금빛 흐름의 감독", "aliases": [""] },
+        "ct_iudex": { "name": "만세 분출 법전", "aliases": [""] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }

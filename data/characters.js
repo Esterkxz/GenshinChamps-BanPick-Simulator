@@ -941,6 +941,34 @@ let charactersInfo = {
         },
         {
             "comment": "temporary data for pre-official release",
+            "id": "wriothesley",
+            "class": "ordinary",
+            "version": "4.1",
+            "rarity": "5",
+            "weapon": "catalyst",
+            "element": "cryo",
+            "continent": "fontaine",
+            "res_back": "UI_AvatarIcon_Wriothesley@2x.png",
+            "res_icon": "UI_AvatarIcon_Wriothesley.png",
+            "res_vcut": "wriothesley_086_gacha_card.webp",
+            "res_vcut_meta_pos": { "vBasic": "20%", "vHover": "10%" }
+        },
+        {
+            "comment": "temporary data for pre-official release",
+            "id": "neuvillette",
+            "class": "limited",
+            "version": "4.1",
+            "rarity": "5",
+            "weapon": "catalyst",
+            "element": "hydro",
+            "continent": "fontaine",
+            "res_back": "UI_AvatarIcon_Neuvillette@2x.png",
+            "res_icon": "UI_AvatarIcon_Neuvillette.png",
+            "res_vcut": "neuvillette_087_gacha_card.webp",
+            "res_vcut_meta_pos": { "vBasic": "20%", "vHover": "10%" }
+        },
+        {
+            "comment": "temporary data for pre-official release",
             "id": "reserved",
             "class": "",
             "version": "4.",
@@ -950,7 +978,8 @@ let charactersInfo = {
             "continent": "",
             "res_back": "",
             "res_icon": "",
-            "res_vcut": ""
+            "res_vcut": "",
+            "res_vcut_meta_pos": { "vBasic": "20%", "vHover": "10%" }
         }
     ],
     "unknown": {

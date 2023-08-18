@@ -63,6 +63,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "amountFillCharacter": "character(s) place to fill",
         "titlePicked": "Pick finished",
         "titleVersus": "VERSUS",
+        "titleLeagueMatch": "#NAME LEAGUE MATCH",
 
         "setConstellationDesc": "Set constellation",
 
@@ -207,6 +208,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "lynette": "Lynette",
         "lyney": "Lyney",
         "freminet": "Freminet",
+        "wriothesley": "Wriothesley",
+        "neuvillette": "Neuvillette",
         "reserved": ""
     },
     "characters_short": {
@@ -281,6 +284,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "lynette": "Lynette",
         "lyney": "Lyney",
         "freminet": "Freminet",
+        "wriothesley": "Wriothesley",
+        "neuvillette": "Neuvillette",
         "reserved": ""
     },
     "weapons": {

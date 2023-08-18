@@ -11,7 +11,8 @@ weaponsInfo = {
             "serise": "dvalin",
             "continent": "mondstadt",
             "favority": ["jean", "bennett"],
-            "res_icon": "UI_EquipIcon_Sword_Dvalin.png"
+            "res_icon": "UI_EquipIcon_Sword_Dvalin.png",
+            "res_vcut": "i_n11502_gacha_icon.webp"
         },
         {
             "id": "cm_dvalin",
@@ -22,7 +23,8 @@ weaponsInfo = {
             "serise": "dvalin",
             "continent": "mondstadt",
             "favority": [""],
-            "res_icon": "UI_EquipIcon_Claymore_Dvalin.png"
+            "res_icon": "UI_EquipIcon_Claymore_Dvalin.png",
+            "res_vcut": "i_n12501_gacha_icon.webp"
         },
         {
             "id": "pl_dvalin",
@@ -33,7 +35,8 @@ weaponsInfo = {
             "serise": "dvalin",
             "continent": "mondstadt",
             "favority": [""],
-            "res_icon": "UI_EquipIcon_Pole_Dvalin.png"
+            "res_icon": "UI_EquipIcon_Pole_Dvalin.png",
+            "res_vcut": "i_n13502_gacha_icon.webp"
         },
         {
             "id": "bw_dvalin",
@@ -44,7 +47,8 @@ weaponsInfo = {
             "serise": "dvalin",
             "continent": "mondstadt",
             "favority": ["sara", "faruzan"],
-            "res_icon": "UI_EquipIcon_Bow_Dvalin.png"
+            "res_icon": "UI_EquipIcon_Bow_Dvalin.png",
+            "res_vcut": "i_n15501_gacha_icon.webp"
         },
         {
             "id": "ct_dvalin",
@@ -55,7 +59,8 @@ weaponsInfo = {
             "serise": "dvalin",
             "continent": "mondstadt",
             "favority": ["wanderer"],
-            "res_icon": "UI_EquipIcon_Catalyst_Dvalin.png"
+            "res_icon": "UI_EquipIcon_Catalyst_Dvalin.png",
+            "res_vcut": "i_n14501_gacha_icon.webp"
         },
 
         //Ordinary collection
@@ -68,7 +73,8 @@ weaponsInfo = {
             "serise": "standalone",
             "continent": "mondstadt",
             "favority": ["jean", "qiqi", "bennett"],
-            "res_icon": "UI_EquipIcon_Sword_Falcon.png"
+            "res_icon": "UI_EquipIcon_Sword_Falcon.png",
+            "res_vcut": "i_n11501_gacha_icon.webp"
         },
         {
             "id": "cm_wolfmound",
@@ -79,7 +85,8 @@ weaponsInfo = {
             "serise": "standalone",
             "continent": "mondstadt",
             "favority": ["diluc", "sayu"],
-            "res_icon": "UI_EquipIcon_Claymore_Wolfmound.png"
+            "res_icon": "UI_EquipIcon_Claymore_Wolfmound.png",
+            "res_vcut": "i_n12502_gacha_icon.webp"
         },
         {
             "id": "bw_amos",
@@ -90,7 +97,8 @@ weaponsInfo = {
             "serise": "standalone",
             "continent": "mondstadt",
             "favority": ["ganyu"],
-            "res_icon": "UI_EquipIcon_Bow_Amos.png"
+            "res_icon": "UI_EquipIcon_Bow_Amos.png",
+            "res_vcut": "i_n15502_gacha_icon.webp"
         },
         {
             "id": "ct_fourwinds",
@@ -101,7 +109,8 @@ weaponsInfo = {
             "serise": "standalone",
             "continent": "mondstadt",
             "favority": ["klee", "yanfei", "heizo", "wanderer"],
-            "res_icon": "UI_EquipIcon_Catalyst_Fourwinds.png"
+            "res_icon": "UI_EquipIcon_Catalyst_Fourwinds.png",
+            "res_vcut": "i_n14502_gacha_icon.webp"
         },
 
         //Kunwu serise
@@ -114,7 +123,8 @@ weaponsInfo = {
             "serise": "kunwu",
             "continent": "liyue",
             "favority": [""],
-            "res_icon": "UI_EquipIcon_Sword_Kunwu.png"
+            "res_icon": "UI_EquipIcon_Sword_Kunwu.png",
+            "res_vcut": "i_n11504_gacha_icon.webp"
         },
         {
             "id": "cm_kunwu",
@@ -125,7 +135,8 @@ weaponsInfo = {
             "serise": "kunwu",
             "continent": "liyue",
             "favority": ["xinyan"],
-            "res_icon": "UI_EquipIcon_Claymore_Kunwu.png"
+            "res_icon": "UI_EquipIcon_Claymore_Kunwu.png",
+            "res_vcut": "i_n12504_gacha_icon.webp"
         },
         {
             "id": "pl_kunwu",
@@ -136,7 +147,8 @@ weaponsInfo = {
             "serise": "kunwu",
             "continent": "liyue",
             "favority": [""],
-            "res_icon": "UI_EquipIcon_Pole_Kunwu.png"
+            "res_icon": "UI_EquipIcon_Pole_Kunwu.png",
+            "res_vcut": "i_n13504_gacha_icon.webp"
         },
         {
             "id": "bw_kunwu",
@@ -147,7 +159,8 @@ weaponsInfo = {
             "serise": "kunwu",
             "continent": "liyue",
             "favority": [""],
-            "res_icon": "UI_EquipIcon_Bow_Kunwu.png"
+            "res_icon": "UI_EquipIcon_Bow_Kunwu.png",
+            "res_vcut": ""
         },
         {
             "id": "ct_kunwu",
@@ -158,7 +171,8 @@ weaponsInfo = {
             "serise": "kunwu",
             "continent": "liyue",
             "favority": [""],
-            "res_icon": "UI_EquipIcon_Catalyst_Kunwu.png"
+            "res_icon": "UI_EquipIcon_Catalyst_Kunwu.png",
+            "res_vcut": "i_n14504_gacha_icon.webp"
         },
 
         //Morax serise
@@ -171,7 +185,8 @@ weaponsInfo = {
             "serise": "morax",
             "continent": "liyue",
             "favority": ["ayato", "alhaitham", "keqing", "xingqiu"],
-            "res_icon": "UI_EquipIcon_Sword_Morax.png"
+            "res_icon": "UI_EquipIcon_Sword_Morax.png",
+            "res_vcut": "i_n11505_gacha_icon.webp"
         },
         {
             "id": "cm_morax",
@@ -182,7 +197,8 @@ weaponsInfo = {
             "serise": "morax",
             "continent": "liyue",
             "favority": [""],
-            "res_icon": "UI_EquipIcon_Claymore_Morax.png"
+            "res_icon": "UI_EquipIcon_Claymore_Morax.png",
+            "res_vcut": ""
         },
         {
             "id": "pl_morax",
@@ -193,7 +209,8 @@ weaponsInfo = {
             "serise": "morax",
             "continent": "liyue",
             "favority": ["xiao"],
-            "res_icon": "UI_EquipIcon_Pole_Morax.png"
+            "res_icon": "UI_EquipIcon_Pole_Morax.png",
+            "res_vcut": "i_n13505_gacha_icon.webp"
         },
         {
             "id": "bw_morax",
@@ -204,7 +221,8 @@ weaponsInfo = {
             "serise": "morax",
             "continent": "liyue",
             "favority": [""],
-            "res_icon": "UI_EquipIcon_Bow_Morax.png"
+            "res_icon": "UI_EquipIcon_Bow_Morax.png",
+            "res_vcut": ""
         },
         {
             "id": "ct_morax",
@@ -215,7 +233,8 @@ weaponsInfo = {
             "type": "catalyst",
             "continent": "liyue",
             "favority": ["baizhu"],
-            "res_icon": "UI_EquipIcon_Catalyst_Morax.png"
+            "res_icon": "UI_EquipIcon_Catalyst_Morax.png",
+            "res_vcut": ""
         },
 
         //Extra 1 - Homa
@@ -228,7 +247,8 @@ weaponsInfo = {
             "serise": "standalone",
             "continent": "mondstadt",
             "favority": ["hutao", "zhongli", "thoma", "yaoyao", "candace"],
-            "res_icon": "UI_EquipIcon_Pole_Homa.png"
+            "res_icon": "UI_EquipIcon_Pole_Homa.png",
+            "res_vcut": "i_n13501_gacha_icon.webp"
         },
 
         //Widsith serise
@@ -241,7 +261,8 @@ weaponsInfo = {
             "serise": "widsith",
             "continent": "mondstadt",
             "favority": ["kazuha", "jean", "shinobu"],
-            "res_icon": "UI_EquipIcon_Sword_Widsith.png"
+            "res_icon": "UI_EquipIcon_Sword_Widsith.png",
+            "res_vcut": "i_n11503_gacha_icon.webp"
         },
         {
             "id": "cm_widsith",
@@ -252,7 +273,8 @@ weaponsInfo = {
             "serise": "widsith",
             "continent": "mondstadt",
             "favority": ["eula", "razor", "xinyan"],
-            "res_icon": "UI_EquipIcon_Claymore_Widsith.png"
+            "res_icon": "UI_EquipIcon_Claymore_Widsith.png",
+            "res_vcut": "i_n12503_gacha_icon.webp"
         },
         {
             "id": "pl_widsith",
@@ -263,7 +285,8 @@ weaponsInfo = {
             "serise": "widsith",
             "continent": "mondstadt",
             "favority": [""],
-            "res_icon": "UI_EquipIcon_Pole_Widsith.png"
+            "res_icon": "UI_EquipIcon_Pole_Widsith.png",
+            "res_vcut": ""
         },
         {
             "id": "bw_widsith",
@@ -274,7 +297,8 @@ weaponsInfo = {
             "serise": "widsith",
             "continent": "mondstadt",
             "favority": ["venti", "fischl", "yelan", "collei", "faruzan"],
-            "res_icon": "UI_EquipIcon_Bow_Widsith.png"
+            "res_icon": "UI_EquipIcon_Bow_Widsith.png",
+            "res_vcut": ".webp"
         },
         {
             "id": "ct_widsith",
@@ -285,7 +309,8 @@ weaponsInfo = {
             "serise": "widsith",
             "continent": "mondstadt",
             "favority": [""],
-            "res_icon": "UI_EquipIcon_Catalyst_Widsith.png"
+            "res_icon": "UI_EquipIcon_Catalyst_Widsith.png",
+            "res_vcut": "i_n15503_gacha_icon.webp"
         },
 
         //Narukami serise
@@ -298,7 +323,8 @@ weaponsInfo = {
             "serise": "narukami",
             "continent": "inazuma",
             "favority": ["ayaka", "keqing", "kazuha", "bennett", "treveler", "ayato", "alhaitham"],
-            "res_icon": "UI_EquipIcon_Sword_Narukami.png"
+            "res_icon": "UI_EquipIcon_Sword_Narukami.png",
+            "res_vcut": "i_n11509_gacha_icon.webp"
         },
         {
             "id": "pl_narukami",
@@ -309,7 +335,8 @@ weaponsInfo = {
             "serise": "narukami",
             "continent": "inazuma",
             "favority": ["shogun"],
-            "res_icon": "UI_EquipIcon_Pole_Narukami.png"
+            "res_icon": "UI_EquipIcon_Pole_Narukami.png",
+            "res_vcut": "i_n13509_gacha_icon.webp"
         },
         {
             "id": "bw_narukami",
@@ -320,7 +347,8 @@ weaponsInfo = {
             "serise": "narukami",
             "continent": "inazuma",
             "favority": ["yoimiya", "tartaglia"],
-            "res_icon": "UI_EquipIcon_Bow_Narukami.png"
+            "res_icon": "UI_EquipIcon_Bow_Narukami.png",
+            "res_vcut": "i_n15509_gacha_icon.webp"
         },
         {
             "id": "ct_narukami",
@@ -331,7 +359,8 @@ weaponsInfo = {
             "serise": "narukami",
             "continent": "inazuma",
             "favority": ["yae", "klee", "yanfei", "kokomi", "heizo", "nahida", "wanderer"],
-            "res_icon": "UI_EquipIcon_Catalyst_Narukami.png"
+            "res_icon": "UI_EquipIcon_Catalyst_Narukami.png",
+            "res_vcut": "i_n14509_gacha_icon.webp"
         },
 
         //Extra 2 - Worldbane
@@ -344,7 +373,8 @@ weaponsInfo = {
             "serise": "standalone",
             "continent": "snezhnaya",
             "favority": ["tartaglia", "fischl", "ganyu", "aloy", "tighnari"],
-            "res_icon": "UI_EquipIcon_Bow_Worldbane.png"
+            "res_icon": "UI_EquipIcon_Bow_Worldbane.png",
+            "res_vcut": "i_n15507_gacha_icon.webp"
         },
 
         //Extra 3 - Itadorimaru
@@ -357,7 +387,8 @@ weaponsInfo = {
             "serise": "standalone",
             "continent": "inazuma",
             "favority": ["itto", "noelle", "dehya"],
-            "res_icon": "UI_EquipIcon_Claymore_Itadorimaru.png"
+            "res_icon": "UI_EquipIcon_Claymore_Itadorimaru.png",
+            "res_vcut": "i_n12510_gacha_icon.webp"
         },
 
         //Extra 4 - Santika
@@ -370,7 +401,8 @@ weaponsInfo = {
             "serise": "standalone",
             "continent": "liyue",
             "favority": ["shenhe"],
-            "res_icon": "UI_EquipIcon_Pole_Santika.png"
+            "res_icon": "UI_EquipIcon_Pole_Santika.png",
+            "res_vcut": "i_n13507_gacha_icon.webp"
         },
 
         //Extra 5 - Kaleido
@@ -383,7 +415,8 @@ weaponsInfo = {
             "serise": "standalone",
             "continent": "inazuma",
             "favority": ["kokomi", "babara"],
-            "res_icon": "UI_EquipIcon_Catalyst_Kaleido.png"
+            "res_icon": "UI_EquipIcon_Catalyst_Kaleido.png",
+            "res_vcut": "i_n14506_gacha_icon.webp"
         },
 
         //Extra 6 - Amenoma
@@ -396,7 +429,8 @@ weaponsInfo = {
             "serise": "standalone",
             "continent": "inazuma",
             "favority": ["ayato"],
-            "res_icon": "UI_EquipIcon_Sword_Amenoma.png"
+            "res_icon": "UI_EquipIcon_Sword_Amenoma.png",
+            "res_vcut": "i_n11510_gacha_icon.webp"
         },
 
         //Extra 7 - Kirin
@@ -409,7 +443,8 @@ weaponsInfo = {
             "serise": "standalone",
             "continent": "liyue",
             "favority": ["yelan", "liney", "tartaglia", "tighnari", "faruzan"],
-            "res_icon": "UI_EquipIcon_Bow_Kirin.png"
+            "res_icon": "UI_EquipIcon_Bow_Kirin.png",
+            "res_vcut": "i_n15508_gacha_icon.webp"
         },
 
         //Ayus serise
@@ -422,7 +457,8 @@ weaponsInfo = {
             "serise": "ayus",
             "continent": "sumeru",
             "favority": ["alhaitham"],
-            "res_icon": "UI_EquipIcon_Sword_Ayus.png"
+            "res_icon": "UI_EquipIcon_Sword_Ayus.png",
+            "res_vcut": "i_n11512_gacha_icon.webp"
         },
         {
             "id": "bw_ayus",
@@ -433,7 +469,8 @@ weaponsInfo = {
             "serise": "ayus",
             "continent": "sumeru",
             "favority": ["tighnari"],
-            "res_icon": "UI_EquipIcon_Bow_Ayus.png"
+            "res_icon": "UI_EquipIcon_Bow_Ayus.png",
+            "res_vcut": "i_n15511_gacha_icon.webp"
         },
         {
             "id": "ct_ayus",
@@ -444,7 +481,8 @@ weaponsInfo = {
             "type": "catalyst",
             "continent": "sumeru",
             "favority": ["nahida"],
-            "res_icon": "UI_EquipIcon_Catalyst_Ayus.png"
+            "res_icon": "UI_EquipIcon_Catalyst_Ayus.png",
+            "res_vcut": "i_n14511_gacha_icon.webp"
         },
 
         //Deshret serise
@@ -457,7 +495,8 @@ weaponsInfo = {
             "serise": "deshret",
             "continent": "sumeru",
             "favority": ["nilou", "shinobu", "layla"],
-            "res_icon": "UI_EquipIcon_Sword_Deshret.png"
+            "res_icon": "UI_EquipIcon_Sword_Deshret.png",
+            "res_vcut": "i_n11511_gacha_icon.webp"
         },
         {
             "id": "cm_deshret",
@@ -468,7 +507,8 @@ weaponsInfo = {
             "serise": "deshret",
             "continent": "sumeru",
             "favority": ["dehya"],
-            "res_icon": "UI_EquipIcon_Claymore_Deshret.png"
+            "res_icon": "UI_EquipIcon_Claymore_Deshret.png",
+            "res_vcut": "i_n12511_gacha_icon.webp"
         },
         {
             "id": "pl_deshret",
@@ -479,7 +519,8 @@ weaponsInfo = {
             "serise": "deshret",
             "continent": "sumeru",
             "favority": ["cyno"],
-            "res_icon": "UI_EquipIcon_Pole_Deshret.png"
+            "res_icon": "UI_EquipIcon_Pole_Deshret.png",
+            "res_vcut": "i_n13511_gacha_icon.webp"
         },
 
         //Extra 8 - Alaya
@@ -492,7 +533,8 @@ weaponsInfo = {
             "serise": "standalone",
             "continent": "sumeru",
             "favority": ["wanderer", "ningguang", "yanfei", "heizo"],
-            "res_icon": "UI_EquipIcon_Catalyst_Alaya.png"
+            "res_icon": "UI_EquipIcon_Catalyst_Alaya.png",
+            "res_vcut": "i_n14512_gacha_icon.webp"
         },
 
         //Extra 9? - Pledge
@@ -505,9 +547,37 @@ weaponsInfo = {
             "serise": "standalone",
             "continent": "fontaine",
             "favority": ["lyney"],
-            "res_icon": "UI_EquipIcon_Bow_Pledge.png"
+            "res_icon": "UI_EquipIcon_Bow_Pledge.png",
+            "res_vcut": "i_n15512_gacha_icon.webp"
         },
 
+        //Wheatley serise
+        {
+            "id": "ct_wheatley",
+            "class": "limited",
+            "version": "4.1",
+            "rarity": "5",
+            "type": "catalyst",
+            "serise": "wheatley",
+            "continent": "fontaine",
+            "favority": ["wriothesley"],
+            "res_icon": "UI_EquipIcon_Catalyst_Wheatley.png",
+            "res_vcut": "i_n14513_gacha_icon.webp"
+        },
+
+        //Iudex serise
+        {
+            "id": "ct_iudex",
+            "class": "limited",
+            "version": "4.1",
+            "rarity": "5",
+            "type": "catalyst",
+            "serise": "iudex",
+            "continent": "fontaine",
+            "favority": ["neuvillette"],
+            "res_icon": "UI_EquipIcon_Catalyst_Iudex.png",
+            "res_vcut": "i_n15512_gacha_icon.webp"
+        },
 
         {
             "id": "reserved",
