@@ -352,6 +352,7 @@ let sequenceMaster = {
         let counterSide = seq.side == "red" ? "blue" : "red";
         let pickingSide = isProfferPick ? counterSide : seq.side;
         let pickingCounter = isProfferPick ? seq.side : counterSide;
+        let entryNo = sideMaster.entryPicked[pickingSide].length;
         let isTreveler = id == "treveler";
         var treveler = null;
         var banCard = false;
@@ -436,6 +437,9 @@ let sequenceMaster = {
         //update pincking sequence
         this.checkUpdateCurrentStepComplition()
         this.releaseStepStateDisplay();
+
+        //update player info char entry
+        if (isCharacterPick) playerInfoMaster.releaseCharPick(pickingSide, entryNo);
     },
 
     passPick: function() {
@@ -509,6 +513,10 @@ let sequenceMaster = {
                 if (item.attr(poolMaster.banned) == "" && item.attr(poolMaster.picked_red) == "" && item.attr(poolMaster.picked_blue) == "") {
                     item.attr(poolMaster.picked, "");
                 }
+
+                //update player info char entry
+                let entryNo = sideMaster.entryPicked[pickingSide].length;
+                playerInfoMaster.releaseCharPick(pickingSide, entryNo);
             }
         }
 
@@ -525,10 +533,16 @@ let sequenceMaster = {
         this.setSequenceTitle(lang.text.titleVersus);
         this.releaseActionStateByStep();
 
+        let nameRed = playerInfoMaster.redInfoName.val();
+        if (nameRed != "") redName = nameRed;
+        let nameBlue = playerInfoMaster.blueInfoName.val();
+        if (nameBlue != "") blueName = nameBlue;
+
         //VERSUS 시퀀스 구현
         //playSound("훻");
 
         timerMaster.pauseTimer();
+        playerInfoMaster.hidePlayerInfoLayer();
 
         if (controllerMaster.mainActionButton.is(":focus")) controllerMaster.mainActionButton.blur();
 
@@ -682,6 +696,44 @@ let sequenceMaster = {
         let charElement = commonInfo.element.res_icon[info.element];
         element.setAttribute("src", charElement == null ? tpGif : getPathR("images", "element_icon", charElement));
         entry.append(element);
+
+        let pim = playerInfoMaster;
+        let se = pim.selectionEntries[side];
+        var sel = null;
+        for (var i in se) if ($(se[i]).attr(pim.char) == info.id) {
+            sel = $(se[i]);
+            break;
+        }
+
+        if (sel != null) {
+            let weaponId = sel.attr(pim.weapon);
+
+            let charInfo = document.createElement("div");
+            charInfo.setAttribute("class", "character_info");
+            let charConstell = document.createElement("span");
+            charConstell.setAttribute("class", "character_constell");
+            charConstell.innerHTML = sel.find(pim.char_constell).val();
+            charInfo.append(charConstell);
+            entry.append(charInfo)
+
+            let weaponAlloc = document.createElement("div");
+            weaponAlloc.setAttribute("class", "weapon_allocated");
+            weaponAlloc.setAttribute("style", "--src: url('" + (weaponId == null ? tpGif : getPath("images", "weapon_vcut", weaponId) + "'); "));
+            entry.append(weaponAlloc);
+
+            let weaponInfo = document.createElement("div");
+            weaponInfo.setAttribute("class", "weapon_info");
+            let weaponName = document.createElement("span");
+            weaponName.setAttribute("class", "weapon_name");
+            weaponName.innerHTML = sel.find(pim.weapon_name).val();
+            weaponInfo.append(weaponName);
+            let weaponRefine = document.createElement("span");
+            weaponRefine.setAttribute("class", "weapon_refine");
+            weaponRefine.innerHTML = sel.find(pim.weapon_refine).val();
+            weaponInfo.append(weaponRefine);
+            entry.append(weaponInfo);
+        }
+
         return entry;
     },
 
@@ -2143,7 +2195,9 @@ let sideMaster = {
     side_player_info: "div.side_player_info",
     side_player_name: "span.side_player_name",
 
-    side_record_stage: "div.side_record_stage",
+    side_record: "div.side_record",
+    record_stage: ".record_stage",
+    record_total: ".record_total",
 
     stage: "data-stage",
     result: "data-result",
@@ -2436,7 +2490,7 @@ let sideMaster = {
         this.eachSidePlayerInfo = this.eachSideRecordBoard.find(this.side_player_info);
         this.eachSidePlayerName = this.eachSidePlayerInfo.find(this.side_player_name);
     
-        this.eachSideRecordStage = this.eachSideRecordBoard.find(this.side_record_stage);
+        this.eachSideRecordStage = this.eachSideRecordBoard.find(this.side_record);
     
         this.eachTimeRecord = this.eachSideRecordStage.find(this.time_record);
         this.eachRecordTimeRemains = this.eachTimeRecord.find(this.record_time_remains);
@@ -2455,7 +2509,9 @@ let sideMaster = {
         this.redSidePlayerInfo = this.redSideRecordBoard.find(this.side_player_info);
         this.redSidePlayerName = this.redSidePlayerInfo.find(this.side_player_name);
     
-        this.redSideRecordStage = this.redSideRecordBoard.find(this.side_record_stage);
+        this.redSideRecord = this.redSideRecordBoard.find(this.side_record);
+        this.redSideRecordStage = this.redSideRecord.filter(this.record_stage);
+        this.redSideRecordTotal = this.redSideRecord.filter(this.record_total);
     
         this.redTimeRecord = this.redSideRecordStage.find(this.time_record);
         this.redRecordTimeRemains = this.redTimeRecord.find(this.record_time_remains);
@@ -2474,7 +2530,9 @@ let sideMaster = {
         this.blueSidePlayerInfo = this.blueSideRecordBoard.find(this.side_player_info);
         this.blueSidePlayerName = this.blueSidePlayerInfo.find(this.side_player_name);
     
-        this.blueSideRecordStage = this.blueSideRecordBoard.find(this.side_record_stage);
+        this.blueSideRecord = this.blueSideRecordBoard.find(this.side_record);
+        this.blueSideRecordStage = this.blueSideRecord.filter(this.record_stage);
+        this.blueSideRecordTotal = this.blueSideRecord.filter(this.record_total);
     
         this.blueTimeRecord = this.blueSideRecordStage.find(this.time_record);
         this.blueRecordTimeRemains = this.blueTimeRecord.find(this.record_time_remains);
@@ -3144,7 +3202,8 @@ let sideMaster = {
 
         let slot = self.closest(sideMaster.entry);
 
-        sideMaster.releaseAdditionalCostByEntryConstell(slot);
+        if (rules.rule_type == "cost") sideMaster.releaseAdditionalCostByEntryConstell(slot);
+        playerInfoMaster.onChangedCharConstell(slot.attr(sideMaster.id), self.val());
     },
 
     getAdditionalCost(id, constell = 0) {
@@ -3840,8 +3899,18 @@ let sideMaster = {
         this.redSidePlayerName.text(redName);
         this.blueSidePlayerName.text(blueName);
 
+        let adds = playerInfoMaster.getSecondsForAdd();
+        
+        this.redSideRecordTotal.find(".add_time.min").html(0);
+        this.redSideRecordTotal.find("div.record_time_add").find(".divider").html(":");
+        this.redSideRecordTotal.find(".add_time.sec").html(adds.red);
+        this.blueSideRecordTotal.find(".add_time.min").html(0);
+        this.blueSideRecordTotal.find("div.record_time_add").find(".divider").html(":");
+        this.blueSideRecordTotal.find(".add_time.sec").html(adds.blue);
+
         this.versusRecordBoard.attr(this.show, "1");
         setTimeout(function() {
+            sequenceMaster.setSequenceTitle(lang.text.titleLeagueMatch.replace("#NAME", rules.name_full).replace("#TAIL", rules.league_tail));
             if (sideMaster.versusRecordBoard.attr(sideMaster.show) === "1") sideMaster.versusRecordBoard.attr(sideMaster.show, "2");
 
             setTimeout(function() {
@@ -3863,7 +3932,7 @@ let sideMaster = {
     onVersusInputRemains: function(e) {
         let self = $(this);
         let side = self.closest(sideMaster.side_record_board).attr(sideMaster.side);
-        let stage = parseInt(self.closest(sideMaster.side_record_stage).attr(sideMaster.stage));
+        let stage = parseInt(self.closest(sideMaster.side_record).attr(sideMaster.stage));
         let isMin = self.hasClass("min");
 
         sideMaster.releaseVersusRecordBoard(side, stage, isMin);
@@ -3872,7 +3941,7 @@ let sideMaster = {
     onBlurVersusInputRemains: function(e) {
         let self = $(this);
         let side = self.closest(sideMaster.side_record_board).attr(sideMaster.side);
-        let stage = parseInt(self.closest(sideMaster.side_record_stage).attr(sideMaster.stage));
+        let stage = parseInt(self.closest(sideMaster.side_record).attr(sideMaster.stage));
         let isMin = self.hasClass("min");
 
         sideMaster.releaseVersusSuperiorityGraph(stage, side);
@@ -3881,7 +3950,7 @@ let sideMaster = {
     onClickTkoButton: function(e) {
         let self = $(this);
         let side = self.closest(sideMaster.side_record_board).attr(sideMaster.side);
-        let stage = parseInt(self.closest(sideMaster.side_record_stage).attr(sideMaster.stage));
+        let stage = parseInt(self.closest(sideMaster.side_record).attr(sideMaster.stage));
         let cause = parseInt(self.attr(sideMaster.tko));
 
         sideMaster.releaseVersusRecordBoard(side, stage, null, cause);
@@ -4011,7 +4080,7 @@ let sideMaster = {
     onKeydownVersusInputRemains: function(e) {
         let self = $(this);
         let side = self.closest(sideMaster.side_record_board).attr(sideMaster.side);
-        let stage = parseInt(self.closest(sideMaster.side_record_stage).attr(sideMaster.stage));
+        let stage = parseInt(self.closest(sideMaster.side_record).attr(sideMaster.stage));
         let isMin = self.hasClass("min");
 
         switch (e.keyCode) {
@@ -4272,6 +4341,392 @@ let sideMaster = {
     },
 
     eoo: eoo
+}
+
+
+//player info operation control panel
+let playerInfoMaster = {
+
+    player_info_op_cp: "div#player_info_op_cp",
+
+
+    player_info_side: "div.player_info_side",
+
+    info_side: "div.info_side",
+
+    player_profile_select: "button.player_profile_select",
+    info_ap: "input.info_ap",
+    info_name: "input.info_name",
+    info_uid: "input.info_uid",
+    info_treveler: "div.info_treveler",
+    info_copy: "button.info_copy",
+    info_code: "textarea.info_code",
+
+    add_per_constell: "input.addition.constell",
+    add_by_had_weapon: "input.addition.weapon",
+    add_per_refine: "input.addition.refine",
+
+
+    selection_side: "div.selection_side",
+    selection_entry: "div.selection_entry",
+
+    char: "data-char",
+    weapon: "data-weapon",
+
+    entry_icon_area: "div.entry_icon_area",
+    entry_icon: "div.entry_icon",
+    char_constell: "input.char_constell",
+
+    entry_info: "div.entry_info",
+    char_name: "input.char_name",
+    weapon_name: "input.weapon_name",
+
+    entry_weapon_icon_area: "div.entry_weapon_icon_area",
+    entry_weapon_icon: "div.entry_weapon_icon",
+    weapon_refine: "input.weapon_refine",
+
+
+
+    playerInfoOpCP: null,
+
+
+    eachPlayerInfoSide: null,
+
+    eachInfoSide: null,
+
+
+    redInfoSide: null,
+
+    redPlayerProfileSelect: null,
+    redInfoAp: null,
+    redInfoName: null,
+    redInfoUid: null,
+    redInfoTreveler: null,
+    redInfoTrevelerRadios: null,
+    redInfoCopy: null,
+    redInfoCode: null,
+
+    redAddPerConstell: null,
+    redAddByHadWeapon: null,
+    redAddPerRefine: null,
+
+
+    blueInfoSide: null,
+
+    bluePlayerProfileSelect: null,
+    blueInfoAp: null,
+    blueInfoName: null,
+    blueInfoUid: null,
+    blueInfoTreveler: null,
+    blueInfoTrevelerRadios: null,
+    blueInfoCopy: null,
+    blueInfoCode: null,
+
+    blueAddPerConstell: null,
+    blueAddByHadWeapon: null,
+    blueAddPerRefine: null,
+    
+
+    eachSelectionSide: null,
+    eachSelectionEntry: null,
+
+    eachEntryIconArea: null,
+    eachEntryIcon: null,
+    eachCharConstell: null,
+
+    eachEntryInfo: null,
+    eachCharName: null,
+    eachWeaponName: null,
+
+    eachEntryWeaponIconArea: null,
+    eachEntryWeaponIcon: null,
+    eachWeaponRefine: null,
+    
+
+    selectionSides: { red: null, blue: null },
+    selectionEntries: { red: null, blue: null },
+
+    entryIconAreas: { red: null, blue: null },
+    entryIcons: { red: null, blue: null },
+    charConstells: { red: null, blue: null },
+
+    entryInfos: { red: null, blue: null },
+    charNames: { red: null, blue: null },
+    weaponNames: { red: null, blue: null },
+
+    entryWeaponIconAreas: { red: null, blue: null },
+    entryWeaponIcons: { red: null, blue: null },
+    weaponRefines: { red: null, blue: null },
+    
+
+    inputs: null,
+
+
+    addSecDefaults: {
+        constell: 2,
+        weapon: 5,
+        refine: 4,
+    },
+
+    addSecs: {
+        constell: 2,
+        weapon: 5,
+        refine: 4,
+    },
+
+
+    init: function() {
+
+        this.playerInfoOpCP = $(this.player_info_op_cp);
+
+
+        this.eachPlayerInfoSide = this.playerInfoOpCP.find(this.player_info_side);
+
+        this.eachInfoSide = this.eachPlayerInfoSide.find(this.info_side);
+
+        this.redPlayerInfoSide = this.eachPlayerInfoSide.filter(".red");
+        this.redInfoSide = this.redPlayerInfoSide.find(this.info_side);
+
+        this.redPlayerProfileSelect = this.redInfoSide.find(this.player_profile_select);
+        this.redInfoAp = this.redInfoSide.find(this.info_ap);
+        this.redInfoName = this.redInfoSide.find(this.info_name);
+        this.redInfoUid = this.redInfoSide.find(this.info_uid);
+        this.redInfoTreveler = this.redInfoSide.find(this.info_treveler);
+        this.redInfoTrevelerRadios = this.redInfoTreveler.find('input[type="radio"]');
+        this.redInfoCopy = this.redInfoSide.find(this.info_copy);
+        this.redInfoCode = this.redInfoSide.find(this.info_code);
+    
+        this.redAddPerConstell = this.redInfoSide.find(this.add_per_constell);
+        this.redAddByHadWeapon = this.redInfoSide.find(this.add_by_had_weapon);
+        this.redAddPerRefine = this.redInfoSide.find(this.add_per_refine);
+    
+    
+        this.bluePlayerInfoSide = this.eachPlayerInfoSide.filter(".blue");
+        this.blueInfoSide = this.bluePlayerInfoSide.find(this.info_side);
+
+        this.bluePlayerProfileSelect = this.blueInfoSide.find(this.player_profile_select);
+        this.blueInfoAp = this.blueInfoSide.find(this.info_ap);
+        this.blueInfoName = this.blueInfoSide.find(this.info_name);
+        this.blueInfoUid = this.blueInfoSide.find(this.info_uid);
+        this.blueInfoTreveler = this.blueInfoSide.find(this.info_treveler);
+        this.blueInfoTrevelerRadios = this.blueInfoTreveler.find('input[type="radio"]');
+        this.blueInfoCopy = this.blueInfoSide.find(this.info_copy);
+        this.blueInfoCode = this.blueInfoSide.find(this.info_code);
+    
+        this.blueAddPerConstell = this.blueInfoSide.find(this.add_per_constell);
+        this.blueAddByHadWeapon = this.blueInfoSide.find(this.add_by_had_weapon);
+        this.blueAddPerRefine = this.blueInfoSide.find(this.add_per_refine);
+
+
+        this.eachSelectionSide = this.playerInfoOpCP.find(this.selection_side);
+        this.eachSelectionEntry = this.eachSelectionSide.find(this.selection_entry);
+
+        this.eachEntryIconArea = this.eachSelectionEntry.find(this.entry_icon_area);
+        this.eachEntryIcon = this.eachEntryIconArea.find(this.entry_icon);
+        this.eachCharConstell = this.eachEntryIcon.find(this.char_constell);
+
+        this.eachEntryInfo = this.eachSelectionEntry.find(this.entry_info);
+        this.eachCharName = this.eachEntryInfo.find(this.char_name);
+        this.eachWeaponName = this.eachEntryInfo.find(this.weapon_name);
+
+        this.eachEntryWeaponIconArea = this.eachSelectionEntry.find(this.entry_weapon_icon_area);
+        this.eachEntryWeaponIcon = this.eachEntryWeaponIconArea.find(this.entry_weapon_icon);
+        this.eachWeaponRefine = this.eachEntryWeaponIcon.find(this.weapon_refine);
+
+
+        this.selectionSides["red"] = this.eachSelectionSide.filter(".red");
+        this.selectionEntries["red"] = this.selectionSides["red"].find(this.selection_entry);
+
+        this.entryIconAreas["red"] = this.selectionEntries["red"].find(this.entry_icon_area);
+        this.entryIcons["red"] = this.entryIconAreas["red"].find(this.entry_icon);
+        this.charConstells["red"] = this.entryIcons["red"].find(this.char_constell);
+
+        this.entryInfos["red"] = this.selectionEntries["red"].find(this.entry_info);
+        this.charNames["red"] = this.entryInfos["red"].find(this.char_name);
+        this.weaponNames["red"] = this.entryInfos["red"].find(this.weapon_name);
+
+        this.entryWeaponIconAreas["red"] = this.selectionEntries["red"].find(this.entry_weapon_icon_area);
+        this.entryWeaponIcons["red"] = this.entryWeaponIconAreas["red"].find(this.entry_weapon_icon);
+        this.weaponRefines["red"] = this.entryWeaponIcons["red"].find(this.weapon_refine);
+
+
+        this.selectionSides["blue"] = this.eachSelectionSide.filter(".blue");
+        this.selectionEntries["blue"] = this.selectionSides["blue"].find(this.selection_entry);
+
+        this.entryIconAreas["blue"] = this.selectionEntries["blue"].find(this.entry_icon_area);
+        this.entryIcons["blue"] = this.entryIconAreas["blue"].find(this.entry_icon);
+        this.charConstells["blue"] = this.entryIcons["blue"].find(this.char_constell);
+
+        this.entryInfos["blue"] = this.selectionEntries["blue"].find(this.entry_info);
+        this.charNames["blue"] = this.entryInfos["blue"].find(this.char_name);
+        this.weaponNames["blue"] = this.entryInfos["blue"].find(this.weapon_name);
+
+        this.entryWeaponIconAreas["blue"] = this.selectionEntries["blue"].find(this.entry_weapon_icon_area);
+        this.entryWeaponIcons["blue"] = this.entryWeaponIconAreas["blue"].find(this.entry_weapon_icon);
+        this.weaponRefines["blue"] = this.entryWeaponIcons["blue"].find(this.weapon_refine);
+
+
+        this.inputs = this.eachSelectionEntry.find("input");
+
+
+        //임시
+        this.togglePlayerInfoLayer();
+
+
+        this.eachCharConstell.focus(function(e) { $(this).attr("type", "number") });
+        this.eachCharConstell.blur(function(e) { $(this).attr("type", "text") });
+        this.eachWeaponRefine.focus(function(e) { $(this).attr("type", "number") });
+        this.eachWeaponRefine.blur(function(e) { $(this).attr("type", "text") });
+
+        this.inputs.focus(function(e) { $(this).select(); });
+        this.eachEntryIconArea.click(function(e) { $(this).find("input").focus(); });
+        this.eachEntryWeaponIconArea.click(function(e) { $(this).find("input").focus(); });
+
+        this.eachCharConstell.keydown(function(e) {
+            let pim = playerInfoMaster;
+
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (!e.shiftKey) {
+                        $(this).closest(pim.selection_entry).find(pim.weapon_name).focus();
+                        return false;
+                    }
+                    break;
+            }
+        });
+        this.eachWeaponName.keydown(function(e) {
+            let pim = playerInfoMaster;
+
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (e.shiftKey) {
+                        $(this).closest(pim.selection_entry).find(pim.char_constell).focus();
+                        return false;
+                    }
+                    break;
+            }
+        });
+
+        this.eachWeaponName.on("input cut paste", this.onInputWeapon);
+        
+    },
+
+    togglePlayerInfoLayer: function() {
+        if (this.playerInfoOpCP.is(":visible")) this.hidePlayerInfoLayer();
+        else this.showPlayerInfoLayer();
+    },
+
+    showPlayerInfoLayer: function() {
+        this.playerInfoOpCP.fadeIn(270);
+    },
+
+    hidePlayerInfoLayer: function() {
+        this.playerInfoOpCP.fadeOut(270);
+    },
+
+    releaseCharPick: function(side, no) {
+        let picked = sideMaster.entryPicked[side];
+
+        for (var i=0; i < 8; i++) {
+            let info = picked[i];
+            let entry = $(this.selectionEntries[side][i]);
+            if (info == null) {
+                if (entry.attr(this.char) != "") {//clear
+                    entry.attr(this.char, "");
+                    //--class_back
+                    $(this.entryIcons[side][i]).css("--src", "url('" + tpGif + "')");
+                    $(this.charConstells[side][i]).val("");
+                    $(this.charNames[side][i]).val("");
+                }
+            } else if (info.id != entry.attr(this.char)) {
+                entry.attr(this.char, info.id);
+                //--class_back
+                $(this.entryIcons[side][i]).css("--src", "url('" + getPath("images", "character_icon", info.res_icon) + "')");
+                if (info.rarity == "5") $(this.charConstells[side][i]).val("0");
+                $(this.charNames[side][i]).val(info.nameShort[loca]);
+            }
+        }
+    },
+
+    resetPicks: function() {
+        this.eachSelectionEntry.attr(this.char, "");
+        this.eachSelectionEntry.attr(this.weapon, "");
+        //--class_back
+        this.eachEntryIcon.css("--src", "url('" + tpGif + "')");
+        this.eachCharConstell.val("");
+        this.eachCharName.val("");
+        this.eachEntryWeaponIcon.css("--src", "url('" + tpGif + "')");
+        this.eachWeaponName.val("");
+        this.eachWeaponRefine.val("");
+    },
+
+    onChangedCharConstell: function(id, constell) {
+        let found = this.eachSelectionEntry.filter('[' + this.char + '="' + id + '"]');
+        if (found.length > 0) found.find(this.char_constell).val(constell);
+    },
+
+    onInputWeapon: function(e) {
+        let pim = playerInfoMaster;
+
+    },
+
+    getSecondsForAdd: function() {
+        let res = { red: 0, blue: 0 };
+
+        let red = this.getSideAddEntity("red");
+        let blue = this.getSideAddEntity("blue");
+
+        var redTotal = 0;
+        var redAPC = this.redAddPerConstell.val();
+        redAPC = redAPC != null && redAPC != "" ? parseInt(redAPC) : this.addSecDefaults.constell;
+        redTotal += red.constells * redAPC;
+        var redABW = this.redAddByHadWeapon.val();
+        redABW = redABW != null && redABW != "" ? parseInt(redABW) : this.addSecDefaults.weapon;
+        redTotal += red.weaponHas * redABW;
+        var redAPR = this.redAddPerRefine.val();
+        redAPR = redAPR != null && redAPR != "" ? parseInt(redAPR) : this.addSecDefaults.refine;
+        redTotal += red.weaponRefines * redAPR;
+
+        var blueTotal = 0;
+        let blueAPC = this.blueAddPerConstell.val();
+        blueAPC = blueAPC != null && blueAPC != "" ? parseInt(blueAPC) : this.addSecDefaults.constell;
+        blueTotal += blue.constells * blueAPC;
+        let blueABW = this.blueAddByHadWeapon.val();
+        blueABW = blueABW != null && blueABW != "" ? parseInt(blueABW) : this.addSecDefaults.weapon;
+        blueTotal += blue.weaponHas * blueABW;
+        let blueAPR = this.blueAddPerRefine.val();
+        blueAPR = blueAPR != null && blueAPR != "" ? parseInt(blueAPR) : this.addSecDefaults.refine;
+        blueTotal += blue.weaponRefines * blueAPR;
+
+        res.red = redTotal;
+        res.blue = blueTotal;
+
+        return res;
+    },
+
+    getSideAddEntity: function(side) {
+        let sideCons = this.charConstells[side];
+        let sideRefs = this.weaponRefines[side];
+        var constells = 0;
+        for (var i in sideCons) {
+            let cons = sideCons[i].value;
+            if (cons != null && cons != "") constells += parseInt(cons);
+        }
+        var weaponHas = 0;
+        var weaponRefines = 0;
+        for (var i in sideRefs) {
+            let refine = sideRefs[i].value;
+            if (refine != null && refine != "" && parseInt(refine) > 0) {
+                weaponHas++;
+                if (refine > 1) weaponRefines += refine - 1;
+            }
+
+        }
+
+        return { constells: constells, weaponHas: weaponHas, weaponRefines: weaponRefines };
+    },
+
+    eoo
 }
 
 
@@ -4875,6 +5330,7 @@ let controllerMaster = {
     sub_action: "button#sub_action",
 
     use_remocon: "button#use_remocon",
+    toggle_player_info: "button#toggle_player_info",
     random_picker: "button#random_picker",
 
     extra_action: "div#extra_action",
@@ -4891,6 +5347,8 @@ let controllerMaster = {
     mainActionButton: null,
     subActionButton: null,
 
+    remoconCallerButton: null,
+    togglePlayerInfoButton: null,
     randomPickButton: null,
 
     extraActions: null,
@@ -4919,6 +5377,7 @@ let controllerMaster = {
         this.buttonReset = this.extraActions.find(this.reset);
 
         this.remoconCallerButton = this.mainController.find(this.use_remocon);
+        this.togglePlayerInfoButton = this.mainController.find(this.toggle_player_info);
         this.randomPickButton = this.mainController.find(this.random_picker);
 
         this.toolInfos = this.mainController.find(this.tool_infos);
@@ -4932,6 +5391,7 @@ let controllerMaster = {
         this.mainActionButton.contextmenu(this.mainButtonRight);
         this.subActionButton.click(this.subButton);
         this.remoconCallerButton.click(this.remoconButton);
+        this.togglePlayerInfoButton.click(this.playerInfoToggleButton);
         this.randomPickButton.click(this.randomButton);
         this.randomPickButton.contextmenu(this.randomButtonRight);
         this.randomPickButton.mouseenter(this.randomButtonHover);
@@ -4954,6 +5414,7 @@ let controllerMaster = {
         this.mainActionButton.attr("title", text.btnMainDesc);
         this.subActionButton.attr("title", text.btnUndoDesc);
         this.remoconCallerButton.attr("title", text.btnRemoconDesc);
+        //this.togglePlayerInfoButton.attr("title", text.btnPlayerInfoToggleDesc);//언어 텍스트 추가 필요
         this.randomPickButton.attr("title", text.btnRandomDesc);
         this.buttonSettings.attr("title", text.btnSettingsDesc);
         this.buttonReset.attr("title", text.btnResetDesc);
@@ -4997,6 +5458,10 @@ let controllerMaster = {
 
     remoconButton: function(e) {
         popupMaster.call("remocon");
+    },
+
+    playerInfoToggleButton: function(e) {
+        playerInfoMaster.togglePlayerInfoLayer();
     },
 
     randomButton: function(e) {
@@ -6315,6 +6780,9 @@ function initializeStep() {
     //initialize each side weapon ban picks
     sideMaster.initBanWeapons();
 
+    //initialize player info selection eneries
+    playerInfoMaster.resetPicks();
+
     //initialize versus sequence showing
     sequenceMaster.closeVersusSequenceShowing();
 
@@ -6663,6 +7131,9 @@ $(document).ready(function() {
 
     //each side player board & ban pick board
     sideMaster.init();
+
+    //player info operation control panel
+    playerInfoMaster.init();
 
     //search
     searchMaster.init();
