@@ -17,6 +17,20 @@ If need permit to use on broadcast, please contact to 앙리형\n\
 앙리형 Youtube: https://www.youtube.com/@angri_hyung\n\
 앙리형 E-Mail: angnmol1115@gmail.com\n\
 \n\
+Character and weapon icon, character basic illust images from HoYoLab.\n\
+https://act.hoyolab.com/ys/event/calculator-sea/index.html\n\
+Character illust for new vertical icon(card view) images from Honey Impact\n\
+https://genshin.honeyhunterworld.com\n\
+Character wide cut of full illust images from DEG5270's Deviant Art.\n\
+https://www.deviantart.com/deg5270\n\
+Exceptions of illust is ommited character(Treveler - Aether & Lumine) wide cut full illust by Webstrika's Deviant Art.\n\
+https://www.deviantart.com/webstrika\n\
+Exception of illust is ommited character(Faruzan) wide cut full illust by Genshin.global\n\
+https://genshin.global/character/faruzan-anemo\n\
+And extra icon & illust images from Project Amber.\n\
+https://ambr.top\n\
+All rights of official resource by HOYOVERSE(miHoYo) & Cognosphere.\n\
+\n\
 ",
     "path": {
         "images": {
@@ -25,6 +39,7 @@ If need permit to use on broadcast, please contact to 앙리형\n\
             "character_icon": "character_iconic/",
             "character_icon_back": "character_iconic_class_back/",
             "character_vcut": "character_vertical/",
+            "character_wide": "character_wide/",
             "weapon_icon": "weapon_iconic/",
             "weapon_vcut": "weapon_vertical/",
             "element_icon": "elemental_iconic/",
