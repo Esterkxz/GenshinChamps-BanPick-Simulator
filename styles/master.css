@@ -429,6 +429,10 @@ a:link { color: #222D; text-decoration-line: none; }
 a:hover { color: #444D; text-decoration-line: underline; }
 a:active { color: #333F; }
 a:visited { color: #666B; }
+body.dark a:link { color: #DDDD; }
+body.dark a:hover { color: #BBBD; }
+body.dark a:active { color: #CCCF; }
+body.dark a:visited { color: #999B; }
 
 button.text_type { padding: 0; border: none; background: none; color: var(--plain-text-color); font-size: inherit; font-family: var(--font-basic-common); cursor: pointer; }
 button.text_type:focus { outline: none; text-shadow: 0 0 4px var(--plain-text-color); }
@@ -935,13 +939,13 @@ div#player_info_op_cp div.player_info_side div.info_side div { width: 100%; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_line { display: flex; flex-wrap: nowrap; }
 div#player_info_op_cp div.player_info_side.red div.info_side div.info_line { flex-direction: row; }
 div#player_info_op_cp div.player_info_side.blue div.info_side div.info_line { flex-direction: row-reverse; }
-div#player_info_op_cp div.player_info_side div.info_side button { border: 1px solid rgba(var(--main-color) / 60%); border-radius: 3px; background-color: rgba(var(--main-color) / 15%); transition-duration: 0.2s; }
+div#player_info_op_cp div.player_info_side div.info_side button { border: 1px solid rgba(var(--main-color) / 60%); border-radius: 3px; background-color: rgba(var(--main-color) / 15%); color: rgba(var(--main-color) / 80%); transition-duration: 0.2s; }
 div#player_info_op_cp div.player_info_side div.info_side button:focus { outline-color: rgba(var(--signature-color) / 80%); }
 div#player_info_op_cp div.player_info_side div.info_side button:hover { background-color: rgba(var(--main-color) / 25%); box-shadow: 0 0 6px 0 rgba(var(--signature-color-light) / 90%); }
 div#player_info_op_cp div.player_info_side div.info_side button:active { background-color: rgba(var(--main-color) / 45%); }
 div#player_info_op_cp div.player_info_side div.info_side button.player_profile_select { cursor: pointer; }
 div#player_info_op_cp div.player_info_side div.info_side button.player_profile_select span.info_title { display: inline-flex; width: 54px; font-size: 20px; font-weight: bold; line-height: 18px; justify-content: center; }
-div#player_info_op_cp div.player_info_side div.info_side input, div#player_info_op_cp div.player_info_side div.info_side textarea { border: 1px solid rgba(var(--main-color) / 80%); border-radius: 3px; background-color: rgba(var(--bgcolor-base) / 60%); transition-duration: 0.2s; }
+div#player_info_op_cp div.player_info_side div.info_side *:is(input, textarea) { border: 1px solid rgba(var(--main-color) / 80%); border-radius: 3px; background-color: rgba(var(--bgcolor-base) / 60%); color: rgba(var(--main-color) / 80%); transition-duration: 0.2s; }
 div#player_info_op_cp div.player_info_side div.info_side input:focus, div#player_info_op_cp div.player_info_side div.info_side textarea:focus { background-color: rgba(var(--main-color) / 10%); outline-color: rgba(var(--signature-color) / 80%); }
 div#player_info_op_cp div.player_info_side div.info_side input:hover:not([type="radio"]), div#player_info_op_cp div.player_info_side div.info_side textarea:hover { background-color: rgba(var(--main-color) / 20%); box-shadow: 0 0 6px 0 rgba(var(--signature-color-light) / 90%); }
 div#player_info_op_cp div.player_info_side div.info_side input:active:not([type="radio"]), div#player_info_op_cp div.player_info_side div.info_side textarea:active { background-color: rgba(var(--signature-color) / 20%); }
@@ -954,7 +958,7 @@ div#player_info_op_cp div.player_info_side div.info_side input.info_name { }
 div#player_info_op_cp div.player_info_side div.info_side input.info_uid { }
 div#player_info_op_cp div.player_info_side div.info_side div.info_treveler { text-align: center; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_treveler input[type=radio] { }
-div#player_info_op_cp div.player_info_side div.info_side div.info_treveler label { }
+div#player_info_op_cp div.player_info_side div.info_side div.info_treveler label { cursor: pointer; }
 div#player_info_op_cp div.player_info_side div.info_side button.info_copy { margin-top: 10px; }
 div#player_info_op_cp div.player_info_side div.info_side textarea { }
 div#player_info_op_cp div.player_info_side div.info_side textarea.info_code { margin-bottom: 30px; }
