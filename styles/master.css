@@ -1100,7 +1100,7 @@ div.player_board div.account_info span:before { content: "🟩"; transition-dura
 div.player_board div.account_info[data-filled="1"] span:before { content: "✅"; }
 div.player_board div.account_info:hover span:before { content: "❎"; text-shadow: 0 0 4px rgba(var(--main-color) / 60%); }
 div.player_board div.account_info:active span:before { text-shadow: 0 0 12px rgba(var(--main-color) / 80%); }
-div.player_board div.entry_slots_area { position: relative; display: inline-block; margin-top: 80px; margin-left: var(--margin-entry-slot-area-left); margin-right: var(--margin-entry-slot-area-right); }
+div.player_board div.entry_slots_area { position: relative; display: inline-block; margin-top: 80px; margin-left: var(--margin-entry-slot-area-left); margin-right: var(--margin-entry-slot-area-right); transform: translateZ(120px); }
 div.player_board div.entry_slots_area ul.entry_slots { position: relative; z-index: 10; display: flex; flex-flow: nowrap column; list-style: none; margin: 0; padding: 0; }
 div.player_board div.entry_slots_area ul.entry_slots li.entry { display: inline-flex; flex-wrap: nowrap; flex-direction: var(--flex-row-direction); transition-duration: 0.2s; }
 div.player_board div.entry_slots_area ul.entry_slots li.entry:hover { z-index: 1; }
