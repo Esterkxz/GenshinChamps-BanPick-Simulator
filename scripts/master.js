@@ -4324,7 +4324,7 @@ let sideMaster = {
             setTimeout(function() { sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains); }, 1000);
         } else this.updateVersusSuperiorityGraph(stage, redRemains, blueRemains, side);
 
-        if (stage > 0) this.checkUpdateVersusResultGraph();
+        if (stage > 0) this.checkUpdateVersusResultGraph(stage);
     },
 
     updateVersusSuperiorityGraph: function(stage, redRemains, blueRemains, side) {
@@ -4389,7 +4389,7 @@ let sideMaster = {
         }
     },
 
-    checkUpdateVersusResultGraph: function() {
+    checkUpdateVersusResultGraph: function(stage) {
         let redRemains1 = this.vsTimeRemains["red"][1];
         let blueRemains1 = this.vsTimeRemains["blue"][1];
         let redRemains2 = this.vsTimeRemains["red"][2];
@@ -4495,20 +4495,28 @@ let sideMaster = {
                 redWins = redRemains > blueRemains;
                 blueWins = redRemains < blueRemains;
             }
+            let versusEntryArea = $("div#versus_entry_area");
+            let isFirstResult = versusEntryArea.attr("data-wins") == "";
             if (redWins || blueWins) {
                 let wins = redWins ? "red" : "blue";
-                if (this.progressPanel[0].attr(this.show) != "1") {
-                    setTimeout(function() { if (step > rules.sequence.length) $("div#versus_entry_area").attr("data-wins", wins); }, 1000);
-                } else $("div#versus_entry_area").attr("data-wins", wins);
+                if (isFirstResult) {
+                    setTimeout(function() { if (step > rules.sequence.length) versusEntryArea.attr("data-wins", wins); }, 1000);
+                } else versusEntryArea.attr("data-wins", wins);
 
                 sequenceMaster.setSequenceTitle((wins == "red" ? redName : blueName) + (isTko ? " TKO" : "") + " 승");
             } else {
                 sequenceMaster.setSequenceTitle(isTko ? "Double TKO" : "무승부");
-                $("div#versus_entry_area").attr("data-wins", "");
+                versusEntryArea.attr("data-wins", "");
             }
 
-            this.releaseVersusSuperiorityGraph(0);
-        } else this.updateVersusSuperiorityGraph(0, redRemains, blueRemains);
+            //this.releaseVersusSuperiorityGraph(0);
+            if (!isFirstResult) this.releaseVersusSuperiorityGraph(0);
+            else setTimeout(function() { sideMaster.releaseVersusSuperiorityGraph(0); }, 1500);
+        } else {
+            //this.updateVersusSuperiorityGraph(0, redRemains, blueRemains);
+            if (stage < 2) this.releaseVersusSuperiorityGraph(0);
+            else setTimeout(function() { sideMaster.releaseVersusSuperiorityGraph(0); }, 2000);
+        }
     },
 
     eoo: eoo
