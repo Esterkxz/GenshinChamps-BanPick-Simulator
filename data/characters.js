@@ -315,7 +315,7 @@ let charactersInfo = {
             "res_vcut": "keqing_042_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "10%", "vHover": "5%" },
             "res_wide": "keqing_genshin_impact_portrait_render_by_deg5270_de911or-fullview.png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "61%", "v": "9%" },
+            "res_wide_meta_pos": { "scale": "360%", "h": "61%", "v": "30.5%" },
         },
         {
             "id": "venti",
@@ -360,7 +360,7 @@ let charactersInfo = {
             "res_vcut": "diona_039_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "25%", "vHover": "24%" },
             "res_wide": "diona_genshin_impact_portrait_render_by_deg5270_deeqqv6-fullview.png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "63%", "v": "13%" },
+            "res_wide_meta_pos": { "scale": "360%", "h": "63%", "v": "32.5%" },
         },
         {
             "id": "tartaglia",
@@ -420,7 +420,7 @@ let charactersInfo = {
             "res_vcut": "albedo_038_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "24%", "vHover": "12%" },
             "res_wide": "albedo_genshin_impact_portrait_render_by_deg5270_deeqrp7-fullview.png",
-            "res_wide_meta_pos": { "scale": "580%", "h": "56%", "v": "47%" },
+            "res_wide_meta_pos": { "scale": "340%", "h": "60%", "v": "31%" },
         },
         {
             "id": "ganyu",
@@ -435,7 +435,7 @@ let charactersInfo = {
             "res_vcut": "ganyu_037_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "8%", "vHover": "14%" },
             "res_wide": "ganyu_genshin_impact_portrait_render_by_deg5270_deeqru6-fullview.png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "63%", "v": "6%" },
+            "res_wide_meta_pos": { "scale": "360%", "h": "63%", "v": "29%" },
         },
         {
             "id": "xiao",
@@ -510,7 +510,7 @@ let charactersInfo = {
             "res_vcut": "eula_051_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "25%", "vHover": "30%" },
             "res_wide": "eula_genshin_impact_portrait_render_by_deg5270_delp5l4-fullview.png",
-            "res_wide_meta_pos": { "scale": "260%", "h": "74%", "v": "5.5%" },
+            "res_wide_meta_pos": { "scale": "460%", "h": "66%", "v": "28.5%" },
         },
         {
             "id": "kazuha",
@@ -555,7 +555,7 @@ let charactersInfo = {
             "res_vcut": "sayu_053_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "24%", "vHover": "30%" },
             "res_wide": "sayu_genshin_impact_portrait_render_by_deg5270_depfswc-fullview.png",
-            "res_wide_meta_pos": { "scale": "340%", "h": "41%", "v": "5.7%" },
+            "res_wide_meta_pos": { "scale": "340%", "h": "47%", "v": "30.2%" },
         },
         {
             "id": "yoimiya",
@@ -570,7 +570,7 @@ let charactersInfo = {
             "res_vcut": "yoimiya_049_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "25%", "vHover": "25%" },
             "res_wide": "yoimiya_genshin_impact_portrait_render_by_deg5270_depft6z-fullview.png",
-            "res_wide_meta_pos": { "scale": "260%", "h": "82.5%", "v": "54%" },
+            "res_wide_meta_pos": { "scale": "360%", "h": "73.5%", "v": "28%" },
         },
         {
             "id": "aloy",
@@ -585,7 +585,7 @@ let charactersInfo = {
             "res_vcut": "aloy_062_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "25%", "vHover": "30%" },
             "res_wide": "aloy_genshin_impact_portrait_render_by_deg5270_dezvg4e-fullview.png",
-            "res_wide_meta_pos": { "scale": "660%", "h": "52%", "v": "32%" },
+            "res_wide_meta_pos": { "scale": "360%", "h": "52%", "v": "29%" },
         },
         {
             "id": "sara",
@@ -615,7 +615,7 @@ let charactersInfo = {
             "res_vcut": "shougun_052_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "28%", "vHover": "22%" },
             "res_wide": "shogun_raiden_genshin_impact_portrait_render_by_deg5270_deqwdhv-fullview.png",
-            "res_wide_meta_pos": { "scale": "320%", "h": "52%", "v": "48%" },
+            "res_wide_meta_pos": { "scale": "320%", "h": "53%", "v": "25.7%" },
         },
         {
             "id": "kokomi",
@@ -630,7 +630,7 @@ let charactersInfo = {
             "res_vcut": "kokomi_054_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "28%", "vHover": "28%" },
             "res_wide": "kokomi_genshin_impact_portrait_render_by_deg5270_derxa11-fullview.png",
-            "res_wide_meta_pos": { "scale": "260%", "h": "113%", "v": "31%" },
+            "res_wide_meta_pos": { "scale": "250%", "h": "79%", "v": "31%" },
         },
         {
             "id": "thoma",
@@ -660,7 +660,7 @@ let charactersInfo = {
             "res_vcut": "gorou_055_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "23%", "vHover": "10%" },
             "res_wide": "gorou_genshin_impact_portrait_render_by_deg5270_dewg156-fullview.png",
-            "res_wide_meta_pos": { "scale": "320%", "h": "50.5%", "v": "10%" },
+            "res_wide_meta_pos": { "scale": "320%", "h": "54.5%", "v": "30%" },
         },
         {
             "id": "itto",
@@ -750,7 +750,7 @@ let charactersInfo = {
             "res_vcut": "yelan_060_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "23%", "vHover": "33%" },
             "res_wide": "yelan_genshin_impact_portrait_render_by_deg5270_df6iq4w-fullview.png",
-            "res_wide_meta_pos": { "scale": "260%", "h": "60%", "v": "49%" },
+            "res_wide_meta_pos": { "scale": "260%", "h": "64%", "v": "30%" },
         },
         {
             "id": "shinobu",
@@ -780,7 +780,7 @@ let charactersInfo = {
             "res_vcut": "heizo_059_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "24%", "vHover": "28%" },
             "res_wide": "heizou_genshin_impact_portrait_render_by_deg5270_dfbjjqp-fullview.png",
-            "res_wide_meta_pos": { "scale": "660%", "h": "56%", "v": "30.5%" },
+            "res_wide_meta_pos": { "scale": "460%", "h": "59%", "v": "30.5%" },
         },
         {
             "id": "collei",
@@ -810,7 +810,7 @@ let charactersInfo = {
             "res_vcut": "tighnari_069_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "30%", "vHover": "10%" },
             "res_wide": "tighnari_genshin_impact_portrait_render_by_deg5270_dfbyp85-fullview.png",
-            "res_wide_meta_pos": { "scale": "420%", "h": "59%", "v": "13%" },
+            "res_wide_meta_pos": { "scale": "360%", "h": "57%", "v": "32%" },
         },
         {
             "id": "dori",
@@ -870,7 +870,7 @@ let charactersInfo = {
             "res_vcut": "nilou_070_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "24%", "vHover": "12%" },
             "res_wide": "nilou_genshin_impact_portrait_render_by_deg5270_dfh9sjt-fullview.png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "59.5%", "v": "19.7%" },
+            "res_wide_meta_pos": { "scale": "340%", "h": "61%", "v": "27%" },
         },
         {
             "id": "nahida",
@@ -945,7 +945,7 @@ let charactersInfo = {
             "res_vcut": "yaoyao_077_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "23%", "vHover": "29%" },
             "res_wide": "yaoyao_genshin_impact_portrait_render_by_deg5270_dfn4n6w-fullview.png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "36%", "v": "38.7%" },
+            "res_wide_meta_pos": { "scale": "360%", "h": "68%", "v": "38.7%" },
         },
         {
             "id": "alhaitham",
@@ -990,7 +990,7 @@ let charactersInfo = {
             "res_vcut": "mika_080_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "25%", "vHover": "15%" },
             "res_wide": "mika_genshin_impact_portrait_render_by_deg5270_dfseqyb-fullview.png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "62%", "v": "3%" },
+            "res_wide_meta_pos": { "scale": "360%", "h": "56%", "v": "31.4%" },
         },
         {
             "id": "kaveh",
@@ -1005,7 +1005,7 @@ let charactersInfo = {
             "res_vcut": "kaveh_081_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "10%", "vHover": "0%" },
             "res_wide": "kaveh_genshin_impact_portrait_render_by_deg5270_dg2hhf3-fullview.png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "41%", "v": "29.5%" },
+            "res_wide_meta_pos": { "scale": "360%", "h": "54%", "v": "29.5%" },
         },
         {
             "id": "baizhu",
@@ -1035,7 +1035,7 @@ let charactersInfo = {
             "res_vcut": "momoka_061_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "22%", "vHover": "8%" },
             "res_wide": "kirara_genshin_impact_portrait_render_by_deg5270_dg2hhyk-fullview.png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "84%", "v": "38%" },
+            "res_wide_meta_pos": { "scale": "360%", "h": "49%", "v": "33%" },
         },
         {
             "id": "lynette",
@@ -1065,7 +1065,7 @@ let charactersInfo = {
             "res_vcut": "liney_084_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "28%", "vHover": "28%" },
             "res_wide": "lyney_genshin_impact_portrait_render_by_deg5270_dg68zr0-fullview.png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "62.5%", "v": "16%" },
+            "res_wide_meta_pos": { "scale": "360%", "h": "62.5%", "v": "34%" },
         },
         {
             "comment": "temporary data for pre-official release",
