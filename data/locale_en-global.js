@@ -53,6 +53,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "searchPlaceholder": "search (weapon only)",
         "searchDesc": "To be updated search results by each inputs\nKeyboard ↑/↓/PgUp/PgDn/Home/End: Move cursor in list of search result\nEnter: Pick up current item with cursor\nMouse left click item from list: Pick up item\nEsc: Initialize search inputs - see whole list",
 
+        "playerProfileSelection": "Select character for player #SIDE's profile illust to show",
+
         "readyForStart": "Press START button",
         "readyForVersus": "Press VERSUS button to start for game",
 

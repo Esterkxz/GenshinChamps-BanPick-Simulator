@@ -152,6 +152,10 @@ let sequenceMaster = {
 
     rollingRandomPicks: null,
 
+
+    pickingPlayerProfile: {"red": false, "blue": false},
+
+
     init: function() {
         console.log("init sequenceMaster");
 
@@ -337,6 +341,22 @@ let sequenceMaster = {
     },
     
     onPick: function(id, item, usingBanCard = false) {
+        if (this.pickingPlayerProfile.red) {
+            let res = playerInfoMaster.setPlayerProfile(id, "red", item.attr("data-treveler"));
+            if (res !== false) {
+                this.pickingPlayerProfile.red = false;
+                this.setSequenceTitleByCurrent();
+            }
+            return;
+        }
+        if (this.pickingPlayerProfile.blue) {
+            let res = playerInfoMaster.setPlayerProfile(id, "blue", item.attr("data-treveler"));
+            if (res !== false) {
+                this.pickingPlayerProfile.blue = false;
+                this.setSequenceTitleByCurrent();
+            }
+            return;
+        }
         if (item != null && item.attr(poolMaster.banned) != "") return;
         if (step < 0) {
             this.setSequenceTitle(lang.text.readyForStart, 3000);
@@ -706,6 +726,7 @@ let sequenceMaster = {
         }
 
         if (sel != null) {
+            let charId = sel.attr(pim.char);
             let weaponId = sel.attr(pim.weapon);
 
             let charInfo = document.createElement("div");
@@ -729,7 +750,8 @@ let sequenceMaster = {
             weaponInfo.append(weaponName);
             let weaponRefine = document.createElement("span");
             weaponRefine.setAttribute("class", "weapon_refine");
-            weaponRefine.innerHTML = sel.find(pim.weapon_refine).val();
+            let refine = sel.find(pim.weapon_refine).val();
+            weaponRefine.innerHTML = refine == "" ? "&nbsp;" : refine;
             weaponInfo.append(weaponRefine);
             entry.append(weaponInfo);
         }
@@ -2127,6 +2149,8 @@ let sideMaster = {
     player_uid: "div.player_uid",
     nameplate: "div.nameplate",
     account_point: "div.account_point",
+    profile_character: "div.profile_character",
+    character_profile: "div.character_profile",
     account_info: "div.account_info",
     input: "input",
 
@@ -2194,6 +2218,8 @@ let sideMaster = {
 
     side_player_info: "div.side_player_info",
     side_player_name: "span.side_player_name",
+    side_player_uid: "span.side_player_uid",
+    side_player_ap: "span.side_player_ap",
 
     side_record: "div.side_record",
     record_stage: ".record_stage",
@@ -2207,6 +2233,8 @@ let sideMaster = {
     input_remains: "input.remains",
     record_time_clear: "div.record_time_clear",
     span_clear_time: "span.clear_time",
+    record_time_clear_total: "div.record_time_clear_total",
+    span_total_clear_time: "span.total_clear_time",
     span_divider: "span.divider",
 
     tko_selection: "div.tko_selection",
@@ -2232,6 +2260,8 @@ let sideMaster = {
     eachNameplateInput: null,
     eachAccountPoint: null,
     eachAccountPointInput: null,
+    eachProfileCharacter: null,
+    eachProfileCharacterImage: null,
     eachAccountInfo: null,
 
     eachEntrySlotArea: null,
@@ -2266,6 +2296,8 @@ let sideMaster = {
     redNameplateInput: null,
     redAccountPoint: null,
     redAccountPointInput: null,
+    redProfileCharacter: null,
+    redProfileCharacterImage: null,
     redAccountInfo: null,
 
     redEntrySlotArea: null,    
@@ -2294,6 +2326,8 @@ let sideMaster = {
     blueNameplateInput: null,
     blueAccountPoint: null,
     blueAccountPointInput: null,
+    blueProfileCharacter: null,
+    blueProfileCharacterImage: null,
     blueAccountInfo: null,
 
     blueEntrySlotArea: null,
@@ -2321,13 +2355,19 @@ let sideMaster = {
     eachSidePlayerInfo: null,
     eachSidePlayerName: null,
 
+    eachSideRecord: null,
     eachSideRecordStage: null,
+    eachSideRecordTotal: null,
 
     eachTimeRecord: null,
     eachRecordTimeRemains: null,
     eachInputRemains: null,
     eachRecordTimeClear: null,
     eachSpanClearTime: null,
+
+    eachTimeRecordTotal: null,
+    eachRecordTimeClearTotal: null,
+    eachSpanTotalClearTime: null,
 
     eachTkoSelection: null,
     eachTkoSelected: null,
@@ -2337,14 +2377,22 @@ let sideMaster = {
 
     redSidePlayerInfo: null,
     redSidePlayerName: null,
+    redSidePlayerUid: null,
+    redSidePlayerAp: null,
 
+    redSideRecord: null,
     redSideRecordStage: null,
+    redSideRecordTotal: null,
 
     redTimeRecord: null,
     redRecordTimeRemains: null,
     redInputRemains: null,
     redRecordTimeClear: null,
     redSpanClearTime: null,
+
+    redTimeRecordTotal: null,
+    redRecordTimeClearTotal: null,
+    redSpanTotalClearTime: null,
 
     redTkoSelection: null,
     redTkoSelected: null,
@@ -2354,14 +2402,22 @@ let sideMaster = {
 
     blueSidePlayerInfo: null,
     blueSidePlayerName: null,
+    blueSidePlayerUid: null,
+    blueSidePlayerAp: null,
 
+    blueSideRecord: null,
     blueSideRecordStage: null,
+    blueSideRecordToatl: null,
 
     blueTimeRecord: null,
     blueRecordTimeRemains: null,
     blueInputRemains: null,
     blueRecordTimeClear: null,
     blueSpanClearTime: null,
+
+    blueTimeRecordTotal: null,
+    blueRecordTimeClearTotal: null,
+    blueSpanTotalClearTime: null,
 
     blueTkoSelection: null,
     blueTkoSelected: null,
@@ -2385,6 +2441,8 @@ let sideMaster = {
     vsTimeRemains: { "red": [], "blue": [] },
     vsClearTime: { "red": [], "blue": [] },
 
+    timeAdds: null,
+
     TKO_FIRST_HALF: 0,
     TKO_SECOND_HALF: -1,
 
@@ -2404,6 +2462,8 @@ let sideMaster = {
         this.eachNameplateInput = this.eachNameplate.find(this.input);
         this.eachAccountPoint = this.eachPlayerBoard.find(this.account_point);
         this.eachAccountPointInput = this.eachAccountPoint.find(this.input);
+        this.eachProfileCharacter = this.eachPlayerBoard.find(this.profile_character);
+        this.eachProfileCharacterImage = this.eachProfileCharacter.find(this.character_profile);
         this.eachAccountInfo = this.eachPlayerBoard.find(this.account_info);
 
         this.eachEntrySlotArea = this.eachPlayerBoard.find(this.entry_slots_area);
@@ -2437,6 +2497,8 @@ let sideMaster = {
         this.redNameplateInput = this.redNameplate.find(this.input);
         this.redAccountPoint = this.redPlayerBoard.find(this.account_point);
         this.redAccountPointInput = this.redAccountPoint.find(this.input);
+        this.redProfileCharacter = this.redPlayerBoard.find(this.profile_character);
+        this.redProfileCharacterImage = this.redProfileCharacter.find(this.character_profile);
         this.redAccountInfo = this.redPlayerBoard.find(this.account_info);
 
         this.redEntrySlotArea = this.redPlayerBoard.find(this.entry_slots_area);
@@ -2464,6 +2526,8 @@ let sideMaster = {
         this.blueNameplateInput = this.blueNameplate.find(this.input);
         this.blueAccountPoint = this.bluePlayerBoard.find(this.account_point);
         this.blueAccountPointInput = this.blueAccountPoint.find(this.input);
+        this.blueProfileCharacter = this.bluePlayerBoard.find(this.profile_character);
+        this.blueProfileCharacterImage = this.blueProfileCharacter.find(this.character_profile);
         this.blueAccountInfo = this.bluePlayerBoard.find(this.account_info);
 
         this.blueEntrySlotArea = this.bluePlayerBoard.find(this.entry_slots_area);
@@ -2490,7 +2554,9 @@ let sideMaster = {
         this.eachSidePlayerInfo = this.eachSideRecordBoard.find(this.side_player_info);
         this.eachSidePlayerName = this.eachSidePlayerInfo.find(this.side_player_name);
     
-        this.eachSideRecordStage = this.eachSideRecordBoard.find(this.side_record);
+        this.eachSideRecord = this.eachSideRecordBoard.find(this.side_record);
+        this.eachSideRecordStage = this.eachSideRecord.filter(this.record_stage);
+        this.eachSideRecordTotal = this.eachSideRecord.filter(this.record_total);
     
         this.eachTimeRecord = this.eachSideRecordStage.find(this.time_record);
         this.eachRecordTimeRemains = this.eachTimeRecord.find(this.record_time_remains);
@@ -2498,6 +2564,11 @@ let sideMaster = {
         this.eachRecordTimeClear = this.eachTimeRecord.find(this.record_time_clear);
         this.eachSpanClearTime = this.eachRecordTimeClear.find(this.span_clear_time);
         this.eachSpanDivider = this.eachRecordTimeClear.find(this.span_divider);
+
+        this.eachTimeRecordTotal = this.eachSideRecordStage.find(this.time_record);
+        this.eachRecordTimeClearTotal = this.eachTimeRecordTotal.find(this.record_time_clear_total);
+        this.eachSpanTotalClearTime = this.eachRecordTimeClearTotal.find(this.span_total_clear_time);
+        this.eachSpanTotalDivider = this.eachRecordTimeClearTotal.find(this.span_divider);
     
         this.eachTkoSelection = this.eachSideRecordStage.find(this.tko_selection);
         this.eachTkoSelected = this.eachTkoSelection.find(this.tko_selected);
@@ -2508,6 +2579,8 @@ let sideMaster = {
 
         this.redSidePlayerInfo = this.redSideRecordBoard.find(this.side_player_info);
         this.redSidePlayerName = this.redSidePlayerInfo.find(this.side_player_name);
+        this.redSidePlayerUid = this.redSidePlayerInfo.find(this.side_player_uid);
+        this.redSidePlayerAp = this.redSidePlayerInfo.find(this.side_player_ap);
     
         this.redSideRecord = this.redSideRecordBoard.find(this.side_record);
         this.redSideRecordStage = this.redSideRecord.filter(this.record_stage);
@@ -2519,6 +2592,11 @@ let sideMaster = {
         this.redRecordTimeClear = this.redTimeRecord.find(this.record_time_clear);
         this.redSpanClearTime = this.redRecordTimeClear.find(this.span_clear_time);
         this.redSpanDivider = this.redRecordTimeClear.find(this.span_divider);
+
+        this.redTimeRecordTotal = this.redSideRecordTotal.find(this.time_record);
+        this.redRecordTimeClearTotal = this.redTimeRecordTotal.find(this.record_time_clear_total);
+        this.redSpanTotalClearTime = this.redRecordTimeClearTotal.find(this.span_total_clear_time);
+        this.redSpanTotalDivider = this.redRecordTimeClearTotal.find(this.span_divider);
     
         this.redTkoSelection = this.redSideRecordStage.find(this.tko_selection);
         this.redTkoSelected = this.redTkoSelection.find(this.tko_selected);
@@ -2529,6 +2607,8 @@ let sideMaster = {
 
         this.blueSidePlayerInfo = this.blueSideRecordBoard.find(this.side_player_info);
         this.blueSidePlayerName = this.blueSidePlayerInfo.find(this.side_player_name);
+        this.blueSidePlayerUid = this.blueSidePlayerInfo.find(this.side_player_uid);
+        this.blueSidePlayerAp = this.blueSidePlayerInfo.find(this.side_player_ap);
     
         this.blueSideRecord = this.blueSideRecordBoard.find(this.side_record);
         this.blueSideRecordStage = this.blueSideRecord.filter(this.record_stage);
@@ -2540,6 +2620,11 @@ let sideMaster = {
         this.blueRecordTimeClear = this.blueTimeRecord.find(this.record_time_clear);
         this.blueSpanClearTime = this.blueRecordTimeClear.find(this.span_clear_time);
         this.blueSpanDivider = this.blueRecordTimeClear.find(this.span_divider);
+
+        this.blueTimeRecordTotal = this.blueSideRecordTotal.find(this.time_record);
+        this.blueRecordTimeClearTotal = this.blueTimeRecordTotal.find(this.record_time_clear_total);
+        this.blueSpanTotalClearTime = this.blueRecordTimeClearTotal.find(this.span_total_clear_time);
+        this.blueSpanTotalDivider = this.blueRecordTimeClearTotal.find(this.span_divider);
     
         this.blueTkoSelection = this.blueSideRecordStage.find(this.tko_selection);
         this.blueTkoSelected = this.blueTkoSelection.find(this.tko_selected);
@@ -2620,12 +2705,8 @@ let sideMaster = {
         this.initPlayerUid();
         this.initNameplate();
         this.initAccountPoint();
+        this.initProfileCharacter();
         this.initAccountInfo();
-    },
-
-    initAccountInfo: function() {
-        this.setAccountInfo("red");
-        this.setAccountInfo("blue");
     },
 
     initPlayerUid: function() {
@@ -2641,6 +2722,16 @@ let sideMaster = {
     initAccountPoint: function() {
         this.redAccountPointInput.val("");
         this.blueAccountPointInput.val("");
+    },
+
+    initProfileCharacter: function() {
+        this.eachProfileCharacterImage.css("--src", "url('" + tpGif + "')");
+        this.eachProfileCharacter.attr("data-show", "");
+    },
+
+    initAccountInfo: function() {
+        this.setAccountInfo("red");
+        this.setAccountInfo("blue");
     },
 
     initSideEntered: function(side) {
@@ -3879,6 +3970,10 @@ let sideMaster = {
         this.eachSideRecordStage.attr(this.result, "");
         this.redSidePlayerName.text("RED");
         this.blueSidePlayerName.text("BLUE");
+        this.redSidePlayerUid.text("");
+        this.blueSidePlayerUid.text("");
+        this.redSidePlayerAp.text("");
+        this.blueSidePlayerAp.text("");
         this.eachInputRemains.val("");
         this.eachSpanClearTime.text("");
         this.eachSpanDivider.text("-");
@@ -3896,17 +3991,45 @@ let sideMaster = {
     showVersusRecordBoard: function() {
         $("div#versus_entry_area div.versus_divider").attr("data-wide", "1");
 
+        let pim = playerInfoMaster;
+
         this.redSidePlayerName.text(redName);
         this.blueSidePlayerName.text(blueName);
 
+        let redUid = this.redPlayerUidInput.val();
+        let redPIUid = pim.redInfoUid.val();
+        let blueUid = this.bluePlayerUidInput.val();
+        let bluePIUid = pim.blueInfoUid.val();
+        this.redSidePlayerUid.text(redPIUid != "" ? redPIUid : redUid);
+        this.blueSidePlayerUid.text(bluePIUid != "" ? bluePIUid : blueUid);
+
+        let redAp = this.redAccountPointInput.val().trim();
+        let redPIAp = pim.redInfoAp.val().trim();
+        let redApEx = redPIAp != "" ? redPIAp : redAp;
+        let blueAp = this.blueAccountPointInput.val().trim();
+        let bluePIAp = pim.blueInfoAp.val().trim();
+        let blueApEx = bluePIAp != "" ? bluePIAp : blueAp;
+        this.redSidePlayerAp.text(redApEx != "" ? "UID: " + redApEx : "");
+        this.blueSidePlayerAp.text(blueApEx != "" ? "UID: " + blueApEx : "");
+
+        //가산 시간
         let adds = playerInfoMaster.getSecondsForAdd();
+        this.timeAdds = adds;
+
+        let redMin = Math.floor(adds.red / 60);
+        let redSec = adds.red % 60;
+        if (redSec < 10) redSec = "0" + redSec;
+        let blueMin = Math.floor(adds.blue / 60);
+        let blueSec = adds.blue % 60;
+        if (blueSec < 10) blueSec = "0" + blueSec;
         
-        this.redSideRecordTotal.find(".add_time.min").html(0);
+        this.redSideRecordTotal.find(".add_time.min").html(redMin);
         this.redSideRecordTotal.find("div.record_time_add").find(".divider").html(":");
-        this.redSideRecordTotal.find(".add_time.sec").html(adds.red);
-        this.blueSideRecordTotal.find(".add_time.min").html(0);
+        this.redSideRecordTotal.find(".add_time.sec").html(redSec);
+        this.blueSideRecordTotal.find(".add_time.min").html(blueMin);
         this.blueSideRecordTotal.find("div.record_time_add").find(".divider").html(":");
-        this.blueSideRecordTotal.find(".add_time.sec").html(adds.blue);
+        this.blueSideRecordTotal.find(".add_time.sec").html(blueSec);
+        //---------
 
         this.versusRecordBoard.attr(this.show, "1");
         setTimeout(function() {
@@ -4009,7 +4132,6 @@ let sideMaster = {
         }
 
         this.releaseVersusTimeAttackDisplay(stage, side);
-        if (this.progressPanel[stage].attr(this.show) == "1") this.releaseVersusSuperiorityGraph(stage, side);
     },
 
     releaseVersusTimeAttackDisplay: function(stage, side) {
@@ -4074,8 +4196,55 @@ let sideMaster = {
             tkoSelected.text("");
         }
 
-        //중앙 우세율 출력 구현
+
+        if (this.progressPanel[stage].attr(this.show) == "1") this.releaseVersusSuperiorityGraph(stage, side);
+
+        this.releaseVersusTimeAttackTotal(side);
     },
+
+    releaseVersusTimeAttackTotal: function(side) {
+        let sec1min = 60
+        let sec10min = 10 * sec1min;
+        let remains = this.vsTimeRemains[side][i];
+        if (remains > -1) {
+            let elapsed = sec10min - remains;
+            totalElapsed += elapsed;
+        }
+        var totalElapsed = 0;
+
+        for (var i=1; i<this.vsTimeRemains[side].length; i++) {
+            let remains = this.vsTimeRemains[side][i];
+            if (remains > -1) {
+                let elapsed = sec10min - remains;
+                totalElapsed += elapsed;
+            }
+        }
+
+        if (totalElapsed < 1) return;
+
+        let elapsedMin = Math.floor(totalElapsed / sec1min);
+        let elapsedSec = totalElapsed % sec1min;
+
+        var clearTime = null;
+        var clearTimeDivider = null;
+        switch (side) {
+            case "red":
+                clearTime = this.redSpanTotalClearTime;
+                clearTimeDivider = this.redSpanTotalDivider;
+                break;
+
+            case "blue":
+                clearTime = this.blueSpanTotalClearTime;
+                clearTimeDivider = this.blueSpanTotalDivider;
+                break;
+        }
+
+        let clearTimeMin = clearTime.filter(".min");
+        let clearTimeSec = clearTime.filter(".sec");
+        clearTimeMin.text("" + elapsedMin);
+        clearTimeSec.text(("" + elapsedSec).padStart(2, "0"));
+        clearTimeDivider.text(":");
+},
 
     onKeydownVersusInputRemains: function(e) {
         let self = $(this);
@@ -4248,8 +4417,10 @@ let sideMaster = {
         let isTkoEnd = (isStage1Tko && isStage1Complete) || (isStage2Tko && isStage2Complete) || (isStage3Tko && isStage3Complete);
         let isDoubleTko = isRedTko && isBlueTko;
 
-        let redRemains = (redRemains1 != null && redRemains1 > 0 ? Math.abs(redRemains1) : 0) + (redRemains2 != null && redRemains2 > 0 ? Math.abs(redRemains2) : 0) + (redRemains3 != null && redRemains3 > 0 ? Math.abs(redRemains3) : 0);
-        let blueRemains = (blueRemains1 != null && blueRemains1 > 0 ? Math.abs(blueRemains1) : 0) + (blueRemains2 != null && blueRemains2 > 0 ? Math.abs(blueRemains2) : 0) + (blueRemains3 != null && blueRemains3 > 0 ? Math.abs(blueRemains3) : 0);
+        let addsMax = Math.max(this.timeAdds.red, this.timeAdds.blue);
+
+        let redRemains = (redRemains1 != null && redRemains1 > 0 ? Math.abs(redRemains1) : 0) + (redRemains2 != null && redRemains2 > 0 ? Math.abs(redRemains2) : 0) + (redRemains3 != null && redRemains3 > 0 ? Math.abs(redRemains3) : 0) + (addsMax - this.timeAdds.red);
+        let blueRemains = (blueRemains1 != null && blueRemains1 > 0 ? Math.abs(blueRemains1) : 0) + (blueRemains2 != null && blueRemains2 > 0 ? Math.abs(blueRemains2) : 0) + (blueRemains3 != null && blueRemains3 > 0 ? Math.abs(blueRemains3) : 0) + (addsMax - this.timeAdds.blue);
 
         this.vsTimeRemains["red"][0] = redRemains;
         this.vsTimeRemains["blue"][0] = blueRemains;
@@ -4394,6 +4565,8 @@ let playerInfoMaster = {
 
     eachInfoSide: null,
 
+    eachPlayerProfileSelect: null,
+
 
     redInfoSide: null,
 
@@ -4484,6 +4657,9 @@ let playerInfoMaster = {
 
         this.eachInfoSide = this.eachPlayerInfoSide.find(this.info_side);
 
+        this.eachPlayerProfileSelect = this.eachInfoSide.find(this.player_profile_select);
+
+
         this.redPlayerInfoSide = this.eachPlayerInfoSide.filter(".red");
         this.redInfoSide = this.redPlayerInfoSide.find(this.info_side);
 
@@ -4573,12 +4749,21 @@ let playerInfoMaster = {
         this.togglePlayerInfoLayer();
 
 
+        this.eachPlayerProfileSelect.click(this.onClickPlayerProfileSelectButton);
+
+
         this.eachCharConstell.focus(function(e) { $(this).attr("type", "number") });
         this.eachCharConstell.blur(function(e) { $(this).attr("type", "text") });
         this.eachWeaponRefine.focus(function(e) { $(this).attr("type", "number") });
         this.eachWeaponRefine.blur(function(e) { $(this).attr("type", "text") });
 
         this.inputs.focus(function(e) { $(this).select(); });
+        this.eachWeaponName.on("input paste copy change", function(e) {
+            let pim = playerInfoMaster;
+            let refine = $(this).closest(pim.selection_entry).find(pim.weapon_refine);
+            if (this.value.trim() == "") refine.val("");
+            else refine.val("1");
+        });
         this.eachEntryIconArea.click(function(e) { $(this).find("input").focus(); });
         this.eachEntryWeaponIconArea.click(function(e) { $(this).find("input").focus(); });
 
@@ -4622,6 +4807,53 @@ let playerInfoMaster = {
 
     hidePlayerInfoLayer: function() {
         this.playerInfoOpCP.fadeOut(270);
+    },
+
+    onClickPlayerProfileSelectButton: function(e) {
+        let side = $(this).attr("data-side");
+        if (side == null || side == "") return;
+        if (sequenceMaster.pickingPlayerProfile[side]) {
+            sequenceMaster.pickingPlayerProfile[side] = false;
+            sequenceMaster.setSequenceTitleByCurrent();
+            return;
+        }
+        sequenceMaster.setSequenceTitleHtml(lang.text.playerProfileSelection.replace("#SIDE", '<span class="text' + (side == "red" ? "Red" : "Blue") + '">' + side.toUpperCase() + '</span>'));
+        sequenceMaster.pickingPlayerProfile[side] = true;
+        sequenceMaster.pickingPlayerProfile[side == "red" ? "blue" : "red" ] = false;
+    },
+
+    setPlayerProfile: function(id, side, treveler) {
+        if (id == null || id == "" || side == null || side == "") return null;
+
+        var index = charactersInfo[id];
+        if (id == "treveler" && treveler != null && treveler != "") index += parseInt(treveler);
+        let info = charactersInfo.list[index];
+
+        if (info == null) return null;
+        if (info.res_wide == null || info.res_wide == "") return false;
+
+        let style = "url('" + getPath("images", "character_wide", info.res_wide) + "')";
+        let scale = info.res_wide_meta_pos.scale;
+        let ph = info.res_wide_meta_pos.h;
+        let pv = info.res_wide_meta_pos.v;
+
+        switch (side) {
+            case "red":
+                sideMaster.redProfileCharacterImage.css("--src", style);
+                sideMaster.redProfileCharacterImage.css("--scale", scale);
+                sideMaster.redProfileCharacterImage.css("--ph", ph);
+                sideMaster.redProfileCharacterImage.css("--pv", pv);
+                sideMaster.redProfileCharacter.attr("data-show", "1");
+                break;
+
+            case "blue":
+                sideMaster.blueProfileCharacterImage.css("--src", style);
+                sideMaster.blueProfileCharacterImage.css("--scale", scale);
+                sideMaster.blueProfileCharacterImage.css("--ph", ph);
+                sideMaster.blueProfileCharacterImage.css("--pv", pv);
+                sideMaster.blueProfileCharacter.attr("data-show", "1");
+                break;
+        }
     },
 
     releaseCharPick: function(side, no) {
@@ -4705,21 +4937,33 @@ let playerInfoMaster = {
     },
 
     getSideAddEntity: function(side) {
+        let sideEntries = this.selectionEntries[side];
         let sideCons = this.charConstells[side];
         let sideRefs = this.weaponRefines[side];
         var constells = 0;
-        for (var i in sideCons) {
-            let cons = sideCons[i].value;
-            if (cons != null && cons != "") constells += parseInt(cons);
+        for (var i=0; i<sideCons.length; i++) {
+            let charId = $(sideEntries[i]).attr(this.char);
+            if (charId == null || charId == "" || charId == "treveler" || charId == "trevelerF" || charId == "trevelerM") continue;//행자 제외
+            let info = charactersInfo.list[charactersInfo[charId]];
+            if (info != null && info.rarity == "5") {
+                let cons = sideCons[i].value;
+                if (cons != null && cons != "") constells += parseInt(cons);
+            }
         }
         var weaponHas = 0;
         var weaponRefines = 0;
-        for (var i in sideRefs) {
-            let refine = sideRefs[i].value;
-            if (refine != null && refine != "" && parseInt(refine) > 0) {
-                weaponHas++;
-                if (refine > 1) weaponRefines += refine - 1;
-            }
+        for (var i=0; i<sideRefs.length; i++) {
+            //무기 인식 구현 후 적용
+            // let weaponId = $(sideEntries[i]).attr(this.weapon);
+            // if (weaponId == null || weaponId == "") continue;
+            // let weapon = weaponsInfo.list.find(item => { item.id == weaponId });
+            // if (weapon != null && weapon.rarity == "5") {
+                let refine = sideRefs[i].value;
+                if (refine != null && refine != "" && parseInt(refine) > 0) {
+                    weaponHas++;
+                    if (refine > 1) weaponRefines += refine - 1;
+                }
+            // }
 
         }
 

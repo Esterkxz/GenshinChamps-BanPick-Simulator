@@ -879,7 +879,7 @@ function getPathA(id, group = "", type = "sounds") {
                     <div class="player_info_side side_root red">
                         <div class="info_side" id="red_info">
                             <div class="info_line">
-                                <button class="player_profile_select" title="클릭: 플레이어 프로필 캐릭터 선택"><span class="info_title">RED</span></button>
+                                <button class="player_profile_select" data-side="red" title="클릭: 플레이어 프로필 캐릭터 선택"><span class="info_title">RED</span></button>
                                 <input class="info_ap" id="red_info_ap" value="" placeholder="A.P." />
                             </div>
                             <input class="info_name" id="red_info_name" value="" placeholder="Name" />
@@ -1037,7 +1037,7 @@ function getPathA(id, group = "", type = "sounds") {
                     <div class="player_info_side side_root blue">
                         <div class="info_side" id="blue_info">
                             <div class="info_line">
-                                <button class="player_profile_select" title="클릭: 플레이어 프로필 캐릭터 선택"><span class="info_title">BLUE</span></button>
+                                <button class="player_profile_select" data-side="blue" title="클릭: 플레이어 프로필 캐릭터 선택"><span class="info_title">BLUE</span></button>
                                 <input class="info_ap" id="blue_info_ap" value="" placeholder="A.P." />
                             </div>
                             <input class="info_name" id="blue_info_name" value="" placeholder="Name" />
@@ -1230,7 +1230,7 @@ function getPathA(id, group = "", type = "sounds") {
                         <input type="text" id="search_input" placeholder="search word" />
                     </div>
                     <div id="version_info">
-                        <span title="release 2023.08.19">v0.5.0 Preview1</span>
+                        <span title="release 2023.08.20">v0.5.0 Preview 3</span>
                     </div>
                     <div id="tool_infos">
                         <span id="popup_credits"><button class="text_type">Credits</button></span>
@@ -1254,6 +1254,9 @@ function getPathA(id, group = "", type = "sounds") {
                 </div>
                 <div class="player_info_block account_point">
                     <input type="text" class="red_side" tabindex="2" placeholder="A.P." title="플레이어 계정 점수 (리그 구분용)" />
+                </div>
+                <div class="player_info_block profile_character">
+                    <div class="character_profile"></div>
                 </div>
                 <div class="player_info_block account_info" data-filled="" title="계정 정보 세트 인디케이터 - 🟩 정보 없음 / ✅ 정보 있음&#13;&#10;클릭:&#13;&#10; 정보가 있는 경우 - 정보 삭제&#13;&#10; 정보가 없는 경우 - 입력한 이름/UID/계정 점수 초기화&#13;&#10;우클릭: 이전 계정 정보 복원"><span class="red"></span></div>
                 <div class="entry_slots_area">
@@ -1314,6 +1317,9 @@ function getPathA(id, group = "", type = "sounds") {
                 </div>
                 <div class="player_info_block account_point">
                     <input type="text" class="blue_side" tabindex="5" placeholder="A.P." title="플레이어 계정 점수 (리그 구분용)" />
+                </div>
+                <div class="player_info_block profile_character">
+                    <div class="character_profile"></div>
                 </div>
                 <div class="player_info_block account_info" data-filled="" title="계정 정보 세트 인디케이터 - 🟩 정보 없음 / ✅ 정보 있음&#13;&#10;클릭:&#13;&#10; 정보가 있는 경우 - 정보 삭제&#13;&#10; 정보가 없는 경우 - 입력한 이름/UID/계정 점수 초기화&#13;&#10;우클릭: 이전 계정 정보 복원"><span class="blue"></span></div>
                 <div class="entry_slots_area">
@@ -1407,6 +1413,8 @@ function getPathA(id, group = "", type = "sounds") {
                 <div class="side_record_board side_root red" data-side="red">
                     <div class="side_player_info">
                         <div class="side_player_name_area"><span class="side_player_name">RED</span></div>
+                        <div class="side_player_uid_area"><span class="side_player_uid">800000000</span></div>
+                        <div class="side_player_ap_area"><span class="side_player_ap">0</span></div>
                     </div>
                     <div class="side_record record_stage stage1" data-stage="1" data-result="">
                         <div class="time_record">
@@ -1534,7 +1542,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 <label>가산 시간</label>
                                 <div class="add_time_set">
                                     <span class="add_time min"></span>
-                                    <span class="divider">-</span>
+                                    <span class="divider add">-</span>
                                     <span class="add_time sec"></span>
                                 </div>
                             </div>
@@ -1542,7 +1550,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 <label>총 소요 시간</label>
                                 <div class="total_clear_time_set">
                                     <span class="total_clear_time min"></span>
-                                    <span class="divider">-</span>
+                                    <span class="divider total">-</span>
                                     <span class="total_clear_time sec"></span>
                                 </div>
                             </div>
@@ -1571,6 +1579,8 @@ function getPathA(id, group = "", type = "sounds") {
                 <div class="side_record_board side_root blue" data-side="blue">
                     <div class="side_player_info">
                         <div class="side_player_name_area"><span class="side_player_name">BLUE</span></div>
+                        <div class="side_player_uid_area"><span class="side_player_uid">800000000</span></div>
+                        <div class="side_player_ap_area"><span class="side_player_ap">0</span></div>
                     </div>
                     <div class="side_record record_stage stage1" data-stage="1" data-result="">
                         <div class="time_record">
@@ -1698,7 +1708,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 <label>총 소요 시간</label>
                                 <div class="total_clear_time_set">
                                     <span class="total_clear_time min"></span>
-                                    <span class="divider">-</span>
+                                    <span class="divider total">-</span>
                                     <span class="total_clear_time sec"></span>
                                 </div>
                             </div>
@@ -1706,7 +1716,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 <label>가산 시간</label>
                                 <div class="add_time_set">
                                     <span class="add_time min"></span>
-                                    <span class="divider">-</span>
+                                    <span class="divider add">-</span>
                                     <span class="add_time sec"></span>
                                 </div>
                             </div>

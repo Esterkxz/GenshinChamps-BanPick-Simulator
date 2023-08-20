@@ -53,6 +53,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "searchPlaceholder": "검색 (무기 전용)",
         "searchDesc": "매 입력시 마다 검색이 갱신됩니다\n키보드 ↑/↓/PgUp/PgDn/Home/End: 검색 결과 목록 내 커서 이동\nEnter: 현재 커서위치 항목 픽업\n검색 항목 마우스 클릭: 해당 항목 픽업\nEsc: 입력 내용 초기화 - 전체 목록 보기",
 
+        "playerProfileSelection": "#SIDE 플레이어의 프로필로 표시할 캐릭터를 선택하세요",
+
         "readyForStart": "START 버튼을 누르세요",
         "readyForVersus": "VERSUS 버튼을 누르면 대결을 시작합니다",
 
