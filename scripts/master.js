@@ -728,6 +728,7 @@ let sequenceMaster = {
         if (sel != null) {
             let charId = sel.attr(pim.char);
             let weaponId = sel.attr(pim.weapon);
+            let weapon = weaponsInfo.list.find((item) => item.id == weaponId);
 
             let charInfo = document.createElement("div");
             charInfo.setAttribute("class", "character_info");
@@ -739,7 +740,7 @@ let sequenceMaster = {
 
             let weaponAlloc = document.createElement("div");
             weaponAlloc.setAttribute("class", "weapon_allocated");
-            weaponAlloc.setAttribute("style", "--src: url('" + (weaponId == null ? tpGif : getPath("images", "weapon_vcut", weaponId) + "'); "));
+            weaponAlloc.setAttribute("style", "--src: url('" + (weaponId == null || weaponId == "" || weapon == null ? tpGif : getPath("images", "weapon_vcut", weapon.res_vcut) + "'); "));
             entry.append(weaponAlloc);
 
             let weaponInfo = document.createElement("div");
@@ -4656,6 +4657,16 @@ let playerInfoMaster = {
     },
 
 
+
+    weapons: {
+        "sword": [],
+        "claymore": [],
+        "polearm": [],
+        "bow": [],
+        "catalyst": []
+    },
+
+
     init: function() {
 
         this.playerInfoOpCP = $(this.player_info_op_cp);
@@ -4766,41 +4777,64 @@ let playerInfoMaster = {
         this.eachWeaponRefine.blur(function(e) { $(this).attr("type", "text") });
 
         this.inputs.focus(function(e) { $(this).select(); });
-        this.eachWeaponName.on("input paste copy change", function(e) {
-            let pim = playerInfoMaster;
-            let refine = $(this).closest(pim.selection_entry).find(pim.weapon_refine);
-            if (this.value.trim() == "") refine.val("");
-            else refine.val("1");
-        });
         this.eachEntryIconArea.click(function(e) { $(this).find("input").focus(); });
         this.eachEntryWeaponIconArea.click(function(e) { $(this).find("input").focus(); });
 
-        this.eachCharConstell.keydown(function(e) {
-            let pim = playerInfoMaster;
-
-            switch (e.keyCode) {
-                case 9://Tab
-                    if (!e.shiftKey) {
-                        $(this).closest(pim.selection_entry).find(pim.weapon_name).focus();
-                        return false;
-                    }
-                    break;
-            }
-        });
-        this.eachWeaponName.keydown(function(e) {
+        this.charConstells["red"].first().keydown(function(e) {
             let pim = playerInfoMaster;
 
             switch (e.keyCode) {
                 case 9://Tab
                     if (e.shiftKey) {
-                        $(this).closest(pim.selection_entry).find(pim.char_constell).focus();
+                        pim.weaponRefines["blue"].last().focus();
                         return false;
                     }
                     break;
             }
         });
+        this.weaponRefines["red"].last().keydown(function(e) {
+            let pim = playerInfoMaster;
 
-        this.eachWeaponName.on("input cut paste", this.onInputWeapon);
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (!e.shiftKey) {
+                        pim.charConstells["blue"].first().focus();
+                        return false;
+                    }
+                    break;
+            }
+        });
+        this.charConstells["blue"].first().keydown(function(e) {
+            let pim = playerInfoMaster;
+
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (e.shiftKey) {
+                        pim.weaponRefines["red"].last().focus();
+                        return false;
+                    }
+                    break;
+            }
+        });
+        this.weaponRefines["blue"].last().keydown(function(e) {
+            let pim = playerInfoMaster;
+
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (!e.shiftKey) {
+                        pim.charConstells["red"].first().focus();
+                        return false;
+                    }
+                    break;
+            }
+        });
+        this.eachCharConstell.keydown(this.onKeydownCharConstell);
+        this.eachWeaponName.keydown(this.onKeydownWeaponName);
+
+        this.eachWeaponName.on("input cut paste change", this.onInputWeaponName);
+
+
+        this.preloadWeaponsInfo();
         
     },
 
@@ -4905,9 +4939,97 @@ let playerInfoMaster = {
         if (found.length > 0) found.find(this.char_constell).val(constell);
     },
 
-    onInputWeapon: function(e) {
+    onKeydownCharConstell: function(e) {
         let pim = playerInfoMaster;
 
+        switch (e.keyCode) {
+            case 9://Tab
+                if (!e.shiftKey) {
+                    $(this).closest(pim.selection_entry).find(pim.weapon_name).focus();
+                    return false;
+                }
+                break;
+        }
+    },
+
+    onKeydownWeaponName: function(e) {
+        let pim = playerInfoMaster;
+
+        switch (e.keyCode) {
+            case 9://Tab
+                if (e.shiftKey) {
+                    $(this).closest(pim.selection_entry).find(pim.char_constell).focus();
+                    return false;
+                }
+                break;
+        }
+    },
+
+    onInputWeaponName: function(e) {
+        let pim = playerInfoMaster;
+        let selectionEntry = $(this).closest(pim.selection_entry);
+        let weaponIcon = selectionEntry.find(pim.entry_weapon_icon);
+        let refine = selectionEntry.find(pim.weapon_refine);
+
+        var value = this.value.trim();
+
+        if (value == "") {
+            selectionEntry.attr(pim.weapon, "");
+            weaponIcon.css("--src", "url('" + tpGif + "')");
+            refine.val("");
+            return;
+        }
+
+        let charId = selectionEntry.attr(pim.char);
+        if (charId == null || charId == "") return;
+        let info = charactersInfo.list[charactersInfo[charId]];
+        if (info == null || info == "" || info == {}) return;
+
+        let valueLc = value.toLowerCase();
+        if (valueLc == "wjsan" || valueLc == "ㅈㅁ" || valueLc == "wa" || valueLc == "/") {
+            this.value = "전무";
+            value = this.value;
+        }
+        var found = null;
+        if (value == "전무") {
+            found = pim.weapons[info.weapon].find((item, index) => {
+                return item.favority[0] == charId;
+            });
+
+            if (found != null) {
+                selectionEntry.attr(pim.weapon, found.id);
+                weaponIcon.css("--src", "url('" + getPath("images", "weapon_icon", found.res_icon) + "')")
+                refine.val("1");
+            } else {
+                selectionEntry.attr(pim.weapon, "");
+                weaponIcon.css("--src", "url('" + tpGif + "')");
+                refine.val("");
+            }
+        } else {
+            let found = pim.weapons[info.weapon].filter((item, index) => {
+                return item.name[loca].indexOf(value) == 0
+                    || item.name[loca].replace(/\b/ig, "").indexOf(value.replace(/\b/ig, "")) == 0
+                    || item.aliases[loca].find((alias, idx) => { return alias == value; }) != null;
+            });
+
+            if (found != null && found.length > 0) {
+                selectionEntry.attr(pim.weapon, found[0].id);
+                weaponIcon.css("--src", "url('" + getPath("images", "weapon_icon", found[0].res_icon) + "')")
+                refine.val("1");
+            } else {
+                selectionEntry.attr(pim.weapon, "");
+                weaponIcon.css("--src", "url('" + tpGif + "')");
+                refine.val("");
+            }
+        }
+    },
+    
+    preloadWeaponsInfo: function() {
+        for (var i in weaponsInfo.list) {
+            let info = weaponsInfo.list[i];
+            if (info.id == "reserved") continue;
+            this.weapons[info.type].push(info);
+        }
     },
 
     getSecondsForAdd: function() {

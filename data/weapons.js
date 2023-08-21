@@ -170,7 +170,7 @@ weaponsInfo = {
             "type": "catalyst",
             "serise": "kunwu",
             "continent": "liyue",
-            "favority": [""],
+            "favority": ["yanfei"],
             "res_icon": "UI_EquipIcon_Catalyst_Kunwu.png",
             "res_vcut": "i_n14504_gacha_icon.webp"
         },
