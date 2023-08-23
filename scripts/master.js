@@ -75,6 +75,7 @@ function buildStepHistoryExtraForUsingBanCard() {
 
 //common static values
 let tpGif = "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
+let urlTpGif = "url('" + tpGif + "')";
 
 //common functions
 function setAutoLink(text) {
@@ -2726,7 +2727,7 @@ let sideMaster = {
     },
 
     initProfileCharacter: function() {
-        this.eachProfileCharacterImage.css("--src", "url('" + tpGif + "')");
+        this.eachProfileCharacterImage.css("--src", urlTpGif);
         this.eachProfileCharacter.attr("data-show", "");
     },
 
@@ -2976,6 +2977,18 @@ let sideMaster = {
 
     onBlueNameplateInputChanged: function(e) {
         blueName = $(this).val();
+    },
+
+    setNameplateMix: function(side, set = "") {
+        switch (side) {
+            case "red":
+                this.redNameplate.attr("data-mix", set);
+                break;
+
+            case "blue":
+                this.blueNameplate.attr("data-mix", set);
+                break;
+        }
     },
 
 
@@ -4769,6 +4782,7 @@ let playerInfoMaster = {
 
 
         this.eachPlayerProfileSelect.click(this.onClickPlayerProfileSelectButton);
+        this.eachPlayerProfileSelect.contextmenu(this.onRightClickPlayerProfileSelectButton);
 
 
         this.eachCharConstell.focus(function(e) { $(this).attr("type", "number") });
@@ -4857,11 +4871,13 @@ let playerInfoMaster = {
         if (sequenceMaster.pickingPlayerProfile[side]) {
             sequenceMaster.pickingPlayerProfile[side] = false;
             sequenceMaster.setSequenceTitleByCurrent();
+            sideMaster.setNameplateMix(side);
             return;
         }
         sequenceMaster.setSequenceTitleHtml(lang.text.playerProfileSelection.replace("#SIDE", '<span class="text' + (side == "red" ? "Red" : "Blue") + '">' + side.toUpperCase() + '</span>'));
         sequenceMaster.pickingPlayerProfile[side] = true;
         sequenceMaster.pickingPlayerProfile[side == "red" ? "blue" : "red" ] = false;
+        sideMaster.setNameplateMix(side, "1");
     },
 
     setPlayerProfile: function(id, side, treveler) {
@@ -4898,6 +4914,38 @@ let playerInfoMaster = {
         }
     },
 
+    onRightClickPlayerProfileSelectButton: function(e) {
+        e.preventDefault();
+        let side = $(this).attr("data-side");
+        if (sequenceMaster.pickingPlayerProfile[side]) {
+            sequenceMaster.pickingPlayerProfile[side] = false;
+            sequenceMaster.setSequenceTitleByCurrent();
+        }
+        playerInfoMaster.clearPlayerProfile(side);
+        return false;
+    },
+
+    clearPlayerProfile: function(side) {
+        switch (side) {
+            case "red":
+            sideMaster.redProfileCharacterImage.css("--src", urlTpGif);
+            sideMaster.redProfileCharacterImage.css("--scale", "");
+            sideMaster.redProfileCharacterImage.css("--ph", "");
+            sideMaster.redProfileCharacterImage.css("--pv", "");
+            sideMaster.redProfileCharacter.attr("data-show", "");
+            break;
+
+        case "blue":
+            sideMaster.blueProfileCharacterImage.css("--src", urlTpGif);
+            sideMaster.blueProfileCharacterImage.css("--scale", "");
+            sideMaster.blueProfileCharacterImage.css("--ph", "");
+            sideMaster.blueProfileCharacterImage.css("--pv", "");
+            sideMaster.blueProfileCharacter.attr("data-show", "");
+            break;
+        }
+        sideMaster.setNameplateMix(side);
+    },
+
     releaseCharPick: function(side, no) {
         let picked = sideMaster.entryPicked[side];
 
@@ -4908,7 +4956,7 @@ let playerInfoMaster = {
                 if (entry.attr(this.char) != "") {//clear
                     entry.attr(this.char, "");
                     //--class_back
-                    $(this.entryIcons[side][i]).css("--src", "url('" + tpGif + "')");
+                    $(this.entryIcons[side][i]).css("--src", urlTpGif);
                     $(this.charConstells[side][i]).val("");
                     $(this.charNames[side][i]).val("");
                 }
@@ -4926,10 +4974,10 @@ let playerInfoMaster = {
         this.eachSelectionEntry.attr(this.char, "");
         this.eachSelectionEntry.attr(this.weapon, "");
         //--class_back
-        this.eachEntryIcon.css("--src", "url('" + tpGif + "')");
+        this.eachEntryIcon.css("--src", urlTpGif);
         this.eachCharConstell.val("");
         this.eachCharName.val("");
-        this.eachEntryWeaponIcon.css("--src", "url('" + tpGif + "')");
+        this.eachEntryWeaponIcon.css("--src", urlTpGif);
         this.eachWeaponName.val("");
         this.eachWeaponRefine.val("");
     },
@@ -4975,7 +5023,7 @@ let playerInfoMaster = {
 
         if (value == "") {
             selectionEntry.attr(pim.weapon, "");
-            weaponIcon.css("--src", "url('" + tpGif + "')");
+            weaponIcon.css("--src", urlTpGif);
             refine.val("");
             return;
         }
@@ -5002,7 +5050,7 @@ let playerInfoMaster = {
                 refine.val("1");
             } else {
                 selectionEntry.attr(pim.weapon, "");
-                weaponIcon.css("--src", "url('" + tpGif + "')");
+                weaponIcon.css("--src", urlTpGif);
                 refine.val("");
             }
         } else {
@@ -5018,7 +5066,7 @@ let playerInfoMaster = {
                 refine.val("1");
             } else {
                 selectionEntry.attr(pim.weapon, "");
-                weaponIcon.css("--src", "url('" + tpGif + "')");
+                weaponIcon.css("--src", urlTpGif);
                 refine.val("");
             }
         }
