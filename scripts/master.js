@@ -4887,6 +4887,8 @@ let playerInfoMaster = {
         let side = $(this).attr("data-side");
         if (side == null || side == "") return;
         if (sequenceMaster.pickingPlayerProfile[side]) {
+            playSound("훧");
+
             sequenceMaster.pickingPlayerProfile[side] = false;
             sequenceMaster.setSequenceTitleByCurrent();
             sideMaster.setNameplateMix(side);
@@ -4894,6 +4896,9 @@ let playerInfoMaster = {
             playerInfoMaster.setPlayerProfileActive(side);
             return;
         }
+
+        playSound("뽁");
+
         sequenceMaster.setSequenceTitleHtml(lang.text.playerProfileSelection.replace("#SIDE", '<span class="text' + (side == "red" ? "Red" : "Blue") + '">' + side.toUpperCase() + '</span>'));
         sequenceMaster.pickingPlayerProfile[side] = true;
         sequenceMaster.pickingPlayerProfile[side == "red" ? "blue" : "red" ] = false;
@@ -4916,6 +4921,8 @@ let playerInfoMaster = {
         let scale = info.res_wide_meta_pos.scale;
         let ph = info.res_wide_meta_pos.h;
         let pv = info.res_wide_meta_pos.v;
+
+        playSound("뽑");
 
         switch (side) {
             case "red":
@@ -4940,9 +4947,11 @@ let playerInfoMaster = {
         e.preventDefault();
         let side = $(this).attr("data-side");
         if (sequenceMaster.pickingPlayerProfile[side]) {
+            playSound("훧");
             sequenceMaster.pickingPlayerProfile[side] = false;
             sequenceMaster.setSequenceTitleByCurrent();
         }
+        playSound("웋");
         playerInfoMaster.setPlayerProfileActive(side);
         playerInfoMaster.clearPlayerProfile(side);
         sideMaster.setPlayerProfileShow(side);
