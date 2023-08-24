@@ -2810,6 +2810,7 @@ let sideMaster = {
 
         if (data != null) {
             sideMaster.loadAccInfo(data, side);
+            playerInfoMaster.loadedAccInfo(raw, data, side);
             playSound("뜍");
             return true;
         } else return false;
@@ -3093,7 +3094,7 @@ let sideMaster = {
 
         let constell = this.sideAccInfo[side] != null ? this.sideAccInfo[side][id] : null;
 
-        let adds = constell != null ? this.getAdditionalCost(id, parseInt(constell)) : 0;
+        let adds = (rules.rule_type == "cost" && constell != null) ? this.getAdditionalCost(id, parseInt(constell)) : 0;
         this.setEntryContent(slot, this.buildEntryIcon(info), this.buildEntryInfoArea(id, adds), info);
         slot.attr(this.id, info.id);
         slot.attr(this.rarity, info.rarity);
@@ -4689,6 +4690,8 @@ let playerInfoMaster = {
 
 
 
+    playerAccInfo: { red: null, blue: null },
+
     weapons: {
         "sword": [],
         "claymore": [],
@@ -4706,7 +4709,8 @@ let playerInfoMaster = {
         this.eachPlayerInfoSide = this.playerInfoOpCP.find(this.player_info_side);
 
         this.eachInfoSide = this.eachPlayerInfoSide.find(this.info_side);
-
+        this.eachInfoCode = this.eachInfoSide.find(this.info_code);
+    
         this.eachPlayerProfileSelect = this.eachInfoSide.find(this.player_profile_select);
 
 
@@ -4825,6 +4829,9 @@ let playerInfoMaster = {
                     }
                     break;
 
+                case 38://↑
+                    pim.redInfoUid.focus();
+                    return false;
                 case 40://↓
                     pim.redInfoCopy.focus();
                     return false;
@@ -4853,6 +4860,9 @@ let playerInfoMaster = {
                     }
                     break;
 
+                case 38://↑
+                    pim.blueInfoUid.focus();
+                    return false;
                 case 40://↓
                     pim.blueInfoCopy.focus();
                     return false;
@@ -4934,6 +4944,8 @@ let playerInfoMaster = {
                     break;
             }
         });
+
+        this.eachInfoCode.focus(function(e) { $(this).select(); });
 
 
         this.redAddPerConstell.keydown(function(e) {
@@ -5212,6 +5224,73 @@ let playerInfoMaster = {
         this.eachEntryWeaponIcon.css("--src", urlTpGif);
         this.eachWeaponName.val("");
         this.eachWeaponRefine.val("");
+    },
+
+    loadedAccInfo: function(raw, data, side) {
+        if (raw != null && data != null && side != null) {
+            let infoCode;
+            switch (side) {
+                case "red":
+                    infoCode = this.redInfoCode;
+                    break;
+    
+                case "blue":
+                    infoCode = this.blueInfoCode;
+                    break;
+            }
+    
+            infoCode.val(raw);
+
+            this.setAccountInfo(side, data);
+            var point = 0;
+
+            for(var i in data) {
+                if (i != "player") {
+                    let cons = data[i];
+                    let info = charactersInfo.list[charactersInfo[i]];
+                    if (cons != null && info.class == "limited") point += parseInt(cons) + 1;
+                }
+            }
+
+            let playerInfo = data.player;
+            this.setPlayerInfo(side, point, playerInfo);
+        }
+    },
+
+    setAccountInfo: function(side, data) {
+        if (side != null && data != null && data.player != null) {
+            this.playerAccInfo[side] = data;
+
+        }
+    },
+
+    setPlayerInfo: function(side, point, p) {
+        if (side == null && side == "") return;
+
+        var infoAp;
+        var infoName;
+        var infoUid;
+        var infoTrevelers;
+        switch (side) {
+            case "red":
+                infoAp = this.redInfoAp;
+                infoName = this.redInfoName;
+                infoUid = this.redInfoUid;
+                infoTrevelers = this.redInfoTrevelerRadios;
+                break;
+
+            case "blue":
+                infoAp = this.blueInfoAp;
+                infoName = this.blueInfoName;
+                infoUid = this.blueInfoUid;
+                infoTrevelers = this.blueInfoTrevelerRadios;
+                break;
+        }
+
+        infoAp.val(point);
+        infoName.val(unescape(p.name));
+        infoUid.val(p.uid);
+        infoTrevelers.filter('[value="' + p.treveler + '"]').attr("checked", true);
     },
 
     onChangedCharConstell: function(id, constell) {

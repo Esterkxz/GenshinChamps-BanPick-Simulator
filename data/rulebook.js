@@ -301,7 +301,10 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
     "characters_override": {
         "comment": "\
 For using alter of characters classification by rule \n\
-        "
+        ",
+        "tighnari": {
+            "class": "limited"
+        }
     },
 
     "weapons_override": {

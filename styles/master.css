@@ -955,6 +955,7 @@ div#player_info_op_cp div.player_info_side div.info_side input:hover[type="radio
 div#player_info_op_cp div.player_info_side div.info_side input { font-size: 18px; }
 div#player_info_op_cp div.player_info_side.red div.info_side input { text-align: right; }
 div#player_info_op_cp div.player_info_side.blue div.info_side input { text-align: left; }
+div#player_info_op_cp div.player_info_side div.info_side input.info_item[type=text] { color: rgba(var(--signature-color) / 90%); font-size: 21px; font-weight: bold; line-height: 22px; text-shadow: 1px 1px 1px rgba(var(--signature-color-darker) / 30%); }
 div#player_info_op_cp div.player_info_side div.info_side input.info_ap { width: inherit; }
 div#player_info_op_cp div.player_info_side div.info_side input.info_name { }
 div#player_info_op_cp div.player_info_side div.info_side input.info_uid { }
@@ -963,7 +964,7 @@ div#player_info_op_cp div.player_info_side div.info_side div.info_treveler input
 div#player_info_op_cp div.player_info_side div.info_side div.info_treveler label { cursor: pointer; }
 div#player_info_op_cp div.player_info_side div.info_side button.info_copy { margin-top: 10px; }
 div#player_info_op_cp div.player_info_side div.info_side textarea { }
-div#player_info_op_cp div.player_info_side div.info_side textarea.info_code { margin-bottom: 30px; }
+div#player_info_op_cp div.player_info_side div.info_side textarea.info_code { margin-bottom: 30px; color: rgba(var(--signature-color) / 90%); text-shadow: 1px 1px 1px rgba(var(--signature-color-darker) / 20%); }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add { position: relative; display: flex; flex-wrap: nowrap; flex-direction: row; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add::after { content: attr(data-unit); position: absolute; top: 0; bottom: 2px; right: 4px; margin: auto; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add label { margin-right: 3px; color: var(--plain-text-rgb); font-weight: normal; word-break: keep-all; line-height: 20px; transition-duration: 0.5s; }
