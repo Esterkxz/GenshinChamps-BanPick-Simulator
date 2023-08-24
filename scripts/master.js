@@ -2157,6 +2157,7 @@ let sideMaster = {
     input: "input",
 
     filled: "data-filled",
+    mix: "data-mix",
 
     entry_slots_area: "div.entry_slots_area",
     entry_slots: "ul.entry_slots",
@@ -2982,13 +2983,28 @@ let sideMaster = {
     setNameplateMix: function(side, set = "") {
         switch (side) {
             case "red":
-                this.redNameplate.attr("data-mix", set);
+                this.redNameplate.attr(this.mix, set);
                 break;
 
             case "blue":
-                this.blueNameplate.attr("data-mix", set);
+                this.blueNameplate.attr(this.mix, set);
                 break;
         }
+    },
+
+
+    //Player profile
+    setPlayerProfileShow(side, set = "") {
+        switch (side) {
+            case "red":
+                this.redProfileCharacter.attr(this.show, set);
+                break;
+
+            case "blue":
+                this.blueProfileCharacter.attr(this.show, set);
+                break;
+        }
+
     },
 
 
@@ -4872,12 +4888,14 @@ let playerInfoMaster = {
             sequenceMaster.pickingPlayerProfile[side] = false;
             sequenceMaster.setSequenceTitleByCurrent();
             sideMaster.setNameplateMix(side);
+            sideMaster.setPlayerProfileShow(side);
             return;
         }
         sequenceMaster.setSequenceTitleHtml(lang.text.playerProfileSelection.replace("#SIDE", '<span class="text' + (side == "red" ? "Red" : "Blue") + '">' + side.toUpperCase() + '</span>'));
         sequenceMaster.pickingPlayerProfile[side] = true;
         sequenceMaster.pickingPlayerProfile[side == "red" ? "blue" : "red" ] = false;
         sideMaster.setNameplateMix(side, "1");
+        sideMaster.setPlayerProfileShow(side, "1")
     },
 
     setPlayerProfile: function(id, side, treveler) {
@@ -4901,7 +4919,6 @@ let playerInfoMaster = {
                 sideMaster.redProfileCharacterImage.css("--scale", scale);
                 sideMaster.redProfileCharacterImage.css("--ph", ph);
                 sideMaster.redProfileCharacterImage.css("--pv", pv);
-                sideMaster.redProfileCharacter.attr("data-show", "1");
                 break;
 
             case "blue":
@@ -4909,9 +4926,9 @@ let playerInfoMaster = {
                 sideMaster.blueProfileCharacterImage.css("--scale", scale);
                 sideMaster.blueProfileCharacterImage.css("--ph", ph);
                 sideMaster.blueProfileCharacterImage.css("--pv", pv);
-                sideMaster.blueProfileCharacter.attr("data-show", "1");
                 break;
         }
+        sideMaster.setPlayerProfileShow(side, "2");
     },
 
     onRightClickPlayerProfileSelectButton: function(e) {
@@ -4922,6 +4939,7 @@ let playerInfoMaster = {
             sequenceMaster.setSequenceTitleByCurrent();
         }
         playerInfoMaster.clearPlayerProfile(side);
+        sideMaster.setPlayerProfileShow(side);
         return false;
     },
 

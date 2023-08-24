@@ -1097,9 +1097,11 @@ div.player_board div.account_point { position: absolute; width: fit-content; mar
 div.player_board div.account_point > input { width: 80px; padding: 4px 6px; border-style: none; border-radius: 12px; background-color: transparent; background-image: linear-gradient(var(--side-degree-wide-up), var(--account-point-input-background-gradient-begin), var(--account-point-input-background-gradient-end)); background-repeat: no-repeat; background-size: 100% 0%; background-position: center 100%; color: rgba(var(--signature-color) / 0.75); font-size: 28px; font-weight: bold; font-style: italic; text-align: var(--side); text-shadow: 0px 0px 6px var(--bgcolor-rgb); transition-duration: 0.3s; }
 div.player_board div.account_point > input:focus { outline: none; background-size: 100% 35%; background-position: center 45%; }
 div.player_board div.account_point > input::placeholder { color: #8886; }
-div.player_board div.profile_character { position: absolute; top: 0; width: 360px; height: 81px; background-color: var(--bgcolor-rgb); background-image: linear-gradient(var(--profile-char-bg-deg), transparent 0%, rgb(var(--signature-color-lighter)) 5%, rgb(var(--signature-color-darker)) ); opacity: 0; transition-delay: 0.2s; transition-duration: 1s; }
-div.player_board div.profile_character[data-show="1"] { opacity: 1; }
-div.player_board div.profile_character > div.character_profile { width: 100%; height: 100%; background-image: var(--src); background-repeat: no-repeat; background-size: var(--scale); background-position: var(--ph) var(--pv); -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 20%, black 80%, transparent 100%); mix-blend-mode: hard-light; transform: translateZ(120px); }
+div.player_board div.profile_character { position: absolute; top: 0; width: 360px; height: 81px; background-color: var(--bgcolor-rgb); background-image: linear-gradient(var(--profile-char-bg-deg), transparent 0%, rgb(var(--signature-color-lighter)) 5%, rgb(var(--signature-color-darker)) ); opacity: 0; transition-duration: 0.3s;}
+div.player_board div.profile_character:is([data-show="1"], [data-show="2"]) { opacity: 1; }
+div.player_board div.profile_character > div.character_profile { --pv-init: 0.1%; width: 100%; height: 100%; background-image: var(--src); background-repeat: no-repeat; background-size: var(--scale); -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 20%, black 80%, transparent 100%); mix-blend-mode: hard-light; transform: translateZ(120px); opacity: 0; }
+div.player_board div.profile_character[data-show="1"] > div.character_profile { background-position: calc(var(--ph) + var(--ph-init)), calc(var(--pv) + var(--pv-init)); }
+div.player_board div.profile_character[data-show="2"] > div.character_profile { background-position: var(--ph) var(--pv); opacity: 1; transition-delay: 0.2s; transition-duration: 1s; }
 div.player_board div.account_info { position: absolute; display: flex; top: 10px; margin: 0 2px; transition-duration: 0.2s; transition-timing-function: ease-out; }
 div.player_board div.account_info span { font-family: var(--font-for-emoji); opacity: 0.75; transition-duration: 0.2s; transition-timing-function: ease-out; }
 div.player_board div.account_info span:before { content: "🟩"; transition-duration: 0.2s; transition-timing-function: ease-out; }
@@ -1205,8 +1207,8 @@ div.player_board.red div.player_info_block { transform-origin: top left; transit
 div.player_board.red:is([data-hide="1"], [data-hide="2"]) div.player_info_block { transform: rotateY(-80deg) translateX(-120px) translateZ(-40px); }
 div.player_board.blue div.player_info_block { transform-origin: top right; transition-timing-function: ease; }
 div.player_board.blue:is([data-hide="1"], [data-hide="2"]) div.player_info_block { transform: rotateY(80deg) translateX(120px) translateZ(-40px); }
-div.player_board.red div.profile_character{ --profile-char-bg-deg: 270deg; }
-div.player_board.blue div.profile_character{ --profile-char-bg-deg: 90deg; }
+div.player_board.red div.profile_character { --profile-char-bg-deg: 270deg; --ph-init: 0.5%; }
+div.player_board.blue div.profile_character { --profile-char-bg-deg: 90deg; --ph-init: -0.5%; }
 div.player_board:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area ul.entry_slots li.entry div.entry_icon { transition-duration: 0.4s; transition-timing-function: ease; }
 div.player_board:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area ul.entry_slots li.entry:nth-child(1) div.entry_icon { transition-delay: 0.6s; }
 div.player_board:is([data-hide="1"], [data-hide="2"]) div.entry_slots_area ul.entry_slots li.entry:nth-child(2) div.entry_icon { transition-delay: 0.8s; }
