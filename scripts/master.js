@@ -4802,6 +4802,192 @@ let playerInfoMaster = {
         this.eachPlayerProfileSelect.click(this.onClickPlayerProfileSelectButton);
         this.eachPlayerProfileSelect.contextmenu(this.onRightClickPlayerProfileSelectButton);
 
+        this.redPlayerProfileSelect.keydown(function(e) {
+            let pim = playerInfoMaster;
+
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (e.shiftKey) {
+                        pim.blueInfoTrevelerRadios.first().focus();
+                        return false;
+                    }
+                    break;
+            }
+        });
+        this.redInfoTrevelerRadios.keydown(function(e) {
+            let pim = playerInfoMaster;
+
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (!e.shiftKey) {
+                        pim.bluePlayerProfileSelect.focus();
+                        return false;
+                    }
+                    break;
+
+                case 40://↓
+                    pim.redInfoCopy.focus();
+                    return false;
+            }
+        });
+        this.bluePlayerProfileSelect.keydown(function(e) {
+            let pim = playerInfoMaster;
+
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (e.shiftKey) {
+                        pim.redInfoTrevelerRadios.first().focus();
+                        return false;
+                    }
+                    break;
+            }
+        });
+        this.blueInfoTrevelerRadios.keydown(function(e) {
+            let pim = playerInfoMaster;
+
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (!e.shiftKey) {
+                        pim.redPlayerProfileSelect.focus();
+                        return false;
+                    }
+                    break;
+
+                case 40://↓
+                    pim.blueInfoCopy.focus();
+                    return false;
+            }
+        });
+
+
+        this.redInfoCopy.keydown(function(e) {
+            let pim = playerInfoMaster;
+
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (e.shiftKey) {
+                        pim.redInfoCode.focus();
+                        return false;
+                    }
+                    break;
+
+                case 37://←
+                    pim.charConstells["red"].first().focus();
+                    return false;
+                case 38://↑
+                    pim.redInfoTrevelerRadios.first().focus();
+                    return false;
+                case 39://→
+                    pim.blueInfoCopy.focus();
+                    return false;
+                case 40://↓
+                    pim.redInfoCode.focus();
+                    return false;
+            }
+        });
+        this.redInfoCode.keydown(function(e) {
+            let pim = playerInfoMaster;
+
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (!e.shiftKey) {
+                        pim.redInfoCopy.focus();
+                        return false;
+                    }
+                    break;
+            }
+        });
+        this.blueInfoCopy.keydown(function(e) {
+            let pim = playerInfoMaster;
+
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (e.shiftKey) {
+                        pim.blueInfoCode.focus();
+                        return false;
+                    }
+                    break;
+
+                case 37://←
+                    pim.redInfoCopy.focus();
+                    return false;
+                case 38://↑
+                    pim.blueInfoTrevelerRadios.first().focus();
+                    return false;
+                case 39://→
+                    pim.charConstells["blue"].first().focus();
+                    return false;
+                case 40://↓
+                    pim.blueInfoCode.focus();
+                    return false;
+            }
+        });
+        this.blueInfoCode.keydown(function(e) {
+            let pim = playerInfoMaster;
+
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (!e.shiftKey) {
+                        pim.blueInfoCopy.focus();
+                        return false;
+                    }
+                    break;
+            }
+        });
+
+
+        this.redAddPerConstell.keydown(function(e) {
+            let pim = playerInfoMaster;
+
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (e.shiftKey) {
+                        pim.blueAddPerRefine.focus();
+                        return false;
+                    }
+                    break;
+            }
+        });
+        //this.redAddByHadWeapon
+        this.redAddPerRefine.keydown(function(e) {
+            let pim = playerInfoMaster;
+
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (!e.shiftKey) {
+                        pim.blueAddPerConstell.focus();
+                        return false;
+                    }
+                    break;
+            }
+        });
+
+        this.blueAddPerConstell.keydown(function(e) {
+            let pim = playerInfoMaster;
+
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (e.shiftKey) {
+                        pim.redAddPerRefine.focus();
+                        return false;
+                    }
+                    break;
+            }
+        });
+        //this.blueAddByHadWeapon
+        this.blueAddPerRefine.keydown(function(e) {
+            let pim = playerInfoMaster;
+
+            switch (e.keyCode) {
+                case 9://Tab
+                    if (!e.shiftKey) {
+                        pim.redAddPerConstell.focus();
+                        return false;
+                    }
+                    break;
+            }
+        });
+
 
         this.eachCharConstell.focus(function(e) { $(this).attr("type", "number") });
         this.eachCharConstell.blur(function(e) { $(this).attr("type", "text") });

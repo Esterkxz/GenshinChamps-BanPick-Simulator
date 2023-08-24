@@ -966,7 +966,8 @@ div#player_info_op_cp div.player_info_side div.info_side textarea { }
 div#player_info_op_cp div.player_info_side div.info_side textarea.info_code { margin-bottom: 30px; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add { position: relative; display: flex; flex-wrap: nowrap; flex-direction: row; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add::after { content: attr(data-unit); position: absolute; top: 0; bottom: 2px; right: 4px; margin: auto; }
-div#player_info_op_cp div.player_info_side div.info_side div.info_add label { margin-right: 3px; word-break: keep-all; line-height: 20px; }
+div#player_info_op_cp div.player_info_side div.info_side div.info_add label { margin-right: 3px; color: var(--plain-text-rgb); font-weight: normal; word-break: keep-all; line-height: 20px; transition-duration: 0.5s; }
+div#player_info_op_cp div.player_info_side div.info_side div.info_add:focus-within label { color: rgba(var(--signature-color) / 90%); font-weight: bold; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add input.addition { width: inherit; padding-right: 22px; text-align: center; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add input.addition.constell {}
 div#player_info_op_cp div.player_info_side div.info_side div.info_add input.addition.weapon {}
