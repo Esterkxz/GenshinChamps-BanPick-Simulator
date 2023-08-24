@@ -10,7 +10,7 @@ weaponsInfo = {
             "type": "sword",
             "serise": "dvalin",
             "continent": "mondstadt",
-            "favority": ["jean", "bennett"],
+            "favority": ["lynette", "jean", "bennett"],
             "res_icon": "UI_EquipIcon_Sword_Dvalin.png",
             "res_vcut": "i_n11502_gacha_icon.webp"
         },
@@ -34,7 +34,7 @@ weaponsInfo = {
             "type": "polearm",
             "serise": "dvalin",
             "continent": "mondstadt",
-            "favority": [""],
+            "favority": ["mika"],
             "res_icon": "UI_EquipIcon_Pole_Dvalin.png",
             "res_vcut": "i_n13502_gacha_icon.webp"
         },
@@ -46,7 +46,7 @@ weaponsInfo = {
             "type": "bow",
             "serise": "dvalin",
             "continent": "mondstadt",
-            "favority": ["sara", "faruzan"],
+            "favority": ["faruzan", "sara"],
             "res_icon": "UI_EquipIcon_Bow_Dvalin.png",
             "res_vcut": "i_n15501_gacha_icon.webp"
         },
@@ -58,7 +58,7 @@ weaponsInfo = {
             "type": "catalyst",
             "serise": "dvalin",
             "continent": "mondstadt",
-            "favority": ["wanderer"],
+            "favority": ["", "wanderer"],
             "res_icon": "UI_EquipIcon_Catalyst_Dvalin.png",
             "res_vcut": "i_n14501_gacha_icon.webp"
         },
@@ -146,7 +146,7 @@ weaponsInfo = {
             "type": "polearm",
             "serise": "kunwu",
             "continent": "liyue",
-            "favority": [""],
+            "favority": ["zhongli"],
             "res_icon": "UI_EquipIcon_Pole_Kunwu.png",
             "res_vcut": "i_n13504_gacha_icon.webp"
         },
@@ -184,7 +184,7 @@ weaponsInfo = {
             "type": "sword",
             "serise": "morax",
             "continent": "liyue",
-            "favority": ["ayato", "alhaitham", "keqing", "xingqiu"],
+            "favority": ["xingqiu", "ayato", "alhaitham", "keqing", "kirara", "lynette"],
             "res_icon": "UI_EquipIcon_Sword_Morax.png",
             "res_vcut": "i_n11505_gacha_icon.webp"
         },
@@ -246,7 +246,7 @@ weaponsInfo = {
             "type": "polearm",
             "serise": "standalone",
             "continent": "mondstadt",
-            "favority": ["hutao", "zhongli", "thoma", "yaoyao", "candace"],
+            "favority": ["hutao", "zhongli", "thoma", "yaoyao", "candace", "mika"],
             "res_icon": "UI_EquipIcon_Pole_Homa.png",
             "res_vcut": "i_n13501_gacha_icon.webp"
         },
@@ -298,7 +298,7 @@ weaponsInfo = {
             "continent": "mondstadt",
             "favority": ["venti", "fischl", "yelan", "collei", "faruzan"],
             "res_icon": "UI_EquipIcon_Bow_Widsith.png",
-            "res_vcut": ".webp"
+            "res_vcut": "i_n15503_gacha_icon.webp"
         },
         {
             "id": "ct_widsith",
@@ -310,7 +310,7 @@ weaponsInfo = {
             "continent": "mondstadt",
             "favority": [""],
             "res_icon": "UI_EquipIcon_Catalyst_Widsith.png",
-            "res_vcut": "i_n15503_gacha_icon.webp"
+            "res_vcut": ""
         },
 
         //Narukami serise
@@ -334,7 +334,7 @@ weaponsInfo = {
             "type": "polearm",
             "serise": "narukami",
             "continent": "inazuma",
-            "favority": ["shogun"],
+            "favority": ["shogun", "thoma"],
             "res_icon": "UI_EquipIcon_Pole_Narukami.png",
             "res_vcut": "i_n13509_gacha_icon.webp"
         },
@@ -358,7 +358,7 @@ weaponsInfo = {
             "type": "catalyst",
             "serise": "narukami",
             "continent": "inazuma",
-            "favority": ["yae", "klee", "yanfei", "kokomi", "heizo", "nahida", "wanderer"],
+            "favority": ["yae", "lisa", "klee", "yanfei", "kokomi", "heizo", "nahida", "wanderer"],
             "res_icon": "UI_EquipIcon_Catalyst_Narukami.png",
             "res_vcut": "i_n14509_gacha_icon.webp"
         },
@@ -494,7 +494,7 @@ weaponsInfo = {
             "type": "sword",
             "serise": "deshret",
             "continent": "sumeru",
-            "favority": ["nilou", "shinobu", "layla"],
+            "favority": ["nilou", "shinobu", "layla", "kirara"],
             "res_icon": "UI_EquipIcon_Sword_Deshret.png",
             "res_vcut": "i_n11511_gacha_icon.webp"
         },
@@ -518,7 +518,7 @@ weaponsInfo = {
             "type": "polearm",
             "serise": "deshret",
             "continent": "sumeru",
-            "favority": ["cyno"],
+            "favority": ["cyno", "candace"],
             "res_icon": "UI_EquipIcon_Pole_Deshret.png",
             "res_vcut": "i_n13511_gacha_icon.webp"
         },
