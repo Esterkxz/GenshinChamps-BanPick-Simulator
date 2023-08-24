@@ -4571,6 +4571,8 @@ let playerInfoMaster = {
     info_copy: "button.info_copy",
     info_code: "textarea.info_code",
 
+    active: "data-active",
+
     add_per_constell: "input.addition.constell",
     add_by_had_weapon: "input.addition.weapon",
     add_per_refine: "input.addition.refine",
@@ -4889,13 +4891,15 @@ let playerInfoMaster = {
             sequenceMaster.setSequenceTitleByCurrent();
             sideMaster.setNameplateMix(side);
             sideMaster.setPlayerProfileShow(side);
+            playerInfoMaster.setPlayerProfileActive(side);
             return;
         }
         sequenceMaster.setSequenceTitleHtml(lang.text.playerProfileSelection.replace("#SIDE", '<span class="text' + (side == "red" ? "Red" : "Blue") + '">' + side.toUpperCase() + '</span>'));
         sequenceMaster.pickingPlayerProfile[side] = true;
         sequenceMaster.pickingPlayerProfile[side == "red" ? "blue" : "red" ] = false;
         sideMaster.setNameplateMix(side, "1");
-        sideMaster.setPlayerProfileShow(side, "1")
+        sideMaster.setPlayerProfileShow(side, "1");
+        playerInfoMaster.setPlayerProfileActive(side, "1");
     },
 
     setPlayerProfile: function(id, side, treveler) {
@@ -4929,6 +4933,7 @@ let playerInfoMaster = {
                 break;
         }
         sideMaster.setPlayerProfileShow(side, "2");
+        this.setPlayerProfileActive(side);
     },
 
     onRightClickPlayerProfileSelectButton: function(e) {
@@ -4938,6 +4943,7 @@ let playerInfoMaster = {
             sequenceMaster.pickingPlayerProfile[side] = false;
             sequenceMaster.setSequenceTitleByCurrent();
         }
+        playerInfoMaster.setPlayerProfileActive(side);
         playerInfoMaster.clearPlayerProfile(side);
         sideMaster.setPlayerProfileShow(side);
         return false;
@@ -4962,6 +4968,19 @@ let playerInfoMaster = {
             break;
         }
         sideMaster.setNameplateMix(side);
+    },
+
+    setPlayerProfileActive(side, set = "") {
+        switch (side) {
+            case "red":
+            this.redPlayerProfileSelect.attr(this.active, set);
+            break;
+
+        case "blue":
+            this.bluePlayerProfileSelect.attr(this.active, set);
+            break;
+        }
+
     },
 
     releaseCharPick: function(side, no) {
