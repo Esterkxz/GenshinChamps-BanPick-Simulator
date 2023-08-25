@@ -892,15 +892,15 @@ function getPathA(id, group = "", type = "sounds") {
                             <textarea class="info_code" id="red_info_data_code" title="붙여넣기: 계정 정보 코드 로드(정보 숨김 모드)&#13;&#10;내용 변경 시 코드가 자동으로 업데이트 됩니다">Account info data&#13;&#10;(paste or auto generate)</textarea>
                             <div class="info_add" data-unit="초">
                                 <label for="red_add_per_constell">돌파</label>
-                                <input type="number" id="red_add_per_constell" class="addition constell red" placeholder="+1 당     2" title="RED 측 5성 캐릭터 돌파 당 가산 시간&#13;&#10;기본값(미입력 시): 2초&#13;&#10;Shift 누른 채 변동 시 양측 동시 변경 적용" />
+                                <input type="number" id="red_add_per_constell" class="addition constell red" min="0" placeholder="+1 당     2" title="RED 측 5성 캐릭터 돌파 당 가산 시간&#13;&#10;기본값(미입력 시): 2초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
                             </div>
                             <div class="info_add" data-unit="초">
                                 <label for="red_add_by_had_weapon">무기</label>
-                                <input type="number" id="red_add_by_had_weapon" class="addition weapon red" placeholder=" 보유 시  5" title="RED 측 5성 무기 보유 시 가산 시간&#13;&#10;기본값(미입력 시): 5초&#13;&#10;Shift 누른 채 변동 시 양측 동시 변경 적용" />
+                                <input type="number" id="red_add_by_had_weapon" class="addition weapon red" min="0" placeholder=" 보유 시  5" title="RED 측 5성 무기 보유 시 가산 시간&#13;&#10;기본값(미입력 시): 5초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
                             </div>
                             <div class="info_add" data-unit="초">
                                 <label for="red_add_per_refine">재련</label>
-                                <input type="number" id="red_add_per_refine" class="addition refine red" placeholder="+1 당     4" title="RED 측 5성 무기 추가 재련 당 가산 시간&#13;&#10;기본값(미입력 시): 4초&#13;&#10;Shift 누른 채 변동 시 양측 동시 변경 적용" />
+                                <input type="number" id="red_add_per_refine" class="addition refine red" min="0" placeholder="+1 당     4" title="RED 측 5성 무기 추가 재련 당 가산 시간&#13;&#10;기본값(미입력 시): 4초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
                             </div>
                         </div>
                         <div class="selection_side side_root red" id="selection_red">
@@ -1050,15 +1050,15 @@ function getPathA(id, group = "", type = "sounds") {
                             <textarea class="info_code" id="blue_info_data_code" title="붙여넣기: 계정 정보 코드 로드(정보 숨김 모드)&#13;&#10;내용 변경 시 코드가 자동으로 업데이트 됩니다">Account info data&#13;&#10;(paste or auto generate)</textarea>
                             <div class="info_add" data-unit="초">
                                 <label for="blue_add_per_constell">돌파</label>
-                                <input type="number" id="blue_add_per_constell" class="addition constell blue" placeholder="+1 당     2" title="BLUE 측 5성 캐릭터 돌파 당 가산 시간&#13;&#10;기본값(미입력 시): 2초&#13;&#10;Shift 누른 채 변동 시 양측 동시 변경 적용" />
+                                <input type="number" id="blue_add_per_constell" class="addition constell blue" min="0" placeholder="+1 당     2" title="BLUE 측 5성 캐릭터 돌파 당 가산 시간&#13;&#10;기본값(미입력 시): 2초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
                             </div>
                             <div class="info_add" data-unit="초">
                                 <label for="blue_add_by_had_weapon">무기</label>
-                                <input type="number" id="blue_add_by_had_weapon" class="addition weapon blue" placeholder=" 보유 시 5" title="BLUE 측 5성 무기 보유 시 가산 시간&#13;&#10;기본값(미입력 시): 5초&#13;&#10;Shift 누른 채 변동 시 양측 동시 변경 적용" />
+                                <input type="number" id="blue_add_by_had_weapon" class="addition weapon blue" min="0" placeholder=" 보유 시 5" title="BLUE 측 5성 무기 보유 시 가산 시간&#13;&#10;기본값(미입력 시): 5초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
                             </div>
                             <div class="info_add" data-unit="초">
                                 <label for="blue_add_per_refine">재련</label>
-                                <input type="number" id="blue_add_per_refine" class="addition refine blue" placeholder="+1 당     4" title="BLUE 측 5성 무기 추가 재련 당 가산 시간&#13;&#10;기본값(미입력 시): 4초&#13;&#10;Shift 누른 채 변동 시 양측 동시 변경 적용" />
+                                <input type="number" id="blue_add_per_refine" class="addition refine blue" min="0" placeholder="+1 당     4" title="BLUE 측 5성 무기 추가 재련 당 가산 시간&#13;&#10;기본값(미입력 시): 4초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
                             </div>
                         </div>
                         <div class="selection_side side_root blue" id="selection_blue">

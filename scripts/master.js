@@ -35,6 +35,12 @@ let eoa = "reserved";
 let eoo = "reserved";
 
 
+//key states
+var onShift = false;
+var onCtrl = false;
+var onAlt = false;
+
+
 //current locale selected
 var loca = null;
 var lang = null;
@@ -4574,6 +4580,7 @@ let playerInfoMaster = {
 
     active: "data-active",
 
+    input_addition: "input.addition",
     add_per_constell: "input.addition.constell",
     add_by_had_weapon: "input.addition.weapon",
     add_per_refine: "input.addition.refine",
@@ -4608,6 +4615,11 @@ let playerInfoMaster = {
 
     eachPlayerProfileSelect: null,
 
+    eachInputAddition: null,
+    eachAddPerConstell: null,
+    eachAddByHadWeapon: null,
+    eachAddPerRefine: null,
+
 
     redInfoSide: null,
 
@@ -4620,6 +4632,7 @@ let playerInfoMaster = {
     redInfoCopy: null,
     redInfoCode: null,
 
+    redInputAddition: null,
     redAddPerConstell: null,
     redAddByHadWeapon: null,
     redAddPerRefine: null,
@@ -4636,6 +4649,7 @@ let playerInfoMaster = {
     blueInfoCopy: null,
     blueInfoCode: null,
 
+    blueInputAddition: null,
     blueAddPerConstell: null,
     blueAddByHadWeapon: null,
     blueAddPerRefine: null,
@@ -4713,6 +4727,11 @@ let playerInfoMaster = {
     
         this.eachPlayerProfileSelect = this.eachInfoSide.find(this.player_profile_select);
 
+        this.eachInputAddition = this.eachInfoSide.find(this.input_addition);
+        this.eachAddPerConstell = this.eachInfoSide.find(this.add_per_constell);
+        this.eachAddByHadWeapon = this.eachInfoSide.find(this.add_by_had_weapon);
+        this.eachAddPerRefine = this.eachInfoSide.find(this.add_per_refine);
+
 
         this.redPlayerInfoSide = this.eachPlayerInfoSide.filter(".red");
         this.redInfoSide = this.redPlayerInfoSide.find(this.info_side);
@@ -4726,6 +4745,7 @@ let playerInfoMaster = {
         this.redInfoCopy = this.redInfoSide.find(this.info_copy);
         this.redInfoCode = this.redInfoSide.find(this.info_code);
     
+        this.redInputAddition = this.redInfoSide.find(this.input_addition);
         this.redAddPerConstell = this.redInfoSide.find(this.add_per_constell);
         this.redAddByHadWeapon = this.redInfoSide.find(this.add_by_had_weapon);
         this.redAddPerRefine = this.redInfoSide.find(this.add_per_refine);
@@ -4743,6 +4763,7 @@ let playerInfoMaster = {
         this.blueInfoCopy = this.blueInfoSide.find(this.info_copy);
         this.blueInfoCode = this.blueInfoSide.find(this.info_code);
     
+        this.blueInputAddition = this.blueInfoSide.find(this.input_addition);
         this.blueAddPerConstell = this.blueInfoSide.find(this.add_per_constell);
         this.blueAddByHadWeapon = this.blueInfoSide.find(this.add_by_had_weapon);
         this.blueAddPerRefine = this.blueInfoSide.find(this.add_per_refine);
@@ -4997,6 +5018,78 @@ let playerInfoMaster = {
                         return false;
                     }
                     break;
+            }
+        });
+
+        this.redInputAddition.contextmenu(function(e) {
+            this.value = "";
+            if (onShift) playerInfoMaster.blueInfoSide.find("input#" + this.id.replace("red", "blue")).val("");
+            return false;
+        });
+        this.blueInputAddition.contextmenu(function(e) {
+            this.value = "";
+            if (onShift) playerInfoMaster.redInfoSide.find("input#" + this.id.replace("blue", "red")).val("");
+            return false;
+        });
+        this.redAddPerConstell.change(function(e) {
+            if (onShift) {
+                playerInfoMaster.blueAddPerConstell.val(this.value);
+            }
+        });
+        this.redAddPerConstell.keydown(function(e) {
+            if (e.keyCode == 13 && e.shiftKey) {
+                playerInfoMaster.blueAddPerConstell.val(this.value);
+            }
+        });
+        this.redAddByHadWeapon.change(function(e) {
+            if (onShift) {
+                playerInfoMaster.blueAddByHadWeapon.val(this.value);
+            }
+        });
+        this.redAddByHadWeapon.keydown(function(e) {
+            if (e.keyCode == 13 && e.shiftKey) {
+                playerInfoMaster.blueAddByHadWeapon.val(this.value);
+            }
+        });
+        this. redAddPerRefine.change(function(e) {
+            if (onShift) {
+                playerInfoMaster.blueAddPerRefine.val(this.value);
+            }
+        });
+        this.redAddPerRefine.keydown(function(e) {
+            if (e.keyCode == 13 && e.shiftKey) {
+                playerInfoMaster.blueAddPerRefine.val(this.value);
+            }
+        });
+
+        this.blueAddPerConstell.change(function(e) {
+            if (onShift) {
+                playerInfoMaster.redAddPerConstell.val(this.value);
+            }
+        });
+        this.blueAddPerConstell.keydown(function(e) {
+            if (e.keyCode == 13 && e.shiftKey) {
+                playerInfoMaster.redAddPerConstell.val(this.value);
+            }
+        });
+        this.blueAddByHadWeapon.change(function(e) {
+            if (onShift) {
+                playerInfoMaster.redAddByHadWeapon.val(this.value);
+            }
+        });
+        this.blueAddByHadWeapon.keydown(function(e) {
+            if (e.keyCode == 13 && e.shiftKey) {
+                playerInfoMaster.redAddByHadWeapon.val(this.value);
+            }
+        });
+        this. blueAddPerRefine.change(function(e) {
+            if (onShift) {
+                playerInfoMaster.redAddPerRefine.val(this.value);
+            }
+        });
+        this.blueAddPerRefine.keydown(function(e) {
+            if (e.keyCode == 13 && e.shiftKey) {
+                playerInfoMaster.redAddPerRefine.val(this.value);
             }
         });
 
@@ -7845,6 +7938,38 @@ $(document).ready(function() {
     let.it("popupHandler");
     let.it("sounds");
     let.it("soundsMaster");
+
+
+    $(document).keydown(function(e) {
+        switch(e.keyCode) {
+            case 16:
+                onShift = true;
+                break;
+
+            case 17:
+                onCtrl = true;
+                break;
+
+            case 18:
+                onAlt = true;
+                break;
+        }
+    })
+    $(document).keyup(function(e) {
+        switch(e.keyCode) {
+            case 16:
+                onShift = false;
+                break;
+
+            case 17:
+                onCtrl = false;
+                break;
+
+            case 18:
+                onAlt = false;
+                break;
+        }
+    })
 
 
     //initializing//
