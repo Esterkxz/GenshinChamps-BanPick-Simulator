@@ -955,7 +955,7 @@ div#player_info_op_cp div.player_info_side div.info_side input:hover[type="radio
 div#player_info_op_cp div.player_info_side div.info_side input { font-size: 18px; }
 div#player_info_op_cp div.player_info_side.red div.info_side input { text-align: right; }
 div#player_info_op_cp div.player_info_side.blue div.info_side input { text-align: left; }
-div#player_info_op_cp div.player_info_side div.info_side input.info_item[type=text] { color: rgba(var(--signature-color) / 90%); font-size: 21px; font-weight: bold; line-height: 22px; text-shadow: 1px 1px 1px rgba(var(--signature-color-darker) / 30%); }
+div#player_info_op_cp div.player_info_side div.info_side input.info_item[type=text] { color: rgba(var(--signature-color) / 90%); font-size: 21px; font-weight: bold; line-height: 22px; text-align: center; text-shadow: 1px 1px 1px rgba(var(--signature-color-darker) / 30%); }
 div#player_info_op_cp div.player_info_side div.info_side input.info_ap { width: inherit; }
 div#player_info_op_cp div.player_info_side div.info_side input.info_name { }
 div#player_info_op_cp div.player_info_side div.info_side input.info_uid { }
