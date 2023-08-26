@@ -4967,6 +4967,7 @@ let playerInfoMaster = {
         });
 
         this.eachInfoCode.focus(function(e) { $(this).select(); });
+        this.eachInfoCode.on("paste", this.onPasteAccountCode);
 
 
         this.redAddPerConstell.keydown(function(e) {
@@ -5301,7 +5302,20 @@ let playerInfoMaster = {
                 entry.attr(this.char, info.id);
                 //--class_back
                 $(this.entryIcons[side][i]).css("--src", "url('" + getPath("images", "character_icon", info.res_icon) + "')");
-                if (info.rarity == "5") $(this.charConstells[side][i]).val("0");
+                if (info.rarity == "5") {
+                    var rarity = "0";
+                    if (this.playerAccInfo[side] != null) {
+                        rarity = "" + this.playerAccInfo[side][info.id];
+                        switch (rarity) {
+                            case "null":
+                                sequenceMaster.setSequenceTitle("계정 정보 상 미보유 캐릭터를 선택하였습니다", 5000);
+                            case "undefined":
+                                rarity = "";
+                                break;
+                        }
+                    }
+                    $(this.charConstells[side][i]).val(rarity);
+                }
                 $(this.charNames[side][i]).val(info.nameShort[loca]);
             }
         }
@@ -5317,6 +5331,43 @@ let playerInfoMaster = {
         this.eachEntryWeaponIcon.css("--src", urlTpGif);
         this.eachWeaponName.val("");
         this.eachWeaponRefine.val("");
+    },
+
+    onPasteAccountCode: function(e) {
+        let self = $(e.target == null ? e : e.target);
+
+        var raw = null;
+        if (e.clipboardData != null) raw = e.clipboardData.getData("text/plain");
+
+        let side = self.attr("data-side");
+
+        if (raw != null) {
+            if (playerInfoMaster.applyAccountInfo(raw, side)) {
+                e.preventDefault();
+                return false;
+            }
+        } else {
+            let prevData = self.val().trim();
+            setTimeout(function() {
+                let pasted = self.val().trim();
+                let pastedClean = pasted.replace(/@GCBPSv[0-9]+:.*;/g, "").replace(/@GCBPSv[0-9]+:.*/g, "").replace(/{"player":\{.*\}.*\}/g, "");
+                let data = prevData == pasted ? pasted : pasted.replace(prevData, "");
+                let success = playerInfoMaster.applyAccountInfo(data, side);
+                self.val(data);
+                //if (self.val() == "") self.focus();
+            }, 10);
+        }
+    },
+
+    applyAccountInfo: function(raw, side) {
+        var data = sideMaster.parsePlayerData(raw);
+
+        if (data != null && this.loadedAccInfo(raw, data, side)) {
+            playSound("뜍");
+            return true;
+        }
+        playSound("웋");
+        return false;
     },
 
     loadedAccInfo: function(raw, data, side) {
@@ -5337,17 +5388,22 @@ let playerInfoMaster = {
             this.setAccountInfo(side, data);
             var point = 0;
 
-            for(var i in data) {
-                if (i != "player") {
-                    let cons = data[i];
-                    let info = charactersInfo.list[charactersInfo[i]];
-                    if (cons != null && info.class == "limited") point += parseInt(cons) + 1;
+            try {
+                for(var i in data) {
+                    if (i != "player") {
+                        let cons = data[i];
+                        let info = charactersInfo.list[charactersInfo[i]];
+                        if (cons != null && info.class == "limited") point += parseInt(cons) + 1;
+                    }
                 }
-            }
 
-            let playerInfo = data.player;
-            this.setPlayerInfo(side, point, playerInfo);
-        }
+                let playerInfo = data.player;
+                this.setPlayerInfo(side, point, playerInfo);
+            } catch (e) {
+                return false;
+            }
+            return true;
+        } return false;
     },
 
     setAccountInfo: function(side, data) {
