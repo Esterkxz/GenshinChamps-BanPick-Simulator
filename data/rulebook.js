@@ -121,7 +121,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "": ""
     },
 
-    "alter_default": 3,
+    "alter_default": 2,
 
     "rule_alter": [
         {
@@ -129,7 +129,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "name_full": "MAN SON",
             "score_range": "0-14",
             "double_pick": true,
-            "established": true,
+            "established": false,
+            "selectable": false,
     
             "ban_card_accure": {
                 "treveler": true,
@@ -161,17 +162,19 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "name": "무인검 리그",
             "name_full": "무인검",
             "score_range": "15-24",
-            "established": true,
+            "established": false,
+            "selectable": false,
 
             "ban_card_accure": {
             },
             "":""
         },
         {
-            "name": "흑술창 리그",
-            "name_full": "흑술창",
-            "score_range": "25-34",
+            "name": "티바트 리그",//"흑술창 리그",
+            "name_full": "Teyvat",//"흑술창",
+            "score_range": "0~55",//"25-34",
             "established": true,
+            "selectable": true,
 
             "ban_card_accure": {
                 "beidou": true,
@@ -196,8 +199,9 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "name": "제례활 리그",
             "name_full": "제례활",
             "score_range": "35-59",
-            "established": true,
-            
+            "established": false,
+            "selectable": false,
+
             "ban_card_accure": {
                 "xiangling": true,
                 "xingqiu": true,
@@ -205,16 +209,17 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "jean": true,
                 "mona": true,
                 "diona": true,
-                "shinobu": true,
+                "shinobu": false,
             },
             "": ""
         },
         {
-            "name": "카구라 리그",
-            "name_full": "카구라의 진의",
-            "score_range": "60-99",
+            "name": "셀레스티아 리그",//"카구라 리그",
+            "name_full": "Celestia",//"카구라의 진의",
+            "score_range": "56+",//"60-99",
             "established": true,
-            
+            "selectable": true,
+
             "ban_card_accure": {
                 "klee": true,
                 "tartaglia": true,
@@ -225,7 +230,6 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "eula": true,
                 "kokomi": true,
                 "shenhe": true,
-                "cyno": true,
                 "nilou": true,
                 "baizhu": true,
             },
@@ -235,8 +239,9 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "name": "일태도 리그",
             "name_full": "무상의 일태도",
             "score_range": "100+",
-            "established": true,
-                
+            "established": false,
+            "selectable": false,
+
             "ban_card_accure": {
                 "venti": true,
                 "ayaka": true,
@@ -245,6 +250,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "yae": true,
                 "ayato": true,
                 "tighnari": true,
+                "cyno": true,
                 "wanderer": true,
                 "alhaitham": true,
                 "lyney": true,
@@ -256,7 +262,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "name_full": "동상의 일태도",
             "score_range": "100+",
             "established": false,
-            
+            "selectable": false,
+
             "ban_card_accure": {
             },
             "sequence": [

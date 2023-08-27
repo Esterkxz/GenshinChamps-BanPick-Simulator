@@ -4692,14 +4692,14 @@ let playerInfoMaster = {
 
     addSecDefaults: {
         constell: 2,
-        weapon: 5,
-        refine: 4,
+        weapon: 4,
+        refine: 2,
     },
 
     addSecs: {
         constell: 2,
-        weapon: 5,
-        refine: 4,
+        weapon: 4,
+        refine: 2,
     },
 
 
@@ -6021,7 +6021,7 @@ let rulesMaster = {
         this.ruleAlter.empty();
 
         let alters = rules.rule_alter;
-        for (i in alters) this.ruleAlter.append(this.buildAlterOption(i, alters[i]));
+        for (i in alters) if (alters[i]["selectable"]) this.ruleAlter.append(this.buildAlterOption(i, alters[i]));
     },
 
     buildAlterOption(offset, detail) {
