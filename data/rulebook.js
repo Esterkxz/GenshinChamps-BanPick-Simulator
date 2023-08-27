@@ -172,7 +172,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         {
             "name": "티바트 리그",//"흑술창 리그",
             "name_full": "Teyvat",//"흑술창",
-            "score_range": "0~55",//"25-34",
+            "score_range": "0-55",//"25-34",
             "established": true,
             "selectable": true,
 
