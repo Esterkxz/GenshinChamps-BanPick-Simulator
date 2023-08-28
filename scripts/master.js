@@ -4037,8 +4037,10 @@ let sideMaster = {
         let redPIUid = pim.redInfoUid.val();
         let blueUid = this.bluePlayerUidInput.val();
         let bluePIUid = pim.blueInfoUid.val();
-        this.redSidePlayerUid.text(redPIUid != "" ? redPIUid : redUid);
-        this.blueSidePlayerUid.text(bluePIUid != "" ? bluePIUid : blueUid);
+        let redU = redPIUid != "" ? redPIUid : redUid;
+        let blueU = bluePIUid != "" ? bluePIUid : blueUid
+        this.redSidePlayerUid.text(redU != "" ? "UID: " + redU : "");
+        this.blueSidePlayerUid.text(blueU != "" ? "UID: " + blueU : "");
 
         let redAp = this.redAccountPointInput.val().trim();
         let redPIAp = pim.redInfoAp.val().trim();
@@ -4046,8 +4048,8 @@ let sideMaster = {
         let blueAp = this.blueAccountPointInput.val().trim();
         let bluePIAp = pim.blueInfoAp.val().trim();
         let blueApEx = bluePIAp != "" ? bluePIAp : blueAp;
-        this.redSidePlayerAp.text(redApEx != "" ? "UID: " + redApEx : "");
-        this.blueSidePlayerAp.text(blueApEx != "" ? "UID: " + blueApEx : "");
+        this.redSidePlayerAp.text(redApEx != "" ? redApEx : "");
+        this.blueSidePlayerAp.text(blueApEx != "" ? blueApEx : "");
 
         //가산 시간
         let adds = playerInfoMaster.getSecondsForAdd();
