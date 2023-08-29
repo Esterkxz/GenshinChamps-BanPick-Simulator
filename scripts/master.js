@@ -2447,7 +2447,7 @@ let sideMaster = {
     sideAccInfo: { "red": null, "blue": null },
     sideAccInfoPrev: { "red": null, "blue": null },
 
-    vsTimeRemains: { "red": [], "blue": [] },
+    vsTimeRemains: { "refd": [], "blue": [] },
     vsClearTime: { "red": [], "blue": [] },
 
     timeAdds: null,
@@ -4052,7 +4052,7 @@ let sideMaster = {
         this.blueSidePlayerAp.text(blueApEx != "" ? blueApEx : "");
 
         //가산 시간
-        let adds = playerInfoMaster.getSecondsForAdd();
+        let adds = playerInfoMaster.addsCalculated;
         this.timeAdds = adds;
 
         let redMin = Math.floor(adds.red / 60);
@@ -4580,12 +4580,20 @@ let playerInfoMaster = {
     info_copy: "button.info_copy",
     info_code: "textarea.info_code",
 
+    info_add: "div.info_add",
+    class_constell: ".constell",
+    class_weapon: ".weapon",
+    class_refine: ".refine",
+    class_sum: ".sum",
+
     active: "data-active",
 
     input_addition: "input.addition",
     add_per_constell: "input.addition.constell",
     add_by_had_weapon: "input.addition.weapon",
     add_per_refine: "input.addition.refine",
+    total_value: "span.total_value",
+
 
 
     selection_side: "div.selection_side",
@@ -4594,6 +4602,8 @@ let playerInfoMaster = {
     char: "data-char",
     weapon: "data-weapon",
 
+    detected_adds: "span.detected_adds",
+    
     entry_icon_area: "div.entry_icon_area",
     entry_icon: "div.entry_icon",
     char_constell: "input.char_constell",
@@ -4617,10 +4627,15 @@ let playerInfoMaster = {
 
     eachPlayerProfileSelect: null,
 
+    eachInfoAdd: null,
     eachInputAddition: null,
     eachAddPerConstell: null,
     eachAddByHadWeapon: null,
     eachAddPerRefine: null,
+    eachTotalAddPerConstell: null,
+    eachTotalAddByHadWeapon: null,
+    eachTotalAddPerRefine: null,
+    eachTotalAddsValue: null,
 
 
     redInfoSide: null,
@@ -4634,10 +4649,15 @@ let playerInfoMaster = {
     redInfoCopy: null,
     redInfoCode: null,
 
+    redInfoAdd: null,
     redInputAddition: null,
     redAddPerConstell: null,
     redAddByHadWeapon: null,
     redAddPerRefine: null,
+    redTotalAddPerConstell: null,
+    redTotalAddByHadWeapon: null,
+    redTotalAddPerRefine: null,
+    redTotalAddsValue: null,
 
 
     blueInfoSide: null,
@@ -4651,10 +4671,15 @@ let playerInfoMaster = {
     blueInfoCopy: null,
     blueInfoCode: null,
 
+    blueInfoAdd: null,
     blueInputAddition: null,
     blueAddPerConstell: null,
     blueAddByHadWeapon: null,
     blueAddPerRefine: null,
+    blueTotalAddPerConstell: null,
+    blueTotalAddByHadWeapon: null,
+    blueTotalAddPerRefine: null,
+    blueTotalAddsValue: null,
     
 
     eachSelectionSide: null,
@@ -4663,6 +4688,7 @@ let playerInfoMaster = {
     eachEntryIconArea: null,
     eachEntryIcon: null,
     eachCharConstell: null,
+    eachCharDetectedAdds: null,
 
     eachEntryInfo: null,
     eachCharName: null,
@@ -4671,6 +4697,7 @@ let playerInfoMaster = {
     eachEntryWeaponIconArea: null,
     eachEntryWeaponIcon: null,
     eachWeaponRefine: null,
+    eachWeaponDetectedAdds: null,
     
 
     selectionSides: { red: null, blue: null },
@@ -4679,6 +4706,7 @@ let playerInfoMaster = {
     entryIconAreas: { red: null, blue: null },
     entryIcons: { red: null, blue: null },
     charConstells: { red: null, blue: null },
+    charDetectedAdds: { red: null, blue: null },
 
     entryInfos: { red: null, blue: null },
     charNames: { red: null, blue: null },
@@ -4687,6 +4715,7 @@ let playerInfoMaster = {
     entryWeaponIconAreas: { red: null, blue: null },
     entryWeaponIcons: { red: null, blue: null },
     weaponRefines: { red: null, blue: null },
+    weaponDetectedAdds: { red: null, blue: null },
     
 
     inputs: null,
@@ -4699,10 +4728,19 @@ let playerInfoMaster = {
     },
 
     addSecs: {
-        constell: 2,
-        weapon: 4,
-        refine: 2,
+        red: {
+            constell: null,
+            weapon: null,
+            refine: null,
+        },
+        blue: {
+            constell: null,
+            weapon: null,
+            refine: null,
+        }
     },
+
+    addsCalculated: { red: 0, blue: 0 },
 
 
 
@@ -4729,11 +4767,16 @@ let playerInfoMaster = {
     
         this.eachPlayerProfileSelect = this.eachInfoSide.find(this.player_profile_select);
 
-        this.eachInputAddition = this.eachInfoSide.find(this.input_addition);
-        this.eachAddPerConstell = this.eachInfoSide.find(this.add_per_constell);
-        this.eachAddByHadWeapon = this.eachInfoSide.find(this.add_by_had_weapon);
-        this.eachAddPerRefine = this.eachInfoSide.find(this.add_per_refine);
-
+        this.eachInfoAdd =  this.eachInfoSide.find(this.info_add);
+        this.eachInputAddition = this.eachInfoAdd.find(this.input_addition);
+        this.eachAddPerConstell = this.eachInfoAdd.find(this.add_per_constell);
+        this.eachAddByHadWeapon = this.eachInfoAdd.find(this.add_by_had_weapon);
+        this.eachAddPerRefine = this.eachInfoAdd.find(this.add_per_refine);
+        this.eachTotalAddPerConstell = this.eachInfoAdd.filter(this.class_constell).find(this.total_value);
+        this.eachTotalAddByHadWeapon = this.eachInfoAdd.filter(this.class_weapon).find(this.total_value);
+        this.eachTotalAddPerRefine = this.eachInfoAdd.filter(this.class_refine).find(this.total_value);
+        this.eachTotalAddsValue = this.eachInfoAdd.filter(this.class_sum).find(this.total_value);
+    
 
         this.redPlayerInfoSide = this.eachPlayerInfoSide.filter(".red");
         this.redInfoSide = this.redPlayerInfoSide.find(this.info_side);
@@ -4747,10 +4790,15 @@ let playerInfoMaster = {
         this.redInfoCopy = this.redInfoSide.find(this.info_copy);
         this.redInfoCode = this.redInfoSide.find(this.info_code);
     
-        this.redInputAddition = this.redInfoSide.find(this.input_addition);
-        this.redAddPerConstell = this.redInfoSide.find(this.add_per_constell);
-        this.redAddByHadWeapon = this.redInfoSide.find(this.add_by_had_weapon);
-        this.redAddPerRefine = this.redInfoSide.find(this.add_per_refine);
+        this.redInfoAdd =  this.redInfoSide.find(this.info_add);
+        this.redInputAddition = this.redInfoAdd.find(this.input_addition);
+        this.redAddPerConstell = this.redInfoAdd.find(this.add_per_constell);
+        this.redAddByHadWeapon = this.redInfoAdd.find(this.add_by_had_weapon);
+        this.redAddPerRefine = this.redInfoAdd.find(this.add_per_refine);
+        this.redTotalAddPerConstell = this.redInfoAdd.filter(this.class_constell).find(this.total_value);
+        this.redTotalAddByHadWeapon = this.redInfoAdd.filter(this.class_weapon).find(this.total_value);
+        this.redTotalAddPerRefine = this.redInfoAdd.filter(this.class_refine).find(this.total_value);
+        this.redTotalAddsValue = this.redInfoAdd.filter(this.class_sum).find(this.total_value);
     
     
         this.bluePlayerInfoSide = this.eachPlayerInfoSide.filter(".blue");
@@ -4765,10 +4813,15 @@ let playerInfoMaster = {
         this.blueInfoCopy = this.blueInfoSide.find(this.info_copy);
         this.blueInfoCode = this.blueInfoSide.find(this.info_code);
     
-        this.blueInputAddition = this.blueInfoSide.find(this.input_addition);
-        this.blueAddPerConstell = this.blueInfoSide.find(this.add_per_constell);
-        this.blueAddByHadWeapon = this.blueInfoSide.find(this.add_by_had_weapon);
-        this.blueAddPerRefine = this.blueInfoSide.find(this.add_per_refine);
+        this.blueInfoAdd =  this.blueInfoSide.find(this.info_add);
+        this.blueInputAddition = this.blueInfoAdd.find(this.input_addition);
+        this.blueAddPerConstell = this.blueInfoAdd.find(this.add_per_constell);
+        this.blueAddByHadWeapon = this.blueInfoAdd.find(this.add_by_had_weapon);
+        this.blueAddPerRefine = this.blueInfoAdd.find(this.add_per_refine);
+        this.blueTotalAddPerConstell = this.blueInfoAdd.filter(this.class_constell).find(this.total_value);
+        this.blueTotalAddByHadWeapon = this.blueInfoAdd.filter(this.class_weapon).find(this.total_value);
+        this.blueTotalAddPerRefine = this.blueInfoAdd.filter(this.class_refine).find(this.total_value);
+        this.blueTotalAddsValue = this.blueInfoAdd.filter(this.class_sum).find(this.total_value);
 
 
         this.eachSelectionSide = this.playerInfoOpCP.find(this.selection_side);
@@ -4777,6 +4830,7 @@ let playerInfoMaster = {
         this.eachEntryIconArea = this.eachSelectionEntry.find(this.entry_icon_area);
         this.eachEntryIcon = this.eachEntryIconArea.find(this.entry_icon);
         this.eachCharConstell = this.eachEntryIcon.find(this.char_constell);
+        this.eachCharDetectedAdds = this.eachEntryIcon.find(this.detected_adds);
 
         this.eachEntryInfo = this.eachSelectionEntry.find(this.entry_info);
         this.eachCharName = this.eachEntryInfo.find(this.char_name);
@@ -4785,6 +4839,7 @@ let playerInfoMaster = {
         this.eachEntryWeaponIconArea = this.eachSelectionEntry.find(this.entry_weapon_icon_area);
         this.eachEntryWeaponIcon = this.eachEntryWeaponIconArea.find(this.entry_weapon_icon);
         this.eachWeaponRefine = this.eachEntryWeaponIcon.find(this.weapon_refine);
+        this.eachWeaponDetectedAdds = this.eachEntryWeaponIcon.find(this.detected_adds);
 
 
         this.selectionSides["red"] = this.eachSelectionSide.filter(".red");
@@ -4793,6 +4848,7 @@ let playerInfoMaster = {
         this.entryIconAreas["red"] = this.selectionEntries["red"].find(this.entry_icon_area);
         this.entryIcons["red"] = this.entryIconAreas["red"].find(this.entry_icon);
         this.charConstells["red"] = this.entryIcons["red"].find(this.char_constell);
+        this.charDetectedAdds["red"] = this.entryIcons["red"].find(this.detected_adds);
 
         this.entryInfos["red"] = this.selectionEntries["red"].find(this.entry_info);
         this.charNames["red"] = this.entryInfos["red"].find(this.char_name);
@@ -4801,6 +4857,7 @@ let playerInfoMaster = {
         this.entryWeaponIconAreas["red"] = this.selectionEntries["red"].find(this.entry_weapon_icon_area);
         this.entryWeaponIcons["red"] = this.entryWeaponIconAreas["red"].find(this.entry_weapon_icon);
         this.weaponRefines["red"] = this.entryWeaponIcons["red"].find(this.weapon_refine);
+        this.weaponDetectedAdds["red"] = this.entryWeaponIcons["red"].find(this.detected_adds);
 
 
         this.selectionSides["blue"] = this.eachSelectionSide.filter(".blue");
@@ -4809,6 +4866,7 @@ let playerInfoMaster = {
         this.entryIconAreas["blue"] = this.selectionEntries["blue"].find(this.entry_icon_area);
         this.entryIcons["blue"] = this.entryIconAreas["blue"].find(this.entry_icon);
         this.charConstells["blue"] = this.entryIcons["blue"].find(this.char_constell);
+        this.charDetectedAdds["blue"] = this.entryIcons["blue"].find(this.detected_adds);
 
         this.entryInfos["blue"] = this.selectionEntries["blue"].find(this.entry_info);
         this.charNames["blue"] = this.entryInfos["blue"].find(this.char_name);
@@ -4817,9 +4875,17 @@ let playerInfoMaster = {
         this.entryWeaponIconAreas["blue"] = this.selectionEntries["blue"].find(this.entry_weapon_icon_area);
         this.entryWeaponIcons["blue"] = this.entryWeaponIconAreas["blue"].find(this.entry_weapon_icon);
         this.weaponRefines["blue"] = this.entryWeaponIcons["blue"].find(this.weapon_refine);
+        this.weaponDetectedAdds["blue"] = this.entryWeaponIcons["blue"].find(this.detected_adds);
 
 
         this.inputs = this.eachSelectionEntry.find("input");
+
+
+
+        //init
+        this.initAddSecs();
+        this.resetPicks();
+
 
 
         //임시
@@ -5035,9 +5101,16 @@ let playerInfoMaster = {
             return false;
         });
         this.redAddPerConstell.change(function(e) {
+            let pim = playerInfoMaster;
+            let value = this.value.trim();
+            let isEmpty = value == null || value == "" || isNaN(value);
+            let v = isEmpty ? pim.addSecDefaults.constell : parseInt(value);
+            pim.addSecs.red.constell = v;
             if (onShift) {
-                playerInfoMaster.blueAddPerConstell.val(this.value);
+                pim.blueAddPerConstell.val(value);
+                pim.addSecs.blue.constell = v;
             }
+            pim.releaseSecondsForAdds();
         });
         this.redAddPerConstell.keydown(function(e) {
             if (e.keyCode == 13 && e.shiftKey) {
@@ -5045,9 +5118,16 @@ let playerInfoMaster = {
             }
         });
         this.redAddByHadWeapon.change(function(e) {
+            let pim = playerInfoMaster;
+            let value = this.value.trim();
+            let isEmpty = value == null || value == "" || isNaN(value);
+            let v = isEmpty ? pim.addSecDefaults.weapon : parseInt(value);
+            pim.addSecs.red.weapon = v;
             if (onShift) {
-                playerInfoMaster.blueAddByHadWeapon.val(this.value);
+                pim.blueAddByHadWeapon.val(value);
+                pim.addSecs.blue.weapon = v;
             }
+            pim.releaseSecondsForAdds();
         });
         this.redAddByHadWeapon.keydown(function(e) {
             if (e.keyCode == 13 && e.shiftKey) {
@@ -5055,9 +5135,16 @@ let playerInfoMaster = {
             }
         });
         this. redAddPerRefine.change(function(e) {
+            let pim = playerInfoMaster;
+            let value = this.value.trim();
+            let isEmpty = value == null || value == "" || isNaN(value);
+            let v = isEmpty ? pim.addSecDefaults.refine : parseInt(value);
+            pim.addSecs.red.refine = v;
             if (onShift) {
-                playerInfoMaster.blueAddPerRefine.val(this.value);
+                pim.blueAddPerRefine.val(value);
+                pim.addSecs.blue.refine = v;
             }
+            pim.releaseSecondsForAdds();
         });
         this.redAddPerRefine.keydown(function(e) {
             if (e.keyCode == 13 && e.shiftKey) {
@@ -5066,9 +5153,16 @@ let playerInfoMaster = {
         });
 
         this.blueAddPerConstell.change(function(e) {
+            let pim = playerInfoMaster;
+            let value = this.value.trim();
+            let isEmpty = value == null || value == "" || isNaN(value);
+            let v = isEmpty ? pim.addSecDefaults.constell : parseInt(value);
+            pim.addSecs.blue.constell = v;
             if (onShift) {
-                playerInfoMaster.redAddPerConstell.val(this.value);
+                pim.redAddPerConstell.val(value);
+                pim.addSecs.red.constell = v;
             }
+            pim.releaseSecondsForAdds();
         });
         this.blueAddPerConstell.keydown(function(e) {
             if (e.keyCode == 13 && e.shiftKey) {
@@ -5076,9 +5170,16 @@ let playerInfoMaster = {
             }
         });
         this.blueAddByHadWeapon.change(function(e) {
+            let pim = playerInfoMaster;
+            let value = this.value.trim();
+            let isEmpty = value == null || value == "" || isNaN(value);
+            let v = isEmpty ? pim.addSecDefaults.weapon : parseInt(value);
+            pim.addSecs.blue.weapon = v;
             if (onShift) {
-                playerInfoMaster.redAddByHadWeapon.val(this.value);
+                pim.redAddByHadWeapon.val(value);
+                pim.addSecs.red.weapon = v;
             }
+            pim.releaseSecondsForAdds();
         });
         this.blueAddByHadWeapon.keydown(function(e) {
             if (e.keyCode == 13 && e.shiftKey) {
@@ -5086,9 +5187,16 @@ let playerInfoMaster = {
             }
         });
         this. blueAddPerRefine.change(function(e) {
+            let pim = playerInfoMaster;
+            let value = this.value.trim();
+            let isEmpty = value == null || value == "" || isNaN(value);
+            let v = isEmpty ? pim.addSecDefaults.refine : parseInt(value);
+            pim.addSecs.blue.refine = v;
             if (onShift) {
-                playerInfoMaster.redAddPerRefine.val(this.value);
+                pim.redAddPerRefine.val(value);
+                pim.addSecs.red.refine = v;
             }
+            pim.releaseSecondsForAdds();
         });
         this.blueAddPerRefine.keydown(function(e) {
             if (e.keyCode == 13 && e.shiftKey) {
@@ -5101,6 +5209,8 @@ let playerInfoMaster = {
         this.eachCharConstell.blur(function(e) { $(this).attr("type", "text") });
         this.eachWeaponRefine.focus(function(e) { $(this).attr("type", "number") });
         this.eachWeaponRefine.blur(function(e) { $(this).attr("type", "text") });
+        this.eachCharConstell.on("input paste cut change", function(e) { playerInfoMaster.releaseSecondsForAdds(); });
+        this.eachWeaponRefine.on("input paste cut change", function(e) { playerInfoMaster.releaseSecondsForAdds(); });
 
         this.inputs.focus(function(e) { $(this).select(); });
         this.eachEntryIconArea.click(function(e) { $(this).find("input").focus(); });
@@ -5321,6 +5431,7 @@ let playerInfoMaster = {
                 $(this.charNames[side][i]).val(info.nameShort[loca]);
             }
         }
+        this.releaseSecondsForAdds();
     },
 
     resetPicks: function() {
@@ -5333,6 +5444,8 @@ let playerInfoMaster = {
         this.eachEntryWeaponIcon.css("--src", urlTpGif);
         this.eachWeaponName.val("");
         this.eachWeaponRefine.val("");
+
+        this.releaseSecondsForAdds();
     },
 
     onPasteAccountCode: function(e) {
@@ -5447,6 +5560,7 @@ let playerInfoMaster = {
     onChangedCharConstell: function(id, constell) {
         let found = this.eachSelectionEntry.filter('[' + this.char + '="' + id + '"]');
         if (found.length > 0) found.find(this.char_constell).val(constell);
+        this.releaseSecondsForAdds();
     },
 
     onKeydownCharConstell: function(e) {
@@ -5532,6 +5646,7 @@ let playerInfoMaster = {
                 refine.val("");
             }
         }
+        pim.releaseSecondsForAdds();
     },
     
     preloadWeaponsInfo: function() {
@@ -5542,69 +5657,105 @@ let playerInfoMaster = {
         }
     },
 
-    getSecondsForAdd: function() {
-        let res = { red: 0, blue: 0 };
-
-        let red = this.getSideAddEntity("red");
-        let blue = this.getSideAddEntity("blue");
-
-        var redTotal = 0;
-        var redAPC = this.redAddPerConstell.val();
-        redAPC = redAPC != null && redAPC != "" ? parseInt(redAPC) : this.addSecDefaults.constell;
-        redTotal += red.constells * redAPC;
-        var redABW = this.redAddByHadWeapon.val();
-        redABW = redABW != null && redABW != "" ? parseInt(redABW) : this.addSecDefaults.weapon;
-        redTotal += red.weaponHas * redABW;
-        var redAPR = this.redAddPerRefine.val();
-        redAPR = redAPR != null && redAPR != "" ? parseInt(redAPR) : this.addSecDefaults.refine;
-        redTotal += red.weaponRefines * redAPR;
-
-        var blueTotal = 0;
-        let blueAPC = this.blueAddPerConstell.val();
-        blueAPC = blueAPC != null && blueAPC != "" ? parseInt(blueAPC) : this.addSecDefaults.constell;
-        blueTotal += blue.constells * blueAPC;
-        let blueABW = this.blueAddByHadWeapon.val();
-        blueABW = blueABW != null && blueABW != "" ? parseInt(blueABW) : this.addSecDefaults.weapon;
-        blueTotal += blue.weaponHas * blueABW;
-        let blueAPR = this.blueAddPerRefine.val();
-        blueAPR = blueAPR != null && blueAPR != "" ? parseInt(blueAPR) : this.addSecDefaults.refine;
-        blueTotal += blue.weaponRefines * blueAPR;
-
-        res.red = redTotal;
-        res.blue = blueTotal;
-
-        return res;
+    initAddSecs: function() {
+        this.initAddSideSecs("red");
+        this.initAddSideSecs("blue");
     },
 
-    getSideAddEntity: function(side) {
+    initAddSideSecs: function(side) {
+        this.addSecs[side].constell = this.addSecDefaults.constell;
+        this.addSecs[side].weapon = this.addSecDefaults.weapon;
+        this.addSecs[side].refine = this.addSecDefaults.refine;
+    },
+
+    releaseSecondsForAdds: function() {
+
+        let red = this.releaseSideAddEntity("red");
+        let blue = this.releaseSideAddEntity("blue");
+
+        var side = "red";
+        var redTotal = 0;
+        var redAPC = this.addSecs[side].constell;
+        let redTotalConstell = red.constells * redAPC;
+        this.redTotalAddPerConstell.text("" + redTotalConstell);
+        redTotal += redTotalConstell;
+        let redABW = this.addSecs[side].weapon;
+        let redTotalWeapon = red.weaponHas * redABW;
+        this.redTotalAddByHadWeapon.text("" + redTotalWeapon);
+        redTotal += redTotalWeapon;
+        let redAPR = this.addSecs[side].refine;
+        let redTotalRefine = red.weaponRefines * redAPR;
+        this.redTotalAddPerRefine.text("" + redTotalRefine);
+        redTotal += redTotalRefine;
+        this.redTotalAddsValue.text("" + redTotal);
+
+        
+        var side = "blue";
+        var blueTotal = 0;
+        let blueAPC = this.addSecs[side].constell;
+        let blueTotalConstell = blue.constells * blueAPC;
+        this.blueTotalAddPerConstell.text("" + blueTotalConstell);
+        blueTotal += blueTotalConstell;
+        let blueABW = this.addSecs[side].weapon;
+        let blueTotalWeapon = blue.weaponHas * blueABW;
+        this.blueTotalAddByHadWeapon.text("" + blueTotalWeapon);
+        blueTotal += blueTotalWeapon;
+        let blueAPR = this.addSecs[side].refine;
+        let blueTotalRefine = blue.weaponRefines * blueAPR;
+        this.blueTotalAddPerRefine.text("" + blueTotalRefine);
+        blueTotal += blueTotalRefine;
+        this.blueTotalAddsValue.text("" + blueTotal);
+
+        this.addsCalculated.red = redTotal;
+        this.addsCalculated.blue = blueTotal;
+    },
+
+    releaseSideAddEntity: function(side) {
         let sideEntries = this.selectionEntries[side];
         let sideCons = this.charConstells[side];
         let sideRefs = this.weaponRefines[side];
+        let sideCharAdds = this.charDetectedAdds[side];
+        let sideWeaponAdds = this.weaponDetectedAdds[side];
+
         var constells = 0;
         for (var i=0; i<sideCons.length; i++) {
+            var adds = 0;
             let charId = $(sideEntries[i]).attr(this.char);
-            if (charId == null || charId == "" || charId == "treveler" || charId == "trevelerF" || charId == "trevelerM") continue;//행자 제외
-            let info = charactersInfo.list[charactersInfo[charId]];
-            if (info != null && info.rarity == "5") {
-                let cons = sideCons[i].value;
-                if (cons != null && cons != "") constells += parseInt(cons);
+            if (charId != null || charId != "" || charId != "treveler" || charId != "trevelerF" || charId != "trevelerM") {
+                let info = charactersInfo.list[charactersInfo[charId]];
+                if (info != null && info.rarity == "5") {
+                    var cons = sideCons[i].value;
+                    if (cons != null && cons != "" && !isNaN(cons)) {
+                        cons = parseInt(cons);
+                        adds = cons * this.addSecs[side].constell;
+                        constells += cons;
+                    }
+                }
             }
+            $(sideCharAdds[i]).text(adds > 0 ? "+" + adds + "s" : "");
         }
         var weaponHas = 0;
         var weaponRefines = 0;
         for (var i=0; i<sideRefs.length; i++) {
-            //무기 인식 구현 후 적용
-            // let weaponId = $(sideEntries[i]).attr(this.weapon);
-            // if (weaponId == null || weaponId == "") continue;
-            // let weapon = weaponsInfo.list.find(item => { item.id == weaponId });
-            // if (weapon != null && weapon.rarity == "5") {
-                let refine = sideRefs[i].value;
-                if (refine != null && refine != "" && parseInt(refine) > 0) {
-                    weaponHas++;
-                    if (refine > 1) weaponRefines += refine - 1;
+            var adds = 0;
+            let weaponId = $(sideEntries[i]).attr(this.weapon);
+            if (weaponId != null || weaponId != "") {
+                let weapon = weaponsInfo.list.find(item => item.id == weaponId);
+                if (weapon != null && weapon.rarity == "5") {
+                    var refine = sideRefs[i].value;
+                    if (refine != null && refine != "" && !isNaN(refine) > 0) {
+                        refine = parseInt(refine);
+                        adds += this.addSecs[side].weapon;
+                        weaponHas++;
+                        if (refine > 1) {
+                            let addiRefine = refine - 1;
+                            adds += addiRefine * this.addSecs[side].refine;
+                            weaponRefines += addiRefine;
+                        }
+                    }
                 }
-            // }
-
+            }
+            $(sideWeaponAdds[i]).text(adds > 0 ? "+" + adds + "s" : "");
         }
 
         return { constells: constells, weaponHas: weaponHas, weaponRefines: weaponRefines };

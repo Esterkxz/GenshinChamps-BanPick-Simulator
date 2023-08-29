@@ -890,23 +890,44 @@ function getPathA(id, group = "", type = "sounds") {
                             </div>
                             <button class="info_copy" id="red_info_copy" title="클릭: 계정 정보 코드를 클립보드로 복사">계정 정보 복사하기</button>
                             <textarea class="info_code" id="red_info_data_code" data-side="red" title="붙여넣기: 계정 정보 코드 로드(정보 숨김 모드)&#13;&#10;내용 변경 시 코드가 자동으로 업데이트 됩니다">Account info data&#13;&#10;(paste or auto generate)</textarea>
-                            <div class="info_add" data-unit="초">
-                                <label for="red_add_per_constell">돌파</label>
-                                <input type="number" id="red_add_per_constell" class="addition constell red" min="0" placeholder="+1 당     2" title="RED 측 5성 캐릭터 돌파 당 가산 시간&#13;&#10;기본값(미입력 시): 2초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
+                            <div class="info_add constell">
+                                <label class="line_title" for="red_add_per_constell">돌파</label>
+                                <input type="number" id="red_add_per_constell" class="addition constell red" min="0" placeholder="2" title="RED 측 5성 캐릭터 돌파 당 가산 시간&#13;&#10;기본값(미입력 시): 2초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
+                                <span class="addition_unit" data-unit="초"></span>
+                                <span class="divider">/</span>
+                                <label class="total_label">합</label>
+                                <span id="red_total_add_per_constell" class="total_value">0</span>
+                                <span class="addition_unit" data-unit="초"></span>
                             </div>
-                            <div class="info_add" data-unit="초">
-                                <label for="red_add_by_had_weapon">무기</label>
-                                <input type="number" id="red_add_by_had_weapon" class="addition weapon red" min="0" placeholder=" 보유 시  4" title="RED 측 5성 무기 보유 시 가산 시간&#13;&#10;기본값(미입력 시): 4초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
+                            <div class="info_add weapon">
+                                <label class="line_title" for="red_add_by_had_weapon">무기</label>
+                                <input type="number" id="red_add_by_had_weapon" class="addition weapon red" min="0" placeholder="4" title="RED 측 5성 무기 보유 시 가산 시간&#13;&#10;기본값(미입력 시): 4초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
+                                <span class="addition_unit" data-unit="초"></span>
+                                <span class="divider">/</span>
+                                <label class="total_label">합</label>
+                                <span id="red_total_add_by_had_weapon" class="total_value">0</span>
+                                <span class="addition_unit" data-unit="초"></span>
                             </div>
-                            <div class="info_add" data-unit="초">
-                                <label for="red_add_per_refine">재련</label>
-                                <input type="number" id="red_add_per_refine" class="addition refine red" min="0" placeholder="+1 당     2" title="RED 측 5성 무기 추가 재련 당 가산 시간&#13;&#10;기본값(미입력 시): 2초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
+                            <div class="info_add refine">
+                                <label class="line_title" for="red_add_per_refine">재련</label>
+                                <input type="number" id="red_add_per_refine" class="addition refine red" min="0" placeholder="2" title="RED 측 5성 무기 추가 재련 당 가산 시간&#13;&#10;기본값(미입력 시): 2초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
+                                <span class="addition_unit" data-unit="초"></span>
+                                <span class="divider">/</span>
+                                <label class="total_label">합</label>
+                                <span id="red_total_add_by_had_weapon" class="total_value">0</span>
+                                <span class="addition_unit" data-unit="초"></span>
+                            </div>
+                            <div class="info_add sum">
+                                <label class="line_title" for="red_adds_total">가산 시간 총</label>
+                                <span id="red_total_adds" class="total_value">0</span>
+                                <span class="addition_unit" data-unit="초"></span>
                             </div>
                         </div>
                         <div class="selection_side side_root red" id="selection_red">
                             <div class="selection_entry" data-entry="1" data-char="" data-weapon="">
                                 <div class="entry_icon_area">
                                     <div class="entry_icon icon_inner_layer">
+                                        <span class="detected_adds">+2s</span>
                                         <input type="text" class="char_constell" sizw="1" maxlength="1" min="0" max="6" placeholder="C" title="캐릭터 돌파 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -916,6 +937,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </div>
                                 <div class="entry_weapon_icon_area">
                                     <div class="entry_weapon_icon icon_inner_layer">
+                                        <span class="detected_adds">+4s</span>
                                         <input type="text" class="weapon_refine" sizw="1" maxlength="1" min="1" max="5" placeholder="R" title="무기 재련 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -923,6 +945,7 @@ function getPathA(id, group = "", type = "sounds") {
                             <div class="selection_entry" data-entry="2" data-char="" data-weapon="">
                                 <div class="entry_icon_area">
                                     <div class="entry_icon icon_inner_layer">
+                                        <span class="detected_adds">+2s</span>
                                         <input type="text" class="char_constell" sizw="1" maxlength="1" min="0" max="6" placeholder="C" title="캐릭터 돌파 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -932,6 +955,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </div>
                                 <div class="entry_weapon_icon_area">
                                     <div class="entry_weapon_icon icon_inner_layer">
+                                        <span class="detected_adds">+4s</span>
                                         <input type="text" class="weapon_refine" sizw="1" maxlength="1" min="1" max="5" placeholder="R" title="무기 재련 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -939,6 +963,7 @@ function getPathA(id, group = "", type = "sounds") {
                             <div class="selection_entry" data-entry="3" data-char="" data-weapon="">
                                 <div class="entry_icon_area">
                                     <div class="entry_icon icon_inner_layer">
+                                        <span class="detected_adds">+2s</span>
                                         <input type="text" class="char_constell" sizw="1" maxlength="1" min="0" max="6" placeholder="C" title="캐릭터 돌파 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -948,6 +973,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </div>
                                 <div class="entry_weapon_icon_area">
                                     <div class="entry_weapon_icon icon_inner_layer">
+                                        <span class="detected_adds">+4s</span>
                                         <input type="text" class="weapon_refine" sizw="1" maxlength="1" min="1" max="5" placeholder="R" title="무기 재련 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -955,6 +981,7 @@ function getPathA(id, group = "", type = "sounds") {
                             <div class="selection_entry" data-entry="4" data-char="" data-weapon="">
                                 <div class="entry_icon_area">
                                     <div class="entry_icon icon_inner_layer">
+                                        <span class="detected_adds">+2s</span>
                                         <input type="text" class="char_constell" sizw="1" maxlength="1" min="0" max="6" placeholder="C" title="캐릭터 돌파 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -964,6 +991,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </div>
                                 <div class="entry_weapon_icon_area">
                                     <div class="entry_weapon_icon icon_inner_layer">
+                                        <span class="detected_adds">+4s</span>
                                         <input type="text" class="weapon_refine" sizw="1" maxlength="1" min="1" max="5" placeholder="R" title="무기 재련 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -971,6 +999,7 @@ function getPathA(id, group = "", type = "sounds") {
                             <div class="selection_entry" data-entry="5" data-char="" data-weapon="">
                                 <div class="entry_icon_area">
                                     <div class="entry_icon icon_inner_layer">
+                                        <span class="detected_adds">+2s</span>
                                         <input type="text" class="char_constell" sizw="1" maxlength="1" min="0" max="6" placeholder="C" title="캐릭터 돌파 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -980,6 +1009,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </div>
                                 <div class="entry_weapon_icon_area">
                                     <div class="entry_weapon_icon icon_inner_layer">
+                                        <span class="detected_adds">+4s</span>
                                         <input type="text" class="weapon_refine" sizw="1" maxlength="1" min="1" max="5" placeholder="R" title="무기 재련 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -987,6 +1017,7 @@ function getPathA(id, group = "", type = "sounds") {
                             <div class="selection_entry" data-entry="6" data-char="" data-weapon="">
                                 <div class="entry_icon_area">
                                     <div class="entry_icon icon_inner_layer">
+                                        <span class="detected_adds">+2s</span>
                                         <input type="text" class="char_constell" sizw="1" maxlength="1" min="0" max="6" placeholder="C" title="캐릭터 돌파 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -996,6 +1027,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </div>
                                 <div class="entry_weapon_icon_area">
                                     <div class="entry_weapon_icon icon_inner_layer">
+                                        <span class="detected_adds">+4s</span>
                                         <input type="text" class="weapon_refine" sizw="1" maxlength="1" min="1" max="5" placeholder="R" title="무기 재련 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1003,6 +1035,7 @@ function getPathA(id, group = "", type = "sounds") {
                             <div class="selection_entry" data-entry="7" data-char="" data-weapon="">
                                 <div class="entry_icon_area">
                                     <div class="entry_icon icon_inner_layer">
+                                        <span class="detected_adds">+2s</span>
                                         <input type="text" class="char_constell" sizw="1" maxlength="1" min="0" max="6" placeholder="C" title="캐릭터 돌파 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1012,6 +1045,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </div>
                                 <div class="entry_weapon_icon_area">
                                     <div class="entry_weapon_icon icon_inner_layer">
+                                        <span class="detected_adds">+4s</span>
                                         <input type="text" class="weapon_refine" sizw="1" maxlength="1" min="1" max="5" placeholder="R" title="무기 재련 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1019,6 +1053,7 @@ function getPathA(id, group = "", type = "sounds") {
                             <div class="selection_entry" data-entry="8" data-char="" data-weapon="">
                                 <div class="entry_icon_area">
                                     <div class="entry_icon icon_inner_layer">
+                                        <span class="detected_adds">+2s</span>
                                         <input type="text" class="char_constell" sizw="1" maxlength="1" min="0" max="6" placeholder="C" title="캐릭터 돌파 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1028,6 +1063,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </div>
                                 <div class="entry_weapon_icon_area">
                                     <div class="entry_weapon_icon icon_inner_layer">
+                                        <span class="detected_adds">+4s</span>
                                         <input type="text" class="weapon_refine" sizw="1" maxlength="1" min="1" max="5" placeholder="R"1 title="무기 재련 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1048,23 +1084,44 @@ function getPathA(id, group = "", type = "sounds") {
                             </div>
                             <button class="info_copy" id="blue_info_copy" title="클릭: 계정 정보 코드를 클립보드로 복사">계정 정보 복사하기</button>
                             <textarea class="info_code" id="blue_info_data_code" data-side="blue" title="붙여넣기: 계정 정보 코드 로드(정보 숨김 모드)&#13;&#10;내용 변경 시 코드가 자동으로 업데이트 됩니다">Account info data&#13;&#10;(paste or auto generate)</textarea>
-                            <div class="info_add" data-unit="초">
-                                <label for="blue_add_per_constell">돌파</label>
-                                <input type="number" id="blue_add_per_constell" class="addition constell blue" min="0" placeholder="+1 당     2" title="BLUE 측 5성 캐릭터 돌파 당 가산 시간&#13;&#10;기본값(미입력 시): 2초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
+                            <div class="info_add constell">
+                                <label class="line_title" for="blue_add_per_constell">돌파</label>
+                                <input type="number" id="blue_add_per_constell" class="addition constell blue" min="0" placeholder="2" title="BLUE 측 5성 캐릭터 돌파 당 가산 시간&#13;&#10;기본값(미입력 시): 2초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
+                                <span class="addition_unit" data-unit="초"></span>
+                                <span class="divider">/</span>
+                                <label class="total_label">합</label>
+                                <span id="blue_total_add_per_constell" class="total_value">0</span>
+                                <span class="addition_unit" data-unit="초"></span>
                             </div>
-                            <div class="info_add" data-unit="초">
-                                <label for="blue_add_by_had_weapon">무기</label>
-                                <input type="number" id="blue_add_by_had_weapon" class="addition weapon blue" min="0" placeholder=" 보유 시 4" title="BLUE 측 5성 무기 보유 시 가산 시간&#13;&#10;기본값(미입력 시): 4초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
+                            <div class="info_add weapon">
+                                <label class="line_title" for="blue_add_by_had_weapon">무기</label>
+                                <input type="number" id="blue_add_by_had_weapon" class="addition weapon blue" min="0" placeholder="4" title="BLUE 측 5성 무기 보유 시 가산 시간&#13;&#10;기본값(미입력 시): 4초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
+                                <span class="addition_unit" data-unit="초"></span>
+                                <span class="divider">/</span>
+                                <label class="total_label">합</label>
+                                <span id="blue_total_add_by_had_weapon" class="total_value">0</span>
+                                <span class="addition_unit" data-unit="초"></span>
                             </div>
-                            <div class="info_add" data-unit="초">
-                                <label for="blue_add_per_refine">재련</label>
-                                <input type="number" id="blue_add_per_refine" class="addition refine blue" min="0" placeholder="+1 당     2" title="BLUE 측 5성 무기 추가 재련 당 가산 시간&#13;&#10;기본값(미입력 시): 2초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
+                            <div class="info_add refine">
+                                <label class="line_title" for="blue_add_per_refine">재련</label>
+                                <input type="number" id="blue_add_per_refine" class="addition refine blue" min="0" placeholder="2" title="BLUE 측 5성 무기 추가 재련 당 가산 시간&#13;&#10;기본값(미입력 시): 2초&#13;&#10;우클릭: 초기화(비움=기본값으로)&#13;&#10;Shift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용" />
+                                <span class="addition_unit" data-unit="초"></span>
+                                <span class="divider">/</span>
+                                <label class="total_label">합</label>
+                                <span id="blue_total_add_by_had_weapon" class="total_value">0</span>
+                                <span class="addition_unit" data-unit="초"></span>
+                            </div>
+                            <div class="info_add sum">
+                                <label class="line_title" for="blue_adds_total">가산 시간 총</label>
+                                <span id="blue_total_adds" class="total_value">0</span>
+                                <span class="addition_unit" data-unit="초"></span>
                             </div>
                         </div>
                         <div class="selection_side side_root blue" id="selection_blue">
                             <div class="selection_entry" data-entry="1" data-char="" data-weapon="">
                                 <div class="entry_icon_area">
                                     <div class="entry_icon icon_inner_layer">
+                                        <span class="detected_adds">+2s</span>
                                         <input type="text" class="char_constell" sizw="1" maxlength="1" min="0" max="6" placeholder="C" title="캐릭터 돌파 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1074,6 +1131,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </div>
                                 <div class="entry_weapon_icon_area">
                                     <div class="entry_weapon_icon icon_inner_layer">
+                                        <span class="detected_adds">+4s</span>
                                         <input type="text" class="weapon_refine" sizw="1" maxlength="1" min="1" max="5" placeholder="R" title="무기 재련 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1081,6 +1139,7 @@ function getPathA(id, group = "", type = "sounds") {
                             <div class="selection_entry" data-entry="2" data-char="" data-weapon="">
                                 <div class="entry_icon_area">
                                     <div class="entry_icon icon_inner_layer">
+                                        <span class="detected_adds">+2s</span>
                                         <input type="text" class="char_constell" sizw="1" maxlength="1" min="0" max="6" placeholder="C" title="캐릭터 돌파 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1090,6 +1149,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </div>
                                 <div class="entry_weapon_icon_area">
                                     <div class="entry_weapon_icon icon_inner_layer">
+                                        <span class="detected_adds">+4s</span>
                                         <input type="text" class="weapon_refine" sizw="1" maxlength="1" min="1" max="5" placeholder="R" title="무기 재련 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1097,6 +1157,7 @@ function getPathA(id, group = "", type = "sounds") {
                             <div class="selection_entry" data-entry="3" data-char="" data-weapon="">
                                 <div class="entry_icon_area">
                                     <div class="entry_icon icon_inner_layer">
+                                        <span class="detected_adds">+2s</span>
                                         <input type="text" class="char_constell" sizw="1" maxlength="1" min="0" max="6" placeholder="C" title="캐릭터 돌파 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1106,6 +1167,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </div>
                                 <div class="entry_weapon_icon_area">
                                     <div class="entry_weapon_icon icon_inner_layer">
+                                        <span class="detected_adds">+4s</span>
                                         <input type="text" class="weapon_refine" sizw="1" maxlength="1" min="1" max="5" placeholder="R" title="무기 재련 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1113,6 +1175,7 @@ function getPathA(id, group = "", type = "sounds") {
                             <div class="selection_entry" data-entry="4" data-char="" data-weapon="">
                                 <div class="entry_icon_area">
                                     <div class="entry_icon icon_inner_layer">
+                                        <span class="detected_adds">+2s</span>
                                         <input type="text" class="char_constell" sizw="1" maxlength="1" min="0" max="6" placeholder="C" title="캐릭터 돌파 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1122,6 +1185,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </div>
                                 <div class="entry_weapon_icon_area">
                                     <div class="entry_weapon_icon icon_inner_layer">
+                                        <span class="detected_adds">+4s</span>
                                         <input type="text" class="weapon_refine" sizw="1" maxlength="1" min="1" max="5" placeholder="R" title="무기 재련 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1129,6 +1193,7 @@ function getPathA(id, group = "", type = "sounds") {
                             <div class="selection_entry" data-entry="5" data-char="" data-weapon="">
                                 <div class="entry_icon_area">
                                     <div class="entry_icon icon_inner_layer">
+                                        <span class="detected_adds">+2s</span>
                                         <input type="text" class="char_constell" sizw="1" maxlength="1" min="0" max="6" placeholder="C" title="캐릭터 돌파 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1138,6 +1203,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </div>
                                 <div class="entry_weapon_icon_area">
                                     <div class="entry_weapon_icon icon_inner_layer">
+                                        <span class="detected_adds">+4s</span>
                                         <input type="text" class="weapon_refine" sizw="1" maxlength="1" min="1" max="5" placeholder="R" title="무기 재련 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1145,6 +1211,7 @@ function getPathA(id, group = "", type = "sounds") {
                             <div class="selection_entry" data-entry="6" data-char="" data-weapon="">
                                 <div class="entry_icon_area">
                                     <div class="entry_icon icon_inner_layer">
+                                        <span class="detected_adds">+2s</span>
                                         <input type="text" class="char_constell" sizw="1" maxlength="1" min="0" max="6" placeholder="C" title="캐릭터 돌파 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1154,6 +1221,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </div>
                                 <div class="entry_weapon_icon_area">
                                     <div class="entry_weapon_icon icon_inner_layer">
+                                        <span class="detected_adds">+4s</span>
                                         <input type="text" class="weapon_refine" sizw="1" maxlength="1" min="1" max="5" placeholder="R" title="무기 재련 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1161,6 +1229,7 @@ function getPathA(id, group = "", type = "sounds") {
                             <div class="selection_entry" data-entry="7" data-char="" data-weapon="">
                                 <div class="entry_icon_area">
                                     <div class="entry_icon icon_inner_layer">
+                                        <span class="detected_adds">+2s</span>
                                         <input type="text" class="char_constell" sizw="1" maxlength="1" min="0" max="6" placeholder="C" title="캐릭터 돌파 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1170,6 +1239,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </div>
                                 <div class="entry_weapon_icon_area">
                                     <div class="entry_weapon_icon icon_inner_layer">
+                                        <span class="detected_adds">+4s</span>
                                         <input type="text" class="weapon_refine" sizw="1" maxlength="1" min="1" max="5" placeholder="R" title="무기 재련 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1177,6 +1247,7 @@ function getPathA(id, group = "", type = "sounds") {
                             <div class="selection_entry" data-entry="8" data-char="" data-weapon="">
                                 <div class="entry_icon_area">
                                     <div class="entry_icon icon_inner_layer">
+                                        <span class="detected_adds">+2s</span>
                                         <input type="text" class="char_constell" sizw="1" maxlength="1" min="0" max="6" placeholder="C" title="캐릭터 돌파 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
@@ -1186,6 +1257,7 @@ function getPathA(id, group = "", type = "sounds") {
                                 </div>
                                 <div class="entry_weapon_icon_area">
                                     <div class="entry_weapon_icon icon_inner_layer">
+                                        <span class="detected_adds">+4s</span>
                                         <input type="text" class="weapon_refine" sizw="1" maxlength="1" min="1" max="5" placeholder="R" title="무기 재련 입력&#13;&#10;우클릭: 비움(미보유)" />
                                     </div>
                                 </div>
