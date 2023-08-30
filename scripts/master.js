@@ -8217,6 +8217,13 @@ function playAudio(a, volume = soundsMaster.volumeControlSlider.val()) {
     a.play();
 }
 
+function releaseVersionDisplay() {
+    let vi = $("div#version_info span");
+    let vd = $("div#version_display");
+    vd.find("div.version_number").text(vi.text());
+    vd.find("div.release_date").text(vi.attr("title"));
+}
+
 //onload
 $(document).ready(function() {
 
@@ -8273,6 +8280,9 @@ $(document).ready(function() {
 
     //initializing//
     //Initialize section objects & Generate variable things//
+
+    //version display
+    releaseVersionDisplay();
 
     //screen
     screenMaster.init();
