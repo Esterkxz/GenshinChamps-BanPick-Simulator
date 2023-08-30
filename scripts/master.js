@@ -670,6 +670,7 @@ let sequenceMaster = {
         this.sequenceBlock.attr(this.hide, "");
         poolMaster.poolBlock.attr(this.hide, "");
         poolMaster.unavailables.attr(this.hide, "");
+        playerInfoMaster.checkBackShowingPlayerInfoLayer();
         controllerMaster.mainController.attr(this.hide, "");
         sideMaster.eachPlayerBoard.attr(this.hide, "");
         sideMaster.banPickBoard.attr(this.hide, "");
@@ -5278,16 +5279,31 @@ let playerInfoMaster = {
     },
 
     togglePlayerInfoLayer: function() {
-        if (this.playerInfoOpCP.is(":visible")) this.hidePlayerInfoLayer();
-        else this.showPlayerInfoLayer();
+        if (this.playerInfoOpCP.is(":visible")) this.hidePlayerInfoLayer(true);
+        else this.showPlayerInfoLayer(true);
     },
 
-    showPlayerInfoLayer: function() {
+    showPlayerInfoLayer: function(byToggle) {
+        if (!byToggle) this.lastStatePIL = this.getStatePlayerInfoLayer();
         this.playerInfoOpCP.fadeIn(270);
     },
 
-    hidePlayerInfoLayer: function() {
+    hidePlayerInfoLayer: function(byToggle) {
+        if (!byToggle) this.lastStatePIL = this.getStatePlayerInfoLayer();
         this.playerInfoOpCP.fadeOut(270);
+    },
+
+    getStatePlayerInfoLayer: function() {
+        let opacity = this.playerInfoOpCP.css("opacity");
+        return this.playerInfoOpCP.css("display") != "none" && opacity == 1;
+    },
+
+    checkBackShowingPlayerInfoLayer: function() {
+        let ls = this.lastStatePIL;
+        if (ls != null) {
+            if (ls) this.showPlayerInfoLayer(true);
+            else this.hidePlayerInfoLayer(true);
+        }
     },
 
     onClickPlayerProfileSelectButton: function(e) {
@@ -5600,7 +5616,7 @@ let playerInfoMaster = {
 
             case 191:// '/'
                 if (!e.shiftKey) {
-                    pim.setWeaponOptimal(selectionEntry);
+                    pim.setWeaponIsSignature(selectionEntry);
                     return false;
                 }
                 break;
@@ -5621,7 +5637,7 @@ let playerInfoMaster = {
 
             case 191:// '/'/ ?
                 if (!e.shiftKey) {
-                    pim.setWeaponOptimal(selectionEntry);
+                    pim.setWeaponIsSignature(selectionEntry);
                     return false;
                 } else this.value = "";
                 break;
@@ -5635,7 +5651,7 @@ let playerInfoMaster = {
         switch (e.keyCode) {
             case 191:// '/'
                 if (!e.shiftKey) {
-                    pim.setWeaponOptimal(selectionEntry);
+                    pim.setWeaponIsSignature(selectionEntry);
                     return false;
                 }
                 break;
@@ -5657,7 +5673,7 @@ let playerInfoMaster = {
         }
     },
 
-    setWeaponOptimal: function(selectionEntry) {
+    setWeaponIsSignature: function(selectionEntry) {
         let input = selectionEntry.find(this.weapon_name);
         let refine = selectionEntry.find(this.weapon_refine);
         input.val("전무");
