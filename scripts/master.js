@@ -5645,7 +5645,9 @@ let playerInfoMaster = {
     onInputWeaponName: function(e) {
         let pim = playerInfoMaster;
         let selectionEntry = $(this).closest(pim.selection_entry);
+        let input = selectionEntry.find(pim.weapon_name);
 
+        let value = input.val().trim();
         let valueLc = value.toLowerCase();
         if (valueLc == "wjsan" || valueLc == "ㅈㅁ" || valueLc == "wa" || valueLc == "/") {
             setWeaponOptimal(selectionEntry);
