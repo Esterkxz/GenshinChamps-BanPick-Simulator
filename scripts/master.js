@@ -5209,8 +5209,10 @@ let playerInfoMaster = {
         this.eachCharConstell.blur(function(e) { $(this).attr("type", "text") });
         this.eachWeaponRefine.focus(function(e) { $(this).attr("type", "number") });
         this.eachWeaponRefine.blur(function(e) { $(this).attr("type", "text") });
-        this.eachCharConstell.on("input paste cut change", function(e) { playerInfoMaster.releaseSecondsForAdds(); });
-        this.eachWeaponRefine.on("input paste cut change", function(e) { playerInfoMaster.releaseSecondsForAdds(); });
+        this.eachCharConstell.on("input paste cut change", this.onNumericEnterSelections);
+        this.eachWeaponRefine.on("input paste cut change", this.onNumericEnterSelections);
+        this.eachCharConstell.on("focus input paste cut change", function(e) { if ($(this).is(":focus")) this.select(); });
+        this.eachWeaponRefine.on("focus input paste cut change", function(e) { if ($(this).is(":focus")) this.select(); });
 
         this.inputs.focus(function(e) { $(this).select(); });
         this.eachEntryIconArea.click(function(e) { $(this).find("input").focus(); });
@@ -5266,6 +5268,7 @@ let playerInfoMaster = {
         });
         this.eachCharConstell.keydown(this.onKeydownCharConstell);
         this.eachWeaponName.keydown(this.onKeydownWeaponName);
+        this.eachWeaponRefine.keydown(this.onKeydownWeaponRefine);
 
         this.eachWeaponName.on("input cut paste change", this.onInputWeaponName);
 
@@ -5563,8 +5566,29 @@ let playerInfoMaster = {
         this.releaseSecondsForAdds();
     },
 
+    onNumericEnterSelections: function(e) {
+        let value = this.value;
+        var val = value.trim();
+        if (val != "") {
+            if (isNaN(val)) val = "";
+            else {
+                let self = $(this);
+                let max = self.attr("max");
+                let min = self.attr("min");
+                let v = parseInt(val);
+                if (v > parseInt(max)) val = max;
+                else if (v < parseInt(min)) val = min;
+            }
+        }
+        if (value != val) {
+            this.value = val;
+            setTimeout(function() { playerInfoMaster.releaseSecondsForAdds(); }, 10);
+        } else playerInfoMaster.releaseSecondsForAdds();
+    },
+
     onKeydownCharConstell: function(e) {
         let pim = playerInfoMaster;
+        let selectionEntry = $(this).closest(pim.selection_entry);
 
         switch (e.keyCode) {
             case 9://Tab
@@ -5573,16 +5597,45 @@ let playerInfoMaster = {
                     return false;
                 }
                 break;
+
+            case 191:// '/'
+                if (!e.shiftKey) {
+                    pim.setWeaponOptimal(selectionEntry);
+                    return false;
+                }
+                break;
         }
     },
 
     onKeydownWeaponName: function(e) {
         let pim = playerInfoMaster;
+        let selectionEntry = $(this).closest(pim.selection_entry);
 
         switch (e.keyCode) {
             case 9://Tab
                 if (e.shiftKey) {
                     $(this).closest(pim.selection_entry).find(pim.char_constell).focus();
+                    return false;
+                }
+                break;
+
+            case 191:// '/'/ ?
+                if (!e.shiftKey) {
+                    pim.setWeaponOptimal(selectionEntry);
+                    return false;
+                } else this.value = "";
+                break;
+        }
+    },
+
+    onKeydownWeaponRefine: function(e) {
+        let pim = playerInfoMaster;
+        let selectionEntry = $(this).closest(pim.selection_entry);
+
+        switch (e.keyCode) {
+            case 191:// '/'
+                if (!e.shiftKey) {
+                    pim.setWeaponOptimal(selectionEntry);
                     return false;
                 }
                 break;
@@ -5592,61 +5645,80 @@ let playerInfoMaster = {
     onInputWeaponName: function(e) {
         let pim = playerInfoMaster;
         let selectionEntry = $(this).closest(pim.selection_entry);
-        let weaponIcon = selectionEntry.find(pim.entry_weapon_icon);
-        let refine = selectionEntry.find(pim.weapon_refine);
 
-        var value = this.value.trim();
+        let valueLc = value.toLowerCase();
+        if (valueLc == "wjsan" || valueLc == "ㅈㅁ" || valueLc == "wa" || valueLc == "/") {
+            setWeaponOptimal(selectionEntry);
+        } else {
+            pim.checkWeaponName(selectionEntry);
+            pim.releaseSecondsForAdds();
+        }
+    },
+
+    setWeaponOptimal: function(selectionEntry) {
+        let input = selectionEntry.find(this.weapon_name);
+        let refine = selectionEntry.find(this.weapon_refine);
+        input.val("전무");
+        let found = this.checkWeaponName(selectionEntry);
+        this.releaseSecondsForAdds();
+        setTimeout(function() {
+            if (found != null) refine.focus();
+            else input.focus();
+        }, 10);
+    },
+
+    checkWeaponName: function(selectionEntry) {
+        let weaponIcon = selectionEntry.find(this.entry_weapon_icon);
+        let refine = selectionEntry.find(this.weapon_refine);
+        let input = selectionEntry.find(this.weapon_name);
+
+        let value = input.val().trim();
 
         if (value == "") {
-            selectionEntry.attr(pim.weapon, "");
+            selectionEntry.attr(this.weapon, "");
             weaponIcon.css("--src", urlTpGif);
             refine.val("");
             return;
         }
-
-        let charId = selectionEntry.attr(pim.char);
+        
+        let charId = selectionEntry.attr(this.char);
         if (charId == null || charId == "") return;
         let info = charactersInfo.list[charactersInfo[charId]];
-        if (info == null || info == "" || info == {}) return;
+        if (info == null || info == "" || info == {}) return null;
 
-        let valueLc = value.toLowerCase();
-        if (valueLc == "wjsan" || valueLc == "ㅈㅁ" || valueLc == "wa" || valueLc == "/") {
-            this.value = "전무";
-            value = this.value;
-        }
         var found = null;
         if (value == "전무") {
-            found = pim.weapons[info.weapon].find((item, index) => {
+            found = this.weapons[info.weapon].find((item, index) => {
                 return item.favority[0] == charId;
             });
 
             if (found != null) {
-                selectionEntry.attr(pim.weapon, found.id);
+                selectionEntry.attr(this.weapon, found.id);
                 weaponIcon.css("--src", "url('" + getPath("images", "weapon_icon", found.res_icon) + "')")
                 refine.val("1");
             } else {
-                selectionEntry.attr(pim.weapon, "");
+                selectionEntry.attr(this.weapon, "");
                 weaponIcon.css("--src", urlTpGif);
                 refine.val("");
             }
         } else {
-            let found = pim.weapons[info.weapon].filter((item, index) => {
+            found = this.weapons[info.weapon].filter((item, index) => {
                 return item.name[loca].indexOf(value) == 0
                     || item.name[loca].replace(/\b/ig, "").indexOf(value.replace(/\b/ig, "")) == 0
                     || item.aliases[loca].find((alias, idx) => { return alias == value; }) != null;
             });
 
             if (found != null && found.length > 0) {
-                selectionEntry.attr(pim.weapon, found[0].id);
+                selectionEntry.attr(this.weapon, found[0].id);
                 weaponIcon.css("--src", "url('" + getPath("images", "weapon_icon", found[0].res_icon) + "')")
                 refine.val("1");
             } else {
-                selectionEntry.attr(pim.weapon, "");
+                selectionEntry.attr(this.weapon, "");
                 weaponIcon.css("--src", urlTpGif);
                 refine.val("");
             }
         }
-        pim.releaseSecondsForAdds();
+        return found;
     },
     
     preloadWeaponsInfo: function() {
