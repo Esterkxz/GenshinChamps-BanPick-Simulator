@@ -4062,10 +4062,10 @@ let sideMaster = {
         let blueSec = adds.blue % 60;
         if (blueSec < 10) blueSec = "0" + blueSec;
         
-        this.redSideRecordTotal.find(".add_time.min").html(redMin);
+        this.redSideRecordTotal.find(".add_time.min").html("+" + redMin);
         this.redSideRecordTotal.find("div.record_time_add").find(".divider").html(":");
         this.redSideRecordTotal.find(".add_time.sec").html(redSec);
-        this.blueSideRecordTotal.find(".add_time.min").html(blueMin);
+        this.blueSideRecordTotal.find(".add_time.min").html("+" + blueMin);
         this.blueSideRecordTotal.find("div.record_time_add").find(".divider").html(":");
         this.blueSideRecordTotal.find(".add_time.sec").html(blueSec);
         //---------
