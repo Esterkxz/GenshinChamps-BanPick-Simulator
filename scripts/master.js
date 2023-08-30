@@ -5798,7 +5798,7 @@ let playerInfoMaster = {
                 if (info != null && info.rarity == "5") {
                     var cons = sideCons[i].value;
                     if (cons != null && cons != "" && !isNaN(cons)) {
-                        cons = parseInt(cons);
+                        cons = parseInt(cons) + 1;
                         adds = cons * this.addSecs[side].constell;
                         constells += cons;
                     }
