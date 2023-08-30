@@ -977,7 +977,7 @@ div#player_info_op_cp div.player_info_side div.info_side div.info_add input.addi
 div#player_info_op_cp div.player_info_side div.info_side div.info_add input.addition.refine {}
 div#player_info_op_cp div.player_info_side div.info_side div.info_add span.divider {}
 div#player_info_op_cp div.player_info_side div.info_side div.info_add label.total_label { font-weight: bold; }
-div#player_info_op_cp div.player_info_side div.info_side div.info_add span.total_value { width: inherit; color: rgba(var(--signature-color-light) / 90%); text-align: right; text-shadow: 1px 1px 1px rgba(var(--signature-color-darker) / 90%); }
+div#player_info_op_cp div.player_info_side div.info_side div.info_add span.total_value { width: inherit; color: rgba(var(--signature-color-light) / 90%); line-height: 20px; text-align: right; text-shadow: 1px 1px 1px rgba(var(--signature-color-darker) / 90%); }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add span.addition_unit { }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add span.addition_unit::before { content: attr(data-unit); /* position: absolute; top: 0; bottom: 2px; right: 4px; margin: auto; */ }
 
