@@ -4884,13 +4884,14 @@ let playerInfoMaster = {
 
 
         //init
+        this.initAddsDefault();
         this.initAddSecs();
         this.resetPicks();
 
 
 
-        //임시
-        this.togglePlayerInfoLayer();
+        //default set
+        this.showPlayerInfoLayer();
 
 
         this.eachPlayerProfileSelect.click(this.onClickPlayerProfileSelectButton);
@@ -5761,6 +5762,15 @@ let playerInfoMaster = {
             if (info.id == "reserved") continue;
             this.weapons[info.type].push(info);
         }
+    },
+
+    initAddsDefault: function() {
+        this.eachAddPerConstell.attr("placeholder", "" + this.addSecDefaults.constell);
+        this.eachAddByHadWeapon.attr("placeholder", "" + this.addSecDefaults.weapon);
+        this.eachAddPerRefine.attr("placeholder", "" + this.addSecDefaults.refine);
+        this.eachAddPerConstell.val(this.addSecDefaults.constell);
+        this.eachAddByHadWeapon.val(this.addSecDefaults.weapon);
+        this.eachAddPerRefine.val(this.addSecDefaults.refine);
     },
 
     initAddSecs: function() {
