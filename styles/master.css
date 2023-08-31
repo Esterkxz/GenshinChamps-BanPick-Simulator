@@ -1662,7 +1662,8 @@ div.float_layer#version_display { display: block; top: 0; bottom: max(calc(100% 
 div.float_layer#version_display > div { color: var(--plain-text-rgb); font-size: 16px; line-height: 16px; text-align: right; }
 div.float_layer#version_display > div.tool_title { color: rgba(var(--plain-text-base) / 60%); font-weight: bold; }
 div.float_layer#version_display > div.version_number {  }
-div.float_layer#version_display > div.release_date {  color: rgba(var(--plain-text-base) / 80%); }
+div.float_layer#version_display > div.release_date { color: rgba(var(--plain-text-base) / 80%); }
+div.float_layer#version_display > div.powered_by { color: #222D; font-weight: bold; }
 
 /* Timer */
 div.float_layer#timer { display: flex; top: 0; bottom: max(calc(100% - 1080px), 0px); right: 20px; height: fit-content; margin: auto auto 20px; padding: 12px 14px; border-radius: 8px; background-color: rgba(var(--main-color) / 30%); transition-duration: 0.2s; transition-timing-function: ease-out; }

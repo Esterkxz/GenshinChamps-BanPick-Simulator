@@ -1,12 +1,12 @@
 ruleBooks["AngChamps v3"] = {
     "comment": "\
 Rule refferenced by 앙리형 (Angri-hyung / brother Henry - Streamer & Youtuber)\n\
-Youtube: https://www.youtube.com/@angri_hyung \n\
+Youtube: https://www.youtube.com/@angrihyung_genshin \n\
 Twitch(Official): https://www.twitch.tv/angrimoldi \n\
 Twitch(for Live): https://www.twitch.tv/angrihyung \n\
 \n\
 check this videos: \n\
-https://www.youtube.com/@angri_hyung/search?query=%EC%9B%90%EC%8B%A0%20%EC%B1%94%EC%8A%A4 \n\
+https://www.youtube.com/@angrihyung_genshin/search?query=%EC%9B%90%EC%8B%A0%20%EC%B1%94%EC%8A%A4 \n\
 \n\
 Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard.\n\
