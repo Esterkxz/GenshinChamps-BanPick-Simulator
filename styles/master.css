@@ -1005,19 +1005,21 @@ div#player_info_op_cp div.player_info_side div.selection_side div.selection_entr
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_icon_area div.entry_icon input.char_constell:focus { font-size: 42px; }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_icon_area div.entry_icon input.char_constell:hover { }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info { position: relative; width: 100%; }
-div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input { position: absolute; width: 100%; border-radius: 4px; background-color: rgba(var(--bgcolor-base) / 40%); font-size: 16px; font-weight: bold; line-height: 17px; text-shadow: 1px 1px 1px black; ime-mode: active; }
+div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input { position: absolute; width: 100%; border-radius: 4px; background-color: rgba(var(--bgcolor-base) / 40%); font-size: 16px; font-weight: bold; line-height: 17px; text-shadow: 1px 1px 1px black; ime-mode: active; transition-duration: 0.2s; }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input::placeholder { color: rgba(var(--signature-color-bright) / 70%);  }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input:focus { z-index: 1; color: rgba(var(--main-color) / 90%); background-color: rgba(var(--bgcolor-base) / 90%); }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input:hover { z-index: 1; background-color: rgba(var(--bgcolor-base) / 70%); }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input.char_name { bottom: 3px; left: 8px; width: 70%; color: rgba(var(--signature-color-light) / 90%); text-align: left; }
+div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry[data-focus="char_constell"] div.entry_info input.char_name { transform: translateX(10px); }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input.weapon_name { top: -3px; right: -4px; width: 60%; color: rgba(var(--signature-color-lighter) / 90%); text-align: right; }
+div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry[data-focus="weapon_refine"] div.entry_info input.weapon_name { transform: translateY(-22px); }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_weapon_icon_area { position: relative; bottom: var(--icon-ext); right: var(--icon-ext); width: var(--icon-area-size); height: var(--icon-area-size); cursor: text; }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_weapon_icon_area div.entry_weapon_icon { position: absolute; bottom: 0; right: 0; width: var(--icon-size); height: var(--icon-size); background-image: var(--src); background-size: cover; background-repeat: no-repeat; box-shadow: 0 0 3px 0 rgb(var(--signature-color-darker)); filter: drop-shadow(4px 3px 1.5px #222D); }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_weapon_icon_area div.entry_weapon_icon span.detected_adds { top: -6px; right: -2px; }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_weapon_icon_area:focus-within div.entry_weapon_icon span.detected_adds { top: -18px; }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_weapon_icon_area div.entry_weapon_icon input.weapon_refine { position: absolute; top: 0; bottom: 0; right: 0; margin: auto; border-top-right-radius: var(--icon-radius); border-bottom-right-radius: var(--icon-radius); color: rgba(255 255 255 / 90%); }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_weapon_icon_area div.entry_weapon_icon input.weapon_refine::placeholder { color: rgba(var(--signature-color-light) / 70%);  }
-div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_weapon_icon_area div.entry_weapon_icon input.weapon_refine:focus { font-size: 42px; }
+div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_weapon_icon_area div.entry_weapon_icon input.weapon_refine:focus { font-size: 42px; transform: translateX(-40px); }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_weapon_icon_area div.entry_weapon_icon input.weapon_refine:hover { }
 
 
