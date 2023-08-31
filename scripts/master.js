@@ -5215,7 +5215,8 @@ let playerInfoMaster = {
         this.eachCharConstell.on("focus input paste cut change", function(e) { if ($(this).is(":focus")) this.select(); });
         this.eachWeaponRefine.on("focus input paste cut change", function(e) { if ($(this).is(":focus")) this.select(); });
 
-        this.inputs.focus(function(e) { $(this).select(); });
+        this.inputs.focus(function(e) { $(this).closest(playerInfoMaster.selection_entry).attr("data-focus", this.className); $(this).select(); });
+        this.inputs.blur(function(e) { let selectionEntry = $(this).closest(playerInfoMaster.selection_entry); if (selectionEntry.attr("data-focus") == this.className) selectionEntry.attr("data-focus", ""); });
         this.eachEntryIconArea.click(function(e) { $(this).find("input").focus(); });
         this.eachEntryWeaponIconArea.click(function(e) { $(this).find("input").focus(); });
 
