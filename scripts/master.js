@@ -5268,6 +5268,7 @@ let playerInfoMaster = {
             }
         });
         this.eachCharConstell.keydown(this.onKeydownCharConstell);
+        this.eachCharName.keydown(this.onKeydownCharName);
         this.eachWeaponName.keydown(this.onKeydownWeaponName);
         this.eachWeaponRefine.keydown(this.onKeydownWeaponRefine);
 
@@ -5614,6 +5615,20 @@ let playerInfoMaster = {
                 }
                 break;
 
+            case 191:// '/'
+                if (!e.shiftKey) {
+                    pim.setWeaponIsSignature(selectionEntry);
+                    return false;
+                }
+                break;
+        }
+    },
+
+    onKeydownCharName: function(e) {
+        let pim = playerInfoMaster;
+        let selectionEntry = $(this).closest(pim.selection_entry);
+
+        switch (e.keyCode) {
             case 191:// '/'
                 if (!e.shiftKey) {
                     pim.setWeaponIsSignature(selectionEntry);
