@@ -5345,7 +5345,7 @@ let playerInfoMaster = {
         for (var i=0; i<this.charNames["blue"].length; i++) $(this.charNames["blue"][i]).attr("placeholder", text.pssCharName.replace("#NO", "" + (i + 1)));
         this.eachWeaponName.attr("title", text.pssWeaponNameDesc);
         for (var i=0; i<this.weaponNames["red"].length; i++) $(this.weaponNames["red"][i]).attr("placeholder", text.pssWeaponName.replace("#NO", "" + (i + 1)));
-        for (var i=0; i<this.weaponNames["blue"].length; i++) $(this.weaponNames["blue"][i]).attr("placeholder", text.pssCharName.replace("#NO", "" + (i + 1)));
+        for (var i=0; i<this.weaponNames["blue"].length; i++) $(this.weaponNames["blue"][i]).attr("placeholder", text.pssWeaponName.replace("#NO", "" + (i + 1)));
         this.eachEntryWeaponIcon.attr("title", text.pssWeaponRefineDesc);
         this.eachWeaponRefine.attr("title", text.pssWeaponRefineDesc);
     },
