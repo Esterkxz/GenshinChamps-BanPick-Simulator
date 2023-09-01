@@ -209,7 +209,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "jean": true,
                 "mona": true,
                 "diona": true,
-                "shinobu": false,
+                "shinobu": true,
             },
             "": ""
         },
