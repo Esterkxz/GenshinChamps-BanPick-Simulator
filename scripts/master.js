@@ -5321,8 +5321,8 @@ let playerInfoMaster = {
         this.bluePlayerProfileSelect.text(text.sideBlue);
         this.eachPlayerProfileSelect.attr("title", text.pisPlayerProfileSelectDesc);
         this.eachPlayerProfileSelect.attr("placeholder", text.pisPlayerProfileSelectDesc);
-        this.eachInfoTreveler.find('label[for="redTrevelerF"]').text(text.pisLumine);
-        this.eachInfoTreveler.find('label[for="redTrevelerM"]').text(text.pisAether);
+        this.eachInfoTreveler.find('label.info_treveler_style.female').text(text.pisLumine);
+        this.eachInfoTreveler.find('label.info_treveler_style.male').text(text.pisAether);
         this.eachInfoCopy.text(text.pisCopyAccountCode);
         this.eachInfoCopy.attr("title", text.pisCopyAccountCodeDesc);
         this.eachInfoCode.text(text.pisDataAccountCode);

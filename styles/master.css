@@ -961,7 +961,7 @@ div#player_info_op_cp div.player_info_side div.info_side input.info_item[type=te
 div#player_info_op_cp div.player_info_side div.info_side input.info_ap { width: inherit; }
 div#player_info_op_cp div.player_info_side div.info_side input.info_name { }
 div#player_info_op_cp div.player_info_side div.info_side input.info_uid { }
-div#player_info_op_cp div.player_info_side div.info_side div.info_treveler { text-align: center; }
+div#player_info_op_cp div.player_info_side div.info_side div.info_treveler { margin: 0 -4px; text-align: center; white-space: nowrap; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_treveler input[type=radio] { }
 div#player_info_op_cp div.player_info_side div.info_side div.info_treveler label { cursor: pointer; }
 div#player_info_op_cp div.player_info_side div.info_side button.info_copy { margin-top: 10px; }
