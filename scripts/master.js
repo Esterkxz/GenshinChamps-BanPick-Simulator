@@ -4589,11 +4589,16 @@ let playerInfoMaster = {
 
     active: "data-active",
 
+    line_title: "label.line_title",
+    total_label: "label.total_label",
+    addition_unit: "soan.addition_unit",
     input_addition: "input.addition",
     add_per_constell: "input.addition.constell",
     add_by_had_weapon: "input.addition.weapon",
     add_per_refine: "input.addition.refine",
     total_value: "span.total_value",
+
+    unit: "data-unit",
 
 
 
@@ -4764,6 +4769,12 @@ let playerInfoMaster = {
         this.eachPlayerInfoSide = this.playerInfoOpCP.find(this.player_info_side);
 
         this.eachInfoSide = this.eachPlayerInfoSide.find(this.info_side);
+        this.eachInfoAp = this.eachInfoSide.find(this.info_ap);
+        this.eachInfoName = this.eachInfoSide.find(this.info_name);
+        this.eachInfoUid = this.eachInfoSide.find(this.info_uid);
+        this.eachInfoTreveler = this.eachInfoSide.find(this.info_treveler);
+        this.eachInfoTrevelerRadios = this.eachInfoTreveler.find('input[type="radio"]');
+        this.eachInfoCopy = this.eachInfoSide.find(this.info_copy);
         this.eachInfoCode = this.eachInfoSide.find(this.info_code);
     
         this.eachPlayerProfileSelect = this.eachInfoSide.find(this.player_profile_select);
@@ -4884,6 +4895,7 @@ let playerInfoMaster = {
 
 
         //init
+        this.initDesc();
         this.initAddsDefault();
         this.initAddSecs();
         this.resetPicks();
@@ -5279,6 +5291,42 @@ let playerInfoMaster = {
 
         this.preloadWeaponsInfo();
         
+    },
+
+    initDesc: function() {
+        let text = lang.text;
+
+        this.redPlayerProfileSelect.text(text.sideRed);
+        this.bluePlayerProfileSelect.text(text.sideBlue);
+        this.eachPlayerProfileSelect.attr("title", text.pisPlayerProfileSelectDesc);
+        this.eachPlayerProfileSelect.attr("placeholder", text.pisPlayerProfileSelectDesc);
+        this.eachInfoTreveler.find('label[for="redTrevelerF"]').text(text.pisLumine);
+        this.eachInfoTreveler.find('label[for="redTrevelerM"]').text(text.pisAether);
+        this.eachInfoCopy.text(text.pisCopyAccountCode);
+        this.eachInfoCopy.attr("title", text.pisCopyAccountCodeDesc);
+        this.eachInfoCode.text(text.pisDataAccountCode);
+        this.eachInfoAdd.filter(this.class_constell).find(this.line_title).text(text.pisAddTimeConstell);
+        this.eachInfoAdd.filter(this.class_weapon).find(this.line_title).text(text.pisAddTimeHasWapon);
+        this.eachInfoAdd.filter(this.class_refine).find(this.line_title).text(text.pisAddTimeWeponRefine);
+        this.eachInfoAdd.find(this.total_label).text(text.sum);
+        this.eachInfoAdd.find(this.addition_unit).attr(this.unit, text.unitSec);
+        this.redAddPerConstell.attr("title", text.pisAddTimeConstellDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.constell));
+        this.blueAddPerConstell.attr("title", text.pisAddTimeConstellDesc.replace("#SIDE", text.sideBlue) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.constell));
+        this.redAddByHadWeapon.attr("title", text.pisAddTimeHasWaponDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.weapon));
+        this.blueAddByHadWeapon.attr("title", text.pisAddTimeHasWaponDesc.replace("#SIDE", text.sideBlue) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.weapon));
+        this.redAddPerRefine.attr("title", text.pisAddTimeWeponRefineDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.refine));
+        this.blueAddPerRefine.attr("title", text.pisAddTimeWeponRefineDesc.replace("#SIDE", text.sideBlue) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.refine));
+
+        this.eachEntryIcon.attr("title", text.pssCharConstellDesc);
+        this.eachCharConstell.attr("title", text.pssCharConstellDesc);
+        this.eachCharName.attr("title", text.pssCharNameDesc);
+        for (var i=0; i<this.charNames["red"].length; i++) $(this.charNames["red"][i]).attr("placeholder", text.pssCharName.replace("#NO", "" + (i + 1)));
+        for (var i=0; i<this.charNames["blue"].length; i++) $(this.charNames["blue"][i]).attr("placeholder", text.pssCharName.replace("#NO", "" + (i + 1)));
+        this.eachWeaponName.attr("title", text.pssWeaponNameDesc);
+        for (var i=0; i<this.weaponNames["red"].length; i++) $(this.weaponNames["red"][i]).attr("placeholder", text.pssWeaponName.replace("#NO", "" + (i + 1)));
+        for (var i=0; i<this.weaponNames["blue"].length; i++) $(this.weaponNames["blue"][i]).attr("placeholder", text.pssCharName.replace("#NO", "" + (i + 1)));
+        this.eachEntryWeaponIcon.attr("title", text.pssWeaponRefineDesc);
+        this.eachWeaponRefine.attr("title", text.pssWeaponRefineDesc);
     },
 
     togglePlayerInfoLayer: function() {
@@ -6441,6 +6489,7 @@ let localeMaster = {
         try {
             this.initLanguageSelectorText();
             sideMaster.initDesc();
+            playerInfoMaster.initDesc();
             timerMaster.initDesc();
             searchMaster.initSearchInputHelps();
             controllerMaster.initButtonTexts();
@@ -6565,7 +6614,7 @@ let controllerMaster = {
         this.mainActionButton.attr("title", text.btnMainDesc);
         this.subActionButton.attr("title", text.btnUndoDesc);
         this.remoconCallerButton.attr("title", text.btnRemoconDesc);
-        //this.togglePlayerInfoButton.attr("title", text.btnPlayerInfoToggleDesc);//언어 텍스트 추가 필요
+        this.togglePlayerInfoButton.attr("title", text.btnPlayerInfoToggleDesc);
         this.randomPickButton.attr("title", text.btnRandomDesc);
         this.buttonSettings.attr("title", text.btnSettingsDesc);
         this.buttonReset.attr("title", text.btnResetDesc);
