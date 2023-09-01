@@ -968,7 +968,7 @@ div#player_info_op_cp div.player_info_side div.info_side button.info_copy { marg
 div#player_info_op_cp div.player_info_side div.info_side textarea { }
 div#player_info_op_cp div.player_info_side div.info_side textarea.info_code { margin-bottom: 18px; color: rgba(var(--signature-color) / 90%); line-height: 15px; text-shadow: 1px 1px 1px rgba(var(--signature-color-darker) / 20%); }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add { position: relative; display: flex; flex-wrap: nowrap; flex-direction: row; }
-div#player_info_op_cp div.player_info_side div.info_side div.info_add label.line_title { margin-right: 3px; color: var(--plain-text-rgb); font-weight: normal; word-break: keep-all; line-height: 20px; transition-duration: 0.5s; }
+div#player_info_op_cp div.player_info_side div.info_side div.info_add label.line_title { display: flex; min-width: 36px; margin-right: 3px; color: var(--plain-text-rgb); font-weight: normal; word-break: keep-all; line-height: 20px; overflow: visible; transition-duration: 0.5s; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add.sum label.line_title { font-weight: bold; line-height: inherit; white-space: nowrap; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add:focus-within label.line_title { color: rgba(var(--signature-color) / 90%); font-weight: bold; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add input.addition { width: 42px; text-align: right; }
