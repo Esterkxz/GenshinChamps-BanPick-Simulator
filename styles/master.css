@@ -966,7 +966,7 @@ div#player_info_op_cp div.player_info_side div.info_side div.info_treveler input
 div#player_info_op_cp div.player_info_side div.info_side div.info_treveler label { cursor: pointer; }
 div#player_info_op_cp div.player_info_side div.info_side button.info_copy { margin-top: 10px; }
 div#player_info_op_cp div.player_info_side div.info_side textarea { }
-div#player_info_op_cp div.player_info_side div.info_side textarea.info_code { margin-bottom: 18px; color: rgba(var(--signature-color) / 90%); text-shadow: 1px 1px 1px rgba(var(--signature-color-darker) / 20%); }
+div#player_info_op_cp div.player_info_side div.info_side textarea.info_code { margin-bottom: 18px; color: rgba(var(--signature-color) / 90%); line-height: 15px; text-shadow: 1px 1px 1px rgba(var(--signature-color-darker) / 20%); }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add { position: relative; display: flex; flex-wrap: nowrap; flex-direction: row; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add label.line_title { margin-right: 3px; color: var(--plain-text-rgb); font-weight: normal; word-break: keep-all; line-height: 20px; transition-duration: 0.5s; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add.sum label.line_title { font-weight: bold; line-height: inherit; white-space: nowrap; }
