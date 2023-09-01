@@ -5219,6 +5219,27 @@ let playerInfoMaster = {
         });
 
 
+        this.eachEntryIcon.contextmenu(function(e) {
+            e.preventDefault();
+            $(this).find(playerInfoMaster.char_constell).val("");
+            return false;
+        });
+        this.eachWeaponRefine.contextmenu(function(e) {
+            e.preventDefault();
+            this.value = "";
+            return false;
+        });
+        this.eachEntryWeaponIcon.contextmenu(function(e) {
+            e.preventDefault();
+            $(this).find(playerInfoMaster.weapon_refine).val("");
+            return false;
+        });
+        this.eachWeaponRefine.contextmenu(function(e) {
+            e.preventDefault();
+            this.value = "";
+            return false;
+        });
+
         this.eachCharConstell.focus(function(e) { $(this).attr("type", "number") });
         this.eachCharConstell.blur(function(e) { $(this).attr("type", "text") });
         this.eachWeaponRefine.focus(function(e) { $(this).attr("type", "number") });
