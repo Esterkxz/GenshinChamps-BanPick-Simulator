@@ -8067,6 +8067,8 @@ function initializeStep() {
 
     timerMaster.initTimer();
 
+    versionDisplayShowFor(false);
+
     playSound("풛");
 }
 
