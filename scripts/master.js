@@ -4081,6 +4081,7 @@ let sideMaster = {
             if (sideMaster.versusRecordBoard.attr(sideMaster.show) === "1") sideMaster.versusRecordBoard.attr(sideMaster.show, "2");
 
             setTimeout(function() {
+                sideMaster.showDifferAddsByTotalVersusSuperiorityGraph();
                 showCursorWholeScreen();
                 screenMaster.showSideArea();
             }, 500);
@@ -4354,7 +4355,14 @@ let sideMaster = {
         }
     },
 
-    releaseVersusSuperiorityGraph: function(stage, side) {
+    showDifferAddsByTotalVersusSuperiorityGraph: function() {
+        let addsMax = Math.max(this.timeAdds.red, this.timeAdds.blue) + 3;
+        this.vsTimeRemains["red"][0] = addsMax - this.timeAdds.red;
+        this.vsTimeRemains["blue"][0] = addsMax - this.timeAdds.blue;
+        this.releaseVersusSuperiorityGraph(0);
+    },
+
+    releaseVersusSuperiorityGraph: function(stage, side, finale = false) {
         if (stage == null || isNaN(stage) || stage < 0) return;
         stage = parseInt(stage);
 
@@ -4363,9 +4371,13 @@ let sideMaster = {
 
         if (redRemains == null || blueRemains == null) return;
 
-        if (this.progressPanel[stage].attr(this.show) != "1") {
-            this.progressPanel[stage].attr(this.show, "1");
+        let showingPhaseTotals = this.progressPanel[stage].attr(this.show);
+        if (finale && showingPhaseTotals != "2") {
+            this.progressPanel[stage].attr(this.show, "2");
             setTimeout(function() { sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains); }, 1000);
+        } else if (showingPhaseTotals != "1" && showingPhaseTotals != "2") {
+            this.progressPanel[stage].attr(this.show, finale ? "2" :"1");
+            sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains);
         } else this.updateVersusSuperiorityGraph(stage, redRemains, blueRemains, side);
 
         if (stage > 0) this.checkUpdateVersusResultGraph(stage);
@@ -4554,8 +4566,8 @@ let sideMaster = {
             }
 
             //this.releaseVersusSuperiorityGraph(0);
-            if (!isFirstResult) this.releaseVersusSuperiorityGraph(0);
-            else setTimeout(function() { sideMaster.releaseVersusSuperiorityGraph(0); }, 1500);
+            if (!isFirstResult) this.releaseVersusSuperiorityGraph(0, finale = true);
+            else setTimeout(function() { sideMaster.releaseVersusSuperiorityGraph(0, finale = true); }, 1500);
         } else {
             //this.updateVersusSuperiorityGraph(0, redRemains, blueRemains);
             if (stage < 2) this.releaseVersusSuperiorityGraph(0);
