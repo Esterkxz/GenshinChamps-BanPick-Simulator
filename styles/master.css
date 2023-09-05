@@ -494,7 +494,7 @@ div#bg_area div#bg_video_area div#bg_video_holder video#spiral_enterence { width
 div#center_behind { position: absolute; z-index: -1; width: 100%; height: 1080px; }
 div#center_behind > div { position: absolute; top: 0; left: 0; right: 0; }
 div#center_behind div#center_behind_area { width: calc(100% - 200px); margin: auto; }
-div#center_behind div#center_behind_area div#league_title { left: 0; right: 0; margin: 100px auto 54px; color: rgba(var(--plain-text-base) / 20%); font-size: 144px; font-weight: bold; text-align: center; line-height: 128%; }
+div#center_behind div#center_behind_area div#league_title { left: 0; right: 0; margin: 100px auto 54px; color: rgba(var(--plain-text-base) / 20%); font-size: 144px; font-weight: bold; text-align: center; line-height: 128%; user-select: none; }
 div#center_behind div#center_behind_area div#league_title span {  }
 div#center_behind div#center_behind_area div#league_title span.league_name { font-family: 'Noto Sans KR'; line-height: 76%; }
 div#center_behind div#center_behind_area div#league_title span.league_tail { display: block; margin-top: 30px; color: rgba(var(--plain-text-base) / 13.333%); font-family: Lato; font-size: 256px; line-height: 86%; }
@@ -961,22 +961,22 @@ div#player_info_op_cp div.player_info_side div.info_side input.info_item[type=te
 div#player_info_op_cp div.player_info_side div.info_side input.info_ap { width: inherit; }
 div#player_info_op_cp div.player_info_side div.info_side input.info_name { }
 div#player_info_op_cp div.player_info_side div.info_side input.info_uid { }
-div#player_info_op_cp div.player_info_side div.info_side div.info_treveler { text-align: center; }
+div#player_info_op_cp div.player_info_side div.info_side div.info_treveler { margin: 0 -4px; text-align: center; white-space: nowrap; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_treveler input[type=radio] { }
 div#player_info_op_cp div.player_info_side div.info_side div.info_treveler label { cursor: pointer; }
 div#player_info_op_cp div.player_info_side div.info_side button.info_copy { margin-top: 10px; }
 div#player_info_op_cp div.player_info_side div.info_side textarea { }
-div#player_info_op_cp div.player_info_side div.info_side textarea.info_code { margin-bottom: 18px; color: rgba(var(--signature-color) / 90%); text-shadow: 1px 1px 1px rgba(var(--signature-color-darker) / 20%); }
+div#player_info_op_cp div.player_info_side div.info_side textarea.info_code { margin-bottom: 18px; color: rgba(var(--signature-color) / 90%); line-height: 15px; text-shadow: 1px 1px 1px rgba(var(--signature-color-darker) / 20%); }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add { position: relative; display: flex; flex-wrap: nowrap; flex-direction: row; }
-div#player_info_op_cp div.player_info_side div.info_side div.info_add label.line_title { margin-right: 3px; color: var(--plain-text-rgb); font-weight: normal; word-break: keep-all; line-height: 20px; transition-duration: 0.5s; }
-div#player_info_op_cp div.player_info_side div.info_side div.info_add.sum label.line_title { font-weight: bold; line-height: inherit; white-space: nowrap; }
+div#player_info_op_cp div.player_info_side div.info_side div.info_add label.line_title { display: flex; min-width: 36px; margin-right: 3px; color: var(--plain-text-rgb); font-weight: normal; word-break: keep-all; line-height: 20px; overflow: visible; transition-duration: 0.5s; }
+div#player_info_op_cp div.player_info_side div.info_side div.info_add.sum label.line_title { font-weight: bold; letter-spacing: -0.5px; line-height: inherit; white-space: nowrap; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add:focus-within label.line_title { color: rgba(var(--signature-color) / 90%); font-weight: bold; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add input.addition { width: 42px; text-align: right; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add input.addition.constell {}
 div#player_info_op_cp div.player_info_side div.info_side div.info_add input.addition.weapon {}
 div#player_info_op_cp div.player_info_side div.info_side div.info_add input.addition.refine {}
 div#player_info_op_cp div.player_info_side div.info_side div.info_add span.divider {}
-div#player_info_op_cp div.player_info_side div.info_side div.info_add label.total_label { font-weight: bold; }
+div#player_info_op_cp div.player_info_side div.info_side div.info_add label.total_label { font-weight: bold; letter-spacing: -1.5px; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add span.total_value { width: inherit; color: rgba(var(--signature-color-light) / 90%); line-height: 20px; text-align: right; text-shadow: 1px 1px 1px rgba(var(--signature-color-darker) / 90%); }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add span.addition_unit { }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add span.addition_unit::before { content: attr(data-unit); /* position: absolute; top: 0; bottom: 2px; right: 4px; margin: auto; */ }
@@ -1009,7 +1009,7 @@ div#player_info_op_cp div.player_info_side div.selection_side div.selection_entr
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input::placeholder { color: rgba(var(--signature-color-bright) / 70%);  }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input:focus { z-index: 1; color: rgba(var(--main-color) / 90%); background-color: rgba(var(--bgcolor-base) / 90%); }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input:hover { z-index: 1; background-color: rgba(var(--bgcolor-base) / 70%); }
-div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input.char_name { bottom: 3px; left: 8px; width: 70%; color: rgba(var(--signature-color-light) / 90%); text-align: left; }
+div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input.char_name { bottom: 3px; left: 8px; width: 75%; color: rgba(var(--signature-color-light) / 90%); text-align: left; }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry[data-focus="char_constell"] div.entry_info input.char_name { transform: translateX(10px); }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input.weapon_name { top: -3px; right: -4px; width: 66%; color: rgba(var(--signature-color-lighter) / 90%); text-align: right; }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry[data-focus="weapon_refine"] div.entry_info input.weapon_name { transform: translateY(-22px); }
@@ -1595,17 +1595,19 @@ div#versus_record_board div.side_record_board div.side_record div.tko_selection 
 div#versus_record_board div.side_record_board.red div.side_record div.tko_selection div.tko_summary { justify-content: left; }
 div#versus_record_board div.side_record_board.blue div.side_record div.tko_selection div.tko_summary { justify-content: right; }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_summary > * { font-size: 22px; font-weight: bold; }
-div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_summary label { width: 100px; padding: 0 57px; text-align: center; transition-duration: 0.3s; }
+div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_summary label { width: 214px; padding: 0; text-align: center; transition-duration: 0.3s; }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection:hover div.tko_summary label { color: rgba(var(--signature-color) / 90%); }
 div#versus_record_board div.side_record_board div.side_record:not([data-result=""]) div.tko_selection div.tko_summary label { opacity: 0; }
 div#versus_record_board div.side_record_board div.side_record:not([data-result=""]):is(:focus-within, :hover) div.tko_selection div.tko_summary label { opacity: 1; }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_summary span { font-weight: bold; color: rgba(var(--signature-color-light) / 80%); text-shadow: 0 0 0 #888, 0 0 2px rgba(var(--main-color) / 90%); }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_summary span.tko_selected { margin: auto; }
-div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_selection_layer { position: absolute; display: none; z-index: 10; bottom: -67px; left: 0; right: 0; margin: auto; padding: 5px 10px 6px; border-radius: 10px; background-color: #FFF8; }
+div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_selection_layer { position: absolute; display: none; z-index: 10; bottom: -67px; left: -16px; right: -16px; width: fit-content; margin: auto; padding: 5px 10px 6px; border-radius: 10px; background-color: #FFF8; }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection:hover div.tko_selection_layer { display: block; }
 div#versus_record_board div.side_record_board.red div.side_record div.tko_selection div.tko_selection_layer { text-align: left; }
 div#versus_record_board div.side_record_board.blue div.side_record div.tko_selection div.tko_selection_layer { text-align: right; }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_selection_layer div.tko_selections { }
+div#versus_record_board div.side_record_board.red div.side_record div.tko_selection div.tko_selection_layer div.tko_selections { text-align: right; }
+div#versus_record_board div.side_record_board.blue div.side_record div.tko_selection div.tko_selection_layer div.tko_selections { text-align: left; }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_selection_layer div.tko_selections label { color: rgba(var(--signature-color) / 90%); font-size: 20px; font-weight: bold; text-shadow: 0 0 0 #888, 0 0 1.5px rgba(var(--highlighted-text-base) / 90%); line-height: 22px; vertical-align: text-top; transition-duration: 0.3s; }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_selection_layer div.tko_selections button { margin: 1px 0; border: solid 1px rgba(var(--main-color) / 40%); border-radius: 5px; background-color: rgba(var(--bgcolor-base) / 75%); color: rgba(var(--main-color) / 75%); font-size: 19px; cursor: pointer; transition-duration: 0.3s; }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_selection_layer div.tko_selections button:focus { outline: none; box-shadow: 0 0 5px 0.25px rgba(var(--main-color) / 90%); }
@@ -1639,11 +1641,11 @@ div#versus_record_board div#versus_progress_panel div.progress_panel.result { }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result:hover { }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result div.title { opacity: 0.6; transition-duration: 0.3s; transition-timing-function: ease; }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result:hover div.title { opacity: 1; }
-div#versus_record_board div#versus_progress_panel div.progress_panel.result[data-show="1"] div.title { opacity: 1; }
+div#versus_record_board div#versus_progress_panel div.progress_panel.result:not([data-show=""]) div.title { opacity: 1; }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result div.title span { font-size: 22px; line-height: 32px; filter: drop-shadow(0 6px 8px black); transition-duration: 0.3s; transition-timing-function: ease; }
-div#versus_record_board div#versus_progress_panel div.progress_panel.result[data-show="1"] div.title span { font-size: 30px; }
+div#versus_record_board div#versus_progress_panel div.progress_panel.result[data-show="2"] div.title span { font-size: 30px; }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result div.superiority { height: 30px; margin: 9px 0; box-shadow: inset 0 0 4px 1px rgba(var(--main-color) / 90%), 0 0 8px 0 rgba(var(--highlighted-text-base) / 30%), 0 6px 8px 6px #333C; opacity: 0; transition-delay: 0.3s; }
-div#versus_record_board div#versus_progress_panel div.progress_panel.result[data-show="1"] div.superiority { opacity: 1; }
+div#versus_record_board div#versus_progress_panel div.progress_panel.result:not([data-show=""]) div.superiority { opacity: 1; }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result:hover div.superiority { opacity: 1; }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result div.superiority div.graph.empty { flex-grow: 0; }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result div.superiority span.time_differ { line-height: 28px; opacity: 1; }
@@ -1658,7 +1660,8 @@ div#versus_record_board div#versus_progress_panel div.versus { position: absolut
 div.float_layer { display: none; position: absolute; z-index: 2000; }
 
 /* Version Display */
-div.float_layer#version_display { display: block; top: 0; bottom: max(calc(100% - 1080px + 96px), 0px); right: 24px; height: fit-content; margin: auto auto 20px; padding: 0; user-select: none; }
+div.float_layer#version_display { display: block; top: 0; bottom: max(calc(100% - 1080px + 96px), 0px); right: 24px; height: fit-content; margin: auto auto 20px; padding: 0; transition-timing-function: ease-out; transition-duration: 0.7s; user-select: none; }
+div.float_layer#version_display[data-full="1"] { z-index: 1; bottom: max(calc(100% - 1080px), 0px); margin-bottom: 11px; transition-duration: 1s; }
 div.float_layer#version_display > div { color: var(--plain-text-rgb); font-size: 16px; line-height: 16px; text-align: right; }
 div.float_layer#version_display > div.tool_title { color: rgba(var(--plain-text-base) / 60%); font-weight: bold; }
 div.float_layer#version_display > div.version_number {  }

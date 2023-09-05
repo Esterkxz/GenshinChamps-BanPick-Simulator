@@ -568,8 +568,10 @@ let sequenceMaster = {
         //VERSUS 시퀀스 구현
         //playSound("훻");
 
+
         timerMaster.pauseTimer();
         playerInfoMaster.hidePlayerInfoLayer();
+        versionDisplayShowFor();
 
         if (controllerMaster.mainActionButton.is(":focus")) controllerMaster.mainActionButton.blur();
 
@@ -659,6 +661,8 @@ let sequenceMaster = {
         this.shiftStep(rules.sequence.length);
         this.setSequenceTitleByCurrent(step);
         this.releaseActionStateByStep();
+        
+        versionDisplayShowFor(false);
 
         timerMaster.resumeTimer();
 
@@ -2241,6 +2245,7 @@ let sideMaster = {
     time_record: "div.time_record",
     record_time_remains: "div.record_time_remains",
     input_remains: "input.remains",
+    record_time_add: "div.record_time_add",
     record_time_clear: "div.record_time_clear",
     span_clear_time: "span.clear_time",
     record_time_clear_total: "div.record_time_clear_total",
@@ -2249,12 +2254,14 @@ let sideMaster = {
 
     tko_selection: "div.tko_selection",
     tko_selected: "span.tko_selected",
+    tko_selections: "div.tko_selections",
     tko_caused_by: "button.tko_caused_by",
 
     tko: "data-tko",
 
     versus_progress_panel: "div#versus_progress_panel",
     progress_panel: "div.progress_panel",
+    versus: "div.versus",
     stage_superiority: "div.superiority",
     graph: "div.graph",
     stage_time_differ: "span.time_differ",
@@ -2375,6 +2382,7 @@ let sideMaster = {
     eachRecordTimeClear: null,
     eachSpanClearTime: null,
 
+    eachRecordTimeAdd: null,
     eachTimeRecordTotal: null,
     eachRecordTimeClearTotal: null,
     eachSpanTotalClearTime: null,
@@ -2382,6 +2390,7 @@ let sideMaster = {
     eachTkoSelection: null,
     eachTkoSelected: null,
     eachTkoCausedBy: null,
+    eachTkoSelections: null,
 
     redSideRecordBoard: null,
 
@@ -2575,13 +2584,15 @@ let sideMaster = {
         this.eachSpanClearTime = this.eachRecordTimeClear.find(this.span_clear_time);
         this.eachSpanDivider = this.eachRecordTimeClear.find(this.span_divider);
 
-        this.eachTimeRecordTotal = this.eachSideRecordStage.find(this.time_record);
+        this.eachRecordTimeAdd = this.eachSideRecordTotal.find(this.record_time_add);
+        this.eachTimeRecordTotal = this.eachSideRecordTotal.find(this.time_record);
         this.eachRecordTimeClearTotal = this.eachTimeRecordTotal.find(this.record_time_clear_total);
         this.eachSpanTotalClearTime = this.eachRecordTimeClearTotal.find(this.span_total_clear_time);
         this.eachSpanTotalDivider = this.eachRecordTimeClearTotal.find(this.span_divider);
     
         this.eachTkoSelection = this.eachSideRecordStage.find(this.tko_selection);
         this.eachTkoSelected = this.eachTkoSelection.find(this.tko_selected);
+        this.eachTkoSelections = this.eachTkoSelection.find(this.tko_selections);
         this.eachTkoCausedBy = this.eachTkoSelection.find(this.tko_caused_by);
 
         
@@ -2709,6 +2720,8 @@ let sideMaster = {
         let text = lang.text;
 
         this.eachAccountInfo.attr("title", text.accountInfoIndicatorDesc);
+
+        this.initVersusRecordBoardDesc();
     },
 
     initSideInfo: function() {
@@ -4026,6 +4039,26 @@ let sideMaster = {
         this.vsClearTime["blue"] = [];
     },
 
+    initVersusRecordBoardDesc: function() {
+        let text = lang.text;
+
+        this.eachRecordTimeRemains.find(">label").text(text.vsRemains);
+        this.eachRecordTimeClear.find(">label").text(text.vsElapsed);
+        this.eachInputRemains.filter(".min").attr("placeholder", text.unitMin);
+        this.eachInputRemains.filter(".sec").attr("placeholder", text.unitSec);
+        this.eachTkoSelection.find("div.tko_summary > label").text(text.vsOptionTKO);
+        this.eachTkoSelections.filter(".first_half").find(">label").text(text.vsHalf1st);
+        this.eachTkoSelections.filter(".second_half").find(">label").text(text.vsHalf2nd);
+        this.eachTkoCausedBy.filter(".timeover").text(text.vsBtnTkoByTimeover);
+        this.eachTkoCausedBy.filter(".powerloss").text(text.vsBtnTkoByPowerloss);
+        this.eachTkoCausedBy.filter(".surrender").text(text.vsBtnTkoBySurrender);
+        this.eachRecordTimeAdd.find(">label").text(text.vsAdds);
+        this.eachRecordTimeClearTotal.find(">label").text(text.vsTotalElapsed);
+        this.versusProgressPanel.find(this.versus).text(text.vsVersus);
+        this.progressPanel[0].find("div.title span").text(text.vsAggregated);
+        for (var i=1; i<this.progressPanel.length; i++) this.progressPanel[i].find("div.title span").text(text.vsChamber.replace("#NO", "" + i));
+    },
+
     showVersusRecordBoard: function() {
         $("div#versus_entry_area div.versus_divider").attr("data-wide", "1");
 
@@ -4077,6 +4110,7 @@ let sideMaster = {
             if (sideMaster.versusRecordBoard.attr(sideMaster.show) === "1") sideMaster.versusRecordBoard.attr(sideMaster.show, "2");
 
             setTimeout(function() {
+                sideMaster.showDifferAddsByTotalVersusSuperiorityGraph();
                 showCursorWholeScreen();
                 screenMaster.showSideArea();
             }, 500);
@@ -4176,6 +4210,7 @@ let sideMaster = {
 
     releaseVersusTimeAttackDisplay: function(stage, side) {
         if (stage == null || side == null) return;
+        let text = lang.text;
         var clearTime = null;
         var clearTimeDivider = null;
         var tkoSelected = null;
@@ -4199,22 +4234,22 @@ let sideMaster = {
         if (remains < 0) {
             let tko = remains * -1;
             let tkoHalf = tko % 2;
-            let tkoText = "#HALF TKO".replace("#HALF", tkoHalf === 1 ? "전반" : "후반");
+            let tkoText = text.vsTkoHalf.replace("#HALF", tkoHalf === 1 ? text.vsHalf1st : text.vsHalf2nd);
             var tkoCausedBy = "";
             switch (remains) {
                 case -1:
                 case -2:
-                    tkoCausedBy = "시간 초과";
+                    tkoCausedBy = text.vsTkoByTimeover;
                     break;
                     
                 case -3:
                 case -4:
-                    tkoCausedBy = "전력 상실";
+                    tkoCausedBy = text.vsTkoByPowerloss;
                     break;
     
                 case -5:
                 case -6:
-                    tkoCausedBy = "포기·기타";
+                    tkoCausedBy = text.vsTkoBySurrender;
                     break;
             }
 
@@ -4350,7 +4385,14 @@ let sideMaster = {
         }
     },
 
-    releaseVersusSuperiorityGraph: function(stage, side) {
+    showDifferAddsByTotalVersusSuperiorityGraph: function() {
+        let addsMax = Math.max(this.timeAdds.red, this.timeAdds.blue) + 3;
+        this.vsTimeRemains["red"][0] = addsMax - this.timeAdds.red;
+        this.vsTimeRemains["blue"][0] = addsMax - this.timeAdds.blue;
+        this.releaseVersusSuperiorityGraph(0);
+    },
+
+    releaseVersusSuperiorityGraph: function(stage, side, finale = false) {
         if (stage == null || isNaN(stage) || stage < 0) return;
         stage = parseInt(stage);
 
@@ -4359,9 +4401,13 @@ let sideMaster = {
 
         if (redRemains == null || blueRemains == null) return;
 
-        if (this.progressPanel[stage].attr(this.show) != "1") {
-            this.progressPanel[stage].attr(this.show, "1");
+        let showingPhaseTotals = this.progressPanel[stage].attr(this.show);
+        if (finale && showingPhaseTotals != "2") {
+            this.progressPanel[stage].attr(this.show, "2");
             setTimeout(function() { sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains); }, 1000);
+        } else if (showingPhaseTotals != "1" && showingPhaseTotals != "2") {
+            this.progressPanel[stage].attr(this.show, finale ? "2" :"1");
+            sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains);
         } else this.updateVersusSuperiorityGraph(stage, redRemains, blueRemains, side);
 
         if (stage > 0) this.checkUpdateVersusResultGraph(stage);
@@ -4550,8 +4596,8 @@ let sideMaster = {
             }
 
             //this.releaseVersusSuperiorityGraph(0);
-            if (!isFirstResult) this.releaseVersusSuperiorityGraph(0);
-            else setTimeout(function() { sideMaster.releaseVersusSuperiorityGraph(0); }, 1500);
+            if (!isFirstResult) this.releaseVersusSuperiorityGraph(0, finale = true);
+            else setTimeout(function() { sideMaster.releaseVersusSuperiorityGraph(0, finale = true); }, 1500);
         } else {
             //this.updateVersusSuperiorityGraph(0, redRemains, blueRemains);
             if (stage < 2) this.releaseVersusSuperiorityGraph(0);
@@ -4591,7 +4637,7 @@ let playerInfoMaster = {
 
     line_title: "label.line_title",
     total_label: "label.total_label",
-    addition_unit: "soan.addition_unit",
+    addition_unit: "span.addition_unit",
     input_addition: "input.addition",
     add_per_constell: "input.addition.constell",
     add_by_had_weapon: "input.addition.weapon",
@@ -5321,8 +5367,8 @@ let playerInfoMaster = {
         this.bluePlayerProfileSelect.text(text.sideBlue);
         this.eachPlayerProfileSelect.attr("title", text.pisPlayerProfileSelectDesc);
         this.eachPlayerProfileSelect.attr("placeholder", text.pisPlayerProfileSelectDesc);
-        this.eachInfoTreveler.find('label[for="redTrevelerF"]').text(text.pisLumine);
-        this.eachInfoTreveler.find('label[for="redTrevelerM"]').text(text.pisAether);
+        this.eachInfoTreveler.find('label.info_treveler_style.female').text(text.pisLumine);
+        this.eachInfoTreveler.find('label.info_treveler_style.male').text(text.pisAether);
         this.eachInfoCopy.text(text.pisCopyAccountCode);
         this.eachInfoCopy.attr("title", text.pisCopyAccountCodeDesc);
         this.eachInfoCode.text(text.pisDataAccountCode);
@@ -5331,6 +5377,7 @@ let playerInfoMaster = {
         this.eachInfoAdd.filter(this.class_refine).find(this.line_title).text(text.pisAddTimeWeponRefine);
         this.eachInfoAdd.find(this.total_label).text(text.sum);
         this.eachInfoAdd.find(this.addition_unit).attr(this.unit, text.unitSec);
+        this.eachInfoAdd.filter(this.class_sum).find(this.line_title).text(text.pisAddsTotal);
         this.redAddPerConstell.attr("title", text.pisAddTimeConstellDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.constell));
         this.blueAddPerConstell.attr("title", text.pisAddTimeConstellDesc.replace("#SIDE", text.sideBlue) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.constell));
         this.redAddByHadWeapon.attr("title", text.pisAddTimeHasWaponDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.weapon));
@@ -5345,7 +5392,7 @@ let playerInfoMaster = {
         for (var i=0; i<this.charNames["blue"].length; i++) $(this.charNames["blue"][i]).attr("placeholder", text.pssCharName.replace("#NO", "" + (i + 1)));
         this.eachWeaponName.attr("title", text.pssWeaponNameDesc);
         for (var i=0; i<this.weaponNames["red"].length; i++) $(this.weaponNames["red"][i]).attr("placeholder", text.pssWeaponName.replace("#NO", "" + (i + 1)));
-        for (var i=0; i<this.weaponNames["blue"].length; i++) $(this.weaponNames["blue"][i]).attr("placeholder", text.pssCharName.replace("#NO", "" + (i + 1)));
+        for (var i=0; i<this.weaponNames["blue"].length; i++) $(this.weaponNames["blue"][i]).attr("placeholder", text.pssWeaponName.replace("#NO", "" + (i + 1)));
         this.eachEntryWeaponIcon.attr("title", text.pssWeaponRefineDesc);
         this.eachWeaponRefine.attr("title", text.pssWeaponRefineDesc);
     },
@@ -5751,7 +5798,13 @@ let playerInfoMaster = {
 
         let value = input.val().trim();
         let valueLc = value.toLowerCase();
-        if (valueLc == "wjsan" || valueLc == "ㅈㅁ" || valueLc == "wa" || valueLc == "/") {
+        let aliases = lang.text.valueSignatureWeaponAliases.split("|");
+        var isAlias = false;
+        for (var i=0; i<aliases.length; i++) if (valueLc == aliases[i].toLowerCase()) {
+            isAlias = true;
+            break;
+        }
+        if (isAlias || valueLc == "/") {
             setWeaponOptimal(selectionEntry);
         } else {
             pim.checkWeaponName(selectionEntry);
@@ -5762,7 +5815,7 @@ let playerInfoMaster = {
     setWeaponIsSignature: function(selectionEntry) {
         let input = selectionEntry.find(this.weapon_name);
         let refine = selectionEntry.find(this.weapon_refine);
-        input.val("전무");
+        input.val(lang.text.valueSignatureWeapon);
         let found = this.checkWeaponName(selectionEntry);
         this.releaseSecondsForAdds();
         setTimeout(function() {
@@ -5791,7 +5844,7 @@ let playerInfoMaster = {
         if (info == null || info == "" || info == {}) return null;
 
         var found = null;
-        if (value == "전무") {
+        if (value == lang.text.valueSignatureWeapon) {
             found = this.weapons[info.weapon].find((item, index) => {
                 return item.favority[0] == charId;
             });
@@ -8014,6 +8067,8 @@ function initializeStep() {
 
     timerMaster.initTimer();
 
+    versionDisplayShowFor(false);
+
     playSound("풛");
 }
 
@@ -8318,6 +8373,11 @@ function releaseVersionDisplay() {
     let vd = $("div#version_display");
     vd.find("div.version_number").text(vi.text());
     vd.find("div.release_date").text(vi.attr("title"));
+}
+
+function versionDisplayShowFor(full = true) {
+    let vd = $("div#version_display");
+    vd.attr("data-full", full === true ? "1" : "");
 }
 
 //onload
