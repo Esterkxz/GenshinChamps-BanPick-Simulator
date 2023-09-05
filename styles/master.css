@@ -1009,7 +1009,7 @@ div#player_info_op_cp div.player_info_side div.selection_side div.selection_entr
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input::placeholder { color: rgba(var(--signature-color-bright) / 70%);  }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input:focus { z-index: 1; color: rgba(var(--main-color) / 90%); background-color: rgba(var(--bgcolor-base) / 90%); }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input:hover { z-index: 1; background-color: rgba(var(--bgcolor-base) / 70%); }
-div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input.char_name { bottom: 3px; left: 8px; width: 70%; color: rgba(var(--signature-color-light) / 90%); text-align: left; }
+div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input.char_name { bottom: 3px; left: 8px; width: 75%; color: rgba(var(--signature-color-light) / 90%); text-align: left; }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry[data-focus="char_constell"] div.entry_info input.char_name { transform: translateX(10px); }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input.weapon_name { top: -3px; right: -4px; width: 66%; color: rgba(var(--signature-color-lighter) / 90%); text-align: right; }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry[data-focus="weapon_refine"] div.entry_info input.weapon_name { transform: translateY(-22px); }
@@ -1595,17 +1595,19 @@ div#versus_record_board div.side_record_board div.side_record div.tko_selection 
 div#versus_record_board div.side_record_board.red div.side_record div.tko_selection div.tko_summary { justify-content: left; }
 div#versus_record_board div.side_record_board.blue div.side_record div.tko_selection div.tko_summary { justify-content: right; }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_summary > * { font-size: 22px; font-weight: bold; }
-div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_summary label { width: 100px; padding: 0 57px; text-align: center; transition-duration: 0.3s; }
+div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_summary label { width: 214px; padding: 0; text-align: center; transition-duration: 0.3s; }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection:hover div.tko_summary label { color: rgba(var(--signature-color) / 90%); }
 div#versus_record_board div.side_record_board div.side_record:not([data-result=""]) div.tko_selection div.tko_summary label { opacity: 0; }
 div#versus_record_board div.side_record_board div.side_record:not([data-result=""]):is(:focus-within, :hover) div.tko_selection div.tko_summary label { opacity: 1; }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_summary span { font-weight: bold; color: rgba(var(--signature-color-light) / 80%); text-shadow: 0 0 0 #888, 0 0 2px rgba(var(--main-color) / 90%); }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_summary span.tko_selected { margin: auto; }
-div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_selection_layer { position: absolute; display: none; z-index: 10; bottom: -67px; left: 0; right: 0; margin: auto; padding: 5px 10px 6px; border-radius: 10px; background-color: #FFF8; }
+div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_selection_layer { position: absolute; display: none; z-index: 10; bottom: -67px; left: -16px; right: -16px; width: fit-content; margin: auto; padding: 5px 10px 6px; border-radius: 10px; background-color: #FFF8; }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection:hover div.tko_selection_layer { display: block; }
 div#versus_record_board div.side_record_board.red div.side_record div.tko_selection div.tko_selection_layer { text-align: left; }
 div#versus_record_board div.side_record_board.blue div.side_record div.tko_selection div.tko_selection_layer { text-align: right; }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_selection_layer div.tko_selections { }
+div#versus_record_board div.side_record_board.red div.side_record div.tko_selection div.tko_selection_layer div.tko_selections { text-align: right; }
+div#versus_record_board div.side_record_board.blue div.side_record div.tko_selection div.tko_selection_layer div.tko_selections { text-align: left; }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_selection_layer div.tko_selections label { color: rgba(var(--signature-color) / 90%); font-size: 20px; font-weight: bold; text-shadow: 0 0 0 #888, 0 0 1.5px rgba(var(--highlighted-text-base) / 90%); line-height: 22px; vertical-align: text-top; transition-duration: 0.3s; }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_selection_layer div.tko_selections button { margin: 1px 0; border: solid 1px rgba(var(--main-color) / 40%); border-radius: 5px; background-color: rgba(var(--bgcolor-base) / 75%); color: rgba(var(--main-color) / 75%); font-size: 19px; cursor: pointer; transition-duration: 0.3s; }
 div#versus_record_board div.side_record_board div.side_record div.tko_selection div.tko_selection_layer div.tko_selections button:focus { outline: none; box-shadow: 0 0 5px 0.25px rgba(var(--main-color) / 90%); }
