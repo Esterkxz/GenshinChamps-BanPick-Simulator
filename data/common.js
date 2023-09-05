@@ -9,12 +9,15 @@ Ester1's Youtube 1 - G✦Log: https://www.youtube.com/@GiLog_Ester1z\n\
 Ester1's Youtube 2 - G✧Rim: https://www.youtube.com/@G-Rim_Ester1z\n\
 Ester1's E-Mail: eliiesterisk@gmail.com\n\
 \n\
+Developed by D.U.X.\n\
+Homepage: https://dux.oopy.io\n\
+\n\
 This tool licensed by MIT License EXCEPT rule & cost table contents\n\
 Limited to use on broadcast with stock(Rule referenced by 앙리형) rule & cost table\n\
 except Rule creator(앙리형) & Tool creator(에스터1z)\n\
 \n\
 If need permit to use on broadcast, please contact to 앙리형\n\
-앙리형 Youtube: https://www.youtube.com/@angri_hyung\n\
+앙리형 Youtube: https://www.youtube.com/@angrihyung_genshin\n\
 앙리형 E-Mail: angnmol1115@gmail.com\n\
 \n\
 Character and weapon icon, character basic illust images from HoYoLab.\n\

@@ -2,11 +2,11 @@ var costTable = {
     comment: "\
 Cost table refferenced by 앙리형 (Angri-hyung / brother Henry - Streamer & Youtuber)\n\
 based by Spiral Abyss pick rate of Genshin Impact v3.5 Phase 2\n\
-Youtube: https://www.youtube.com/@angri_hyung \n\
+Youtube: https://www.youtube.com/@angrihyung_genshin \n\
 Twitch: https://www.twitch.tv/angrimoldi \n\
 \n\
 check this videos: \n\
-https://www.youtube.com/@angri_hyung/search?query=%EC%9B%90%EC%8B%A0%20%EC%B1%94%EC%8A%A4 \n\
+https://www.youtube.com/@angrihyung_genshin/search?query=%EC%9B%90%EC%8B%A0%20%EC%B1%94%EC%8A%A4 \n\
 \n\
 Data created by Esterisk (에스터1z / Ester1z) \n\
     ",
