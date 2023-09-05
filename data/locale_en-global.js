@@ -58,6 +58,10 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "pssWeaponNameDesc": "Enter weapon's name(shorter) equipped the character of this entry",
         "pssWeaponRefineDesc": "Enter this weapon's refinement\nRight-click: To be empty",
 
+        "sum": "SUM",
+        "unitMin": "m",
+        "unitSec": "s",
+  
         "btnStart": "START",
         "btnPass": "PASS",
         "btnVersus": "VERSUS",

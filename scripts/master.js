@@ -4607,7 +4607,7 @@ let playerInfoMaster = {
 
     line_title: "label.line_title",
     total_label: "label.total_label",
-    addition_unit: "soan.addition_unit",
+    addition_unit: "span.addition_unit",
     input_addition: "input.addition",
     add_per_constell: "input.addition.constell",
     add_by_had_weapon: "input.addition.weapon",
@@ -5347,6 +5347,7 @@ let playerInfoMaster = {
         this.eachInfoAdd.filter(this.class_refine).find(this.line_title).text(text.pisAddTimeWeponRefine);
         this.eachInfoAdd.find(this.total_label).text(text.sum);
         this.eachInfoAdd.find(this.addition_unit).attr(this.unit, text.unitSec);
+        this.eachInfoAdd.filter(this.class_sum).find(this.line_title).text(text.pisAddsTotal);
         this.redAddPerConstell.attr("title", text.pisAddTimeConstellDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.constell));
         this.blueAddPerConstell.attr("title", text.pisAddTimeConstellDesc.replace("#SIDE", text.sideBlue) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.constell));
         this.redAddByHadWeapon.attr("title", text.pisAddTimeHasWaponDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.weapon));
