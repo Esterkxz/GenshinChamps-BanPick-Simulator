@@ -568,8 +568,10 @@ let sequenceMaster = {
         //VERSUS 시퀀스 구현
         //playSound("훻");
 
+
         timerMaster.pauseTimer();
         playerInfoMaster.hidePlayerInfoLayer();
+        versionDisplayShowFor();
 
         if (controllerMaster.mainActionButton.is(":focus")) controllerMaster.mainActionButton.blur();
 
@@ -659,6 +661,8 @@ let sequenceMaster = {
         this.shiftStep(rules.sequence.length);
         this.setSequenceTitleByCurrent(step);
         this.releaseActionStateByStep();
+        
+        versionDisplayShowFor(false);
 
         timerMaster.resumeTimer();
 
@@ -8318,6 +8322,11 @@ function releaseVersionDisplay() {
     let vd = $("div#version_display");
     vd.find("div.version_number").text(vi.text());
     vd.find("div.release_date").text(vi.attr("title"));
+}
+
+function versionDisplayShowFor(full = true) {
+    let vd = $("div#version_display");
+    vd.attr("data-full", full === true ? "1" : "");
 }
 
 //onload

@@ -1658,7 +1658,8 @@ div#versus_record_board div#versus_progress_panel div.versus { position: absolut
 div.float_layer { display: none; position: absolute; z-index: 2000; }
 
 /* Version Display */
-div.float_layer#version_display { display: block; top: 0; bottom: max(calc(100% - 1080px + 96px), 0px); right: 24px; height: fit-content; margin: auto auto 20px; padding: 0; user-select: none; }
+div.float_layer#version_display { display: block; top: 0; bottom: max(calc(100% - 1080px + 96px), 0px); right: 24px; height: fit-content; margin: auto auto 20px; padding: 0; transition-timing-function: ease-out; transition-duration: 0.7s; user-select: none; }
+div.float_layer#version_display[data-full="1"] { z-index: 1; bottom: max(calc(100% - 1080px), 0px); margin-bottom: 11px; transition-duration: 1s; }
 div.float_layer#version_display > div { color: var(--plain-text-rgb); font-size: 16px; line-height: 16px; text-align: right; }
 div.float_layer#version_display > div.tool_title { color: rgba(var(--plain-text-base) / 60%); font-weight: bold; }
 div.float_layer#version_display > div.version_number {  }
