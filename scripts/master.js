@@ -4622,6 +4622,7 @@ let playerInfoMaster = {
     info_side: "div.info_side",
 
     player_profile_select: "button.player_profile_select",
+    info_title: "span.info_title",
     info_ap: "input.info_ap",
     info_name: "input.info_name",
     info_uid: "input.info_uid",
@@ -5365,8 +5366,8 @@ let playerInfoMaster = {
     initDesc: function() {
         let text = lang.text;
 
-        this.redPlayerProfileSelect.text(text.sideRed);
-        this.bluePlayerProfileSelect.text(text.sideBlue);
+        this.redPlayerProfileSelect.find(this.info_title).text(text.sideRed);
+        this.bluePlayerProfileSelect.find(this.info_title).text(text.sideBlue);
         this.eachPlayerProfileSelect.attr("title", text.pisPlayerProfileSelectDesc);
         this.eachPlayerProfileSelect.attr("placeholder", text.pisPlayerProfileSelectDesc);
         this.eachInfoTreveler.find('label.info_treveler_style.female').text(text.pisLumine);
