@@ -4112,13 +4112,13 @@ let sideMaster = {
             setTimeout(function() {
                 sideMaster.showDifferAddsByTotalVersusSuperiorityGraph();
                 showCursorWholeScreen();
-                screenMaster.showSideArea();
+                if ($(document.body).attr("data-view-surrounded") == "0") screenMaster.showSideArea();
             }, 500);
         }, 10);
     },
 
     hideVersusRecordBoard: function() {
-        screenMaster.hideSideArea();
+        if ($(document.body).attr("data-view-surrounded") == "0") screenMaster.hideSideArea();
         $("div#versus_entry_area div.versus_divider").attr("data-wide", "0");
 
         this.versusRecordBoard.attr(this.show, "0");

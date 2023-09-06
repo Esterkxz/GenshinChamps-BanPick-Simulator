@@ -1847,6 +1847,27 @@ div#res_sounds.resource_holder div.sound_panel_area ul#sound_panel li { }
 div#res_sounds.resource_holder div.sound_panel_area ul#sound_panel li button { min-width: 58px; min-height: 58px; width: auto; height: 100%; font-size: 30px; font-weight: 500; vertical-align: top; }
 div#res_sounds.resource_holder div.sound_panel_area ul#sound_panel li audio { }
 
+
+/* Main Display(for Surrounded view) */
+div#main_display { }
+body[data-view-surrounded="1"] div#main_display { --height: 1080px; --outline: 10px; height: var(--height); border-radius: 42px; outline-style: double; outline-width: var(--outline); outline-color: rgba(var(--color-focusive) / 90%); transform: scale(0.5) translateY(calc(((var(--height) / 2) - var(--outline)) * -1)); overflow: hidden; }
+
+/* Control panel(Vertical view or Surrounded view) */
+div#control_panel { }
+
+/* Side area of control panel */
+div.side_screen { }
+div.side_screen.left { }
+div.side_screen.right { }
+
+/* Player Screen */
+div#player_screen { }
+
+
+/* Pickup board */
+div.pickup_board { }
+
+
 /* Resource Loader area (Splash) */
 div#loading_cover.resource_holder { position: absolute; display: table; z-index: 4000; top:0; bottom: 0; left: 0; right: 0; width: 100%; height: 100%; opacity: 1; transition-duration: 2.4s; user-select: none; }
 div#loading_cover.resource_holder .characters > resource { display: table-cell; height: 100%; background-repeat: no-repeat; background-position: center; }
