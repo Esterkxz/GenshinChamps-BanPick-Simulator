@@ -4401,13 +4401,15 @@ let sideMaster = {
 
         if (redRemains == null || blueRemains == null) return;
 
+        let isUpdatingTotalFinale = stage == 0 && finale;
         let showingPhaseTotals = this.progressPanel[stage].attr(this.show);
-        if (finale && showingPhaseTotals != "2") {
+        if (isUpdatingTotalFinale && showingPhaseTotals != "2") {
             this.progressPanel[stage].attr(this.show, "2");
             setTimeout(function() { sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains); }, 1000);
         } else if (showingPhaseTotals != "1" && showingPhaseTotals != "2") {
-            this.progressPanel[stage].attr(this.show, finale ? "2" :"1");
-            sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains);
+            this.progressPanel[stage].attr(this.show, isUpdatingTotalFinale ? "2" :"1");
+            if (isUpdatingTotalFinale) sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains);
+            else setTimeout(function() { sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains); }, 1000);
         } else this.updateVersusSuperiorityGraph(stage, redRemains, blueRemains, side);
 
         if (stage > 0) this.checkUpdateVersusResultGraph(stage);
