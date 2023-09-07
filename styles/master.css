@@ -1740,6 +1740,7 @@ div.float_layer#timer[data-side="blue"] div#timer_display span.div_place.colon {
 div.float_layer#timer[data-side="blue"] div#timer_display span.num_place.min_place { color: rgba(var(--color-side-blue-highlight) / 35%); }
 
 div.float_layer#timer[data-hide="1"] { filter: blur(8px) opacity(0); }
+div.float_layer#timer[data-hide="1"]:hover { z-index: 3000; filter: blur(0) opacity(1); }
 
 
 div.float_layer#timer_relay { display: flex; top: 0; bottom: max(calc(100% - 1080px), 0px); left: 16px; height: fit-content; margin: auto auto 20px; padding: 0; transform: skewX(-18deg); opacity: 0; transition-duration: 0.3s; transition-timing-function: ease-out; }
