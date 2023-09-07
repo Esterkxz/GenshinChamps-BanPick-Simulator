@@ -4403,16 +4403,14 @@ let sideMaster = {
 
         let isUpdatingTotalFinale = stage == 0 && finale;
         let showingPhaseTotals = this.progressPanel[stage].attr(this.show);
-        if (isUpdatingTotalFinale && showingPhaseTotals != "2") {
-            this.progressPanel[stage].attr(this.show, "2");
-            setTimeout(function() { sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains); }, 1000);
-        } else if (showingPhaseTotals != "1" && showingPhaseTotals != "2") {
+        let isFirstUpdate = showingPhaseTotals != "1" && showingPhaseTotals != "2";
+        if (isFirstUpdate) {
             this.progressPanel[stage].attr(this.show, isUpdatingTotalFinale ? "2" :"1");
             if (isUpdatingTotalFinale) sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains);
             else setTimeout(function() { sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains); }, 1000);
         } else this.updateVersusSuperiorityGraph(stage, redRemains, blueRemains, side);
 
-        if (stage > 0) this.checkUpdateVersusResultGraph(stage);
+        if (stage > 0) this.checkUpdateVersusResultGraph(stage, isUpdatingTotalFinale, isFirstUpdate);
     },
 
     updateVersusSuperiorityGraph: function(stage, redRemains, blueRemains, side) {
@@ -4477,7 +4475,7 @@ let sideMaster = {
         }
     },
 
-    checkUpdateVersusResultGraph: function(stage) {
+    checkUpdateVersusResultGraph: function(stage, isFinale, isFirst) {
         let redRemains1 = this.vsTimeRemains["red"][1];
         let blueRemains1 = this.vsTimeRemains["blue"][1];
         let redRemains2 = this.vsTimeRemains["red"][2];
@@ -4587,11 +4585,14 @@ let sideMaster = {
             let isFirstResult = versusEntryArea.attr("data-wins") == "";
             if (redWins || blueWins) {
                 let wins = redWins ? "red" : "blue";
-                if (isFirstResult) {
-                    setTimeout(function() { if (step > rules.sequence.length) versusEntryArea.attr("data-wins", wins); }, 1000);
-                } else versusEntryArea.attr("data-wins", wins);
-
-                sequenceMaster.setSequenceTitle((wins == "red" ? redName : blueName) + (isTko ? " TKO" : "") + " 승");
+                let finish = function() {
+                    if (step > rules.sequence.length) {
+                        versusEntryArea.attr("data-wins", wins);
+                        sequenceMaster.setSequenceTitle((wins == "red" ? redName : blueName) + (isTko ? " TKO" : "") + " 승");
+                    }
+                };
+                if (isFirstResult) setTimeout(finish, isFinale && isFirst ? 2000 : 1000);
+                else finish();
             } else {
                 sequenceMaster.setSequenceTitle(isTko ? "Double TKO" : "무승부");
                 versusEntryArea.attr("data-wins", "");
