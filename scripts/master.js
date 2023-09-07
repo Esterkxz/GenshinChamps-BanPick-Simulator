@@ -7453,6 +7453,7 @@ let timerMaster = {
         this.timerBegin = null;
         this.finishCurrentTimer();
         if (this.settings.autoStartSetupPhase && step != null && step == rules.sequence.length && latestStep < step) this.applyTimeSet(this.settings.setupPhaseTimeSet);
+        else if (this.settings.autoStartSetupPhase && step != null && step > rules.sequence.length && latestStep < step) this.applyTimeSet({ min: 10, sec: 0, ms: 0 });
         else this.applyTimeSetWithAmount();
 
         this.releaseTimerDisplay();
@@ -7684,11 +7685,13 @@ let timerMaster = {
     },
 
     releaseTimerDisplay: function(rsec, rcs) {
-        // var min = this.timeSet.min + "";
+        var min = this.timeSet.min;
+        //var min = this.timeSet.min + "";
         // if (min.length < 2) min = "0" + min;
         // var min1 = min[0];
         // var min0 = min[1];
-        var sec = this.timeSet.sec + "";
+        //var sec = this.timeSet.sec + "";
+        var sec = ((min * 60) + this.timeSet.sec) + "";
         if (sec.length < 2) sec = "00" + sec;
         else if (sec.length < 3) sec = "0" + sec;
         var sec2 = sec[0];
