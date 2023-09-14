@@ -117,6 +117,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "kirara": false,
             "lynette": false,
             "lyney": false,
+            "freminet": false,
         },
         "": ""
     },
@@ -155,6 +156,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "dori": true,
                 "candace": true,
                 "kaveh": true,
+                "freminet": true,
             },
             "": ""
         },

@@ -1068,7 +1068,6 @@ let charactersInfo = {
             "res_wide_meta_pos": { "scale": "360%", "h": "62.5%", "v": "34%" },
         },
         {
-            "comment": "temporary data for pre-official release",
             "id": "freminet",
             "class": "ordinary",
             "version": "4.0h",
@@ -1079,9 +1078,9 @@ let charactersInfo = {
             "res_back": "UI_AvatarIcon_Freminet@2x.png",
             "res_icon": "UI_AvatarIcon_Freminet.png",
             "res_vcut": "freminet_085_gacha_card.webp",
-            "res_vcut_meta_pos": { "vBasic": "20%", "vHover": "10%" },
-            "res_wide": ".png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "64%", "v": "32%" },
+            "res_vcut_meta_pos": { "vBasic": "24%", "vHover": "14%" },
+            "res_wide": "UI_AvatarIcon_Freminet@3x.png",
+            "res_wide_meta_pos": { "scale": "320%", "h": "58%", "v": "23.8%" },
         },
         {
             "comment": "temporary data for pre-official release",
