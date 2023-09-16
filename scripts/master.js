@@ -8143,12 +8143,15 @@ function showCursorWholeScreen() {
 
 function eventKeydown(e) {
     var isProcessed = false;
+    var tagName = e.target.tagName;
 
     switch(e.keyCode) {
         case 90://z
             if (e.ctrlKey) {//Ctrl+Z
-                undoStep();
-                isProcessed = true;
+                if (tagName != "INPUT" && tagName != "TEXTAREA") {
+                    undoStep();
+                    isProcessed = true;
+                }
             }
             break;
     }
