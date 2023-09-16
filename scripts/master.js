@@ -4104,6 +4104,7 @@ let sideMaster = {
         this.blueSideRecordTotal.find(".add_time.sec").html(blueSec);
         //---------
 
+        versionDisplayShowFor(2);
         this.versusRecordBoard.attr(this.show, "1");
         setTimeout(function() {
             sequenceMaster.setSequenceTitle(lang.text.titleLeagueMatch.replace("#NAME", rules.name_full).replace("#TAIL", rules.league_tail));
@@ -8378,13 +8379,16 @@ function playAudio(a, volume = soundsMaster.volumeControlSlider.val()) {
 function releaseVersionDisplay() {
     let vi = $("div#version_info span");
     let vd = $("div#version_display");
+    let vr = vi.attr("title");
+    let vrs = vr.split(".");
     vd.find("div.version_number").text(vi.text());
-    vd.find("div.release_date").text(vi.attr("title"));
+    vd.find("span.release").text(vrs[0] + ".");
+    vd.find("span.release_date").text(vrs[1] + "." + vrs[2]);
 }
 
 function versionDisplayShowFor(full = true) {
     let vd = $("div#version_display");
-    vd.attr("data-full", full === true ? "1" : "");
+    vd.attr("data-full", full === true ? "1" : (isNaN(full) ? "" : full));
 }
 
 //onload
