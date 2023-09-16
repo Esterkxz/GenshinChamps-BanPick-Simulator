@@ -1667,8 +1667,8 @@ div.float_layer#version_display > div { color: var(--plain-text-rgb); font-size:
 div.float_layer#version_display > div.tool_title { color: rgba(var(--plain-text-base) / 60%); font-weight: bold; }
 div.float_layer#version_display > div.version_number {  }
 div.float_layer#version_display > div.release_line { }
-div.float_layer#version_display > div.release_line span.release { color: rgba(var(--plain-text-base) / 80%); }
-div.float_layer#version_display[data-full="2"] > div.release_line span.release { color: transparent; }
+div.float_layer#version_display > div.release_line span.release { color: rgba(var(--plain-text-base) / 80%); transition-duration: 0.7s; }
+div.float_layer#version_display[data-full="2"] > div.release_line span.release { opacity: 0; transition-duration: 0.4s; }
 div.float_layer#version_display > div.release_line span.release_date { color: rgba(var(--plain-text-base) / 80%); }
 div.float_layer#version_display > div.powered_by { color: #222D; font-weight: bold; }
 
