@@ -8388,7 +8388,7 @@ function releaseVersionDisplay() {
 
 function versionDisplayShowFor(full = true) {
     let vd = $("div#version_display");
-    vd.attr("data-full", full === true ? "1" : (isNaN(full) ? "" : full));
+    vd.attr("data-full", full === true ? "1" : (isNaN(full) || full == false ? "" : full));
 }
 
 //onload
