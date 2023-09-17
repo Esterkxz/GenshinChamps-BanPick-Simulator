@@ -4946,9 +4946,10 @@ let playerInfoMaster = {
 
 
         //init
-        this.initDesc();
-        this.initAddsDefault();
-        this.initAddSecs();
+        // this.initDesc();
+        // this.initAddsDefault();
+        // this.initAddSecs();
+        this.applyAddsDefaultByRuleBook();
         this.resetPicks();
 
 
@@ -5911,6 +5912,14 @@ let playerInfoMaster = {
         this.addSecs[side].refine = this.addSecDefaults.refine;
     },
 
+    applyAddsDefaultByRuleBook: function() {
+        this.addSecDefaults = rules.addSecDefaults;
+        this.initDesc();
+        this.initAddsDefault();
+        this.initAddSecs();
+        //this.releaseSecondsForAdds();
+    },
+
     releaseSecondsForAdds: function() {
 
         let red = this.releaseSideAddEntity("red");
@@ -6443,6 +6452,8 @@ let rulesMaster = {
         sideMaster.initBanEntries();
 
         sideMaster.initBanWeapons();
+
+        playerInfoMaster.applyAddsDefaultByRuleBook();
 
         playSound("풛");
     },
