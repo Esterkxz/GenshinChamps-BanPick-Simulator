@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>앙챔스 계정 점수 계산기 / 리그 체커  v1.9.5</title>
+        <title>앙챔스 계정 점수 계산기 / 리그 체커  v1.9.6</title>
         <meta name="viewport" content="user-scalable=yes, width=720, minimum-scale=0.2, maximum-scale=2.0, initial-scale=1.0">
         <style>
 
@@ -30,7 +30,7 @@ table.score_calc tfoot tr:first-child td { padding: 4px 0; border-top: double 6p
 table.score_calc tfoot tr:nth-child(2) td { padding: 8px 0 0; border-top: dashed 2px #08D; }
 table.score_calc tfoot td:nth-child(2) { padding: 0 2px 0 12px; font-weight: bold; }
 table.score_calc tfoot tr:nth-child(3) td { padding: 8px 0 0; border-top: solid 2px #08D; }
-table.score_calc tfoot td#toggle_ordinary { font-weight: bold; text-align: center; cursor: pointer; transition-duration: 0.3s; }
+table.score_calc tfoot td#toggle_ordinary { font-weight: bold; text-align: center; cursor: pointer; transition-duration: 0.3s; user-select: none; }
 table.score_calc tfoot td#toggle_ordinary:hover { color: #6BF; }
 table.score_calc tfoot td#toggle_ordinary:active { color: #8CF; }
 table.score_calc tfoot tr:nth-child(4) td { padding: 8px 0 0; border-top: dotted 1px #08D; }
@@ -67,7 +67,7 @@ span#gi_rev { color: tomato; font-weight: bold; }
         </style>
         <script>let rules = {};</script>
         <script>let ruleBooks = {};</script>
-        <script type="text/javascript" src="./data/rulebook.js?update=4"></script>
+        <script type="text/javascript" src="./data/rulebook.js?update=5"></script>
         <script>var costTable = null;</script>
         <!-- <script type="text/javascript" src="./data/rule.js?update=4"></script> -->
         <!-- <script type="text/javascript" src="./data/spiral_tier_cost.js?update=5"></script> -->
@@ -600,9 +600,9 @@ for (book in ruleBooks) {
         <div class="subnote center">
             <span class="bold" style="line-height: 28px; ">- <span id="rule_title">앙챔스 룰북</span> <span id="rule_version">2.0</span> 기준 - </span>
             <br />
-            <span class="bold">GCALC v1.9.5</span>
+            <span class="bold">GCALC v1.9.6</span>
             <br />
-            <span>Release 2023.09.16</span>
+            <span>Release 2023.09.23</span>
         </div>
     </body>
     <script>
