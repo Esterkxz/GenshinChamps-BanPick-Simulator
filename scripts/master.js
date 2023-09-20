@@ -604,6 +604,7 @@ let sequenceMaster = {
 
                         setTimeout(function() {
                             if (step == curStep) {
+                                screenMaster.showSideArea();
                                 let entrySide = $("div#versus_entry_area div.versus_entry_side");
                                 let redEntries = entrySide.filter(".red").find("div.versus_entry");
                                 let blueEntries = entrySide.filter(".blue").find("div.versus_entry");
@@ -4113,7 +4114,7 @@ let sideMaster = {
             setTimeout(function() {
                 sideMaster.showDifferAddsByTotalVersusSuperiorityGraph();
                 showCursorWholeScreen();
-                screenMaster.showSideArea();
+                //screenMaster.showSideArea();
             }, 500);
         }, 10);
     },
