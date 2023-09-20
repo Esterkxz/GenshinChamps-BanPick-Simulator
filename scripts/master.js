@@ -4129,11 +4129,18 @@ let sideMaster = {
 
     onVersusInputRemains: function(e) {
         let self = $(this);
+        let set = self.closest(".remains_set");
         let side = self.closest(sideMaster.side_record_board).attr(sideMaster.side);
         let stage = parseInt(self.closest(sideMaster.side_record).attr(sideMaster.stage));
         let isMin = self.hasClass("min");
 
         sideMaster.releaseVersusRecordBoard(side, stage, isMin);
+
+        if (isMin) {
+            if (this.value.length > 0) set.find(".sec").focus();
+        } else {
+            
+        }
     },
 
     onBlurVersusInputRemains: function(e) {
@@ -4324,11 +4331,21 @@ let sideMaster = {
 
     onKeydownVersusInputRemains: function(e) {
         let self = $(this);
+        let set = self.closest(".remains_set");
         let side = self.closest(sideMaster.side_record_board).attr(sideMaster.side);
         let stage = parseInt(self.closest(sideMaster.side_record).attr(sideMaster.stage));
         let isMin = self.hasClass("min");
 
         switch (e.keyCode) {
+            case 8:
+                //if (!isMin && this.selectionStart) 
+                if (!isMin && (this.value.length < 1 || this.value == "0")) {
+                    set.find(".min").focus();
+                    e.preventDefault();
+                    return false;
+                }
+                break;
+
             case 9:
                 if (e.shiftKey) {
                     if (isMin) {
