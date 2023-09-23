@@ -4146,11 +4146,13 @@ let sideMaster = {
 
     onBlurVersusInputRemains: function(e) {
         let self = $(this);
+        let set = self.closest(".remains_set");
         let side = self.closest(sideMaster.side_record_board).attr(sideMaster.side);
-        let stage = parseInt(self.closest(sideMaster.side_record).attr(sideMaster.stage));
+        let record = self.closest(sideMaster.side_record);
+        let stage = parseInt(record.attr(sideMaster.stage));
         let isMin = self.hasClass("min");
 
-        sideMaster.releaseVersusSuperiorityGraph(stage, side);
+        if (!set.is(":focus-within")) sideMaster.releaseVersusSuperiorityGraph(stage, side);
     },
 
     onClickTkoButton: function(e) {
@@ -4341,6 +4343,7 @@ let sideMaster = {
             case 8:
                 //if (!isMin && this.selectionStart) 
                 if (!isMin && (this.value.length < 1 || this.value == "0")) {
+                    self.val("");
                     set.find(".min").focus();
                     e.preventDefault();
                     return false;
