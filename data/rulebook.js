@@ -211,9 +211,9 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "selectable": true,
 
             "addSecDefaults": {
-                "constell": 3,
-                "weapon": 6,
-                "refine": 3,
+                "constell": 4,
+                "weapon": 8,
+                "refine": 2,
             },
         
                 "ban_card_accure": {
