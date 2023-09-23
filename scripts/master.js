@@ -8564,7 +8564,8 @@ $(document).ready(function() {
             setTimeout(function() {
                 $("div#loading_cover").hide();
                 sequenceMaster.setSequenceTitle(lang.text.titleReady);
-                setTimeout(function() { sideMaster.redNameplateInput.focus(); }, 1000);
+                //상단 정보 입력 대신 플레이어 정보 입력을 쓰면서 방해됨
+                //setTimeout(function() { sideMaster.redNameplateInput.focus(); }, 1000);
             }, 2500);
         }, 100);
     });
