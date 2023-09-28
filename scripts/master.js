@@ -4609,11 +4609,13 @@ let sideMaster = {
                 let wins = redWins ? "red" : "blue";
                 let finish = function() {
                     if (step > rules.sequence.length) {
+                        console.log(":: finish");
                         versusEntryArea.attr("data-wins", wins);
                         sequenceMaster.setSequenceTitle((wins == "red" ? redName : blueName) + (isTko ? " TKO" : "") + " 승");
                     }
                 };
-                if (isFirstResult) setTimeout(finish, isFinale && isFirst ? 2000 : 1000);
+
+                if (isFirstResult) setTimeout(finish, 2000);
                 else finish();
             } else {
                 sequenceMaster.setSequenceTitle(isTko ? "Double TKO" : "무승부");
@@ -4621,8 +4623,8 @@ let sideMaster = {
             }
 
             //this.releaseVersusSuperiorityGraph(0);
-            if (!isFirstResult) this.releaseVersusSuperiorityGraph(0, finale = true);
-            else setTimeout(function() { sideMaster.releaseVersusSuperiorityGraph(0, finale = true); }, 1500);
+            if (!isFirstResult) this.releaseVersusSuperiorityGraph(0, null, true);
+            else setTimeout(function() { sideMaster.releaseVersusSuperiorityGraph(0, null, true); }, 1500);
         } else {
             //this.updateVersusSuperiorityGraph(0, redRemains, blueRemains);
             if (stage < 2) this.releaseVersusSuperiorityGraph(0);
