@@ -5789,7 +5789,19 @@ let playerInfoMaster = {
         let pim = playerInfoMaster;
         let selectionEntry = $(this).closest(pim.selection_entry);
 
-        switch (e.keyCode) {
+        if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+            e.preventDefault();
+
+            let value = Math.max(Math.min(parseInt(e.key), 5), 1);
+            let refine = selectionEntry.find(pim.weapon_refine);
+            refine.focus();
+            setTimeout(function(e) {
+                refine.val("" + value);
+                refine.select();
+            }, 10);
+
+            return false;
+        } else switch (e.keyCode) {
             case 9://Tab
                 if (e.shiftKey) {
                     $(this).closest(pim.selection_entry).find(pim.char_constell).focus();
