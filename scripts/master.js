@@ -5382,6 +5382,8 @@ let playerInfoMaster = {
 
         this.eachWeaponName.on("input cut paste change", this.onInputWeaponName);
 
+        this.eachWeaponName.blur(this.onBlurWeaponName);
+
 
         this.preloadWeaponsInfo();
         
@@ -5832,10 +5834,32 @@ let playerInfoMaster = {
             break;
         }
         if (isAlias || valueLc == "/") {
-            setWeaponOptimal(selectionEntry);
+            pim.setWeaponIsSignature(selectionEntry);
         } else {
             pim.checkWeaponName(selectionEntry);
             pim.releaseSecondsForAdds();
+        }
+    },
+
+    onBlurWeaponName: function(e) {
+        let pim = playerInfoMaster;
+        let self = $(this);
+        let value = self.val().trim();
+        let selectionEntry = self.closest(pim.selection_entry);
+        let charId = selectionEntry.attr(pim.char);
+        if (charId == null || charId == "") return;
+        let info = charactersInfo.list[charactersInfo[charId]];
+        let weaponId = selectionEntry.attr(pim.weapon);
+
+        if (weaponId != null && weaponId != "") {
+            let found = pim.weapons[info.weapon].find((item, index) => item.id == weaponId);
+
+            if (found != null) {
+                for (i=0; i<found.aliases[loca].length; i++) if (found.aliases[loca][i].indexOf(value) == 0) {
+                    self.val(found.aliases[loca][i]);
+                    break;
+                }
+            }
         }
     },
 
@@ -5889,7 +5913,7 @@ let playerInfoMaster = {
             found = this.weapons[info.weapon].filter((item, index) => {
                 return item.name[loca].indexOf(value) == 0
                     || item.name[loca].replace(/\b/ig, "").indexOf(value.replace(/\b/ig, "")) == 0
-                    || item.aliases[loca].find((alias, idx) => { return alias == value; }) != null;
+                    || item.aliases[loca].find((alias, idx) => { return alias.indexOf(value) == 0; }) != null;
             });
 
             if (found != null && found.length > 0) {

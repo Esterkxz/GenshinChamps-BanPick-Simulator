@@ -1004,7 +1004,7 @@ div#player_info_op_cp div.player_info_side div.selection_side div.selection_entr
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_icon_area div.entry_icon input.char_constell::placeholder { color: rgba(var(--signature-color-light) / 70%);  }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_icon_area div.entry_icon input.char_constell:focus { font-size: 42px; }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_icon_area div.entry_icon input.char_constell:hover { }
-div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info { position: relative; width: 100%; }
+div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info { position: relative; z-index: 1; width: 100%; }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input { position: absolute; width: 100%; border-radius: 4px; background-color: rgba(var(--bgcolor-base) / 40%); font-size: 16px; font-weight: bold; line-height: 17px; text-shadow: 1px 1px 1px black; ime-mode: active; transition-duration: 0.2s; }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input::placeholder { color: rgba(var(--signature-color-bright) / 70%);  }
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_info input:focus { z-index: 1; color: rgba(var(--main-color) / 90%); background-color: rgba(var(--bgcolor-base) / 90%); }
