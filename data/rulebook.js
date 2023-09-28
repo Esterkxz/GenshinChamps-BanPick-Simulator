@@ -124,6 +124,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "lynette": false,
             "lyney": false,
             "freminet": false,
+            "neuvillette": false,
         },
         "": ""
     },
@@ -317,6 +318,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "shogun": true,
         "yelan": true,
         "nahida": true,
+        "neuvillette": true,
     },
 
     "characters_override": {

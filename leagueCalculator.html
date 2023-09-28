@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>앙챔스 계정 점수 계산기 / 리그 체커  v1.9.6</title>
+        <title>앙챔스 계정 점수 계산기 / 리그 체커  v1.9.7</title>
         <meta name="viewport" content="user-scalable=yes, width=720, minimum-scale=0.2, maximum-scale=2.0, initial-scale=1.0">
         <style>
 
@@ -27,7 +27,7 @@ table.score_calc tbody td:not([colspan="4"]):nth-child(3) { width: 138px; }
 table.score_calc tbody td:not([colspan="4"]):nth-child(4) { width: 60px; }
 table.score_calc tbody td:not([colspan="4"]):nth-child(5) { display: none; }
 table.score_calc tfoot tr:first-child td { padding: 4px 0; border-top: double 6px #08D; font-size: 18px; }
-table.score_calc tfoot tr:nth-child(2) td { padding: 8px 0 0; border-top: dashed 2px #08D; }
+table.score_calc tfoot tr:nth-child(2) td { padding: 8px 0 5px; border-top: dashed 2px #08D; }
 table.score_calc tfoot td:nth-child(2) { padding: 0 2px 0 12px; font-weight: bold; }
 table.score_calc tfoot tr:nth-child(3) td { padding: 8px 0 0; border-top: solid 2px #08D; }
 table.score_calc tfoot td#toggle_ordinary { font-weight: bold; text-align: center; cursor: pointer; transition-duration: 0.3s; user-select: none; }
@@ -437,6 +437,19 @@ for (book in ruleBooks) {
                     </p></div></td>
                 </tr>
                 <tr>
+                    <td><div><p class="right">28</p></div></td>
+                    <td><div><p class="right"><span>느비예트</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_neuvillette" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_neuvillette" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_neuvillette"></span> +<span class="cost_add" data-cid="c_neuvillette"></span>)&nbsp;<span data-cid="c_lyney" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
                     <td colspan="4"></td>
                 </tr>
             </tbody>
@@ -600,9 +613,9 @@ for (book in ruleBooks) {
         <div class="subnote center">
             <span class="bold" style="line-height: 28px; ">- <span id="rule_title">앙챔스 룰북</span> <span id="rule_version">2.0</span> 기준 - </span>
             <br />
-            <span class="bold">GCALC v1.9.6</span>
+            <span class="bold">GCALC v1.9.7</span>
             <br />
-            <span>Release 2023.09.23</span>
+            <span>Release 2023.09.28</span>
         </div>
     </body>
     <script>
