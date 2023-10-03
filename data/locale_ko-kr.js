@@ -260,8 +260,10 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "lynette": "리넷",
         "lyney": "리니",
         "freminet": "프레미네",
-        "wriothesley": "라이오슬리",
         "neuvillette": "느비예트",
+        "wriothesley": "라이오슬리",
+        "charlotte": "샤를로트",
+        "furina": "푸리나",
         "reserved": ""
     },
     "characters_short": {
@@ -336,8 +338,10 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "lynette": "리넷",
         "lyney": "리니",
         "freminet": "프레미네",
-        "wriothesley": "라이오슬리",
         "neuvillette": "느비예트",
+        "wriothesley": "라이오슬리",
+        "charlotte": "샤를로트",
+        "furina": "푸리나",
         "reserved": ""
     },
     "weapons": {

@@ -262,6 +262,9 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "freminet": "Freminet",
         "wriothesley": "Wriothesley",
         "neuvillette": "Neuvillette",
+        "wriothesley": "Wriothesley",
+        "charlotte": "Charlotte",
+        "furina": "Furina",
         "reserved": ""
     },
     "characters_short": {
@@ -336,8 +339,10 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "lynette": "Lynette",
         "lyney": "Lyney",
         "freminet": "Freminet",
-        "wriothesley": "Wriothesley",
         "neuvillette": "Neuvillette",
+        "wriothesley": "Wriothesley",
+        "charlotte": "Charlotte",
+        "furina": "Furina",
         "reserved": ""
     },
     "weapons": {

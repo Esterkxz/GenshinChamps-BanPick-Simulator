@@ -125,6 +125,9 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "lyney": false,
             "freminet": false,
             "neuvillette": false,
+            "wriothesley": false,
+            "charlotte": false,
+            "furina": false,
         },
         "": ""
     },
