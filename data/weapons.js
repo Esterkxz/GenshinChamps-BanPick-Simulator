@@ -576,7 +576,7 @@ weaponsInfo = {
             "continent": "fontaine",
             "favority": ["neuvillette"],
             "res_icon": "UI_EquipIcon_Catalyst_Iudex.png",
-            "res_vcut": "i_n15512_gacha_icon.webp"
+            "res_vcut": "i_n15514_gacha_icon.webp"
         },
 
         {
