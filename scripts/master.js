@@ -4428,8 +4428,7 @@ let sideMaster = {
         let isFirstUpdate = showingPhaseTotals != "1" && showingPhaseTotals != "2";
         if (isFirstUpdate) {
             this.progressPanel[stage].attr(this.show, isUpdatingTotalFinale ? "2" :"1");
-            if (isUpdatingTotalFinale) sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains);
-            else setTimeout(function() { sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains); }, 1000);
+            setTimeout(function() { sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains); }, 1000);
         } else this.updateVersusSuperiorityGraph(stage, redRemains, blueRemains, side);
 
         if (stage > 0) this.checkUpdateVersusResultGraph(stage, isUpdatingTotalFinale, isFirstUpdate);

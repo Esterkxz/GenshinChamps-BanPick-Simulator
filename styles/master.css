@@ -1647,7 +1647,7 @@ div#versus_record_board div#versus_progress_panel div.progress_panel.result[data
 div#versus_record_board div#versus_progress_panel div.progress_panel.result div.superiority { height: 30px; margin: 9px 0; box-shadow: inset 0 0 4px 1px rgba(var(--main-color) / 90%), 0 0 8px 0 rgba(var(--highlighted-text-base) / 30%), 0 6px 8px 6px #333C; opacity: 0; transition-delay: 0.3s; }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result:not([data-show=""]) div.superiority { opacity: 1; }
 div#versus_record_board div#versus_progress_panel div.progress_panel.result:hover div.superiority { opacity: 1; }
-div#versus_record_board div#versus_progress_panel div.progress_panel.result div.superiority div.graph.empty { flex-grow: 0; }
+/* div#versus_record_board div#versus_progress_panel div.progress_panel.result div.superiority div.graph.empty { flex-grow: 0; } */
 div#versus_record_board div#versus_progress_panel div.progress_panel.result div.superiority span.time_differ { line-height: 28px; opacity: 1; }
 div#versus_record_board div#versus_progress_panel div.versus { position: absolute; top: -80px; /* bottom: -78px; */ left: 0; right: 0; margin: auto; /* margin-top: 24px; */ margin-top: 54px;  color: rgb(var(--color-important-light)); font-size: 36px; font-weight: bold; font-family: 'Noto Sans KR'; text-align: center; text-shadow: 0px 0px 10px rgba(var(--color-important-lighter) / 75%); filter: drop-shadow(0 6px 8px black); transition-duration: 0.6s; transition-timing-function: ease; }
 
