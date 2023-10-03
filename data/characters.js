@@ -1095,7 +1095,7 @@ let charactersInfo = {
             "res_vcut": "neuvillette_087_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "21%", "vHover": "24%" },
             "res_wide": "UI_AvatarIcon_Neuvillette@2x.png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "64%", "v": "32%" },
+            "res_wide_meta_pos": { "scale": "320%", "h": "54.5%", "v": "12.5%" },
         },
         {
             "comment": "temporary data for pre-official release",
