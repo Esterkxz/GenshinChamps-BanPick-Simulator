@@ -4678,6 +4678,7 @@ let playerInfoMaster = {
     selection_side: "div.selection_side",
     selection_entry: "div.selection_entry",
 
+    entry: "data-entry",
     char: "data-char",
     weapon: "data-weapon",
 
@@ -5325,6 +5326,7 @@ let playerInfoMaster = {
 
         this.inputs.focus(function(e) { $(this).closest(playerInfoMaster.selection_entry).attr("data-focus", this.className); $(this).select(); });
         this.inputs.blur(function(e) { let selectionEntry = $(this).closest(playerInfoMaster.selection_entry); if (selectionEntry.attr("data-focus") == this.className) selectionEntry.attr("data-focus", ""); });
+        this.inputs.keydown(this.onKeydownSelectionEntry);
         this.eachEntryIconArea.click(function(e) { $(this).find("input").focus(); });
         this.eachEntryWeaponIconArea.click(function(e) { $(this).find("input").focus(); });
 
@@ -5729,6 +5731,42 @@ let playerInfoMaster = {
         let found = this.eachSelectionEntry.filter('[' + this.char + '="' + id + '"]');
         if (found.length > 0) found.find(this.char_constell).val(constell);
         this.releaseSecondsForAdds();
+    },
+
+    onKeydownSelectionEntry: function(e) {
+        let pim = playerInfoMaster;
+        let selectionEntry = $(this).closest(pim.selection_entry);
+        let selectionSide = selectionEntry.parent();
+        let side = selectionSide.hasClass("red") ? "red" : "blue";
+        let entry = parseInt(selectionEntry.attr(pim.entry));
+        let isLastOrder = entry == 8;
+        let nextEntry = isLastOrder ? 0 : entry;
+        let nextSide = isLastOrder ? (side == "red" ? "blue" : "red") : side;
+
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            switch(this.className) {
+                case "char_constell":
+                    $(pim.charConstells[nextSide][nextEntry]).focus();
+                    break;
+
+                case "char_name":
+                    $(pim.charNames[nextSide][nextEntry]).focus();
+                    break;
+
+                case "weapon_name":
+                    $(pim.weaponNames[nextSide][nextEntry]).focus();
+                    break;
+
+                case "weapon_refine":
+                    let nextName = $(pim.weaponNames[nextSide][nextEntry]);
+                    let nextRefine = $(pim.weaponRefines[nextSide][nextEntry]);
+                    if (nextName.val() == "") nextName.focus();
+                    else nextRefine.focus();
+                    break;
+            }
+            return false;
+        }
     },
 
     onNumericEnterSelections: function(e) {
