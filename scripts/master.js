@@ -1933,7 +1933,30 @@ let poolMaster = {
         nametag.setAttribute("class", "name_tag");
         if (info != null) {
             try {
-                nametag.innerHTML = info.nameShort[loca];
+                let name = document.createElement("span");
+                name.setAttribute("class", "name text_only");
+                let nameShort = info.nameShort[loca];
+                name.innerHTML = nameShort;
+                nametag.append(name);
+                
+                if (loca == "ko-kr") {
+                    let wid = 60.0 - 6.0;
+                    let hovWid = 69.0 - 6.0;
+                    let letterWid = 16.0;
+                    let pad = 2.0;
+                    let padHov = 1.0;
+                    let over = 2.0;
+                    let nameLen = nameShort.length;
+                    let tag = $(nametag);
+                    var scaleW = 1;
+                    var scaleHW = 1;
+                    if (nameLen > 3) {
+                        scaleW = ((wid - pad) / (letterWid * nameLen)).toFixed(3);
+                        if (nameLen > 4) scaleHW = ((hovWid - padHov) / (letterWid * nameLen)).toFixed(3);
+                    }
+                    tag.css("--scaleW", "" + scaleW);
+                    tag.css("--scaleHW", "" + scaleHW);
+                }
             } catch (e) {
 
             }
