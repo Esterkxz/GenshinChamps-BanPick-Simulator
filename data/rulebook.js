@@ -124,8 +124,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "lynette": false,
             "lyney": false,
             "freminet": false,
-            "neuvillette": false,
             "wriothesley": false,
+            "neuvillette": false,
             "charlotte": false,
             "furina": false,
         },
@@ -272,6 +272,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "wanderer": true,
                 "alhaitham": true,
                 "lyney": true,
+                "wriothesley": true,
             },
             "": ""
         },

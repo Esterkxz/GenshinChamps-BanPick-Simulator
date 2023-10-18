@@ -261,8 +261,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "lyney": "Lyney",
         "freminet": "Freminet",
         "wriothesley": "Wriothesley",
-        "neuvillette": "Neuvillette",
         "wriothesley": "Wriothesley",
+        "neuvillette": "Neuvillette",
         "charlotte": "Charlotte",
         "furina": "Furina",
         "reserved": ""
@@ -339,8 +339,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "lynette": "Lynette",
         "lyney": "Lyney",
         "freminet": "Freminet",
-        "neuvillette": "Neuvillette",
         "wriothesley": "Wriothesley",
+        "neuvillette": "Neuvillette",
         "charlotte": "Charlotte",
         "furina": "Furina",
         "reserved": ""
