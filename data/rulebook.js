@@ -12,7 +12,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard.\n\
     ",
     "rule_title": "앙챔스 룰북",
-    "rule_version": "3.0",
+    "rule_version": "3.1",
 
     "rule_type": "ban card",
 
@@ -44,6 +44,12 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             { "side": "red", "pick": 'entry', "amount": "0" },
             "reserved"
         ],
+
+        "addSecDefaults": {
+            "constell": 2,
+            "weapon": 4,
+            "refine": 2,
+        },
     
         "ban_card_accure": {
             "treveler": false,
@@ -117,11 +123,16 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "kirara": false,
             "lynette": false,
             "lyney": false,
+            "freminet": false,
+            "wriothesley": false,
+            "neuvillette": false,
+            "charlotte": false,
+            "furina": false,
         },
         "": ""
     },
 
-    "alter_default": 2,
+    "alter_default": 3,
 
     "rule_alter": [
         {
@@ -155,6 +166,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "dori": true,
                 "candace": true,
                 "kaveh": true,
+                "freminet": true,
             },
             "": ""
         },
@@ -173,7 +185,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "name": "티바트 리그",//"흑술창 리그",
             "name_full": "Teyvat",//"흑술창",
             "score_range": "0-55",//"25-34",
-            "established": true,
+            "established": false,
             "selectable": true,
 
             "ban_card_accure": {
@@ -196,13 +208,19 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "": ""
         },
         {
-            "name": "제례활 리그",
-            "name_full": "제례활",
-            "score_range": "35-59",
-            "established": false,
-            "selectable": false,
+            "name": "통합 리그",//"제례활 리그",
+            "name_full": "Unified",//"제례활",
+            "score_range": "0+",//"35-59",
+            "established": true,
+            "selectable": true,
 
-            "ban_card_accure": {
+            "addSecDefaults": {
+                "constell": 4,
+                "weapon": 8,
+                "refine": 2,
+            },
+        
+                "ban_card_accure": {
                 "xiangling": true,
                 "xingqiu": true,
                 "bennett": true,
@@ -217,7 +235,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "name": "셀레스티아 리그",//"카구라 리그",
             "name_full": "Celestia",//"카구라의 진의",
             "score_range": "56+",//"60-99",
-            "established": true,
+            "established": false,
             "selectable": true,
 
             "ban_card_accure": {
@@ -254,6 +272,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "wanderer": true,
                 "alhaitham": true,
                 "lyney": true,
+                "wriothesley": true,
             },
             "": ""
         },
@@ -303,6 +322,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "shogun": true,
         "yelan": true,
         "nahida": true,
+        "neuvillette": true,
     },
 
     "characters_override": {

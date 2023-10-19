@@ -884,7 +884,7 @@ function getPathA(id, group = "", type = "sounds") {
                                     <input type="text" class="info_item info_ap" id="red_info_ap" value="" placeholder="A.P." />
                                 </div>
                                 <input type="text" class="info_item info_name" id="red_info_name" value="" placeholder="Name" />
-                                <input type="text" class="info_item info_uid" id="red_info_uid" value="" placeholder="UID" />
+                                <input type="text" class="info_item info_uid" id="red_info_uid" maxlength="9" value="" placeholder="UID" />
                                 <div class="info_treveler">
                                     <input type="radio" class="info_item info_treveler_style female" id="redTrevelerF" name="redTrevelers" value="0" /><label class="info_label info_treveler_style female" for="redTrevelerF">여행자</label>
                                     <input type="radio" class="info_item info_treveler_style male" id="redTrevelerM" name="redTrevelers" value="1" /><label class="info_label info_treveler_style male" for="redTrevelerM">남행자</label>
@@ -1078,7 +1078,7 @@ function getPathA(id, group = "", type = "sounds") {
                                     <input type="text" class="info_item info_ap" id="blue_info_ap" value="" placeholder="A.P." />
                                 </div>
                                 <input type="text" class="info_item info_name" id="blue_info_name" value="" placeholder="Name" />
-                                <input type="text" class="info_item info_uid" id="blue_info_uid" value="" placeholder="UID" />
+                                <input type="text" class="info_item info_uid" id="blue_info_uid" maxlength="9" value="" placeholder="UID" />
                                 <div class="info_treveler">
                                     <input type="radio" class="info_item info_treveler_style female" id="blueTrevelerF" name="blueTrevelers" value="0" /><label class="info_label info_treveler_style female" for="blueTrevelerF">여행자</label>
                                     <input type="radio" class="info_item info_treveler_style male" id="blueTrevelerM" name="blueTrevelers" value="1" /><label class="info_label info_treveler_style male" for="blueTrevelerM">남행자</label>
@@ -1303,7 +1303,7 @@ function getPathA(id, group = "", type = "sounds") {
                             <input type="text" id="search_input" placeholder="search word" />
                         </div>
                         <div id="version_info">
-                            <span title="release 2023.08.30">v0.5.5</span>
+                            <span title="release 2023.10.18">v0.5.11</span>
                         </div>
                         <div id="tool_infos">
                             <span id="popup_credits"><button class="text_type">Credits</button></span>
@@ -1319,7 +1319,7 @@ function getPathA(id, group = "", type = "sounds") {
                 </div>
                 <div id="red_side" class="player_board side_root red" data-hide="0">
                     <div class="player_info_block player_uid">
-                        <input type="text" class="red_side" tabindex="3" placeholder="UID" title="플레이어 UID" />
+                        <input type="text" class="red_side" tabindex="3" maxlength="9" placeholder="UID" title="플레이어 UID" />
                     </div>
                     <div class="player_info_block nameplate">
                         <div class="plate_back"><div class="plate_back_paint"></div></div>
@@ -1382,7 +1382,7 @@ function getPathA(id, group = "", type = "sounds") {
                 </div>
                 <div id="blue_side" class="player_board side_root blue" data-hide="0">
                     <div class="player_info_block player_uid">
-                        <input type="text" class="blue_side" tabindex="6" placeholder="UID" title="플레이어 UID" />
+                        <input type="text" class="blue_side" tabindex="6" maxlength="9" placeholder="UID" title="플레이어 UID" />
                     </div>
                     <div class="player_info_block nameplate">
                         <div class="plate_back"><div class="plate_back_paint"></div></div>
@@ -1801,7 +1801,9 @@ function getPathA(id, group = "", type = "sounds") {
                 <div id="version_display" class="float_layer" data-full="">
                     <div class="tool_title">GCBPS</div>
                     <div class="version_number">vn.x</div>
-                    <div class="release_date">release yyyy.mm.dd</div>
+                    <div class="release_line">
+                        <span class="release">release yyyy.</span><span class="release_date">mm.dd</span>
+                    </div>
                     <div class="powered_by">Powered by <a class="logo" target="_blank" href="https://dux.oopy.io" title="디·유·엑스™ 홈페이지&#13;&#10;Go to homepage of De-U-eX™">D.U.X.™</a></span></div>
                 </div>
                 <div id="timer" class="float_layer" data-side="" data-hide="0">

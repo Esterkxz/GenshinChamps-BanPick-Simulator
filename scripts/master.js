@@ -604,6 +604,7 @@ let sequenceMaster = {
 
                         setTimeout(function() {
                             if (step == curStep) {
+                                if ($(document.body).attr("data-view-surrounded") == "0") screenMaster.showSideArea();
                                 let entrySide = $("div#versus_entry_area div.versus_entry_side");
                                 let redEntries = entrySide.filter(".red").find("div.versus_entry");
                                 let blueEntries = entrySide.filter(".blue").find("div.versus_entry");
@@ -1932,7 +1933,30 @@ let poolMaster = {
         nametag.setAttribute("class", "name_tag");
         if (info != null) {
             try {
-                nametag.innerHTML = info.nameShort[loca];
+                let name = document.createElement("span");
+                name.setAttribute("class", "name text_only");
+                let nameShort = info.nameShort[loca];
+                name.innerHTML = nameShort;
+                nametag.append(name);
+                
+                if (loca == "ko-kr") {
+                    let wid = 60.0 - 6.0;
+                    let hovWid = 69.0 - 6.0;
+                    let letterWid = 16.0;
+                    let pad = 2.0;
+                    let padHov = 1.0;
+                    let over = 2.0;
+                    let nameLen = nameShort.length;
+                    let tag = $(nametag);
+                    var scaleW = 1;
+                    var scaleHW = 1;
+                    if (nameLen > 3) {
+                        scaleW = ((wid - pad) / (letterWid * nameLen)).toFixed(3);
+                        if (nameLen > 4) scaleHW = ((hovWid - padHov) / (letterWid * nameLen)).toFixed(3);
+                    }
+                    tag.css("--scaleW", "" + scaleW);
+                    tag.css("--scaleHW", "" + scaleHW);
+                }
             } catch (e) {
 
             }
@@ -4104,6 +4128,7 @@ let sideMaster = {
         this.blueSideRecordTotal.find(".add_time.sec").html(blueSec);
         //---------
 
+        versionDisplayShowFor(2);
         this.versusRecordBoard.attr(this.show, "1");
         setTimeout(function() {
             sequenceMaster.setSequenceTitle(lang.text.titleLeagueMatch.replace("#NAME", rules.name_full).replace("#TAIL", rules.league_tail));
@@ -4112,7 +4137,7 @@ let sideMaster = {
             setTimeout(function() {
                 sideMaster.showDifferAddsByTotalVersusSuperiorityGraph();
                 showCursorWholeScreen();
-                if ($(document.body).attr("data-view-surrounded") == "0") screenMaster.showSideArea();
+                //screenMaster.showSideArea();
             }, 500);
         }, 10);
     },
@@ -4128,20 +4153,29 @@ let sideMaster = {
 
     onVersusInputRemains: function(e) {
         let self = $(this);
+        let set = self.closest(".remains_set");
         let side = self.closest(sideMaster.side_record_board).attr(sideMaster.side);
         let stage = parseInt(self.closest(sideMaster.side_record).attr(sideMaster.stage));
         let isMin = self.hasClass("min");
 
         sideMaster.releaseVersusRecordBoard(side, stage, isMin);
+
+        if (isMin) {
+            if (this.value.length > 0) set.find(".sec").focus();
+        } else {
+            
+        }
     },
 
     onBlurVersusInputRemains: function(e) {
         let self = $(this);
+        let set = self.closest(".remains_set");
         let side = self.closest(sideMaster.side_record_board).attr(sideMaster.side);
-        let stage = parseInt(self.closest(sideMaster.side_record).attr(sideMaster.stage));
+        let record = self.closest(sideMaster.side_record);
+        let stage = parseInt(record.attr(sideMaster.stage));
         let isMin = self.hasClass("min");
 
-        sideMaster.releaseVersusSuperiorityGraph(stage, side);
+        if (!set.is(":focus-within")) sideMaster.releaseVersusSuperiorityGraph(stage, side);
     },
 
     onClickTkoButton: function(e) {
@@ -4323,11 +4357,22 @@ let sideMaster = {
 
     onKeydownVersusInputRemains: function(e) {
         let self = $(this);
+        let set = self.closest(".remains_set");
         let side = self.closest(sideMaster.side_record_board).attr(sideMaster.side);
         let stage = parseInt(self.closest(sideMaster.side_record).attr(sideMaster.stage));
         let isMin = self.hasClass("min");
 
         switch (e.keyCode) {
+            case 8:
+                //if (!isMin && this.selectionStart) 
+                if (!isMin && (this.value.length < 1 || this.value == "0")) {
+                    self.val("");
+                    set.find(".min").focus();
+                    e.preventDefault();
+                    return false;
+                }
+                break;
+
             case 9:
                 if (e.shiftKey) {
                     if (isMin) {
@@ -4403,16 +4448,13 @@ let sideMaster = {
 
         let isUpdatingTotalFinale = stage == 0 && finale;
         let showingPhaseTotals = this.progressPanel[stage].attr(this.show);
-        if (isUpdatingTotalFinale && showingPhaseTotals != "2") {
-            this.progressPanel[stage].attr(this.show, "2");
-            setTimeout(function() { sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains); }, 1000);
-        } else if (showingPhaseTotals != "1" && showingPhaseTotals != "2") {
+        let isFirstUpdate = showingPhaseTotals != "1" && showingPhaseTotals != "2";
+        if (isFirstUpdate) {
             this.progressPanel[stage].attr(this.show, isUpdatingTotalFinale ? "2" :"1");
-            if (isUpdatingTotalFinale) sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains);
-            else setTimeout(function() { sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains); }, 1000);
+            setTimeout(function() { sideMaster.updateVersusSuperiorityGraph(stage, redRemains, blueRemains); }, 1000);
         } else this.updateVersusSuperiorityGraph(stage, redRemains, blueRemains, side);
 
-        if (stage > 0) this.checkUpdateVersusResultGraph(stage);
+        if (stage > 0) this.checkUpdateVersusResultGraph(stage, isUpdatingTotalFinale, isFirstUpdate);
     },
 
     updateVersusSuperiorityGraph: function(stage, redRemains, blueRemains, side) {
@@ -4477,7 +4519,7 @@ let sideMaster = {
         }
     },
 
-    checkUpdateVersusResultGraph: function(stage) {
+    checkUpdateVersusResultGraph: function(stage, isFinale, isFirst) {
         let redRemains1 = this.vsTimeRemains["red"][1];
         let blueRemains1 = this.vsTimeRemains["blue"][1];
         let redRemains2 = this.vsTimeRemains["red"][2];
@@ -4587,19 +4629,24 @@ let sideMaster = {
             let isFirstResult = versusEntryArea.attr("data-wins") == "";
             if (redWins || blueWins) {
                 let wins = redWins ? "red" : "blue";
-                if (isFirstResult) {
-                    setTimeout(function() { if (step > rules.sequence.length) versusEntryArea.attr("data-wins", wins); }, 1000);
-                } else versusEntryArea.attr("data-wins", wins);
+                let finish = function() {
+                    if (step > rules.sequence.length) {
+                        console.log(":: finish");
+                        versusEntryArea.attr("data-wins", wins);
+                        sequenceMaster.setSequenceTitle((wins == "red" ? redName : blueName) + (isTko ? " TKO" : "") + " 승");
+                    }
+                };
 
-                sequenceMaster.setSequenceTitle((wins == "red" ? redName : blueName) + (isTko ? " TKO" : "") + " 승");
+                if (isFirstResult) setTimeout(finish, 2000);
+                else finish();
             } else {
                 sequenceMaster.setSequenceTitle(isTko ? "Double TKO" : "무승부");
                 versusEntryArea.attr("data-wins", "");
             }
 
             //this.releaseVersusSuperiorityGraph(0);
-            if (!isFirstResult) this.releaseVersusSuperiorityGraph(0, finale = true);
-            else setTimeout(function() { sideMaster.releaseVersusSuperiorityGraph(0, finale = true); }, 1500);
+            if (!isFirstResult) this.releaseVersusSuperiorityGraph(0, null, true);
+            else setTimeout(function() { sideMaster.releaseVersusSuperiorityGraph(0, null, true); }, 1500);
         } else {
             //this.updateVersusSuperiorityGraph(0, redRemains, blueRemains);
             if (stage < 2) this.releaseVersusSuperiorityGraph(0);
@@ -4654,6 +4701,7 @@ let playerInfoMaster = {
     selection_side: "div.selection_side",
     selection_entry: "div.selection_entry",
 
+    entry: "data-entry",
     char: "data-char",
     weapon: "data-weapon",
 
@@ -4944,9 +4992,10 @@ let playerInfoMaster = {
 
 
         //init
-        this.initDesc();
-        this.initAddsDefault();
-        this.initAddSecs();
+        // this.initDesc();
+        // this.initAddsDefault();
+        // this.initAddSecs();
+        this.applyAddsDefaultByRuleBook();
         this.resetPicks();
 
 
@@ -5300,6 +5349,7 @@ let playerInfoMaster = {
 
         this.inputs.focus(function(e) { $(this).closest(playerInfoMaster.selection_entry).attr("data-focus", this.className); $(this).select(); });
         this.inputs.blur(function(e) { let selectionEntry = $(this).closest(playerInfoMaster.selection_entry); if (selectionEntry.attr("data-focus") == this.className) selectionEntry.attr("data-focus", ""); });
+        this.inputs.keydown(this.onKeydownSelectionEntry);
         this.eachEntryIconArea.click(function(e) { $(this).find("input").focus(); });
         this.eachEntryWeaponIconArea.click(function(e) { $(this).find("input").focus(); });
 
@@ -5357,6 +5407,8 @@ let playerInfoMaster = {
         this.eachWeaponRefine.keydown(this.onKeydownWeaponRefine);
 
         this.eachWeaponName.on("input cut paste change", this.onInputWeaponName);
+
+        this.eachWeaponName.blur(this.onBlurWeaponName);
 
 
         this.preloadWeaponsInfo();
@@ -5704,6 +5756,42 @@ let playerInfoMaster = {
         this.releaseSecondsForAdds();
     },
 
+    onKeydownSelectionEntry: function(e) {
+        let pim = playerInfoMaster;
+        let selectionEntry = $(this).closest(pim.selection_entry);
+        let selectionSide = selectionEntry.parent();
+        let side = selectionSide.hasClass("red") ? "red" : "blue";
+        let entry = parseInt(selectionEntry.attr(pim.entry));
+        let isLastOrder = entry == 8;
+        let nextEntry = isLastOrder ? 0 : entry;
+        let nextSide = isLastOrder ? (side == "red" ? "blue" : "red") : side;
+
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            switch(this.className) {
+                case "char_constell":
+                    $(pim.charConstells[nextSide][nextEntry]).focus();
+                    break;
+
+                case "char_name":
+                    $(pim.charNames[nextSide][nextEntry]).focus();
+                    break;
+
+                case "weapon_name":
+                    $(pim.weaponNames[nextSide][nextEntry]).focus();
+                    break;
+
+                case "weapon_refine":
+                    let nextName = $(pim.weaponNames[nextSide][nextEntry]);
+                    let nextRefine = $(pim.weaponRefines[nextSide][nextEntry]);
+                    if (nextName.val() == "") nextName.focus();
+                    else nextRefine.focus();
+                    break;
+            }
+            return false;
+        }
+    },
+
     onNumericEnterSelections: function(e) {
         let value = this.value;
         var val = value.trim();
@@ -5763,7 +5851,19 @@ let playerInfoMaster = {
         let pim = playerInfoMaster;
         let selectionEntry = $(this).closest(pim.selection_entry);
 
-        switch (e.keyCode) {
+        if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+            e.preventDefault();
+
+            let value = Math.max(Math.min(parseInt(e.key), 5), 1);
+            let refine = selectionEntry.find(pim.weapon_refine);
+            refine.focus();
+            setTimeout(function(e) {
+                refine.val("" + value);
+                refine.select();
+            }, 10);
+
+            return false;
+        } else switch (e.keyCode) {
             case 9://Tab
                 if (e.shiftKey) {
                     $(this).closest(pim.selection_entry).find(pim.char_constell).focus();
@@ -5808,10 +5908,32 @@ let playerInfoMaster = {
             break;
         }
         if (isAlias || valueLc == "/") {
-            setWeaponOptimal(selectionEntry);
+            pim.setWeaponIsSignature(selectionEntry);
         } else {
             pim.checkWeaponName(selectionEntry);
             pim.releaseSecondsForAdds();
+        }
+    },
+
+    onBlurWeaponName: function(e) {
+        let pim = playerInfoMaster;
+        let self = $(this);
+        let value = self.val().trim();
+        let selectionEntry = self.closest(pim.selection_entry);
+        let charId = selectionEntry.attr(pim.char);
+        if (charId == null || charId == "") return;
+        let info = charactersInfo.list[charactersInfo[charId]];
+        let weaponId = selectionEntry.attr(pim.weapon);
+
+        if (weaponId != null && weaponId != "") {
+            let found = pim.weapons[info.weapon].find((item, index) => item.id == weaponId);
+
+            if (found != null) {
+                for (i=0; i<found.aliases[loca].length; i++) if (found.aliases[loca][i].indexOf(value) == 0) {
+                    self.val(found.aliases[loca][i]);
+                    break;
+                }
+            }
         }
     },
 
@@ -5865,7 +5987,7 @@ let playerInfoMaster = {
             found = this.weapons[info.weapon].filter((item, index) => {
                 return item.name[loca].indexOf(value) == 0
                     || item.name[loca].replace(/\b/ig, "").indexOf(value.replace(/\b/ig, "")) == 0
-                    || item.aliases[loca].find((alias, idx) => { return alias == value; }) != null;
+                    || item.aliases[loca].find((alias, idx) => { return alias.indexOf(value) == 0; }) != null;
             });
 
             if (found != null && found.length > 0) {
@@ -5907,6 +6029,14 @@ let playerInfoMaster = {
         this.addSecs[side].constell = this.addSecDefaults.constell;
         this.addSecs[side].weapon = this.addSecDefaults.weapon;
         this.addSecs[side].refine = this.addSecDefaults.refine;
+    },
+
+    applyAddsDefaultByRuleBook: function() {
+        this.addSecDefaults = rules.addSecDefaults;
+        this.initDesc();
+        this.initAddsDefault();
+        this.initAddSecs();
+        //this.releaseSecondsForAdds();
     },
 
     releaseSecondsForAdds: function() {
@@ -6441,6 +6571,8 @@ let rulesMaster = {
         sideMaster.initBanEntries();
 
         sideMaster.initBanWeapons();
+
+        playerInfoMaster.applyAddsDefaultByRuleBook();
 
         playSound("풛");
     },
@@ -7453,6 +7585,7 @@ let timerMaster = {
         this.timerBegin = null;
         this.finishCurrentTimer();
         if (this.settings.autoStartSetupPhase && step != null && step == rules.sequence.length && latestStep < step) this.applyTimeSet(this.settings.setupPhaseTimeSet);
+        else if (this.settings.autoStartSetupPhase && step != null && step > rules.sequence.length && latestStep < step) this.applyTimeSet({ min: 10, sec: 0, ms: 0 });
         else this.applyTimeSetWithAmount();
 
         this.releaseTimerDisplay();
@@ -7684,11 +7817,13 @@ let timerMaster = {
     },
 
     releaseTimerDisplay: function(rsec, rcs) {
-        // var min = this.timeSet.min + "";
+        var min = this.timeSet.min;
+        //var min = this.timeSet.min + "";
         // if (min.length < 2) min = "0" + min;
         // var min1 = min[0];
         // var min0 = min[1];
-        var sec = this.timeSet.sec + "";
+        //var sec = this.timeSet.sec + "";
+        var sec = ((min * 60) + this.timeSet.sec) + "";
         if (sec.length < 2) sec = "00" + sec;
         else if (sec.length < 3) sec = "0" + sec;
         var sec2 = sec[0];
@@ -8138,12 +8273,15 @@ function showCursorWholeScreen() {
 
 function eventKeydown(e) {
     var isProcessed = false;
+    var tagName = e.target.tagName;
 
     switch(e.keyCode) {
         case 90://z
             if (e.ctrlKey) {//Ctrl+Z
-                undoStep();
-                isProcessed = true;
+                if (tagName != "INPUT" && tagName != "TEXTAREA") {
+                    undoStep();
+                    isProcessed = true;
+                }
             }
             break;
     }
@@ -8374,13 +8512,16 @@ function playAudio(a, volume = soundsMaster.volumeControlSlider.val()) {
 function releaseVersionDisplay() {
     let vi = $("div#version_info span");
     let vd = $("div#version_display");
+    let vr = vi.attr("title");
+    let vrs = vr.split(".");
     vd.find("div.version_number").text(vi.text());
-    vd.find("div.release_date").text(vi.attr("title"));
+    vd.find("span.release").text(vrs[0] + ".");
+    vd.find("span.release_date").text(vrs[1] + "." + vrs[2]);
 }
 
 function versionDisplayShowFor(full = true) {
     let vd = $("div#version_display");
-    vd.attr("data-full", full === true ? "1" : "");
+    vd.attr("data-full", full === true ? "1" : (isNaN(full) || full == false ? "" : full));
 }
 
 //onload
@@ -8524,7 +8665,8 @@ $(document).ready(function() {
             setTimeout(function() {
                 $("div#loading_cover").hide();
                 sequenceMaster.setSequenceTitle(lang.text.titleReady);
-                setTimeout(function() { sideMaster.redNameplateInput.focus(); }, 1000);
+                //상단 정보 입력 대신 플레이어 정보 입력을 쓰면서 방해됨
+                //setTimeout(function() { sideMaster.redNameplateInput.focus(); }, 1000);
             }, 2500);
         }, 100);
     });
