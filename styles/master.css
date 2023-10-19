@@ -1858,8 +1858,8 @@ div#res_sounds.resource_holder div.sound_panel_area ul#sound_panel li audio { }
 
 
 /* Main Display(for Surrounded view) */
-div#main_display { }
-body[data-view-surrounded="1"] div#main_display { --height: 1080px; --outline: 10px; height: var(--height); border-radius: 42px; outline-style: double; outline-width: var(--outline); outline-color: rgba(var(--color-focusive) / 90%); transform: scale(0.5) translateY(calc(((var(--height) / 2) - var(--outline)) * -1)); overflow: hidden; }
+div#main_display { --height: auto; --outline: 10px; height: var(--height); border-radius: 30px; outline-style: double; outline-width: var(--outline); outline-color: rgba(var(--color-focusive) / 50%); box-shadow: 0 0 40px 1px rgba(var(--main-color) / 1); transition-duration: 0.5s; transition-timing-function: ease-out; }
+body[data-view-surrounded="1"] div#main_display { --height: 1080px; height: var(--height); transform: scale(0.5) translateY(calc(((var(--height) / 2) - var(--outline)) * -1)); overflow: hidden; transition-timing-function: ease-in; }
 
 /* Control panel(Vertical view or Surrounded view) */
 div#control_panel { }

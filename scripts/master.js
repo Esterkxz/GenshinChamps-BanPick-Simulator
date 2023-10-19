@@ -6806,6 +6806,7 @@ let controllerMaster = {
         this.randomPickButton.mouseenter(this.randomButtonHover);
         this.randomPickButton.mouseleave(this.randomButtonHoverOut);
         this.buttonSettings.click(this.settingsButton);
+        this.buttonSettings.contextmenu(this.settingsButtonRight);
         this.buttonReset.click(this.resetButton);
         this.popupCredits.click(this.creditButton);
         this.popupSoundPanel.click(this.soundPanelButton);
@@ -6924,6 +6925,12 @@ let controllerMaster = {
     
     settingsButton: function(e) {
         toggleDarkmode();
+    },
+    
+    settingsButtonRight: function(e) {
+        e.preventDefault();
+        toggleSurroundedView();
+        return false;
     },
     
     creditButton: function(e) {
@@ -8316,6 +8323,12 @@ function toggleTp(e) {
     }
 }
 
+function toggleSurroundedView() {
+    let body = $(document.body);
+    let current = body.attr("data-view-surrounded");
+    body.attr("data-view-surrounded", current == "1" ? "0" : "1"); 
+}
+
 
 //sound control
 let sounds = commonInfo.path.sounds;
@@ -8635,6 +8648,7 @@ $(document).ready(function() {
     //settings apply
     let darkModeState = $.cookie("dark_mode");
     if (darkModeState != null && darkModeState == "true") toggleDarkmode();
+    toggleDarkmode();
 
 
 
