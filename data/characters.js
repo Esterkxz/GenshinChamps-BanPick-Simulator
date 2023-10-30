@@ -1079,8 +1079,8 @@ let charactersInfo = {
             "res_icon": "UI_AvatarIcon_Freminet.png",
             "res_vcut": "freminet_085_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "24%", "vHover": "14%" },
-            "res_wide": "UI_AvatarIcon_Freminet@3x.png",
-            "res_wide_meta_pos": { "scale": "320%", "h": "58%", "v": "23.8%" },
+            "res_wide": "freminet_genshin_impact_portrait_render_by_deg5270_dgdm1aw-fullview.png",
+            "res_wide_meta_pos": { "scale": "600%", "h": "68.5%", "v": "33.8%" },
         },
         {
             "id": "wriothesley",
@@ -1094,8 +1094,8 @@ let charactersInfo = {
             "res_icon": "UI_AvatarIcon_Wriothesley.png",
             "res_vcut": "wriothesley_086_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "25%", "vHover": "22%" },
-            "res_wide": "UI_AvatarIcon_Wriothesley@2x.png",
-            "res_wide_meta_pos": { "scale": "380%", "h": "62%", "v": "14.2%" },
+            "res_wide": "wriothesley_genshin_impact_portrait_render_by_deg5270_dge3inn-fullview.png",
+            "res_wide_meta_pos": { "scale": "720%", "h": "61.8%", "v": "29.1%" },
         },
         {
             "id": "neuvillette",
@@ -1109,8 +1109,8 @@ let charactersInfo = {
             "res_icon": "UI_AvatarIcon_Neuvillette.png",
             "res_vcut": "neuvillette_087_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "21%", "vHover": "24%" },
-            "res_wide": "UI_AvatarIcon_Neuvillette@2x.png",
-            "res_wide_meta_pos": { "scale": "320%", "h": "54.5%", "v": "12.5%" },
+            "res_wide": "neuvillette_genshin_impact_portrait_render_by_deg5270_dgdm1b5-fullview.png",
+            "res_wide_meta_pos": { "scale": "740%", "h": "57.7%", "v": "27.8%" },
         },
         {
             "comment": "temporary data for pre-official release",
