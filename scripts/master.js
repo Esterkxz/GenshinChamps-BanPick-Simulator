@@ -160,8 +160,9 @@ let sequenceMaster = {
     rollingRandomPicks: null,
 
 
-    pickingPlayerProfile: {"red": false, "blue": false},
-
+    pickingPlayerProfile: { "red": false, "blue": false },
+    pickedPlayerProfile: { "red": null, "blue": null },
+    selectedPlayerProfile: { "red": null, "blue": null },
 
     init: function() {
         console.log("init sequenceMaster");
@@ -349,19 +350,17 @@ let sequenceMaster = {
     
     onPick: function(id, item, usingBanCard = false) {
         if (this.pickingPlayerProfile.red) {
-            let res = playerInfoMaster.setPlayerProfile(id, "red", item.attr("data-treveler"));
-            if (res !== false) {
-                this.pickingPlayerProfile.red = false;
-                this.setSequenceTitleByCurrent();
-            }
+            let pcid = this.pickedPlayerProfile.red;
+            this.selectedPlayerProfile.red = pcid;
+            playerInfoMaster.finishPlayerProfile("red", pcid);
+            if (pcid != null) this.pickingPlayerProfile.red = false;
             return;
         }
         if (this.pickingPlayerProfile.blue) {
-            let res = playerInfoMaster.setPlayerProfile(id, "blue", item.attr("data-treveler"));
-            if (res !== false) {
-                this.pickingPlayerProfile.blue = false;
-                this.setSequenceTitleByCurrent();
-            }
+            let pcid = this.pickedPlayerProfile.blue;
+            this.selectedPlayerProfile.blue = pcid;
+            playerInfoMaster.finishPlayerProfile("blue", pcid);
+            if (pcid != null) this.pickingPlayerProfile.blue = false;
             return;
         }
         if (item != null && item.attr(poolMaster.banned) != "") return;
@@ -2007,10 +2006,48 @@ let poolMaster = {
     },
 
     onCharacterItemMouseEnter: function(e) {
+        let item = $(this);
+        let sm = sequenceMaster;
+        let id = item.attr(poolMaster.id);
+        let treveler = item.attr("data-treveler");
+        if (sm.pickingPlayerProfile.red) {
+            let res = playerInfoMaster.setPlayerProfile(id, "red", treveler);
+            sm.pickedPlayerProfile.red = (res !== false ? id + (id == "treveler" ? (treveler == 0 ? "F" : "M") : "") : null);
+            return;
+        }
+        if (sm.pickingPlayerProfile.blue) {
+            let res = playerInfoMaster.setPlayerProfile(id, "blue", treveler);
+            sm.pickedPlayerProfile.blue = (res !== false ? id + (id == "treveler" ? (treveler == 0 ? "F" : "M") : "") : null);
+            return;
+        }
+
         poolMaster.setCursorCharacter(this);
     },
 
     onCharacterItemMouseLeave: function(e) {
+        let item = $(this);
+        let sm = sequenceMaster;
+        if (sm.pickingPlayerProfile.red) {
+            let id = sm.pickedPlayerProfile.red;
+            sm.pickedPlayerProfile.red = null;
+            setTimeout(function() {
+                if (sm.pickingPlayerProfile.red && sm.pickedPlayerProfile.red == null) {
+                    playerInfoMaster.clearPlayerProfile("red");
+                }
+            }, 500);
+            return;
+        }
+        if (sm.pickingPlayerProfile.blue) {
+            let id = sm.pickedPlayerProfile.blue;
+            sm.pickedPlayerProfile.blue = null;
+            setTimeout(function() {
+                if (sm.pickingPlayerProfile.blue && sm.pickedPlayerProfile.blue == null) {
+                    playerInfoMaster.clearPlayerProfile("blue");
+                }
+            }, 500);
+            return;
+        }
+
         poolMaster.setCursorOutCharacter(this);
     },
 
@@ -5485,13 +5522,11 @@ let playerInfoMaster = {
         if (side == null || side == "") return;
         if (sequenceMaster.pickingPlayerProfile[side]) {
             playSound("훧");
-
-            sequenceMaster.pickingPlayerProfile[side] = false;
-            sequenceMaster.setSequenceTitleByCurrent();
-            sideMaster.setNameplateMix(side);
-            sideMaster.setPlayerProfileShow(side);
-            playerInfoMaster.setPlayerProfileActive(side);
+            playerInfoMaster.returnPlayerProfileSelection(side);
             return;
+        } else {
+            let proffer = side == "red" ? "blue" : "red";
+            playerInfoMaster.returnPlayerProfileSelection(proffer);
         }
 
         playSound("뽁");
@@ -5502,6 +5537,21 @@ let playerInfoMaster = {
         sideMaster.setNameplateMix(side, "1");
         sideMaster.setPlayerProfileShow(side, "1");
         playerInfoMaster.setPlayerProfileActive(side, "1");
+    },
+
+    returnPlayerProfileSelection: function(side) {
+        var id = sequenceMaster.selectedPlayerProfile[side];
+        if (id == null) this.finishPlayerProfile(side);
+        else {
+            this.endSelectionPlayerProfile(side);
+            let t = "treveler";
+            var treveler;
+            if (id.indexOf(t) == 0) {
+                treveler = id[id.length-1] == "F" ? "0" : "1";
+                id = t;
+            }
+            this.setPlayerProfile(id, side, treveler);
+        }
     },
 
     setPlayerProfile: function(id, side, treveler) {
@@ -5540,29 +5590,43 @@ let playerInfoMaster = {
         this.setPlayerProfileActive(side);
     },
 
+    finishPlayerProfile: function(side, id) {
+        playerInfoMaster.endSelectionPlayerProfile();
+        if (id == null) this.closePlayerProfile(side);
+    },
+
+    endSelectionPlayerProfile(side) {
+        sequenceMaster.pickingPlayerProfile[side] = false;
+        sequenceMaster.setSequenceTitleByCurrent();
+    },
+
+    closePlayerProfile: function(side) {
+        sideMaster.setNameplateMix(side);
+        sideMaster.setPlayerProfileShow(side);
+        playerInfoMaster.setPlayerProfileActive(side);
+    },
+
     onRightClickPlayerProfileSelectButton: function(e) {
         e.preventDefault();
         let side = $(this).attr("data-side");
         if (sequenceMaster.pickingPlayerProfile[side]) {
             playSound("훧");
-            sequenceMaster.pickingPlayerProfile[side] = false;
-            sequenceMaster.setSequenceTitleByCurrent();
+            playerInfoMaster.endSelectionPlayerProfile();
         }
         playSound("웋");
-        playerInfoMaster.setPlayerProfileActive(side);
-        playerInfoMaster.clearPlayerProfile(side);
-        sideMaster.setPlayerProfileShow(side);
+        sequenceMaster.selectedPlayerProfile[side] = null;
+        playerInfoMaster.closePlayerProfile(side);
         return false;
     },
 
-    clearPlayerProfile: function(side) {
+    releasePlayerProfile: function(side, hide = false) {
         switch (side) {
             case "red":
             sideMaster.redProfileCharacterImage.css("--src", urlTpGif);
             sideMaster.redProfileCharacterImage.css("--scale", "");
             sideMaster.redProfileCharacterImage.css("--ph", "");
             sideMaster.redProfileCharacterImage.css("--pv", "");
-            sideMaster.redProfileCharacter.attr("data-show", "");
+            if (hide) sideMaster.redProfileCharacter.attr("data-show", "");
             break;
 
         case "blue":
@@ -5570,10 +5634,22 @@ let playerInfoMaster = {
             sideMaster.blueProfileCharacterImage.css("--scale", "");
             sideMaster.blueProfileCharacterImage.css("--ph", "");
             sideMaster.blueProfileCharacterImage.css("--pv", "");
-            sideMaster.blueProfileCharacter.attr("data-show", "");
+            if (hide) sideMaster.blueProfileCharacter.attr("data-show", "");
             break;
         }
-        sideMaster.setNameplateMix(side);
+        //sideMaster.setNameplateMix(side);
+    },
+
+    clearPlayerProfile: function(side) {
+        switch (side) {
+            case "red":
+            sideMaster.redProfileCharacterImage.css("--src", urlTpGif);
+            break;
+
+        case "blue":
+            sideMaster.blueProfileCharacterImage.css("--src", urlTpGif);
+            break;
+        }
     },
 
     setPlayerProfileActive(side, set = "") {
