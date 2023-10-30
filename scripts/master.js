@@ -4729,6 +4729,7 @@ let playerInfoMaster = {
     add_per_constell: "input.addition.constell",
     add_by_had_weapon: "input.addition.weapon",
     add_per_refine: "input.addition.refine",
+    add_master_adjust: "input.addition.adjust",
     total_value: "span.total_value",
 
     unit: "data-unit",
@@ -4794,6 +4795,7 @@ let playerInfoMaster = {
     redAddPerConstell: null,
     redAddByHadWeapon: null,
     redAddPerRefine: null,
+    redAddMasterAdjust: null,
     redTotalAddPerConstell: null,
     redTotalAddByHadWeapon: null,
     redTotalAddPerRefine: null,
@@ -4816,6 +4818,7 @@ let playerInfoMaster = {
     blueAddPerConstell: null,
     blueAddByHadWeapon: null,
     blueAddPerRefine: null,
+    blueAddMasterAdjust: null,
     blueTotalAddPerConstell: null,
     blueTotalAddByHadWeapon: null,
     blueTotalAddPerRefine: null,
@@ -4872,11 +4875,13 @@ let playerInfoMaster = {
             constell: null,
             weapon: null,
             refine: null,
+            adjust: null,
         },
         blue: {
             constell: null,
             weapon: null,
             refine: null,
+            adjust: null,
         }
     },
 
@@ -4918,6 +4923,7 @@ let playerInfoMaster = {
         this.eachAddPerConstell = this.eachInfoAdd.find(this.add_per_constell);
         this.eachAddByHadWeapon = this.eachInfoAdd.find(this.add_by_had_weapon);
         this.eachAddPerRefine = this.eachInfoAdd.find(this.add_per_refine);
+        this.eachAddMasterAdjust = this.eachInfoAdd.find(this.add_master_adjust);
         this.eachTotalAddPerConstell = this.eachInfoAdd.filter(this.class_constell).find(this.total_value);
         this.eachTotalAddByHadWeapon = this.eachInfoAdd.filter(this.class_weapon).find(this.total_value);
         this.eachTotalAddPerRefine = this.eachInfoAdd.filter(this.class_refine).find(this.total_value);
@@ -4941,6 +4947,7 @@ let playerInfoMaster = {
         this.redAddPerConstell = this.redInfoAdd.find(this.add_per_constell);
         this.redAddByHadWeapon = this.redInfoAdd.find(this.add_by_had_weapon);
         this.redAddPerRefine = this.redInfoAdd.find(this.add_per_refine);
+        this.redAddMasterAdjust = this.redInfoAdd.find(this.add_master_adjust);
         this.redTotalAddPerConstell = this.redInfoAdd.filter(this.class_constell).find(this.total_value);
         this.redTotalAddByHadWeapon = this.redInfoAdd.filter(this.class_weapon).find(this.total_value);
         this.redTotalAddPerRefine = this.redInfoAdd.filter(this.class_refine).find(this.total_value);
@@ -4964,6 +4971,7 @@ let playerInfoMaster = {
         this.blueAddPerConstell = this.blueInfoAdd.find(this.add_per_constell);
         this.blueAddByHadWeapon = this.blueInfoAdd.find(this.add_by_had_weapon);
         this.blueAddPerRefine = this.blueInfoAdd.find(this.add_per_refine);
+        this.blueAddMasterAdjust = this.blueInfoAdd.find(this.add_master_adjust);
         this.blueTotalAddPerConstell = this.blueInfoAdd.filter(this.class_constell).find(this.total_value);
         this.blueTotalAddByHadWeapon = this.blueInfoAdd.filter(this.class_weapon).find(this.total_value);
         this.blueTotalAddPerRefine = this.blueInfoAdd.filter(this.class_refine).find(this.total_value);
@@ -5193,14 +5201,14 @@ let playerInfoMaster = {
             switch (e.keyCode) {
                 case 9://Tab
                     if (e.shiftKey) {
-                        pim.blueAddPerRefine.focus();
+                        pim.blueAddMasterAdjust.focus();
                         return false;
                     }
                     break;
             }
         });
         //this.redAddByHadWeapon
-        this.redAddPerRefine.keydown(function(e) {
+        this.redAddMasterAdjust.keydown(function(e) {
             let pim = playerInfoMaster;
 
             switch (e.keyCode) {
@@ -5219,14 +5227,14 @@ let playerInfoMaster = {
             switch (e.keyCode) {
                 case 9://Tab
                     if (e.shiftKey) {
-                        pim.redAddPerRefine.focus();
+                        pim.redAddMasterAdjust.focus();
                         return false;
                     }
                     break;
             }
         });
         //this.blueAddByHadWeapon
-        this.blueAddPerRefine.keydown(function(e) {
+        this.blueAddMasterAdjust.keydown(function(e) {
             let pim = playerInfoMaster;
 
             switch (e.keyCode) {
@@ -5283,7 +5291,7 @@ let playerInfoMaster = {
                 playerInfoMaster.blueAddByHadWeapon.val(this.value);
             }
         });
-        this. redAddPerRefine.change(function(e) {
+        this.redAddPerRefine.change(function(e) {
             let pim = playerInfoMaster;
             let value = this.value.trim();
             let isEmpty = value == null || value == "" || isNaN(value);
@@ -5299,6 +5307,29 @@ let playerInfoMaster = {
             if (e.keyCode == 13 && e.shiftKey) {
                 playerInfoMaster.blueAddPerRefine.val(this.value);
             }
+        });
+        this.redAddMasterAdjust.change(function(e) {
+            let pim = playerInfoMaster;
+            let value = this.value.trim();
+            let isEmpty = value == null || value == "" || isNaN(value);
+            let v = isEmpty ? 0 : parseInt(value);
+            pim.addSecs.red.adjust = v;
+            pim.releaseSecondsForAdds();
+        });
+        this.redAddMasterAdjust.on("wheel", function(e) {
+            e.preventDefault();
+            let pim = playerInfoMaster;
+            var val = this.value;
+            if (val == "") val = 0;
+            else val = parseInt(val);
+
+            if (e.originalEvent.deltaY < 0) val++;
+            else if (e.originalEvent.deltaY > 0) val--;
+
+            this.value = val;
+            pim.addSecs.red.adjust = val;
+            pim.releaseSecondsForAdds();
+            return false;
         });
 
         this.blueAddPerConstell.change(function(e) {
@@ -5335,7 +5366,7 @@ let playerInfoMaster = {
                 playerInfoMaster.redAddByHadWeapon.val(this.value);
             }
         });
-        this. blueAddPerRefine.change(function(e) {
+        this.blueAddPerRefine.change(function(e) {
             let pim = playerInfoMaster;
             let value = this.value.trim();
             let isEmpty = value == null || value == "" || isNaN(value);
@@ -5351,6 +5382,29 @@ let playerInfoMaster = {
             if (e.keyCode == 13 && e.shiftKey) {
                 playerInfoMaster.redAddPerRefine.val(this.value);
             }
+        });
+        this.blueAddMasterAdjust.change(function(e) {
+            let pim = playerInfoMaster;
+            let value = this.value.trim();
+            let isEmpty = value == null || value == "" || isNaN(value);
+            let v = isEmpty ? 0 : parseInt(value);
+            pim.addSecs.blue.adjust = v;
+            pim.releaseSecondsForAdds();
+        });
+        this.blueAddMasterAdjust.on("wheel", function(e) {
+            e.preventDefault();
+            let pim = playerInfoMaster;
+            var val = this.value;
+            if (val == "") val = 0;
+            else val = parseInt(val);
+
+            if (e.originalEvent.deltaY < 0) val++;
+            else if (e.originalEvent.deltaY > 0) val--;
+
+            this.value = val;
+            pim.addSecs.blue.adjust = val;
+            pim.releaseSecondsForAdds();
+            return false;
         });
 
 
@@ -5469,13 +5523,16 @@ let playerInfoMaster = {
         this.eachInfoAdd.filter(this.class_refine).find(this.line_title).text(text.pisAddTimeWeponRefine);
         this.eachInfoAdd.find(this.total_label).text(text.sum);
         this.eachInfoAdd.find(this.addition_unit).attr(this.unit, text.unitSec);
-        this.eachInfoAdd.filter(this.class_sum).find(this.line_title).text(text.pisAddsTotal);
+        this.eachInfoAdd.filter(this.class_sum).find(this.line_title).text(text.pisAddTimeAdjust);
+        this.eachInfoAdd.filter(this.class_sum).find(this.total_label).text(text.pisAddsTotal);
         this.redAddPerConstell.attr("title", text.pisAddTimeConstellDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.constell));
         this.blueAddPerConstell.attr("title", text.pisAddTimeConstellDesc.replace("#SIDE", text.sideBlue) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.constell));
         this.redAddByHadWeapon.attr("title", text.pisAddTimeHasWaponDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.weapon));
         this.blueAddByHadWeapon.attr("title", text.pisAddTimeHasWaponDesc.replace("#SIDE", text.sideBlue) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.weapon));
         this.redAddPerRefine.attr("title", text.pisAddTimeWeponRefineDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.refine));
         this.blueAddPerRefine.attr("title", text.pisAddTimeWeponRefineDesc.replace("#SIDE", text.sideBlue) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.refine));
+        this.redAddMasterAdjust.attr("title", text.pisAddTimeAdjustDesc.replace("#SIDE", text.sideRed));
+        this.blueAddMasterAdjust.attr("title", text.pisAddTimeAdjustDesc.replace("#SIDE", text.sideBlue));
 
         this.eachEntryIcon.attr("title", text.pssCharConstellDesc);
         this.eachCharConstell.attr("title", text.pssCharConstellDesc);
@@ -6134,6 +6191,7 @@ let playerInfoMaster = {
         let redTotalRefine = red.weaponRefines * redAPR;
         this.redTotalAddPerRefine.text("" + redTotalRefine);
         redTotal += redTotalRefine;
+        redTotal += this.addSecs[side].adjust;
         this.redTotalAddsValue.text("" + redTotal);
 
         
@@ -6151,6 +6209,7 @@ let playerInfoMaster = {
         let blueTotalRefine = blue.weaponRefines * blueAPR;
         this.blueTotalAddPerRefine.text("" + blueTotalRefine);
         blueTotal += blueTotalRefine;
+        blueTotal += this.addSecs[side].adjust;
         this.blueTotalAddsValue.text("" + blueTotal);
 
         this.addsCalculated.red = redTotal;

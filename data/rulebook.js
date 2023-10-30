@@ -214,13 +214,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "established": true,
             "selectable": true,
 
-            "addSecDefaults": {
-                "constell": 4,
-                "weapon": 8,
-                "refine": 2,
-            },
-        
-                "ban_card_accure": {
+            "ban_card_accure": {
                 "xiangling": true,
                 "xingqiu": true,
                 "bennett": true,

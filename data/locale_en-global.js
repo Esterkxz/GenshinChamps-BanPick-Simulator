@@ -49,7 +49,9 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "pisAddTimeWeponRefine": "Ref",
         "pisAddTimeWeponRefineDesc": "Add times by 5-star weapon's each additional refinements of #SIDE side",
         "pisAddTimeCommonTails": "Default(is this empty): #SECsec\nRight-click: Initialize(be empty=to default)\nTo be applied each side when changed values this item on hold Shift key",
-        "pisAddsTotal": "Add times total",
+        "pisAddTimeAdjust": "Adj",
+        "pisAddTimeAdjustDesc": "Adjust master add times of #SIDE side (Default: 0, 1/2 of differ with account point if higher proffer player)\nRight-click: Initialize(to default)\nWheel Up/Down: Adjust master time add value",
+        "pisAddsTotal": "Total",
 
         "pssCharConstellDesc": "Enter character entry's constellation\nRight-click: To be empty",
         "pssCharName": "Entry #NO",
