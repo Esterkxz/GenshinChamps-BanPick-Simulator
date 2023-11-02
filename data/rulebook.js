@@ -49,6 +49,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "constell": 2,
             "weapon": 4,
             "refine": 2,
+            "disadv": 0.5,
+            "adjust": 0,
         },
     
         "ban_card_accure": {

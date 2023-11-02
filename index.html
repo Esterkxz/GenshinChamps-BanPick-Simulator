@@ -917,9 +917,18 @@ function getPathA(id, group = "", type = "sounds") {
                                 <span id="red_total_add_by_had_weapon" class="total_value">0</span>
                                 <span class="addition_unit" data-unit="초"></span>
                             </div>
+                            <div class="info_add disadv">
+                                <label class="line_title" for="red_add_disadv_ratio">비율</label>
+                                <input type="number" id="red_add_disadv_ratio" class="addition disadv red" min="-10.00" max="10.00" step="0.05" value="0.5" placeholder="0.5" title="RED 측 계정 점수 초과분 가산 적용 비율&#13;&#10;적용: 계정 점수가 상대보다 높은 경우 점수 차 × 본 항목 값&#13;&#10;우클릭: 초기화(기본값으로, 기본값: 0.5)" />
+                                <span class="ratio_unit" data-unit="x"></span>
+                                <span class="divider">&nbsp;</span>
+                                <label class="apply_label">=</label>
+                                <span id="red_disadv_sec" class="apply_value">0</span>
+                                <span class="addition_unit" data-unit="초"></span>
+                            </div>
                             <div class="info_add sum">
                                 <label class="line_title" for="red_add_master_adjust">조정</label>
-                                <input type="number" id="red_add_master_adjust" class="addition adjust red" min="-600" max="600" value="0" placeholder="0" title="RED 측 가산 시간 부가 조정 (기본값: 0, 계정 점수가 상대보다 높은 경우 점수 차의 1/2)&#13;&#10;우클릭: 초기화(기본값으로)&#13;&#10;휠Up/Down: 부가 시간 추가 값 조정" />
+                                <input type="number" id="red_add_master_adjust" class="addition adjust red" min="-600" max="600" value="0" placeholder="0" title="RED 측 가산 시간 부가 조정 (기본값: 0)&#13;&#10;우클릭: 초기화(기본값으로)&#13;&#10;휠 Up/Down: 부가 시간 추가 값 조정" />
                                 <span class="divider">/</span>
                                 <label class="total_label">총</label>
                                 <span id="red_total_adds" class="total_value">0</span>
@@ -1114,9 +1123,18 @@ function getPathA(id, group = "", type = "sounds") {
                                 <span id="blue_total_add_by_had_weapon" class="total_value">0</span>
                                 <span class="addition_unit" data-unit="초"></span>
                             </div>
+                            <div class="info_add disadv">
+                                <label class="line_title" for="blue_add_disadv_ratio">비율</label>
+                                <input type="number" id="blue_add_disadv_ratio" class="addition disadv blue" min="-10.00" max="10.00" step="0.05" value="0.5" placeholder="0.5" title="RED 측 계정 점수 초과분 가산 적용 비율&#13;&#10;적용: 계정 점수가 상대보다 높은 경우 점수 차 × 본 항목 값&#13;&#10;우클릭: 초기화(기본값으로, 기본값: 0.5)" />
+                                <span class="ratio_unit" data-unit="x"></span>
+                                <span class="divider">&nbsp;</span>
+                                <label class="apply_label">=</label>
+                                <span id="blue_disadv_sec" class="apply_value">0</span>
+                                <span class="addition_unit" data-unit="초"></span>
+                            </div>
                             <div class="info_add sum">
                                 <label class="line_title" for="blue_add_master_adjust">조정</label>
-                                <input type="number" id="blue_add_master_adjust" class="addition adjust blue" min="-600" max="600" value="0" placeholder="0" title="BLUE 측 가산 시간 부가 조정 (기본값: 0, 계정 점수가 상대보다 높은 경우 점수 차의 1/2)&#13;&#10;우클릭: 초기화(기본값으로)&#13;&#10;휠Up/Down: 부가 시간 추가 값 조정" />
+                                <input type="number" id="blue_add_master_adjust" class="addition adjust blue" min="-600" max="600" value="0" placeholder="0" title="BLUE 측 가산 시간 부가 조정 (기본값: 0)&#13;&#10;우클릭: 초기화(기본값으로)&#13;&#10;휠 Up/Down: 부가 시간 추가 값 조정" />
                                 <span class="divider">/</span>
                                 <label class="total_label">총</label>
                                 <span id="blue_total_adds" class="total_value">0</span>

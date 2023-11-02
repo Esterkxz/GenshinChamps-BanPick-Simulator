@@ -49,6 +49,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "pisAddTimeWeponRefine": "재련",
         "pisAddTimeWeponRefineDesc": "#SIDE 측 5성 무기 추가 재련 당 가산 시간",
         "pisAddTimeCommonTails": "기본값(미입력 시): #SEC초\n우클릭: 초기화(비움=기본값으로)\nShift 누른 채 변동 또는 엔터 입력 시 양측 동시 변경 적용",
+        "pisAddTimeDisadvRatio": "비율",
+        "pisAddTimeDisadvRatioDesc": "#SIDE 측 계정 점수 초과분 가산 적용 비율\n적용: 계정 점수가 상대보다 높은 경우 점수 차 × 본 항목 값\n우클릭: 초기화(기본값으로, 기본값: 0.5)",
         "pisAddTimeAdjust": "조정",
         "pisAddTimeAdjustDesc": "#SIDE 측 가산 시간 부가 조정 (기본값: 0, 계정 점수가 상대보다 높은 경우 점수 차의 1/2)\n우클릭: 초기화(기본값으로)\n휠 Up/Down: 부가 시간 추가 값 조정",
         "pisAddsTotal": "총",

@@ -4718,6 +4718,7 @@ let playerInfoMaster = {
     class_constell: ".constell",
     class_weapon: ".weapon",
     class_refine: ".refine",
+    class_disadv: ".disadv",
     class_sum: ".sum",
 
     active: "data-active",
@@ -4725,12 +4726,15 @@ let playerInfoMaster = {
     line_title: "label.line_title",
     total_label: "label.total_label",
     addition_unit: "span.addition_unit",
+    ratio_unit: "span.ratio_unit",
     input_addition: "input.addition",
     add_per_constell: "input.addition.constell",
     add_by_had_weapon: "input.addition.weapon",
     add_per_refine: "input.addition.refine",
+    add_disadv_ratio: "input.addition.disadv",
     add_master_adjust: "input.addition.adjust",
     total_value: "span.total_value",
+    apply_value: "span.apply_value",
 
     unit: "data-unit",
 
@@ -4773,9 +4777,12 @@ let playerInfoMaster = {
     eachAddPerConstell: null,
     eachAddByHadWeapon: null,
     eachAddPerRefine: null,
+    eachAddDisadvRatio: null,
+    eachAddMasterAdjust: null,
     eachTotalAddPerConstell: null,
     eachTotalAddByHadWeapon: null,
     eachTotalAddPerRefine: null,
+    eachAppliedDisadv: null,
     eachTotalAddsValue: null,
 
 
@@ -4795,10 +4802,12 @@ let playerInfoMaster = {
     redAddPerConstell: null,
     redAddByHadWeapon: null,
     redAddPerRefine: null,
+    redAddDisadvRatio: null,
     redAddMasterAdjust: null,
     redTotalAddPerConstell: null,
     redTotalAddByHadWeapon: null,
     redTotalAddPerRefine: null,
+    redAppliedDisadv: null,
     redTotalAddsValue: null,
 
 
@@ -4818,10 +4827,12 @@ let playerInfoMaster = {
     blueAddPerConstell: null,
     blueAddByHadWeapon: null,
     blueAddPerRefine: null,
+    blueAddDisadvRatio: null,
     blueAddMasterAdjust: null,
     blueTotalAddPerConstell: null,
     blueTotalAddByHadWeapon: null,
     blueTotalAddPerRefine: null,
+    blueAppliedDisadv: null,
     blueTotalAddsValue: null,
     
 
@@ -4868,6 +4879,8 @@ let playerInfoMaster = {
         constell: 2,
         weapon: 4,
         refine: 2,
+        disadv: 0.5,
+        adjust: 0,
     },
 
     addSecs: {
@@ -4875,12 +4888,14 @@ let playerInfoMaster = {
             constell: null,
             weapon: null,
             refine: null,
+            disadv: null,
             adjust: null,
         },
         blue: {
             constell: null,
             weapon: null,
             refine: null,
+            disadv: null,
             adjust: null,
         }
     },
@@ -4923,10 +4938,12 @@ let playerInfoMaster = {
         this.eachAddPerConstell = this.eachInfoAdd.find(this.add_per_constell);
         this.eachAddByHadWeapon = this.eachInfoAdd.find(this.add_by_had_weapon);
         this.eachAddPerRefine = this.eachInfoAdd.find(this.add_per_refine);
+        this.eachAddDisadvRatio = this.eachInfoAdd.find(this.add_disadv_ratio);
         this.eachAddMasterAdjust = this.eachInfoAdd.find(this.add_master_adjust);
         this.eachTotalAddPerConstell = this.eachInfoAdd.filter(this.class_constell).find(this.total_value);
         this.eachTotalAddByHadWeapon = this.eachInfoAdd.filter(this.class_weapon).find(this.total_value);
         this.eachTotalAddPerRefine = this.eachInfoAdd.filter(this.class_refine).find(this.total_value);
+        this.eachAppliedDisadv = this.eachInfoAdd.filter(this.class_disadv).find(this.apply_value);
         this.eachTotalAddsValue = this.eachInfoAdd.filter(this.class_sum).find(this.total_value);
     
 
@@ -4947,10 +4964,12 @@ let playerInfoMaster = {
         this.redAddPerConstell = this.redInfoAdd.find(this.add_per_constell);
         this.redAddByHadWeapon = this.redInfoAdd.find(this.add_by_had_weapon);
         this.redAddPerRefine = this.redInfoAdd.find(this.add_per_refine);
+        this.redAddDisadvRatio = this.redInfoAdd.find(this.add_disadv_ratio);
         this.redAddMasterAdjust = this.redInfoAdd.find(this.add_master_adjust);
         this.redTotalAddPerConstell = this.redInfoAdd.filter(this.class_constell).find(this.total_value);
         this.redTotalAddByHadWeapon = this.redInfoAdd.filter(this.class_weapon).find(this.total_value);
         this.redTotalAddPerRefine = this.redInfoAdd.filter(this.class_refine).find(this.total_value);
+        this.redAppliedDisadv = this.redInfoAdd.filter(this.class_disadv).find(this.apply_value);
         this.redTotalAddsValue = this.redInfoAdd.filter(this.class_sum).find(this.total_value);
     
     
@@ -4971,10 +4990,12 @@ let playerInfoMaster = {
         this.blueAddPerConstell = this.blueInfoAdd.find(this.add_per_constell);
         this.blueAddByHadWeapon = this.blueInfoAdd.find(this.add_by_had_weapon);
         this.blueAddPerRefine = this.blueInfoAdd.find(this.add_per_refine);
+        this.blueAddDisadvRatio = this.blueInfoAdd.find(this.add_disadv_ratio);
         this.blueAddMasterAdjust = this.blueInfoAdd.find(this.add_master_adjust);
         this.blueTotalAddPerConstell = this.blueInfoAdd.filter(this.class_constell).find(this.total_value);
         this.blueTotalAddByHadWeapon = this.blueInfoAdd.filter(this.class_weapon).find(this.total_value);
         this.blueTotalAddPerRefine = this.blueInfoAdd.filter(this.class_refine).find(this.total_value);
+        this.blueAppliedDisadv = this.blueInfoAdd.filter(this.class_disadv).find(this.apply_value);
         this.blueTotalAddsValue = this.blueInfoAdd.filter(this.class_sum).find(this.total_value);
 
 
@@ -5113,6 +5134,13 @@ let playerInfoMaster = {
                     pim.blueInfoCopy.focus();
                     return false;
             }
+        });
+
+        this.redInfoAp.change(function(e) {
+            playerInfoMaster.releaseSecondsForAdds();
+        });
+        this.blueInfoAp.change(function(e) {
+            playerInfoMaster.releaseSecondsForAdds();
         });
 
 
@@ -5308,6 +5336,14 @@ let playerInfoMaster = {
                 playerInfoMaster.blueAddPerRefine.val(this.value);
             }
         });
+        this.redAddDisadvRatio.change(function(e) {
+            let pim = playerInfoMaster;
+            let value = this.value.trim();
+            let isEmpty = value == null || value == "" || isNaN(value);
+            let v = isEmpty ? pim.addSecDefaults.disadv : parseFloat(value);
+            pim.addSecs.red.disadv = v;
+            pim.releaseSecondsForAdds();
+        });
         this.redAddMasterAdjust.change(function(e) {
             let pim = playerInfoMaster;
             let value = this.value.trim();
@@ -5382,6 +5418,14 @@ let playerInfoMaster = {
             if (e.keyCode == 13 && e.shiftKey) {
                 playerInfoMaster.redAddPerRefine.val(this.value);
             }
+        });
+        this.blueAddDisadvRatio.change(function(e) {
+            let pim = playerInfoMaster;
+            let value = this.value.trim();
+            let isEmpty = value == null || value == "" || isNaN(value);
+            let v = isEmpty ? pim.addSecDefaults.disadv : parseFloat(value);
+            pim.addSecs.blue.disadv = v;
+            pim.releaseSecondsForAdds();
         });
         this.blueAddMasterAdjust.change(function(e) {
             let pim = playerInfoMaster;
@@ -5523,6 +5567,7 @@ let playerInfoMaster = {
         this.eachInfoAdd.filter(this.class_refine).find(this.line_title).text(text.pisAddTimeWeponRefine);
         this.eachInfoAdd.find(this.total_label).text(text.sum);
         this.eachInfoAdd.find(this.addition_unit).attr(this.unit, text.unitSec);
+        this.eachInfoAdd.filter(this.class_disadv).find(this.line_title).text(text.pisAddTimeDisadvRatio);
         this.eachInfoAdd.filter(this.class_sum).find(this.line_title).text(text.pisAddTimeAdjust);
         this.eachInfoAdd.filter(this.class_sum).find(this.total_label).text(text.pisAddsTotal);
         this.redAddPerConstell.attr("title", text.pisAddTimeConstellDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.constell));
@@ -5531,6 +5576,8 @@ let playerInfoMaster = {
         this.blueAddByHadWeapon.attr("title", text.pisAddTimeHasWaponDesc.replace("#SIDE", text.sideBlue) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.weapon));
         this.redAddPerRefine.attr("title", text.pisAddTimeWeponRefineDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.refine));
         this.blueAddPerRefine.attr("title", text.pisAddTimeWeponRefineDesc.replace("#SIDE", text.sideBlue) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.refine));
+        this.redAddDisadvRatio.attr("title", text.pisAddTimeDisadvRatioDesc.replace("#SIDE", text.sideRed));
+        this.blueAddDisadvRatio.attr("title", text.pisAddTimeDisadvRatioDesc.replace("#SIDE", text.sideBlue));
         this.redAddMasterAdjust.attr("title", text.pisAddTimeAdjustDesc.replace("#SIDE", text.sideRed));
         this.blueAddMasterAdjust.attr("title", text.pisAddTimeAdjustDesc.replace("#SIDE", text.sideBlue));
 
@@ -5805,6 +5852,7 @@ let playerInfoMaster = {
 
         if (data != null && this.loadedAccInfo(raw, data, side)) {
             playSound("뜍");
+            playerInfoMaster.releaseSecondsForAdds();
             return true;
         }
         playSound("웋");
@@ -6148,9 +6196,13 @@ let playerInfoMaster = {
         this.eachAddPerConstell.attr("placeholder", "" + this.addSecDefaults.constell);
         this.eachAddByHadWeapon.attr("placeholder", "" + this.addSecDefaults.weapon);
         this.eachAddPerRefine.attr("placeholder", "" + this.addSecDefaults.refine);
+        this.eachAddDisadvRatio.attr("placeholder", "" + this.addSecDefaults.disadv);
+        this.eachAddMasterAdjust.attr("placeholder", "" + this.addSecDefaults.adjust);
         this.eachAddPerConstell.val(this.addSecDefaults.constell);
         this.eachAddByHadWeapon.val(this.addSecDefaults.weapon);
         this.eachAddPerRefine.val(this.addSecDefaults.refine);
+        this.eachAddDisadvRatio.val(this.addSecDefaults.disadv);
+        this.eachAddMasterAdjust.val(this.addSecDefaults.adjust);
     },
 
     initAddSecs: function() {
@@ -6162,6 +6214,8 @@ let playerInfoMaster = {
         this.addSecs[side].constell = this.addSecDefaults.constell;
         this.addSecs[side].weapon = this.addSecDefaults.weapon;
         this.addSecs[side].refine = this.addSecDefaults.refine;
+        this.addSecs[side].disadv = this.addSecDefaults.disadv;
+        this.addSecs[side].adjust = this.addSecDefaults.adjust;
     },
 
     applyAddsDefaultByRuleBook: function() {
@@ -6177,6 +6231,12 @@ let playerInfoMaster = {
         let red = this.releaseSideAddEntity("red");
         let blue = this.releaseSideAddEntity("blue");
 
+        var redAP = this.redInfoAp.val();
+        redAP = redAP.trim() == "" ? 0 : parseInt(redAP);
+        var blueAP = this.blueInfoAp.val();
+        blueAP = blueAP.trim() == "" ? 0 : parseInt(blueAP);
+        let diffAP = Math.abs(redAP - blueAP);
+
         var side = "red";
         var redTotal = 0;
         var redAPC = this.addSecs[side].constell;
@@ -6191,6 +6251,11 @@ let playerInfoMaster = {
         let redTotalRefine = red.weaponRefines * redAPR;
         this.redTotalAddPerRefine.text("" + redTotalRefine);
         redTotal += redTotalRefine;
+        if (redAP > blueAP) {
+            let redDisadv = Math.floor(diffAP * this.addSecs[side].disadv);
+            this.redAppliedDisadv.text("" + redDisadv);
+            redTotal += redDisadv;
+        }
         redTotal += this.addSecs[side].adjust;
         this.redTotalAddsValue.text("" + redTotal);
 
@@ -6209,6 +6274,11 @@ let playerInfoMaster = {
         let blueTotalRefine = blue.weaponRefines * blueAPR;
         this.blueTotalAddPerRefine.text("" + blueTotalRefine);
         blueTotal += blueTotalRefine;
+        if (redAP < blueAP) {
+            let blueDisadv = Math.floor(diffAP * this.addSecs[side].disadv);
+            this.blueAppliedDisadv.text("" + blueDisadv);
+            blueTotal += blueDisadv;
+        }
         blueTotal += this.addSecs[side].adjust;
         this.blueTotalAddsValue.text("" + blueTotal);
 
