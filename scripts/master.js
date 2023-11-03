@@ -5691,23 +5691,24 @@ let playerInfoMaster = {
                 break;
         }
         sideMaster.setPlayerProfileShow(side, "2");
-        this.setPlayerProfileActive(side);
+        //this.setPlayerProfileActive(side);
     },
 
     finishPlayerProfile: function(side, id) {
-        playerInfoMaster.endSelectionPlayerProfile();
+        this.endSelectionPlayerProfile(side);
         if (id == null) this.closePlayerProfile(side);
     },
 
     endSelectionPlayerProfile(side) {
         sequenceMaster.pickingPlayerProfile[side] = false;
         sequenceMaster.setSequenceTitleByCurrent();
+        this.setPlayerProfileActive(side);
     },
 
     closePlayerProfile: function(side) {
         sideMaster.setNameplateMix(side);
         sideMaster.setPlayerProfileShow(side);
-        playerInfoMaster.setPlayerProfileActive(side);
+        this.releasePlayerProfile(side);
     },
 
     onRightClickPlayerProfileSelectButton: function(e) {
@@ -5715,7 +5716,7 @@ let playerInfoMaster = {
         let side = $(this).attr("data-side");
         if (sequenceMaster.pickingPlayerProfile[side]) {
             playSound("훧");
-            playerInfoMaster.endSelectionPlayerProfile();
+            playerInfoMaster.endSelectionPlayerProfile(side);
         }
         playSound("웋");
         sequenceMaster.selectedPlayerProfile[side] = null;
