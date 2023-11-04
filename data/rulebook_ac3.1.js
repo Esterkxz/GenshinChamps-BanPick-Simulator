@@ -1,4 +1,4 @@
-ruleBooks["AngChamps v4"] = {
+ruleBooks["AngChamps v3"] = {
     "comment": "\
 Rule refferenced by 앙리형 (Angri-hyung / brother Henry - Streamer & Youtuber)\n\
 Youtube: https://www.youtube.com/@angrihyung_genshin \n\
@@ -12,7 +12,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard.\n\
     ",
     "rule_title": "앙챔스 룰북",
-    "rule_version": "4.0",
+    "rule_version": "3.1",
 
     "rule_type": "ban card",
 
