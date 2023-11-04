@@ -6270,11 +6270,12 @@ let playerInfoMaster = {
         let redTotalRefine = red.weaponRefines * redAPR;
         this.redTotalAddPerRefine.text("" + redTotalRefine);
         redTotal += redTotalRefine;
+        var redDisadv = 0;
         if (redAP > blueAP) {
-            let redDisadv = Math.floor(diffAP * this.addSecs[side].disadv);
-            this.redAppliedDisadv.text("" + redDisadv);
+            redDisadv = Math.floor(diffAP * this.addSecs[side].disadv);
             redTotal += redDisadv;
         }
+        this.redAppliedDisadv.text("" + redDisadv);
         redTotal += this.addSecs[side].adjust;
         this.redTotalAddsValue.text("" + redTotal);
 
@@ -6293,11 +6294,12 @@ let playerInfoMaster = {
         let blueTotalRefine = blue.weaponRefines * blueAPR;
         this.blueTotalAddPerRefine.text("" + blueTotalRefine);
         blueTotal += blueTotalRefine;
+        var blueDisadv = 0;
         if (redAP < blueAP) {
-            let blueDisadv = Math.floor(diffAP * this.addSecs[side].disadv);
-            this.blueAppliedDisadv.text("" + blueDisadv);
+            blueDisadv = Math.floor(diffAP * this.addSecs[side].disadv);
             blueTotal += blueDisadv;
         }
+        this.blueAppliedDisadv.text("" + blueDisadv);
         blueTotal += this.addSecs[side].adjust;
         this.blueTotalAddsValue.text("" + blueTotal);
 
