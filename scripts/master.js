@@ -5342,7 +5342,16 @@ let playerInfoMaster = {
             let isEmpty = value == null || value == "" || isNaN(value);
             let v = isEmpty ? pim.addSecDefaults.disadv : parseFloat(value);
             pim.addSecs.red.disadv = v;
+            if (onShift) {
+                pim.blueAddDisadvRatio.val(value);
+                pim.addSecs.blue.disadv = v;
+            }
             pim.releaseSecondsForAdds();
+        });
+        this.redAddDisadvRatio.keydown(function(e) {
+            if (e.keyCode == 13 && e.shiftKey) {
+                playerInfoMaster.blueAddDisadvRatio.val(this.value);
+            }
         });
         this.redAddMasterAdjust.change(function(e) {
             let pim = playerInfoMaster;
@@ -5425,7 +5434,16 @@ let playerInfoMaster = {
             let isEmpty = value == null || value == "" || isNaN(value);
             let v = isEmpty ? pim.addSecDefaults.disadv : parseFloat(value);
             pim.addSecs.blue.disadv = v;
+            if (onShift) {
+                pim.redAddDisadvRatio.val(value);
+                pim.addSecs.red.disadv = v;
+            }
             pim.releaseSecondsForAdds();
+        });
+        this.blueAddPerRefine.keydown(function(e) {
+            if (e.keyCode == 13 && e.shiftKey) {
+                playerInfoMaster.redAddDisadvRatio.val(this.value);
+            }
         });
         this.blueAddMasterAdjust.change(function(e) {
             let pim = playerInfoMaster;
