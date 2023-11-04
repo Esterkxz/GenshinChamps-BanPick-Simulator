@@ -978,7 +978,7 @@ div#player_info_op_cp div.player_info_side div.info_side div.info_add input.addi
 div#player_info_op_cp div.player_info_side div.info_side div.info_add input.addition.weapon {}
 div#player_info_op_cp div.player_info_side div.info_side div.info_add input.addition.refine {}
 div#player_info_op_cp div.player_info_side div.info_side div.info_add input.addition.disadv { width: 57px; }
-div#player_info_op_cp div.player_info_side div.info_side div.info_add input.addition.adjust { width: 47px; }
+div#player_info_op_cp div.player_info_side div.info_side div.info_add input.addition.adjust { width: 47px; color: rgba(var(--signature-color) / 90%); font-weight: bold; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add span.divider {}
 div#player_info_op_cp div.player_info_side div.info_side div.info_add label.total_label { font-weight: bold; letter-spacing: -1.5px; }
 div#player_info_op_cp div.player_info_side div.info_side div.info_add span.total_value { width: inherit; color: rgba(var(--signature-color-light) / 90%); line-height: 20px; text-align: right; text-shadow: 1px 1px 1px rgba(var(--signature-color-darker) / 90%); }
