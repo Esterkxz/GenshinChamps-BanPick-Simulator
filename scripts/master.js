@@ -6283,8 +6283,8 @@ let playerInfoMaster = {
         blueTotal += this.addSecs[side].adjust;
         this.blueTotalAddsValue.text("" + blueTotal);
 
-        this.addsCalculated.red = redTotal;
-        this.addsCalculated.blue = blueTotal;
+        this.addsCalculated.red = Math.max(0, redTotal);
+        this.addsCalculated.blue = Math.max(0, blueTotal);
     },
 
     releaseSideAddEntity: function(side) {
