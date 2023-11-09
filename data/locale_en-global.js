@@ -269,6 +269,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "neuvillette": "Neuvillette",
         "charlotte": "Charlotte",
         "furina": "Furina",
+        "chevreuse": "Chevreuse",
+        "navia": "Navia",
         "reserved": ""
     },
     "characters_short": {
@@ -347,6 +349,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "neuvillette": "Neuvillette",
         "charlotte": "Charlotte",
         "furina": "Furina",
+        "chevreuse": "Chevreuse",
+        "navia": "Navia",
         "reserved": ""
     },
     "weapons": {
@@ -396,6 +400,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "ct_wheatley": { "name": "Cashflow Supervision", "aliases": [""] },
         "ct_iudex": { "name": "Rite of the Eternal Flow", "aliases": [""] },
         "sw_regalis": { "name": "Splendor of Tranquil Waters", "aliases": [""] },
+        "cm_goldenverdict": { "name": "Considered Judgment", "aliases": [""] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }

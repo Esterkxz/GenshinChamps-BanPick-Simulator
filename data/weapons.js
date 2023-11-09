@@ -537,7 +537,7 @@ weaponsInfo = {
             "res_vcut": "i_n14512_gacha_icon.webp"
         },
 
-        //Extra 9? - Pledge
+        //Extra 9 - Pledge
         {
             "id": "bw_pledge",
             "class": "limited",
@@ -591,6 +591,20 @@ weaponsInfo = {
             "favority": ["furina"],
             "res_icon": "UI_EquipIcon_Sword_Regalis.png",
             "res_vcut": "i_n11513_gacha_icon.webp"
+        },
+        
+        //Extra 10? - GoldenVerdict
+        {
+            "id": "cm_goldenverdict",
+            "class": "unreleased",
+            "version": "4.3",
+            "rarity": "5",
+            "type": "claymore",
+            "serise": "standalone",
+            "continent": "fontaine",
+            "favority": ["navia"],
+            "res_icon": "UI_EquipIcon_Claymore_GoldenVerdict.png",
+            "res_vcut": "i_n12512_gacha_icon.webp"
         },
 
         {

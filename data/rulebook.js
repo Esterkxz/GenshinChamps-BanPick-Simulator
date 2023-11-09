@@ -130,6 +130,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "neuvillette": false,
             "charlotte": false,
             "furina": false,
+            "chevreuse": false,
+            "navia": false,
         },
         "": ""
     },
@@ -206,8 +208,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "mika": true,
                 "kirara": true,
                 "lynette": true,
-                "charlotte": false,
-                },
+                "charlotte": true,
+            },
             "": ""
         },
         {
@@ -305,7 +307,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "alhaitham": true,
                 "lyney": true,
                 "wriothesley": true,
-                "furina": false,
+                "furina": true,
             },
             "": ""
         },
