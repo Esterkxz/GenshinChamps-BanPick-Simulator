@@ -394,6 +394,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "bw_pledge": { "name": "최초의 대마술", "aliases": ["대마술", "마술", "마술활"] },
         "ct_wheatley": { "name": "현금 흐름 감독", "aliases": ["현금", "감독"] },
         "ct_iudex": { "name": "영원히 샘솟는 법전", "aliases": ["법전"] },
+        "sw_regalis": { "name": "고요히 샘솟는 빛", "aliases": ["고요", "빛샘", "고샘빛", "빛검"] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }

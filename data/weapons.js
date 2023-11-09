@@ -555,7 +555,7 @@ weaponsInfo = {
         {
             "id": "ct_wheatley",
             "class": "limited",
-            "version": "4.1",
+            "version": "4.1h",
             "rarity": "5",
             "type": "catalyst",
             "serise": "wheatley",
@@ -569,7 +569,7 @@ weaponsInfo = {
         {
             "id": "ct_iudex",
             "class": "limited",
-            "version": "4.1",
+            "version": "4.1f",
             "rarity": "5",
             "type": "catalyst",
             "serise": "iudex",
@@ -577,6 +577,20 @@ weaponsInfo = {
             "favority": ["neuvillette"],
             "res_icon": "UI_EquipIcon_Catalyst_Iudex.png",
             "res_vcut": "i_n14514_gacha_icon.webp"
+        },
+
+        //Regalis serise
+        {
+            "id": "sw_regalis",
+            "class": "limited",
+            "version": "4.2f",
+            "rarity": "5",
+            "type": "sword",
+            "serise": "regalis",
+            "continent": "fontaine",
+            "favority": ["furina"],
+            "res_icon": "UI_EquipIcon_Sword_Regalis.png",
+            "res_vcut": "i_n11513_gacha_icon.webp"
         },
 
         {
