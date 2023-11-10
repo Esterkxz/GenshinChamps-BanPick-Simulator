@@ -12,7 +12,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard.\n\
     ",
     "rule_title": "앙챔스 룰북",
-    "rule_version": "4.0",
+    "rule_version": "4.1",
 
     "rule_type": "ban card",
 
@@ -162,7 +162,6 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "qiqi": true,
                 "xinyan": true,
                 "yanfei": true,
-                "sayu": true,
                 "aloy": true,
                 "thoma": true,
                 "heizo": true,
@@ -198,6 +197,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 // "sucrose": true,
                 "keqing": true,
                 "rosaria": true,
+                "sayu": true,
                 "sara": true,
                 "gorou": true,
                 // "yunjin": true,
@@ -239,10 +239,10 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "selectable": true,
 
             "addSecDefaults": {
-                "constell": 2,
-                "weapon": 4,
+                "constell": 4,
+                "weapon": 8,
                 "refine": 2,
-                "disadv": 1,
+                "disadv": 0,
                 "adjust": 0,
             },
 
@@ -257,6 +257,14 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "established": false,
             "selectable": true,
 
+            "addSecDefaults": {
+                "constell": 2,
+                "weapon": 4,
+                "refine": 1,
+                "disadv": 0.5,
+                "adjust": 0,
+            },
+    
             "ban_card_accure": {
             },
             "": ""
@@ -307,7 +315,6 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "alhaitham": true,
                 "lyney": true,
                 "wriothesley": true,
-                "furina": true,
             },
             "": ""
         },
@@ -358,6 +365,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "yelan": true,
         "nahida": true,
         "neuvillette": true,
+        "furina": true,
     },
 
     "characters_override": {
