@@ -156,7 +156,6 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "babara": true,
                 "razor": true,
                 "ningguang": true,
-                "noelle": true,
                 "chongyun": true,
                 "diluc": true,
                 "qiqi": true,
@@ -194,6 +193,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "ban_card_accure": {
                 "beidou": true,
                 "fischl": true,
+                "noelle": true,
                 // "sucrose": true,
                 "keqing": true,
                 "rosaria": true,
