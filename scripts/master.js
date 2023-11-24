@@ -2901,17 +2901,35 @@ let sideMaster = {
         if (text == null || text == "") return null;
 
         text = text.trim();
+        var version;
         try {
             if (text.substr(0, 7) == "@GCBPSv") {
                 let texts = text.split(":");
                 let header = texts[0];
-                let version = header.split("v")[1];
-                let base64 = texts[1].split(";")[0];
+                version = parseInt(header.split("v")[1]);
+                let base64 = texts[1].replace(/;/g, "");
                 text = atob(base64);
             }
     
-            let data = JSON.parse(text);
+            var data;
+            switch(version) {
+                default:
+                case 2:
+                    data = Jcodd.parse(text);
+
+                    let list = data.list;
+                    for (var i=0; i<list.length; i++) {
+                        let cons = list[i];
+                        let id = charactersInfo.list[i].id;
+                        if (id != null) data[id] = cons;
+                    }
+                    break;
     
+                case 1:
+                    data = JSON.parse(text);
+                    break;
+            }
+        
             return data;
         } catch(e) {
             console.error(e.name, e.message, e.stack);
@@ -2925,7 +2943,7 @@ let sideMaster = {
             var point = 0;
 
             for(var i in data) {
-                if (i != "player") {
+                if (i != "player" && i != "list") {
                     let cons = data[i];
                     let info = charactersInfo.list[charactersInfo[i]];
                     if (cons != null && info.class == "limited") point += parseInt(cons) + 1;
@@ -5898,7 +5916,7 @@ let playerInfoMaster = {
 
             try {
                 for(var i in data) {
-                    if (i != "player") {
+                    if (i != "player" && i != "list") {
                         let cons = data[i];
                         let info = charactersInfo.list[charactersInfo[i]];
                         if (cons != null && info.class == "limited") point += parseInt(cons) + 1;

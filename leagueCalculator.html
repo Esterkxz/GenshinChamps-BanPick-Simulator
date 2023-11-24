@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>앙챔스 계정 점수 계산기 / 리그 체커  v1.9.11</title>
+        <title>앙챔스 계정 점수 계산기 / 리그 체커  v1.9.12</title>
         <meta name="viewport" content="user-scalable=yes, width=720, minimum-scale=0.2, maximum-scale=2.0, initial-scale=1.0">
         <style>
 
@@ -65,6 +65,9 @@ span#gi_rev { color: tomato; font-weight: bold; }
 *:focus { outline-color: #06EE; box-shadow: 0 0 6px 0 #037D; transition-duration: 0.3s; }
 
         </style>
+        <script type="text/javascript" src="./scripts/jcodd.js"></script>
+        <script type="text/javascript" src="./data/characters.js"></script>
+        <script>charactersInfo.list.pop();</script>
         <script>let rules = {};</script>
         <script>let ruleBooks = {};</script>
         <script type="text/javascript" src="./data/rulebook.js?update=9"></script>
@@ -639,9 +642,9 @@ for (book in ruleBooks) {
         <div class="subnote center">
             <span class="bold" style="line-height: 28px; ">- <span id="rule_title">앙챔스 룰북</span> <span id="rule_version">2.0</span> 기준 - </span>
             <br />
-            <span class="bold">GCALC v1.9.11</span>
+            <span class="bold">GCALC v1.9.12</span>
             <br />
-            <span>Release 2023.11.10</span>
+            <span>Release 2023.11.24</span>
         </div>
     </body>
     <script>
@@ -866,26 +869,33 @@ getInputs().forEach(input => {
 let pasteTable = document.getElementById("paste_table");
 
 document.getElementById("copy_table").onclick = function(e) {
-    packDataSet();
+    if (e.shiftKey) packDataSet(false, 1);
+    else packDataSet();
 };
 document.getElementById("copy_table").oncontextmenu = function(e) {
     e.preventDefault();
 
-    packDataSet(true);
+    if (e.shiftKey) packDataSet(true, 1);
+    else packDataSet(true);
 
     return false;
 };
 
-let packDataSet = function(pureJson = false) {
+let packDataSet = function(pureJson = false, format = 2) {
     var data = {};
 
     let name = document.getElementById("player_name").value;
     let uid = document.getElementById("player_uid").value;
     let treveler = document.querySelector("input[name=trevelers]:checked").value;
 
-    let player = { name: escape(name), uid: uid, treveler: treveler };
+    let player = { name: name, uid: uid, treveler: treveler };
 
     data["player"] = player;
+
+    let arr = [];
+    let obj = {};
+    var code;
+    var fv;
     var collect = "";
 
     getInputs().forEach(input => {
@@ -893,19 +903,50 @@ let packDataSet = function(pureJson = false) {
 
         let value = input.value;
 
-        data[id] = value == "" ? null : parseInt(value);
+        obj[id] = value == "" ? null : parseInt(value);
         collect += value;
     });
 
     if (collect.length < 1) return;
 
-    let json = JSON.stringify(data);
+    switch (format) {
+        default:
+        case 2:
+            for (var i=0; i<charactersInfo.list.length; i++) {
+                let c = charactersInfo.list[i];
 
-    let fV = 1;
+                let cons = obj[c.id];
+                var char;
+                if (cons != null) char = cons;
+                else char = null;
+
+                arr.push(char);
+            }
+
+            data["list"] = arr;
+
+            code = Jcodd.coddify(data);
+
+            break;
+
+        case 1:
+            if (player.name.match(/[\u0080-\uFFFF]/g) != null) player.name = escape(player.name);
+
+            for (var id in obj) {
+                let c = obj[id];
+                data[id] = c;
+            }
+
+            code = JSON.stringify(data);
+
+            break;
+    }
+
+    fV = format;
 
     var text;
-    if (pureJson) text = json;
-    else text = "@GCBPSv" + fV + ":" + btoa(json) + ";";
+    if (pureJson) text = code;
+    else text = "@GCBPSv" + fV + ":" + btoa(code) + ";";
 
     copyToClipboard(text);
 }
@@ -950,16 +991,34 @@ let parsePasted = function(text) {
     if (text == null || text == "") return false;
 
     text = text.trim();
+    var version;
     try {
         if (text.substr(0, 7) == "@GCBPSv") {
             let texts = text.split(":");
             let header = texts[0];
-            let version = header.split("v")[1];
+            version = parseInt(header.split("v")[1]);
             let base64 = texts[1].replace(/;/g, "");
             text = atob(base64);
         }
 
-        let data = JSON.parse(text);
+        var data;
+        switch(version) {
+            default:
+            case 2:
+                data = Jcodd.parse(text);
+
+                let list = data.list;
+                for (var i=0; i<list.length; i++) {
+                    let cons = list[i];
+                    let id = charactersInfo.list[i].id;
+                    if (id != null) data[id] = cons;
+                }
+                break;
+
+            case 1:
+                data = JSON.parse(text);
+                break;
+        }
 
         for (var i in data) {
             let cons = data[i];
@@ -969,6 +1028,8 @@ let parsePasted = function(text) {
                 document.getElementById("player_uid").value = cons.uid;
                 document.querySelector('input[name=trevelers][value="' + cons.treveler + '"]').checked = true;
 
+                continue;
+            } else if (i == "list") {
                 continue;
             }
 
