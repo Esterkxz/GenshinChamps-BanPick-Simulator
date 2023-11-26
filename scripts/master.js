@@ -5965,7 +5965,7 @@ let playerInfoMaster = {
         infoAp.val(point);
         infoName.val(unescape(p.name));
         infoUid.val(p.uid);
-        infoTrevelers.filter('[value="' + p.treveler + '"]').attr("checked", true);
+        infoTrevelers.filter('[value="' + p.treveler + '"]')[0].checked = true;
     },
 
     onChangedCharConstell: function(id, constell) {
