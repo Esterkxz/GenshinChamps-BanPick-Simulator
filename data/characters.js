@@ -1124,8 +1124,8 @@ let charactersInfo = {
             "res_icon": "UI_AvatarIcon_Charlotte.png",
             "res_vcut": "charlotte_088_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "26%", "vHover": "29%" },
-            "res_wide": "UI_AvatarIcon_Charlotte@3x.png",
-            "res_wide_meta_pos": { "scale": "320%", "h": "57%", "v": "13.4%" },
+            "res_wide": "charlotte_genshin_impact_portrait_render_by_deg5270_dgfqa87-fullview.png",
+            "res_wide_meta_pos": { "scale": "420%", "h": "57%", "v": "30.5 %" },
         },
         {
             "id": "furina",
@@ -1139,8 +1139,8 @@ let charactersInfo = {
             "res_icon": "UI_AvatarIcon_Furina.png",
             "res_vcut": "furina_089_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "25%", "vHover": "28%" },
-            "res_wide": "UI_AvatarIcon_Furina@3x.png",
-            "res_wide_meta_pos": { "scale": "340%", "h": "56%", "v": "18%" },
+            "res_wide": "furina_genshin_impact_portrait_render_by_deg5270_dgfqa9h-fullview.png",
+            "res_wide_meta_pos": { "scale": "520%", "h": "58.5%", "v": "30.5%" },
         },
         {
             "comment": "temporary data for pre-official release",
