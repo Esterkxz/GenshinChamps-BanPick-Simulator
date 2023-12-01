@@ -4724,6 +4724,7 @@ let playerInfoMaster = {
     info_side: "div.info_side",
 
     player_profile_select: "button.player_profile_select",
+    player_info_clear: "button.player_info_clear",
     info_title: "span.info_title",
     info_ap: "input.info_ap",
     info_name: "input.info_name",
@@ -4789,6 +4790,7 @@ let playerInfoMaster = {
     eachInfoSide: null,
 
     eachPlayerProfileSelect: null,
+    eachPlayerInfoClear: null,
 
     eachInfoAdd: null,
     eachInputAddition: null,
@@ -4807,6 +4809,7 @@ let playerInfoMaster = {
     redInfoSide: null,
 
     redPlayerProfileSelect: null,
+    redPlayerInfoClear: null,
     redInfoAp: null,
     redInfoName: null,
     redInfoUid: null,
@@ -4832,6 +4835,7 @@ let playerInfoMaster = {
     blueInfoSide: null,
 
     bluePlayerProfileSelect: null,
+    bluePlayerInfoClear: null,
     blueInfoAp: null,
     blueInfoName: null,
     blueInfoUid: null,
@@ -4950,6 +4954,7 @@ let playerInfoMaster = {
         this.eachInfoCode = this.eachInfoSide.find(this.info_code);
     
         this.eachPlayerProfileSelect = this.eachInfoSide.find(this.player_profile_select);
+        this.eachPlayerInfoClear = this.eachInfoSide.find(this.player_info_clear);
 
         this.eachInfoAdd =  this.eachInfoSide.find(this.info_add);
         this.eachInputAddition = this.eachInfoAdd.find(this.input_addition);
@@ -4969,6 +4974,7 @@ let playerInfoMaster = {
         this.redInfoSide = this.redPlayerInfoSide.find(this.info_side);
 
         this.redPlayerProfileSelect = this.redInfoSide.find(this.player_profile_select);
+        this.redPlayerInfoClear = this.redInfoSide.find(this.player_info_clear);
         this.redInfoAp = this.redInfoSide.find(this.info_ap);
         this.redInfoName = this.redInfoSide.find(this.info_name);
         this.redInfoUid = this.redInfoSide.find(this.info_uid);
@@ -4995,6 +5001,7 @@ let playerInfoMaster = {
         this.blueInfoSide = this.bluePlayerInfoSide.find(this.info_side);
 
         this.bluePlayerProfileSelect = this.blueInfoSide.find(this.player_profile_select);
+        this.bluePlayerInfoClear = this.blueInfoSide.find(this.player_info_clear);
         this.blueInfoAp = this.blueInfoSide.find(this.info_ap);
         this.blueInfoName = this.blueInfoSide.find(this.info_name);
         this.blueInfoUid = this.blueInfoSide.find(this.info_uid);
@@ -5090,6 +5097,8 @@ let playerInfoMaster = {
 
         this.eachPlayerProfileSelect.click(this.onClickPlayerProfileSelectButton);
         this.eachPlayerProfileSelect.contextmenu(this.onRightClickPlayerProfileSelectButton);
+        this.eachPlayerInfoClear.click(this.onClickPlayerInfoClearButton);
+        this.eachPlayerInfoClear.contextmenu(this.onRightClickPlayerInfoClearButton);
 
         this.redPlayerProfileSelect.keydown(function(e) {
             let pim = playerInfoMaster;
@@ -5593,6 +5602,7 @@ let playerInfoMaster = {
         this.bluePlayerProfileSelect.find(this.info_title).text(text.sideBlue);
         this.eachPlayerProfileSelect.attr("title", text.pisPlayerProfileSelectDesc);
         this.eachPlayerProfileSelect.attr("placeholder", text.pisPlayerProfileSelectDesc);
+        this.eachPlayerInfoClear.attr("title", text.pisPlayerInfoClearDesc);
         this.eachInfoTreveler.find('label.info_treveler_style.female').text(text.pisLumine);
         this.eachInfoTreveler.find('label.info_treveler_style.male').text(text.pisAether);
         this.eachInfoCopy.text(text.pisCopyAccountCode);
@@ -5749,7 +5759,14 @@ let playerInfoMaster = {
 
     onRightClickPlayerProfileSelectButton: function(e) {
         e.preventDefault();
+
         let side = $(this).attr("data-side");
+        playerInfoMaster.breakPlayerProfile(side);
+
+        return false;
+    },
+
+    breakPlayerProfile: function(side) {
         if (sequenceMaster.pickingPlayerProfile[side]) {
             playSound("훧");
             playerInfoMaster.endSelectionPlayerProfile(side);
@@ -5757,7 +5774,6 @@ let playerInfoMaster = {
         playSound("웋");
         sequenceMaster.selectedPlayerProfile[side] = null;
         playerInfoMaster.closePlayerProfile(side);
-        return false;
     },
 
     releasePlayerProfile: function(side, hide = false) {
@@ -5842,6 +5858,55 @@ let playerInfoMaster = {
             }
         }
         this.releaseSecondsForAdds();
+    },
+
+    onClickPlayerInfoClearButton: function(e) {
+        let side = $(this).attr("data-side");
+        playerInfoMaster.clearSelectionInfos(side);
+        playerInfoMaster.weaponNames[side][0].focus();
+    },
+
+    onRightClickPlayerInfoClearButton: function(e) {
+        e.preventDefault();
+
+        let side = $(this).attr("data-side");
+        playerInfoMaster.clearPlayerInfos(side);
+        playerInfoMaster.clearSelectionInfos(side);
+
+        return false;
+
+    },
+
+    clearSelectionInfos: function(side) {
+        this.selectionEntries[side].attr(this.weapon, "");
+        this.entryWeaponIcons[side].css("--src", urlTpGif);
+        this.weaponNames[side].val("");
+        this.weaponRefines[side].val("");
+
+        this.releaseSecondsForAdds();
+    },
+
+    clearPlayerInfos: function(side) {
+        this.setPlayerInfo(side);
+        this.playerAccInfo[side] = "";
+        for (var i=0; i<this.charConstells[side].length; i++) {
+            let cons = $(this.charConstells[side][i]);
+            let char = $(this.selectionEntries[side][i]).attr(this.char);
+            let c = charactersInfo.list[charactersInfo[char]];
+            cons.val(c.rarity == 5 ? "0" : "");
+        }
+        this.breakPlayerProfile(side);
+        sideMaster.clearAccountInfo(side);
+        sideMaster.initSideEntered(side);
+        switch (side) {
+            case "red":
+                this.redInfoCode.val("").focus();
+                break;
+
+            case "blue":
+                this.blueInfoCode.val("").focus();
+                break;
+        }
     },
 
     resetPicks: function() {
@@ -5939,7 +6004,7 @@ let playerInfoMaster = {
         }
     },
 
-    setPlayerInfo: function(side, point, p) {
+    setPlayerInfo: function(side, point = "", p = { name: "", uid: "", treveler: null }) {
         if (side == null && side == "") return;
 
         var infoAp;
@@ -5965,7 +6030,7 @@ let playerInfoMaster = {
         infoAp.val(point);
         infoName.val(unescape(p.name));
         infoUid.val(p.uid);
-        infoTrevelers.filter('[value="' + p.treveler + '"]')[0].checked = true;
+        if (p.treveler != null) infoTrevelers.filter('[value="' + p.treveler + '"]')[0].checked = true;
     },
 
     onChangedCharConstell: function(id, constell) {

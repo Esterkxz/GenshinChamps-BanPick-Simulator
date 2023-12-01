@@ -35,6 +35,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "entryBanCardDesc": "Hands with the Ban card",
 
         "pisPlayerProfileSelectDesc": "Click: Select profile character of player\Right-click: Remove profile character view",
+        "pisPlayerInfoClearDesc": "Click: Clear weapon and refine entered for this player\nRight-click: Clear whole player infos for this player",
         "pisName": "Name",
         "pisLumine": "Lumine",
         "pisAether": "Aether",

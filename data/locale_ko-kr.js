@@ -35,6 +35,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "entryBanCardDesc": "밴 카드 보유",
 
         "pisPlayerProfileSelectDesc": "클릭: 플레이어 프로필 캐릭터 선택\n우클릭: 프로필 뷰 해제",
+        "pisPlayerInfoClearDesc": "클릭: 플레이어 돌파/무기/재련 정보 비우기\n우클릭: 플레이어 계정 정보까지 전부 비우기",
         "pisName": "Name",
         "pisLumine": "여행자",
         "pisAether": "남행자",
