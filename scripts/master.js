@@ -5662,7 +5662,7 @@ let playerInfoMaster = {
     checkBackShowingPlayerInfoLayer: function() {
         let ls = this.lastStatePIL;
         if (ls != null) {
-            if (ls) this.showPlayerInfoLayer(true);
+            if (ls || step == -1) this.showPlayerInfoLayer(true);
             else this.hidePlayerInfoLayer(true);
         }
     },
