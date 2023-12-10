@@ -400,7 +400,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "ct_wheatley": { "name": "현금 흐름 감독", "aliases": ["현금", "감독"] },
         "ct_iudex": { "name": "영원히 샘솟는 법전", "aliases": ["법전"] },
         "sw_regalis": { "name": "고요히 샘솟는 빛", "aliases": ["고요", "빛샘", "고샘빛", "빛검"] },
-        "cm_goldenverdict": { "name": "사려깊은 심판", "aliases": ["심판"] },
+        "cm_goldenverdict": { "name": "판정", "aliases": ["판정"] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }
