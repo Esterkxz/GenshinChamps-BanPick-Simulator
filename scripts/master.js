@@ -7115,6 +7115,7 @@ let controllerMaster = {
         this.randomPickButton.mouseenter(this.randomButtonHover);
         this.randomPickButton.mouseleave(this.randomButtonHoverOut);
         this.buttonSettings.click(this.settingsButton);
+        this.buttonSettings.contextmenu(this.settingsButtonRight);
         this.buttonReset.click(this.resetButton);
         this.popupCredits.click(this.creditButton);
         this.popupSoundPanel.click(this.soundPanelButton);
@@ -7233,6 +7234,14 @@ let controllerMaster = {
     
     settingsButton: function(e) {
         toggleDarkmode();
+    },
+    
+    settingsButtonRight: function(e) {
+        e.preventDefault();
+
+        toggleSnow();
+
+        return false;
     },
     
     creditButton: function(e) {
@@ -8855,6 +8864,21 @@ function dropSnow(much = 200) {
         field.append("<style> @keyframes snowfall" + i + " { from { translate: " + xpos + "vw -10px; } to { translate: " + xpos + "vw calc(100vh + 10px); } } </style>")
         field.append(snow);
     }
+}
+
+function clearSnow() {
+    let field = $("#snow_field");
+
+    field.empty();
+}
+
+function toggleSnow() {
+    let field = $("#snow_field");
+
+    let childes = field.find(">*");
+
+    if (childes.length > 0) clearSnow();
+    else dropSnow();
 }
 
 //onload
