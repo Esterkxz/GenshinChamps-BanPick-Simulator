@@ -1857,6 +1857,10 @@ div.popup_layer#credits div.popup_content > div { margin-bottom: 32px; }
 div.popup_layer#credits div.popup_content > div span.title { display: flex; font-weight: bold; }
 div.popup_layer#credits div.popup_content > div span.content { display: block; }
 
+/* snow field for christ mas edition */
+div#snow_field { width: 100vw; height: 0; overflow: overlay; }
+div#snow_field div.snow { position: fixed; width: 10px; height: 10px; background-color: white; border-radius: 50%; }
+
 /* Sound Resource Panel */
 div#res_sounds.resource_holder { position: absolute; display: none; z-index: 3000; top:0; bottom: 280px; left: 0; right: 0; width: 1150px; height: 680px; margin: auto; background-color: rgba(var(--bgcolor-base) / 0.85); box-shadow: 0 0 30px 1px #000d; user-select: none; }
 div#res_sounds.resource_holder[style*="display: block"] { display: table !important; }

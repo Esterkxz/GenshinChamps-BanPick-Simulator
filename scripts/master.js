@@ -8833,6 +8833,28 @@ function versionDisplayShowFor(full = true) {
     vd.attr("data-full", full === true ? "1" : (isNaN(full) || full == false ? "" : full));
 }
 
+function dropSnow(much = 100) {
+    let field = $("#snow_field");
+
+    for (var i=0; i<much; i++) {
+        let xpos = Math.random() * 100;
+
+        let scalz = Math.random();
+
+        let opac = (Math.random() * 0.7) + 0.2;
+
+        let durat = Math.floor(Math.random() * 20) + 10;
+
+        let delay = Math.floor(Math.random() * 30) * -1;
+
+        let snow = document.createElement("div");
+        snow.setAttribute("class", "snow");
+        snow.setAttribute("style", "translate: " + xpos + "vw -10px; scale: " + scalz + "; opacity: " + opac + "; animation: snowfall" + i + " " + durat + "s " + delay + "s linear infinite; ");
+        field.append("<style> @keyframes snowfall" + i + " { from { translate: " + xpos + "vw -10px; } to { translate: " + xpos + "vw calc(100vh + 10px); } } </style>")
+        field.append(snow);
+    }
+}
+
 //onload
 $(document).ready(function() {
 
@@ -8968,6 +8990,8 @@ $(document).ready(function() {
             console.log('all images loaded successfully');
         else
             console.log('some images failed to load, all finished loading');
+
+        dropSnow();
 
         setTimeout(function() {
             $("div#loading_cover").css("opacity", 0);
