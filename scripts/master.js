@@ -8833,7 +8833,7 @@ function versionDisplayShowFor(full = true) {
     vd.attr("data-full", full === true ? "1" : (isNaN(full) || full == false ? "" : full));
 }
 
-function dropSnow(much = 100) {
+function dropSnow(much = 200) {
     let field = $("#snow_field");
 
     for (var i=0; i<much; i++) {
@@ -8847,9 +8847,11 @@ function dropSnow(much = 100) {
 
         let delay = Math.floor(Math.random() * 30) * -1;
 
+        let dir = Math.floor(Math.random() * 2) == 1 ? 1 : -1;
+
         let snow = document.createElement("div");
         snow.setAttribute("class", "snow");
-        snow.setAttribute("style", "translate: " + xpos + "vw -10px; scale: " + scalz + "; opacity: " + opac + "; animation: snowfall" + i + " " + durat + "s " + delay + "s linear infinite; ");
+        snow.setAttribute("style", "translate: " + xpos + "vw -10px; scale: " + scalz + "; opacity: " + opac + "; animation: snowfall" + i + " " + durat + "s " + delay + "s linear infinite; --dir: " + dir + "; ");
         field.append("<style> @keyframes snowfall" + i + " { from { translate: " + xpos + "vw -10px; } to { translate: " + xpos + "vw calc(100vh + 10px); } } </style>")
         field.append(snow);
     }
