@@ -8,7 +8,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
     "text": {
 
         "sideRed": "RED",
-        "sideBlue": "BLUE",
+        "sideBlue": "GREEN",
 
         "pick": "픽",
         "ban": "밴픽",
