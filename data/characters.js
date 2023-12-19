@@ -1159,9 +1159,8 @@ let charactersInfo = {
             "res_wide_meta_pos": { "scale": "360%", "h": "64%", "v": "32%" },
         },
         {
-            "comment": "temporary data for pre-official release",
             "id": "navia",
-            "class": "unreleased",
+            "class": "limited",
             "version": "4.3",
             "rarity": "5",
             "weapon": "claymore",
