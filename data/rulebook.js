@@ -315,6 +315,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "alhaitham": true,
                 "lyney": true,
                 "wriothesley": true,
+                "navia": false,
             },
             "": ""
         },
