@@ -8857,10 +8857,11 @@ function dropSnow(much = 200) {
         let delay = Math.floor(Math.random() * 30) * -1;
 
         let dir = Math.floor(Math.random() * 2) == 1 ? 1 : -1;
+        let dirv = Math.floor(Math.random() * 2) == 1 ? 1 : -1;
 
         let snow = document.createElement("div");
         snow.setAttribute("class", "snow");
-        snow.setAttribute("style", "translate: " + xpos + "vw -10px; scale: " + scalz + "; opacity: " + opac + "; animation: snowfall" + i + " " + durat + "s " + delay + "s linear infinite; --dir: " + dir + "; ");
+        snow.setAttribute("style", "translate: " + xpos + "vw -10px; scale: " + scalz + "; opacity: " + opac + "; animation: snowfall" + i + " " + durat + "s " + delay + "s linear infinite; --dir: " + dir + "; " + "--dirv: " + dirv + "; ");
         field.append("<style> @keyframes snowfall" + i + " { from { translate: " + xpos + "vw -10px; } to { translate: " + xpos + "vw calc(100vh + 10px); } } </style>")
         field.append(snow);
     }

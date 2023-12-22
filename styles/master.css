@@ -1859,8 +1859,8 @@ div.popup_layer#credits div.popup_content > div span.content { display: block; }
 
 /* snow field for christ mas edition */
 div#snow_field { width: 100vw; height: 0; overflow: overlay; }
-div#snow_field div.snow { --aero: 30px; left: calc(var(--aero) * -1); position: fixed; width: 10px; height: 10px; border: solid var(--aero) transparent; background-clip: content-box; background-color: white; border-radius: 50%; filter: drop-shadow(0 0 16px #fffd) drop-shadow(0 0 42px #fffe); transition-duration: 1.8s; transition-timing-function: ease-out; transition-delay: 3.4s; }
-div#snow_field div.snow:hover { left: calc((60px * var(--dir)) + var(--aero) * -1); transition-delay: 0s; }
+div#snow_field div.snow { --aero: 30px; top: 0; left: calc(var(--aero) * -1); position: fixed; width: 10px; height: 10px; border: solid var(--aero) transparent; background-clip: content-box; background-color: white; border-radius: 50%; filter: drop-shadow(0 0 16px #fffd) drop-shadow(0 0 42px #fffe); transition-duration: 1.8s; transition-timing-function: ease-out; transition-delay: 3.4s; }
+div#snow_field div.snow:hover { top: calc(40px * var(--dirv)); left: calc((60px * var(--dir)) + var(--aero) * -1); transition-delay: 0s; }
 
 /* Sound Resource Panel */
 div#res_sounds.resource_holder { position: absolute; display: none; z-index: 3000; top:0; bottom: 280px; left: 0; right: 0; width: 1150px; height: 680px; margin: auto; background-color: rgba(var(--bgcolor-base) / 0.85); box-shadow: 0 0 30px 1px #000d; user-select: none; }
