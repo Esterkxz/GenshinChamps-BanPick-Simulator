@@ -8842,7 +8842,7 @@ function versionDisplayShowFor(full = true) {
     vd.attr("data-full", full === true ? "1" : (isNaN(full) || full == false ? "" : full));
 }
 
-function dropSnow(much = 200) {
+function dropSnow(much = 300) {
     let field = $("#snow_field");
 
     for (var i=0; i<much; i++) {
@@ -8851,6 +8851,25 @@ function dropSnow(much = 200) {
         let scalz = Math.random();
 
         let opac = (Math.random() * 0.7) + 0.2;
+
+        let blur = (Math.random() * 2.5) + 2;
+
+        let sh1 = parseInt((Math.random() * 15) - 7.5);
+        let sh2 = parseInt((Math.random() * 15) - 7.5);
+
+        let sc1 = parseInt(Math.random() * 30) + 30;
+        let sc2 = parseInt(Math.random() * (100 - sc1 - 30)) + sc1 + 30;
+
+        let sv1 = (Math.random() * 0.4) + 0.30;
+        let sv2 = (Math.random() * (1.0 - sv1 - 0.30)) + sv1 + 0.30;
+
+        let s1c = sc1;
+        let s1h = sh1;
+        let s1v = sv1;
+
+        let s2c = sc2;
+        let s2h = sh2;
+        let s2v = sv2;
 
         let durat = Math.floor(Math.random() * 20) + 10;
 
@@ -8861,8 +8880,8 @@ function dropSnow(much = 200) {
 
         let snow = document.createElement("div");
         snow.setAttribute("class", "snow");
-        snow.setAttribute("style", "translate: " + xpos + "vw -10px; scale: " + scalz + "; opacity: " + opac + "; animation: snowfall" + i + " " + durat + "s " + delay + "s linear infinite; --dir: " + dir + "; " + "--dirv: " + dirv + "; ");
-        field.append("<style> @keyframes snowfall" + i + " { from { translate: " + xpos + "vw -10px; } to { translate: " + xpos + "vw calc(100vh + 10px); } } </style>")
+        snow.setAttribute("style", "translate: " + xpos + "vw -10px; scale: " + scalz + "; opacity: " + opac + "; filter: blur(" + blur + "px); animation: snowfall" + i + " " + durat + "s " + delay + "s cubic-bezier(0.45, 0, 0.55, 1) infinite; --dir: " + dir + "; " + "--dirv: " + dirv + "; ");
+        field.append("<style> @keyframes snowfall" + i + " { from { translate: " + xpos + "vw -10px; } " + s1c + "% { translate: " + (xpos + s1h) + "vw calc(" + (100 * s1v) + "vh + 10px); } " + s2c + "% { translate: " + (xpos + s2h) + "vw calc(" + (100 * s2v) + "vh + 10px); } to { translate: " + xpos + "vw calc(100vh + 10px); } } </style>")
         field.append(snow);
     }
 }
