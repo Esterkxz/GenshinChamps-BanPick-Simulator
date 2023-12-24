@@ -322,7 +322,7 @@ body {
     --color-negative-dark: 170 34 68;
     --color-negative-darker: 136 17 34;
 
-    --csrhl: #F44; --csrhl: #F22; --csrbr: #FBB; --csrlr: #F77; --csrl: #F55; --csr: #D44; --csrd: #A33; --csrdr: #822;
+    --csrhlr: #F44; --csrhl: #F22; --csrbr: #FBB; --csrlr: #F77; --csrl: #F55; --csr: #D44; --csrd: #A33; --csrdr: #822;
     --color-side-red-highlighter: 255 68 68;
     --color-side-red-highlight: 255 34 34;
     --color-side-red-bright: 255 187 187;
@@ -331,7 +331,7 @@ body {
     --color-side-red: 221 68 68;
     --color-side-red-dark: 171 51 51;
     --color-side-red-darker: 136 34 34;
-    --csbhl: #48F; --csbhl: #24F; --csbbr: #BDF; --csblr: #79F; --csbl: #57F; --csb: #46D; --csbd: #35A; --csbdr: #248;
+    --csbhlr: #48F; --csbhl: #24F; --csbbr: #BDF; --csblr: #79F; --csbl: #57F; --csb: #46D; --csbd: #35A; --csbdr: #248;
     --color-side-blue-highlighter: 68 136 255;
     --color-side-blue-highlight: 34 68 255;
     --color-side-blue-bright: 187 221 255;
@@ -341,7 +341,7 @@ body {
     --color-side-blue-dark: 51 85 171;
     --color-side-blue-darker: 34 68 136;
     /* Christmas Edition color set */
-    /* --csbhl: #6B4; --csbhl: #2B2; --csbbr: #BBB; --csblr: #7B7; --csbl: #5B5; --csb: #4A4; --csbd: #373; --csbdr: #252;
+    /* --csbhlr: #6B4; --csbhl: #2B2; --csbbr: #BBB; --csblr: #7B7; --csbl: #5B5; --csb: #4A4; --csbd: #373; --csbdr: #252;
     --color-side-blue-highlighter: 102 187 68;
     --color-side-blue-highlight: 34 187 34;
     --color-side-blue-bright: 187 187 187;
