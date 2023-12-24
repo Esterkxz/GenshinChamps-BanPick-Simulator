@@ -1596,7 +1596,7 @@ div#versus_record_board div.side_record_board.blue div.side_player_info div.side
 div#versus_record_board div.side_record_board div.side_player_info div.side_player_ap_area span.side_player_ap { display: block; margin: auto; padding: 0 18px 0 10px; color: rgb(var(--signature-color)); font-size: 36px; font-weight: bold; font-style: italic; text-shadow: 0px 0px 5px rgba(var(--signature-color-bright) / 95%); word-break: break-word; text-overflow: ellipsis; line-height: 36px; overflow: hidden; white-space: nowrap; filter: drop-shadow(0 4px 6px black); }
 div#versus_record_board div.side_record_board div.side_record { }
 div#versus_record_board div.side_record_board div.side_record:hover { z-index: 10; }
-div#versus_record_board div.side_record_board div.side_record label { color: rgba(var(--highlighted-text-base) / 60%); text-shadow: 0 0 0 #888, 0 0 1.5px rgba(var(--main-color) / 90%); }
+div#versus_record_board div.side_record_board div.side_record label { color: rgba(221 221 221 / 60%); text-shadow: 0 0 0 #888, 0 0 1.5px rgba(var(--main-color) / 90%); }
 div#versus_record_board div.side_record_board div.side_record > div { display: table; }
 div#versus_record_board div.side_record_board div.side_record > div > div { }
 div#versus_record_board div.side_record_board div.side_record div.time_record { }
@@ -1712,7 +1712,7 @@ div.float_layer#version_display > div.release_line { }
 div.float_layer#version_display > div.release_line span.release { color: rgba(var(--plain-text-base) / 80%); transition-duration: 0.7s; }
 div.float_layer#version_display[data-full="2"] > div.release_line span.release { opacity: 0; transition-duration: 0.4s; }
 div.float_layer#version_display > div.release_line span.release_date { color: rgba(var(--plain-text-base) / 80%); }
-div.float_layer#version_display > div.powered_by { color: #222D; font-weight: bold; }
+div.float_layer#version_display > div.powered_by { color: var(--plain-text-color); font-weight: bold; }
 
 /* Timer */
 div.float_layer#timer { display: flex; top: 0; bottom: max(calc(100% - 1080px), 0px); right: 20px; height: fit-content; margin: auto auto 20px; padding: 12px 14px; border-radius: 8px; background-color: rgba(var(--main-color) / 30%); transition-duration: 0.2s; transition-timing-function: ease-out; }
