@@ -8881,7 +8881,7 @@ function dropSnow(much = 300) {
         let snow = document.createElement("div");
         snow.setAttribute("class", "snow");
         snow.setAttribute("style", "translate: " + xpos + "vw -10px; scale: " + scalz + "; opacity: " + opac + "; filter: blur(" + blur + "px); animation: snowfall" + i + " " + durat + "s " + delay + "s cubic-bezier(0.45, 0, 0.55, 1) infinite; --dir: " + dir + "; " + "--dirv: " + dirv + "; ");
-        field.append("<style> @keyframes snowfall" + i + " { from { translate: " + xpos + "vw -10px; } " + s1c + "% { translate: " + (xpos + s1h) + "vw calc(" + (100 * s1v) + "vh + 10px); } " + s2c + "% { translate: " + (xpos + s2h) + "vw calc(" + (100 * s2v) + "vh + 10px); } to { translate: " + xpos + "vw calc(100vh + 10px); } } </style>")
+        field.append("<style> @keyframes snowfall" + i + " { from { translate: " + xpos + "vw -60px; } " + s1c + "% { translate: " + (xpos + s1h) + "vw calc(" + (100 * s1v) + "vh - 10px); } " + s2c + "% { translate: " + (xpos + s2h) + "vw calc(" + (100 * s2v) + "vh - 10px); } to { translate: " + xpos + "vw calc(100vh + 10px); } } </style>")
         field.append(snow);
     }
 }
