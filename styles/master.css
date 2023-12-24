@@ -406,6 +406,12 @@ body {
     --highlighted-text-color: #DDDD;
     --highlighted-text-rgb: #DDD;
     --highlighted-text-base: 221 221 221;
+    --sharp-text-color: #FFFE;
+    --sharp-text-rgb: #FFF;
+    --sharp-text-base: 255 255 255;
+    --sharp-text-bg-color: #000E;
+    --sharp-text-bg-rgb: #000;
+    --sharp-text-bg-base: 0 0 0;
 
     --sequence-title-text-color: var(--color-focusive-darker);
     --sequence-title-background-strength: 1;
@@ -425,6 +431,12 @@ body.dark {
     --highlighted-text-color: #000D;
     --highlighted-text-rgb: #000;
     --highlighted-text-base: 0 0 0;
+    --sharp-text-color: #000E;
+    --sharp-text-rgb: #000;
+    --sharp-text-base: 0 0 0;
+    --sharp-text-bg-color: #FFFE;
+    --sharp-text-bg-rgb: #FFF;
+    --sharp-text-bg-base: 255 255 255;
 
     --sequence-title-text-color: var(--color-focusive-dark);
     --sequence-title-background-strength: 0.3;
@@ -1189,7 +1201,7 @@ div.player_board div.entry_slots_area ul.entry_slots li.entry[data-enter="1"] > 
 div.player_board div.entry_slots_area ul.entry_slots li.entry[data-picked="1"] div.entry_icon > span.name_tag { position: absolute; display: block; bottom: 0; left: 0; right: 0; padding: 4px 0; color: rgba(var(--bgcolor-base) / 90%); background-color: rgba(var(--main-color) / 50%); font-family: 'Noto Sans KR'; font-weight: bold; font-size: 14px; line-height: 11px; text-align: center; text-shadow: 0 0 2px rgb(var(--main-color)); word-break: keep-all; box-shadow: 0 0 4px 0 rgba(var(--main-color) / 50%); opacity: 0; transition-duration: 0.3s; transition-timing-function: ease-out; }
 body[data-ctrl="1"] div.player_board div.entry_slots_area ul.entry_slots li.entry[data-picked="1"] div.entry_icon > span.name_tag { opacity: 1; }
 div.player_board div.entry_slots_area ul.entry_slots li.entry[data-picked="1"] div.entry_icon > input { }
-div.player_board div.entry_slots_area ul.entry_slots li.entry[data-picked="1"] div.entry_icon > input.entry_constell { position: absolute; top: 0; right: 0; width: 22px; padding: 1px 2px 0 1px; border: none; border-radius: 4px; border-bottom-left-radius: 8px; background-color: rgba(var(--main-color) / 0.25); color: rgba(var(--bgcolor-base) / 0.9); font-size: 24px; font-weight: bold; text-align: center; text-shadow: 0 0 2px #222E; transition-duration: 0.25s; }
+div.player_board div.entry_slots_area ul.entry_slots li.entry[data-picked="1"] div.entry_icon > input.entry_constell { position: absolute; top: 0; right: 0; width: 22px; padding: 1px 2px 0 1px; border: none; border-radius: 4px; border-bottom-left-radius: 8px; background-color: rgba(var(--sharp-text-bg-base) / 0.25); color: rgba(var(--sharp-text-base) / 0.9); font-size: 24px; font-weight: bold; text-align: center; text-shadow: 0 0 2px #222E; transition-duration: 0.25s; }
 div.player_board div.entry_slots_area ul.entry_slots li.entry[data-picked="1"] div.entry_icon > input.entry_constell:focus { outline: none; width: var(--entry-char-icon-size); padding: 3px 2px 2px 1px; font-size: 70px; box-shadow: 0 0 6px 1px var(--bgcolor-rgb); }
 div.player_board div.entry_slots_area ul.entry_slots li.entry[data-picked="1"]:not(:hover) div.entry_icon > input.entry_constell[data-constell=""]:not(:focus) { background-color: transparent; }
 div.player_board div.entry_slots_area ul.entry_slots li.entry[data-picked="1"] div.entry_icon > input.entry_constell::placeholder { color: rgba(var(--bgcolor-base) / 0.6); }
