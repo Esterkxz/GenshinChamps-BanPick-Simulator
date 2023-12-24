@@ -331,7 +331,7 @@ body {
     --color-side-red: 221 68 68;
     --color-side-red-dark: 171 51 51;
     --color-side-red-darker: 136 34 34;
-    /* --csbhl: #48F; --csbhl: #24F; --csbbr: #BDF; --csblr: #79F; --csbl: #57F; --csb: #46D; --csbd: #35A; --csbdr: #248;
+    --csbhl: #48F; --csbhl: #24F; --csbbr: #BDF; --csblr: #79F; --csbl: #57F; --csb: #46D; --csbd: #35A; --csbdr: #248;
     --color-side-blue-highlighter: 68 136 255;
     --color-side-blue-highlight: 34 68 255;
     --color-side-blue-bright: 187 221 255;
@@ -339,8 +339,9 @@ body {
     --color-side-blue-light: 85 119 255;
     --color-side-blue: 68 102 221;
     --color-side-blue-dark: 51 85 171;
-    --color-side-blue-darker: 34 68 136; */
-    --csbhl: #6B4; --csbhl: #2B2; --csbbr: #BBB; --csblr: #7B7; --csbl: #5B5; --csb: #4A4; --csbd: #373; --csbdr: #252;
+    --color-side-blue-darker: 34 68 136;
+    /* Christmas Edition color set */
+    /* --csbhl: #6B4; --csbhl: #2B2; --csbbr: #BBB; --csblr: #7B7; --csbl: #5B5; --csb: #4A4; --csbd: #373; --csbdr: #252;
     --color-side-blue-highlighter: 102 187 68;
     --color-side-blue-highlight: 34 187 34;
     --color-side-blue-bright: 187 187 187;
@@ -348,15 +349,17 @@ body {
     --color-side-blue-light: 85 187 85;
     --color-side-blue: 68 170 68;
     --color-side-blue-dark: 51 119 51;
-    --color-side-blue-darker: 34 85 34;
+    --color-side-blue-darker: 34 85 34; */
     
     --ctfr: #f22; --ctfb: #26f; --ctfri: #ff7575; --ctfbi: #75bbff;
     --color-text-for-red: 255 34 34;
-    /* --color-text-for-blue: 34 102 255; */
-    --color-text-for-blue: 68 187 34;
+    --color-text-for-blue: 34 102 255;
+    /* Christmas Edition color set */
+    /* --color-text-for-blue: 68 187 34; */
     --color-text-for-red-inactive: 255 119 119;
-    /* --color-text-for-blue-inactive: 119 187 255; */
-    --color-text-for-blue-inactive: 119 187 119;
+    --color-text-for-blue-inactive: 119 187 255;
+    /* Christmas Edition color set */
+    /* --color-text-for-blue-inactive: 119 187 119; */
 
     --color-class-4-dark: #658;
     --color-class-4: #86B;
@@ -385,8 +388,9 @@ body::-webkit-scrollbar-corner { border-radius: 3px; }
 /* variable things */
 /* colors w/o dark mode */
 body {
-    /* --bgcolor-base: 255 255 255; */
-    --bgcolor-base: 232 240 255;
+    --bgcolor-base: 255 255 255;
+    /* Christmas Edition color set */
+    /* --bgcolor-base: 232 240 255; */
     --bgcolor-rgb: rgb(var(--bgcolor-base));
     --bgcolor-tp: rgba(var(--bgcolor-base) / 1 );
 
@@ -1394,8 +1398,9 @@ div.player_board.blue div.nameplate > div.plate_back { right: 0; }
 div.player_board.blue div.account_point { right: 0; }
 div.player_board.blue div.profile_character { right: 0; }
 div.player_board.blue div.account_info { right: 0; }
-/* div.player_board.blue div.account_info span { filter: hue-rotate(99deg) brightness(1.2); } */
-div.player_board.blue div.account_info span { filter: hue-rotate(-36deg) brightness(1.2); }
+div.player_board.blue div.account_info span { filter: hue-rotate(99deg) brightness(1.2); }
+/* Christmas Edition color set */
+/* div.player_board.blue div.account_info span { filter: hue-rotate(-36deg) brightness(1.2); } */
 div.player_board.blue div.account_info:hover span { }
 div.player_board.red div.entry_slots_area ul.entry_slots li.entry div.entry_info .pick_step_cursor::before { content: '◀' }
 div.player_board.blue div.entry_slots_area ul.entry_slots li.entry div.entry_info .pick_step_cursor::before { content: '▶' }
