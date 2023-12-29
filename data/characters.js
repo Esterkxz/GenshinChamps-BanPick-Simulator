@@ -1125,7 +1125,7 @@ let charactersInfo = {
             "res_vcut": "charlotte_088_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "26%", "vHover": "29%" },
             "res_wide": "charlotte_genshin_impact_portrait_render_by_deg5270_dgfqa87-fullview.png",
-            "res_wide_meta_pos": { "scale": "420%", "h": "57%", "v": "30.5 %" },
+            "res_wide_meta_pos": { "scale": "420%", "h": "57%", "v": "30.5%" },
         },
         {
             "id": "furina",
