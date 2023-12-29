@@ -8842,7 +8842,7 @@ function versionDisplayShowFor(full = true) {
     vd.attr("data-full", full === true ? "1" : (isNaN(full) || full == false ? "" : full));
 }
 
-function dropSnow(much = 300) {
+function dropSnow(much = 600) {
     let field = $("#snow_field");
 
     for (var i=0; i<much; i++) {
