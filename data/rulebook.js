@@ -193,7 +193,6 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "ban_card_accure": {
                 "babara": true,
                 "beidou": true,
-                "fischl": true,
                 // "noelle": true,
                 // "sucrose": true,
                 "qiqi": true,
@@ -230,7 +229,6 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "gorou": true,
                 "yunjin": true,
                 "layla": true,
-                "faruzan": true,
                 "yaoyao": true,
             },
             "": ""
@@ -283,6 +281,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "ban_card_accure": {
                 "xiangling": true,
                 "xingqiu": true,
+                "fischl": true,
                 "bennett": true,
                 "jean": true,
                 "mona": true,
@@ -295,6 +294,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "shenhe": true,
                 "shinobu": true,
                 "nilou": true,
+                "faruzan": true,
                 "baizhu": true,
             },
             "": ""
