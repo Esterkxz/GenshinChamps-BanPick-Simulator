@@ -388,11 +388,11 @@ body::-webkit-scrollbar-corner { border-radius: 3px; }
 /* variable things */
 /* colors w/o dark mode */
 body {
-    /* --bgcolor-base: 255 255 255; */
+    --bgcolor-base: 255 255 255;
     /* Christmas Edition color set */
     /* --bgcolor-base: 232 240 255; */
     /* Winter Edition color set */
-    --bgcolor-base: 213 214 214;
+    /* --bgcolor-base: 213 214 214; */
     --bgcolor-rgb: rgb(var(--bgcolor-base));
     --bgcolor-tp: rgba(var(--bgcolor-base) / 1 );
 

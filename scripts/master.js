@@ -9037,7 +9037,7 @@ $(document).ready(function() {
         else
             console.log('some images failed to load, all finished loading');
 
-        dropSnow();
+        // dropSnow();
 
         setTimeout(function() {
             $("div#loading_cover").css("opacity", 0);
