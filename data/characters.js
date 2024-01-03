@@ -1170,8 +1170,8 @@ let charactersInfo = {
             "res_icon": "UI_AvatarIcon_Navia.png",
             "res_vcut": "navia_091_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "23%", "vHover": "23%" },
-            "res_wide": "UI_AvatarIcon_Navia@3x.png",
-            "res_wide_meta_pos": { "scale": "220%", "h": "48%", "v": "13.5%" },
+            "res_wide": "navia_genshin_impact_portrait_render_by_deg5270_dgn3bun-fullview.png",
+            "res_wide_meta_pos": { "scale": "360%", "h": "60%", "v": "32%" },
         },
         {
             "comment": "temporary data for pre-official release",
