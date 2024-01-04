@@ -8623,6 +8623,21 @@ function toggleDarkmode() {
     }
 }
 
+function setDarkmode(enable = true) {
+    let body = $(document.body);
+    let dark = "dark";
+    let has = body.hasClass(dark);
+    if (enable && !has) {
+        body.addClass(dark);
+    } else if (!enable && has) {
+        body.removeClass(dark);
+    }
+}
+
+function setDarkModeBySystem() {
+    setDarkmode(window.matchMedia("(prefers-color-scheme: dark)").matches);
+}
+
 function toggleTp(e) {
     switch(e.which) {
         case 3:
@@ -9012,6 +9027,7 @@ $(document).ready(function() {
     //settings apply
     let darkModeState = $.cookie("dark_mode");
     if (darkModeState != null && darkModeState == "true") toggleDarkmode();
+    else if (darkModeState != "false") setDarkModeBySystem();
 
 
 
