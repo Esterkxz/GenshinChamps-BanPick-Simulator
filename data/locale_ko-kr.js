@@ -405,6 +405,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "ct_iudex": { "name": "영원히 샘솟는 법전", "aliases": ["법전"] },
         "sw_regalis": { "name": "고요히 샘솟는 빛", "aliases": ["고요", "빛샘", "고샘빛", "빛검"] },
         "cm_goldenverdict": { "name": "판정", "aliases": ["판정"] },
+        "ct_mountaingale": { "name": "학의 여음", "aliases": ["여음"] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }

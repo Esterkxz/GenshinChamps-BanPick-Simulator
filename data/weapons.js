@@ -597,7 +597,7 @@ weaponsInfo = {
         {
             "id": "cm_goldenverdict",
             "class": "unreleased",
-            "version": "4.3",
+            "version": "4.3f",
             "rarity": "5",
             "type": "claymore",
             "serise": "standalone",
@@ -605,6 +605,21 @@ weaponsInfo = {
             "favority": ["navia"],
             "res_icon": "UI_EquipIcon_Claymore_GoldenVerdict.png",
             "res_vcut": "i_n12512_gacha_icon.webp"
+        },
+        
+        //Extra 11? - MountainGale
+        {
+            "comment": "temporary data for pre-official release",
+            "id": "ct_mountaingale",
+            "class": "unreleased",
+            "version": "4.4",
+            "rarity": "5",
+            "type": "catalyst",
+            "serise": "standalone",
+            "continent": "liyue",
+            "favority": ["liuyun"],
+            "res_icon": "UI_EquipIcon_Catalyst_MountainGale.png",
+            "res_vcut": "i_n14515_gacha_icon.webp"
         },
 
         {

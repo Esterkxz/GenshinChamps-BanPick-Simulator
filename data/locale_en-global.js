@@ -406,6 +406,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "ct_iudex": { "name": "Rite of the Eternal Flow", "aliases": [""] },
         "sw_regalis": { "name": "Splendor of Tranquil Waters", "aliases": [""] },
         "cm_goldenverdict": { "name": "Verdict", "aliases": [""] },
+        "ct_mountaingale": { "name": "Crane's Echoing Call", "aliases": [""] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }
