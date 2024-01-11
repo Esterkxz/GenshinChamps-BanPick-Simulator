@@ -272,6 +272,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "furina": "Furina",
         "chevreuse": "Chevreuse",
         "navia": "Navia",
+        "gaming": "Gaming",
+        "liuyun": "Xianyun",
         "reserved": ""
     },
     "characters_short": {
@@ -352,6 +354,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "furina": "Furina",
         "chevreuse": "Chevreuse",
         "navia": "Navia",
+        "gaming": "Gaming",
+        "liuyun": "Xianyun",
         "reserved": ""
     },
     "weapons": {
