@@ -1144,7 +1144,7 @@ let charactersInfo = {
         },
         {
             "id": "chevreuse",
-            "class": "unreleased",
+            "class": "ordinary",
             "version": "4.3h",
             "rarity": "4",
             "weapon": "polearm",
@@ -1153,7 +1153,7 @@ let charactersInfo = {
             "res_back": "UI_AvatarIcon_Chevreuse@3x.png",
             "res_icon": "UI_AvatarIcon_Chevreuse.png",
             "res_vcut": "chevreuse_090_gacha_card.webp",
-            "res_vcut_meta_pos": { "vBasic": "24%", "vHover": "15%" },
+            "res_vcut_meta_pos": { "vBasic": "23%", "vHover": "15%" },
             "res_wide": "UI_AvatarIcon_Chevreuse@3x.png",
             "res_wide_meta_pos": { "scale": "360%", "h": "47%", "v": "16.5%" },
         },
