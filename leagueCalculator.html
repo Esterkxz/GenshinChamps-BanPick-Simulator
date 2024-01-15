@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>앙챔스 계정 점수 계산기 / 리그 체커  v1.9.14</title>
+        <title>앙챔스 계정 점수 계산기 / 리그 체커  v1.9.15</title>
         <meta name="viewport" content="user-scalable=yes, width=720, minimum-scale=0.2, maximum-scale=2.0, initial-scale=1.0">
         <style>
 
@@ -26,16 +26,22 @@ table.score_calc tbody td:not([colspan="4"]):nth-child(2) { padding: 0 2px 0 12p
 table.score_calc tbody td:not([colspan="4"]):nth-child(3) { width: 138px; }
 table.score_calc tbody td:not([colspan="4"]):nth-child(4) { width: 60px; }
 table.score_calc tbody td:not([colspan="4"]):nth-child(5) { display: none; }
+table.score_calc tbody td#toggle_ordinary { border-top: solid 2px #08D; border-bottom: dotted 1px #08D; font-weight: bold; text-align: center; cursor: pointer; transition-duration: 0.3s; user-select: none; }
+table.score_calc tbody td#toggle_ordinary:hover { color: #6BF; }
+table.score_calc tbody td#toggle_ordinary:active { color: #8CF; }
+table.score_calc tbody tr.ordinary { display: none; }
+table.score_calc tbody[data-show-ordinary="1"] tr.ordinary { display: table-row; }
 table.score_calc tfoot tr:first-child td { padding: 4px 0; border-top: double 6px #08D; font-size: 18px; }
 table.score_calc tfoot tr:nth-child(2) td { padding: 8px 0 5px; border-top: dashed 2px #08D; }
 table.score_calc tfoot td:nth-child(2) { padding: 0 2px 0 12px; font-weight: bold; }
 table.score_calc tfoot tr:nth-child(3) td { padding: 8px 0 0; border-top: solid 2px #08D; }
-table.score_calc tfoot td#toggle_ordinary { font-weight: bold; text-align: center; cursor: pointer; transition-duration: 0.3s; user-select: none; }
-table.score_calc tfoot td#toggle_ordinary:hover { color: #6BF; }
-table.score_calc tfoot td#toggle_ordinary:active { color: #8CF; }
 table.score_calc tfoot tr:nth-child(4) td { padding: 8px 0 0; border-top: dotted 1px #08D; }
-table.score_calc tfoot tr.ordinary { display: none; }
-table.score_calc tfoot[data-show-ordinary="1"] tr.ordinary { display: table-row; }
+table.score_calc tfoot td#toggle_4stars { font-weight: bold; text-align: center; cursor: pointer; transition-duration: 0.3s; user-select: none; }
+table.score_calc tfoot td#toggle_4stars:hover { color: #6BF; }
+table.score_calc tfoot td#toggle_4stars:active { color: #8CF; }
+table.score_calc tfoot tr.fourstars { display: none; }
+table.score_calc tfoot tr.fourstars td:nth-child(5) { color: transparent; }
+table.score_calc tfoot[data-show-4stars="1"] tr.fourstars { display: table-row; }
 
 table.league_guide { margin-top: 10px; }
 table.league_guide td:nth-child(2) { padding-left: 12px; font-weight: bold; text-align: right; }
@@ -65,12 +71,14 @@ span#gi_rev { color: tomato; font-weight: bold; }
 *:focus { outline-color: #06EE; box-shadow: 0 0 6px 0 #037D; transition-duration: 0.3s; }
 
         </style>
-        <script type="text/javascript" src="./scripts/jcodd.js?rel=20231125"></script>
-        <script type="text/javascript" src="./data/characters.js?rel=2023122101"></script>
-        <script>charactersInfo.list.pop();</script>
+        <script type="text/javascript" src="./scripts/jcodd.js?rel=20240115"></script>
+        <script type="text/javascript" src="./data/common.js"></script>
+        <script>const locales = commonInfo.locales;</script>
+        <script type="text/javascript" src="./data/locale_ko-kr.js?rel=20240115"></script>
+        <script type="text/javascript" src="./data/characters.js?rel=20240115"></script>
         <script>let rules = {};</script>
         <script>let ruleBooks = {};</script>
-        <script type="text/javascript" src="./data/rulebook.js?rel=2023122101"></script>
+        <script type="text/javascript" src="./data/rulebook.js?rel=20240115"></script>
         <script>var costTable = null;</script>
         <!-- <script type="text/javascript" src="./data/rule.js?update=4"></script> -->
         <!-- <script type="text/javascript" src="./data/spiral_tier_cost.js?update=5"></script> -->
@@ -80,7 +88,29 @@ for (book in ruleBooks) {
     rules = ruleBooks[book];
     break;
 }
-        </script>
+
+
+charactersInfo.list.pop();
+charactersInfo.list.forEach(ch => {
+    //load character name every languages
+    ch.name = [];
+    ch.nameShort = [];
+    for (l in locales) {
+        let text = locales[l];
+        ch.name[l] = text["characters"][ch.id];
+        ch.nameShort[l] = text["characters_short"][ch.id];
+    }
+
+    //override character info for rule
+    let override = rules.characters_override[ch.id];
+    if (override != null) {
+        for (attr in override) {
+            if (attr == "comment" || attr == "reserved" || attr == "") continue;
+            ch[attr] = override[attr];
+        }
+    }
+})
+    </script>
     </head>
     <body>
         <div class="note">
@@ -100,7 +130,7 @@ for (book in ruleBooks) {
                     <td><div><p class="center bold"><span>코스트 (폐지)</span></p></div></td>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="main_table_body" data-show-ordinary="1">
                 <tr>
                     <td><div><p class="right">1</p></div></td>
                     <td><div><p class="right"><span>벤티</span></p></div></td>
@@ -492,10 +522,97 @@ for (book in ruleBooks) {
                     </p></div></td>
                 </tr>
                 <tr>
+                    <td colspan="5" id="toggle_ordinary"><span class="arrow">︾</span> 상시 5성 캐릭터 정보 입력 (챔스 참여 시 필수) <span class="arrow">︾</span></td>
+                </tr>
+                <tr class="ordinary">
+                    <td><div><p class="right">1</p></div></td>
+                    <td><div><p class="right"><span>진</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_jean" class="char_constells ordinary">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_jean" class="bold">-</span>&nbsp; &nbsp;</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                    </p></div></td>
+                </tr>
+                <tr class="ordinary">
+                    <td><div><p class="right">2</p></div></td>
+                    <td><div><p class="right"><span>다이루크</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_diluc" class="char_constells ordinary">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_diluc" class="bold">-</span>&nbsp; &nbsp;</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                    </p></div></td>
+                </tr>
+                <tr class="ordinary">
+                    <td><div><p class="right">3</p></div></td>
+                    <td><div><p class="right"><span>치치</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_qiqi" class="char_constells ordinary">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_qiqi" class="bold">-</span>&nbsp; &nbsp;</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                    </p></div></td>
+                </tr>
+                <tr class="ordinary">
+                    <td><div><p class="right">4</p></div></td>
+                    <td><div><p class="right"><span>모나</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_mona" class="char_constells ordinary">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_mona" class="bold">-</span>&nbsp; &nbsp;</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                    </p></div></td>
+                </tr>
+                <tr class="ordinary">
+                    <td><div><p class="right">5</p></div></td>
+                    <td><div><p class="right"><span>각청</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_keqing" class="char_constells ordinary">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_keqing" class="bold">-</span>&nbsp; &nbsp;</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                    </p></div></td>
+                </tr>
+                <tr class="ordinary">
+                    <td><div><p class="right">6</p></div></td>
+                    <td><div><p class="right"><span>타이나리</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_tighnari" class="char_constells ordinary">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_tighnari" class="bold">-</span>&nbsp; &nbsp;</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                    </p></div></td>
+                </tr>
+                <tr class="ordinary">
+                    <td><div><p class="right">7</p></div></td>
+                    <td><div><p class="right"><span>데히야</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_dehya" class="char_constells ordinary">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_dehya" class="bold">-</span>&nbsp; &nbsp;</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                    </p></div></td>
+                </tr>
+                <tr>
                     <td colspan="4"></td>
                 </tr>
             </tbody>
-            <tfoot id="main_table_foot" data-show-ordinary="1">
+            <tfoot id="main_table_foot" data-show-4stars="">
                 <tr>
                     <td colspan="2"><div><p class="center"><span>
                         <b>리그 구분 / 합산</b>
@@ -523,88 +640,88 @@ for (book in ruleBooks) {
                     </div></td>
                 </tr>
                 <tr>
-                    <td colspan="5" id="toggle_ordinary"><span class="arrow">︾</span> 상시 5성 캐릭터 정보 입력 (챔스 참여 시 필수) <span class="arrow">︾</span></td>
+                    <td colspan="5" id="toggle_4stars"><span class="arrow">︾</span> 4성 캐릭터 정보 입력 (옵션) <span class="arrow">︾</span></td>
                 </tr>
-                <tr class="ordinary">
+                <tr class="fourstars">
                     <td><div><p class="right">1</p></div></td>
                     <td><div><p class="right"><span>진</span></p></div></td>
                     <td><div> <p class=""> <span>
                         <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_jean" class="char_constells ordinary">
                     </span></p></div></td>
                     <td><div><p class="right">
-                        <span>&nbsp;<span id="c_jean" class="bold">0</span> 점</span>
+                        <span>&nbsp;<span id="c_jean" class="bold">-</span>&nbsp; &nbsp;</span>
                     </p></div></td>
                     <td><div><p class="right">
                     </p></div></td>
                 </tr>
-                <tr class="ordinary">
+                <tr class="fourstars">
                     <td><div><p class="right">2</p></div></td>
                     <td><div><p class="right"><span>다이루크</span></p></div></td>
                     <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_diluc" class="char_constells ordinary">
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_diluc" class="char_constells fourstars">
                     </span></p></div></td>
                     <td><div><p class="right">
-                        <span>&nbsp;<span id="c_diluc" class="bold">0</span> 점</span>
+                        <span>&nbsp;<span id="c_diluc" class="bold">-</span>&nbsp; &nbsp;</span>
                     </p></div></td>
                     <td><div><p class="right">
                     </p></div></td>
                 </tr>
-                <tr class="ordinary">
+                <tr class="fourstars">
                     <td><div><p class="right">3</p></div></td>
                     <td><div><p class="right"><span>치치</span></p></div></td>
                     <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_qiqi" class="char_constells ordinary">
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_qiqi" class="char_constells fourstars">
                     </span></p></div></td>
                     <td><div><p class="right">
-                        <span>&nbsp;<span id="c_qiqi" class="bold">0</span> 점</span>
+                        <span>&nbsp;<span id="c_qiqi" class="bold">-</span>&nbsp; &nbsp;</span>
                     </p></div></td>
                     <td><div><p class="right">
                     </p></div></td>
                 </tr>
-                <tr class="ordinary">
+                <tr class="fourstars">
                     <td><div><p class="right">4</p></div></td>
                     <td><div><p class="right"><span>모나</span></p></div></td>
                     <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_mona" class="char_constells ordinary">
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_mona" class="char_constells fourstars">
                     </span></p></div></td>
                     <td><div><p class="right">
-                        <span>&nbsp;<span id="c_mona" class="bold">0</span> 점</span>
+                        <span>&nbsp;<span id="c_mona" class="bold">-</span>&nbsp; &nbsp;</span>
                     </p></div></td>
                     <td><div><p class="right">
                     </p></div></td>
                 </tr>
-                <tr class="ordinary">
+                <tr class="fourstars">
                     <td><div><p class="right">5</p></div></td>
                     <td><div><p class="right"><span>각청</span></p></div></td>
                     <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_keqing" class="char_constells ordinary">
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_keqing" class="char_constells fourstars">
                     </span></p></div></td>
                     <td><div><p class="right">
-                        <span>&nbsp;<span id="c_keqing" class="bold">0</span> 점</span>
+                        <span>&nbsp;<span id="c_keqing" class="bold">-</span>&nbsp; &nbsp;</span>
                     </p></div></td>
                     <td><div><p class="right">
                     </p></div></td>
                 </tr>
-                <tr class="ordinary">
+                <tr class="fourstars">
                     <td><div><p class="right">6</p></div></td>
                     <td><div><p class="right"><span>타이나리</span></p></div></td>
                     <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_tighnari" class="char_constells ordinary">
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_tighnari" class="char_constells fourstars">
                     </span></p></div></td>
                     <td><div><p class="right">
-                        <span>&nbsp;<span id="c_tighnari" class="bold">0</span> 점</span>
+                        <span>&nbsp;<span id="c_tighnari" class="bold">-</span>&nbsp; &nbsp;</span>
                     </p></div></td>
                     <td><div><p class="right">
                     </p></div></td>
                 </tr>
-                <tr class="ordinary">
+                <tr class="fourstars">
                     <td><div><p class="right">7</p></div></td>
                     <td><div><p class="right"><span>데히야</span></p></div></td>
                     <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_dehya" class="char_constells ordinary">
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_dehya" class="char_constells fourstars">
                     </span></p></div></td>
                     <td><div><p class="right">
-                        <span>&nbsp;<span id="c_dehya" class="bold">0</span> 점</span>
+                        <span>&nbsp;<span id="c_dehya" class="bold">-</span>&nbsp; &nbsp;</span>
                     </p></div></td>
                     <td><div><p class="right">
                     </p></div></td>
@@ -655,9 +772,9 @@ for (book in ruleBooks) {
         <div class="subnote center">
             <span class="bold" style="line-height: 28px; ">- <span id="rule_title">앙챔스 룰북</span> <span id="rule_version">2.0</span> 기준 - </span>
             <br />
-            <span class="bold">GCALC v1.9.14</span>
+            <span class="bold">GCALC v1.9.15</span>
             <br />
-            <span>Release 2023.12.21</span>
+            <span>Release 2024.01.15</span>
         </div>
     </body>
     <script>
@@ -677,8 +794,9 @@ let leagueCalc = function () {
     var totals = 0;
     getInputs().forEach(input => {
         let isOrdinary = input.className.indexOf("ordinary") > -1;
+        let is4stars = input.className.indexOf("fourstars") > -1;
         var v = parseInt(input.value);
-        if (!isOrdinary && v != null && !isNaN(v)) totals += v + 1;
+        if (!isOrdinary && !is4stars && v != null && !isNaN(v)) totals += v + 1;
     });
     var hideTail = false;
     var l = null;
@@ -725,12 +843,13 @@ let leagueCalc = function () {
 
 let lineCalc = function (e) {
     let isOrdinary = this.className.indexOf("ordinary") > -1;
+    let is4stars = input.className.indexOf("fourstars") > -1;
     var v = e.target.value;
     v = v != null && !isNaN(parseInt(v)) ? Math.max(Math.min(parseInt(v), 6), 0) : "";
     e.target.value = v;
     let val = parseInt(e.target.value);
     let cid = e.target.getAttribute('data-cid');
-    if (!isOrdinary) document.getElementById(cid).innerText = !isNaN(val) ? v + 1 : 0;
+    if (!isOrdinary && !is4stars) document.getElementById(cid).innerText = !isNaN(val) ? v + 1 : 0;
     if (rules.rule_type == "cost") addCost(cid, v);
     leagueCalc();
 
@@ -813,7 +932,7 @@ let getAddCost = function (constell = 0) {
                     break;
 
                 case "!==":
-                    if (!(constell == con)) continue;
+                    if (!(constell != con)) continue;
                     break;
 
                 case ">=":
@@ -994,7 +1113,7 @@ pasteTable.onfocus = function(e) {
     getInputs().forEach(input => {
         let cid = input.getAttribute("data-cid");
         input.value = "";
-        document.getElementById(cid).innerText = 0;
+        if (document.getElementById(cid).innerText != "-") document.getElementById(cid).innerText = 0;
         if (rules.rule_type == "cost") addCost(cid, 0);
     });
 }
@@ -1053,7 +1172,7 @@ let parsePasted = function(text) {
             if (constell != null) constell.value = cons;
             let point = document.getElementById(cid)
             if (point != null) {
-                point.innerText = cons != null && !isNaN(cons) ? consI + 1 : 0;
+                if (point.innerText != "-") point.innerText = cons != null && !isNaN(cons) ? consI + 1 : 0;
                 if (rules.rule_type == "cost") addCost(cid, consI);
             }
         }
@@ -1119,8 +1238,8 @@ document.getElementById("rule_title").innerText = rules.rule_title;
 document.getElementById("rule_version").innerText = rules.rule_version;
 
 document.getElementById("toggle_ordinary").onclick = function(e) {
-    let foot = document.getElementById("main_table_foot");
-    let show = foot.getAttribute("data-show-ordinary");
+    let tbody = document.getElementById("main_table_body");
+    let show = tbody.getAttribute("data-show-ordinary");
     let spans = this.querySelectorAll("span.arrow");
     
     var toShow;
@@ -1134,7 +1253,7 @@ document.getElementById("toggle_ordinary").onclick = function(e) {
             break;
     }
 
-    foot.setAttribute("data-show-ordinary", toShow);
+    tbody.setAttribute("data-show-ordinary", toShow);
 
     
     if (toShow == "1") {
@@ -1143,6 +1262,82 @@ document.getElementById("toggle_ordinary").onclick = function(e) {
     } else for (var i=0; i<spans.length; i++) spans[i].innerText = "︾";
 };
 
+document.getElementById("toggle_4stars").onclick = function(e) {
+    let foot = document.getElementById("main_table_foot");
+    let show = foot.getAttribute("data-show-4stars");
+    let spans = this.querySelectorAll("span.arrow");
+    
+    var toShow;
+    switch (show) {
+        case "1":
+            toShow = "";
+            break;
+
+        default:
+            toShow = "1";
+            break;
+    }
+
+    foot.setAttribute("data-show-4stars", toShow);
+
+    
+    if (toShow == "1") {
+        for (var i=0; i<spans.length; i++) spans[i].innerText = "︽";
+        document.querySelector("input.fourstars").focus();
+    } else for (var i=0; i<spans.length; i++) spans[i].innerText = "︾";
+};
+
+function buildCharLine(no, name, id, attrs = "", point = 0, usepoint = true, cost = 0, usecost = true) {
+    let charLine = '                <tr#ATTRS>\n\
+                    <td><div><p class="right">#NO</p></div></td>\n\
+                    <td><div><p class="right"><span>#NAME</span></p></div></td>\n\
+                    <td><div> <p class=""> <span>\n\
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_#ID" class="char_constells">\n\
+                    </span></p></div></td>\n\
+                    <td><div><p class="right">\n\
+                        <span>&nbsp;<span id="c_#ID" class="bold">#POINT</span>#POINTUNIT</span>\n\
+                    </p></div></td>\n\
+                    <td><div><p class="right">\n\
+                        <span>(<span class="cost_basic" data-cid="c_#ID"></span> +<span class="cost_add" data-cid="c_#ID"></span>)&nbsp;<span data-cid="c_#ID" class="cost_sum bold">#COST</span>#COSTUNIT</span>\n\
+                    </p></div></td>\n\
+                </tr>\n\
+'
+    return charLine.replace("#NO", no).replace("#NAME", name).replace("#ID", id).replace("#ATTRS", attrs).replace("#POINTUNIT", usepoint ? " 점" : "&nbsp; &nbsp;").replace("#COSTUNIT", usepoint ? " 코" : "&nbsp; &nbsp;").replace("#POINT", point).replace("#COST", cost);
+}
+
+function initCharList() {
+    let tfoot = document.getElementById("main_table_foot");
+    let fourstars = tfoot.querySelectorAll(".fourstars");
+
+    fourstars.forEach(e => e.remove());
+
+    var seqLimited = 0;
+    var seqOrdinary = 0;
+    var seq4stars = 0;
+
+    for (var i=1; i<charactersInfo.list.length; i++) {
+        let info = charactersInfo.list[i];
+
+        if (info.class == "unreleased") continue;
+
+        var category;
+        if (info.rarity == "5") {
+            category = info.class;
+        } else category = "fourstars";
+
+        switch (category) {
+            case "fourstars":
+                seq4stars++;
+                let line = buildCharLine(seq4stars, info.name["ko-kr"], info.id, ' class="fourstars"', "-", false);
+                let elem = document.createElement("div");
+                tfoot.append(elem);
+                elem.outerHTML = line;
+                break;
+        }
+    }
+}
+
+initCharList();
 
 document.querySelector('input.char_constells').focus();
 
