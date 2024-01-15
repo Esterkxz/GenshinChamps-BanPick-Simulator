@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>앙챔스 계정 점수 계산기 / 리그 체커  v1.9.15</title>
+        <title>앙챔스 계정 점수 계산기 / 리그 체커  v1.9.16</title>
         <meta name="viewport" content="user-scalable=yes, width=720, minimum-scale=0.2, maximum-scale=2.0, initial-scale=1.0">
         <style>
 
@@ -772,9 +772,9 @@ charactersInfo.list.forEach(ch => {
         <div class="subnote center">
             <span class="bold" style="line-height: 28px; ">- <span id="rule_title">앙챔스 룰북</span> <span id="rule_version">2.0</span> 기준 - </span>
             <br />
-            <span class="bold">GCALC v1.9.15</span>
+            <span class="bold">GCALC v1.9.16</span>
             <br />
-            <span>Release 2024.01.15</span>
+            <span>Release 2024.01.16</span>
         </div>
     </body>
     <script>
@@ -1287,12 +1287,12 @@ document.getElementById("toggle_4stars").onclick = function(e) {
     } else for (var i=0; i<spans.length; i++) spans[i].innerText = "︾";
 };
 
-function buildCharLine(no, name, id, attrs = "", point = 0, usepoint = true, cost = 0, usecost = true) {
+function buildCharLine(no, name, id, attrs = "", addClass = "", point = 0, usepoint = true, cost = 0, usecost = true) {
     let charLine = '                <tr#ATTRS>\n\
                     <td><div><p class="right">#NO</p></div></td>\n\
                     <td><div><p class="right"><span>#NAME</span></p></div></td>\n\
                     <td><div> <p class=""> <span>\n\
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_#ID" class="char_constells">\n\
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_#ID" class="char_constells#CLASS">\n\
                     </span></p></div></td>\n\
                     <td><div><p class="right">\n\
                         <span>&nbsp;<span id="c_#ID" class="bold">#POINT</span>#POINTUNIT</span>\n\
@@ -1302,7 +1302,7 @@ function buildCharLine(no, name, id, attrs = "", point = 0, usepoint = true, cos
                     </p></div></td>\n\
                 </tr>\n\
 '
-    return charLine.replace("#NO", no).replace("#NAME", name).replace("#ID", id).replace("#ATTRS", attrs).replace("#POINTUNIT", usepoint ? " 점" : "&nbsp; &nbsp;").replace("#COSTUNIT", usepoint ? " 코" : "&nbsp; &nbsp;").replace("#POINT", point).replace("#COST", cost);
+    return charLine.replace("#NO", no).replace("#NAME", name).replace("#ID", id).replace("#ATTRS", attrs).replace("#CLASS", addClass).replace("#POINTUNIT", usepoint ? " 점" : "&nbsp; &nbsp;").replace("#COSTUNIT", usepoint ? " 코" : "&nbsp; &nbsp;").replace("#POINT", point).replace("#COST", cost);
 }
 
 function initCharList() {
@@ -1328,7 +1328,7 @@ function initCharList() {
         switch (category) {
             case "fourstars":
                 seq4stars++;
-                let line = buildCharLine(seq4stars, info.name["ko-kr"], info.id, ' class="fourstars"', "-", false);
+                let line = buildCharLine(seq4stars, info.name["ko-kr"], info.id, ' class="fourstars"', " fourstars", "-", false);
                 let elem = document.createElement("div");
                 tfoot.append(elem);
                 elem.outerHTML = line;
