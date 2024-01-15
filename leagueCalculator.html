@@ -1302,7 +1302,7 @@ function buildCharLine(no, name, id, attrs = "", addClass = "", point = 0, usepo
                     </p></div></td>\n\
                 </tr>\n\
 '
-    return charLine.replace("#NO", no).replace("#NAME", name).replace("#ID", id).replace("#ATTRS", attrs).replace("#CLASS", addClass).replace("#POINTUNIT", usepoint ? " 점" : "&nbsp; &nbsp;").replace("#COSTUNIT", usepoint ? " 코" : "&nbsp; &nbsp;").replace("#POINT", point).replace("#COST", cost);
+    return charLine.replace("#NO", no).replace("#NAME", name).replace(/#ID/g, id).replace("#ATTRS", attrs).replace("#CLASS", addClass).replace("#POINTUNIT", usepoint ? " 점" : "&nbsp; &nbsp;").replace("#COSTUNIT", usepoint ? " 코" : "&nbsp; &nbsp;").replace("#POINT", point).replace("#COST", cost);
 }
 
 function initCharList() {
