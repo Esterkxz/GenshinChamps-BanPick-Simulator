@@ -640,7 +640,7 @@ charactersInfo.list.forEach(ch => {
                     </div></td>
                 </tr>
                 <tr>
-                    <td colspan="5" id="toggle_4stars"><span class="arrow">︾</span> 4성 캐릭터 정보 입력 (옵션) <span class="arrow">︾</span></td>
+                    <td colspan="5" id="toggle_4stars"><span class="arrow">︾</span> 4성(급) 캐릭터 정보 입력 (옵션) <span class="arrow">︾</span></td>
                 </tr>
                 <tr class="fourstars">
                     <td><div><p class="right">1</p></div></td>
@@ -1321,7 +1321,7 @@ function initCharList() {
         if (info.class == "unreleased") continue;
 
         var category;
-        if (info.rarity == "5") {
+        if (info.rarity == "5" && info.id != "treveler") {
             category = info.class;
         } else category = "fourstars";
 
