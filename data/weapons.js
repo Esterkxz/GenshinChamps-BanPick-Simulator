@@ -226,7 +226,7 @@ weaponsInfo = {
         },
         {
             "id": "ct_morax",
-            "class": "unreleased",
+            "class": "limited",
             "version": "3.6h",
             "rarity": "5",
             "serise": "morax",
@@ -234,7 +234,7 @@ weaponsInfo = {
             "continent": "liyue",
             "favority": ["baizhu"],
             "res_icon": "UI_EquipIcon_Catalyst_Morax.png",
-            "res_vcut": ""
+            "res_vcut": "i_n14505_gacha_icon.webp"
         },
 
         //Extra 1 - Homa
