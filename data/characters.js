@@ -1154,8 +1154,8 @@ let charactersInfo = {
             "res_icon": "UI_AvatarIcon_Chevreuse.png",
             "res_vcut": "chevreuse_090_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "23%", "vHover": "15%" },
-            "res_wide": "UI_AvatarIcon_Chevreuse@3x.png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "47%", "v": "16.5%" },
+            "res_wide": "chevreuse_genshin_impact_portrait_render_by_deg5270_dgp8yw2-fullview.png",
+            "res_wide_meta_pos": { "scale": "520%", "h": "60%", "v": "32%" },
         },
         {
             "id": "navia",
