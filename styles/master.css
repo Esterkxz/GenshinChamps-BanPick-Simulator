@@ -588,7 +588,7 @@ div#center_behind div#versus_entry_area div.versus_entry_side.red > div.versus_e
 div#center_behind div#versus_entry_area div.versus_entry_side.blue > div.versus_entry div.weapon_allocated { transform: scale(2.0) translateX(-16px) translateY(5px) rotate(-7deg); }
 div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry[data-show="3"] div.weapon_allocated { transform: scale(2.0) translateX(0px) translateY(0px) rotate(-7deg); opacity: 1; }
 div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry div.weapon_info { z-index: 2; display: flex; flex-direction: column; flex-wrap: nowrap; height: fit-content; margin: auto auto 134px; color: #FFFF; font-weight: bold; text-align: center; opacity: 0; transition-delay: 0.15s; transition-duration: 2.5s; }
-div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry div.weapon_info span { text-shadow: -2px -2px 4px rgba(var(--main-color) / 90%), 2px 2px 2px rgba(var(--main-color) / 90%), 0px 0px 4px rgba(var(--bgcolor-base) / 90%); }
+div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry div.weapon_info span { text-shadow: -2px -2px 4px rgba(0 0 0 / 90%), 2px 2px 2px rgba(0 0 0 / 90%), 0px 0px 4px rgba(255 255 255 / 90%); }
 div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry div.weapon_info span.weapon_name { color: #FFFD; font-size: 21px; line-height: 20px; }
 div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry div.weapon_info span.weapon_refine { font-size: 42px; line-height: 42px; }
 div#center_behind div#versus_entry_area div.versus_entry_side > div.versus_entry[data-show="3"] div.weapon_info { opacity: 1; }
