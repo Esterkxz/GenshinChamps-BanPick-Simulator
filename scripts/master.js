@@ -5841,20 +5841,20 @@ let playerInfoMaster = {
                 entry.attr(this.char, info.id);
                 //--class_back
                 $(this.entryIcons[side][i]).css("--src", "url('" + getPath("images", "character_icon", info.res_icon) + "')");
-                //if (info.rarity == "5") {
-                    var rarity = "0";
-                    if (this.playerAccInfo[side] != null) {
-                        rarity = "" + this.playerAccInfo[side][info.id];
-                        switch (rarity) {
-                            case "null":
-                                sequenceMaster.setSequenceTitle("계정 정보 상 미보유 캐릭터를 선택하였습니다", 5000);
-                            case "undefined":
-                                rarity = "";
-                                break;
-                        }
+                let isForCalc = info.rarity == "5" && info.id != "treveler";
+                var rarity = "";
+                if (isForCalc) rarity = "0";
+                if (this.playerAccInfo[side] != null) {
+                    rarity = "" + this.playerAccInfo[side][info.id];
+                    switch (rarity) {
+                        case "null":
+                            if (isForCalc) sequenceMaster.setSequenceTitle("계정 정보 상 미보유 캐릭터를 선택하였습니다", 5000);
+                            break;
+                        case "undefined":
+                            break;
                     }
-                    $(this.charConstells[side][i]).val(rarity);
-                //}
+                }
+                $(this.charConstells[side][i]).val(rarity);
                 $(this.charNames[side][i]).val(info.nameShort[loca]);
             }
         }
