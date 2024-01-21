@@ -744,6 +744,7 @@ let sequenceMaster = {
 
             let charInfo = document.createElement("div");
             charInfo.setAttribute("class", "character_info");
+            if (info.rarity != "5" || info.id == "treveler") charInfo.setAttribute("data-fourstars", "1");
             let charConstell = document.createElement("span");
             charConstell.setAttribute("class", "character_constell");
             charConstell.innerHTML = sel.find(pim.char_constell).val();
@@ -5840,7 +5841,7 @@ let playerInfoMaster = {
                 entry.attr(this.char, info.id);
                 //--class_back
                 $(this.entryIcons[side][i]).css("--src", "url('" + getPath("images", "character_icon", info.res_icon) + "')");
-                if (info.rarity == "5") {
+                //if (info.rarity == "5") {
                     var rarity = "0";
                     if (this.playerAccInfo[side] != null) {
                         rarity = "" + this.playerAccInfo[side][info.id];
@@ -5853,7 +5854,7 @@ let playerInfoMaster = {
                         }
                     }
                     $(this.charConstells[side][i]).val(rarity);
-                }
+                //}
                 $(this.charNames[side][i]).val(info.nameShort[loca]);
             }
         }
