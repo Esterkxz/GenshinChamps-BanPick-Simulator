@@ -5845,7 +5845,9 @@ let playerInfoMaster = {
                 var rarity = "";
                 if (isForCalc) rarity = "0";
                 if (this.playerAccInfo[side] != null) {
-                    rarity = "" + this.playerAccInfo[side][info.id];
+                    let rarityValue = this.playerAccInfo[side][info.id];
+                    let rarityInt = parseInt(rarityValue)
+                    rarity = "" + (isNaN(rarityInt) ? "" : rarityInt);
                     switch (rarity) {
                         case "null":
                             if (isForCalc) sequenceMaster.setSequenceTitle("계정 정보 상 미보유 캐릭터를 선택하였습니다", 5000);
