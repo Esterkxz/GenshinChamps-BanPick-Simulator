@@ -5843,19 +5843,20 @@ let playerInfoMaster = {
                 $(this.entryIcons[side][i]).css("--src", "url('" + getPath("images", "character_icon", info.res_icon) + "')");
                 let isForCalc = info.rarity == "5" && info.id != "treveler";
                 var rarity = "";
-                if (isForCalc) rarity = "0";
                 if (this.playerAccInfo[side] != null) {
                     let rarityValue = this.playerAccInfo[side][info.id];
                     let rarityInt = parseInt(rarityValue)
-                    rarity = "" + (isNaN(rarityInt) ? "" : rarityInt);
+                    rarity = "" + rarityValue;
                     switch (rarity) {
                         case "null":
                             if (isForCalc) sequenceMaster.setSequenceTitle("계정 정보 상 미보유 캐릭터를 선택하였습니다", 5000);
                             break;
                         case "undefined":
+                            rarity = "";
                             break;
                     }
-                }
+                    rarity = "" + (isNaN(rarityInt) ? (isForCalc ? 0 : "") : rarityInt);
+                } else if (isForCalc) rarity = "0";
                 $(this.charConstells[side][i]).val(rarity);
                 $(this.charNames[side][i]).val(info.nameShort[loca]);
             }
