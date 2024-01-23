@@ -7888,16 +7888,19 @@ let timerMaster = {
             if (byUser === false) {
                 this.releaseTimerDisplay(0, 0);
                 this.releaseGaugeProgress();
+                let activatedStep = step;
                 setTimeout(function() {
-                    if (timerMaster.settings.sound) playSoundV("뾷", timerMaster.settings.controlSoundVolume);
-                    timerMaster.initTimer();
+                    if (activatedStep == step) {
+                        if (timerMaster.settings.sound) playSoundV("뾷", timerMaster.settings.controlSoundVolume);
+                        timerMaster.initTimer();
 
-                    if (timerMaster.settings.autoPassTimeout) {
-                        setTimeout(function() {
-                            if (step < 0) sequenceMaster.startPick();
-                            else if (step < rules.sequence.length) sequenceMaster.passPick();
-                            else if (step == rules.sequence.length) sequenceMaster.finishPick();
-                        }, 500);
+                        if (timerMaster.settings.autoPassTimeout) {
+                            if (activatedStep == step) setTimeout(function() {
+                                if (step < 0) sequenceMaster.startPick();
+                                else if (step < rules.sequence.length) sequenceMaster.passPick();
+                                else if (step == rules.sequence.length) sequenceMaster.finishPick();
+                            }, 500);
+                        }
                     }
                 }, 1000);
                 return;
