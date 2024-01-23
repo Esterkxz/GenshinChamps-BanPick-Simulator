@@ -8620,10 +8620,12 @@ function toggleDarkmode() {
     let dark = "dark";
     if (body.hasClass(dark)) {
         body.removeClass(dark);
-        $.cookie("dark_mode", "false", { expires: 36525 });
+        //$.cookie("dark_mode", "false", { expires: 36525 });
+        settingsMaster.putBoolean(settingsMaster.DARK_MODE, false);
     } else {
         body.addClass(dark);
-        $.cookie("dark_mode", "true", { expires: 36525 });
+        //$.cookie("dark_mode", "true", { expires: 36525 });
+        settingsMaster.putBoolean(settingsMaster.DARK_MODE, true);
     }
 }
 
@@ -8712,7 +8714,8 @@ let soundsMaster = {
             return false;
         });
 
-        let seVolumeSet = $.cookie("se_volume");
+        //let seVolumeSet = $.cookie("se_volume");
+        let seVolumeSet = settingsMaster.getInt(settingsMaster.SE_VOLUME);
         if (seVolumeSet != null && !isNaN(seVolumeSet)) {
             let seVolume = parseInt(seVolumeSet);
             if (seVolume > -1 && seVolume < 101) this.volumeControlSlider.val(seVolume);
@@ -8778,7 +8781,8 @@ let soundsMaster = {
     },
 
     releaseVolume: function(value = this.volumeControlSlider.val()) {
-        $.cookie("se_volume", value, { expires: 36525 });
+        //$.cookie("se_volume", value, { expires: 36525 });
+        settingsMaster.putInt(settingsMaster.SE_VOLUME, value);
         this.volumeValueIndicator.text(value);
     },
 
@@ -8861,7 +8865,72 @@ function versionDisplayShowFor(full = true) {
     vd.attr("data-full", full === true ? "1" : (isNaN(full) || full == false ? "" : full));
 }
 
+
+let settingsMaster = {
+
+    prefix: "settings_",
+
+    SE_VOLUME: "sevolume",
+    DARK_MODE: "darkmode",
+    DROP_SNOW: "dropsnow",
+
+    putBoolean: function(key, bool) {
+        if (key == null || key == "") return;
+        localStorage.setItem(this.prefix + key, bool);
+    },
+
+    getBoolean: function(key, def) {
+        if (key == null || key == "") return undefined;
+        let bool = localStorage.getItem(this.prefix + key);
+
+        if (bool == "true") return true;
+        else if (bool == "false") return false;
+        else if (bool == "null") return null;
+        else return def;
+    },
+
+    putInt: function(key, integer = null) {
+        if (key == null || key == "") return;
+        localStorage.setItem(this.prefix + key, integer);
+    },
+
+    getInt: function(key, def) {
+        if (key == null || key == "") return undefined;
+        let integer = localStorage.getItem(this.prefix + key);
+
+        if (integer == null || integer == "null") return def;
+        else return parseInt(integer);
+    },
+
+    putFloat: function(key, float = null) {
+        if (key == null || key == "") return;
+        localStorage.setItem(this.prefix + key, float);
+    },
+
+    getFloat: function(key, def) {
+        if (key == null || key == "") return undefined;
+        let float = localStorage.getItem(this.prefix + key);
+
+        if (float == null || float == "null") return def;
+        else return parseFloat(float);
+    },
+
+    putString: function(key, str) {
+        if (key == null || key == "") return;
+        localStorage.setItem(this.prefix + key, str);
+    },
+
+    getString: function(key, def = null) {
+        if (key == null || key == "") return undefined;
+        let str = localStorage.getItem(this.prefix + key);
+
+        if (str == null) return def;
+        else return parseFloat(str);
+    },
+}
+
 function dropSnow(much = 500) {
+    settingsMaster.putBoolean(settingsMaster.DROP_SNOW, true);
     let field = $("#snow_field");
 
     for (var i=0; i<much; i++) {
@@ -8906,6 +8975,7 @@ function dropSnow(much = 500) {
 }
 
 function clearSnow() {
+    settingsMaster.putBoolean(settingsMaster.DROP_SNOW, false);
     let field = $("#snow_field");
 
     field.empty();
@@ -9029,9 +9099,10 @@ $(document).ready(function() {
 
 
     //settings apply
-    let darkModeState = $.cookie("dark_mode");
-    if (darkModeState != null && darkModeState == "true") toggleDarkmode();
-    else if (darkModeState != "false") setDarkModeBySystem();
+    // let darkModeState = $.cookie("dark_mode");
+    let darkModeState = settingsMaster.getBoolean(settingsMaster.DARK_MODE);
+    if (darkModeState != null && darkModeState) toggleDarkmode();
+    else if (darkModeState != false) setDarkModeBySystem();
 
 
 
@@ -9057,7 +9128,7 @@ $(document).ready(function() {
         else
             console.log('some images failed to load, all finished loading');
 
-        // dropSnow();
+        if (settingsMaster.getBoolean(settingsMaster.DROP_SNOW, false)) dropSnow();
 
         setTimeout(function() {
             $("div#loading_cover").css("opacity", 0);
