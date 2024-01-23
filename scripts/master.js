@@ -5845,7 +5845,7 @@ let playerInfoMaster = {
                 var rarity = "";
                 if (this.playerAccInfo[side] != null) {
                     let rarityValue = this.playerAccInfo[side][info.id];
-                    let rarityInt = parseInt(rarityValue)
+                    let rarityInt = parseInt(rarityValue);
                     rarity = "" + rarityValue;
                     switch (rarity) {
                         case "null":
