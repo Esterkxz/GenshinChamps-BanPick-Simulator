@@ -609,10 +609,9 @@ weaponsInfo = {
         
         //Extra 11? - MountainGale
         {
-            "comment": "temporary data for pre-official release",
             "id": "ct_mountaingale",
             "class": "unreleased",
-            "version": "4.4",
+            "version": "4.4f",
             "rarity": "5",
             "type": "catalyst",
             "serise": "standalone",

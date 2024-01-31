@@ -1173,9 +1173,8 @@ let charactersInfo = {
             "res_wide_meta_pos": { "scale": "360%", "h": "60%", "v": "32%" },
         },
         {
-            "comment": "temporary data for pre-official release",
             "id": "gaming",
-            "class": "unreleased",
+            "class": "ordinary",
             "version": "4.4",
             "rarity": "4",
             "weapon": "claymore",
@@ -1189,9 +1188,8 @@ let charactersInfo = {
             "res_wide_meta_pos": { "scale": "360%", "h": "64%", "v": "32%" },
         },
         {
-            "comment": "temporary data for pre-official release",
             "id": "liuyun",
-            "class": "unreleased",
+            "class": "limited",
             "version": "4.4",
             "rarity": "5",
             "weapon": "catalyst",

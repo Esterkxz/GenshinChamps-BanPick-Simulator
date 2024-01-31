@@ -232,7 +232,6 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "yunjin": true,
                 "layla": true,
                 "yaoyao": true,
-                // "gaming": true,
             },
             "": ""
         },
@@ -300,6 +299,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "faruzan": true,
                 "baizhu": true,
                 "chevreuse": true,
+                "gaming": true,
             },
             "": ""
         },
@@ -324,7 +324,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "lyney": true,
                 "wriothesley": true,
                 "navia": true,
-                // "liuyun": true,
+                "liuyun": true,
                 },
             "": ""
         },
