@@ -8349,7 +8349,7 @@ let timerMaster = {
     },
 
     onChangedStep: function() {
-        this.settingsMaster.putGlobalString(settingsMaster.TOTAL_STATE_LATEST, JSON.stringify(packTotalStateForStore()));
+        settingsMaster.putGlobalString(settingsMaster.TOTAL_STATE_LATEST, JSON.stringify(packTotalStateForStore()));
         if (this.settings.interlockSide) {
             this.initTimer();
         }
