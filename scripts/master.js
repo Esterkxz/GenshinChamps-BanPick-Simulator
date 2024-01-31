@@ -8592,8 +8592,8 @@ function restoreStoredState(stored) {
 }
 
 function undoStep() {
-    let latestStored = settingsMaster.getGlobalString(TOTAL_STATE_LATEST);
-    let previousStored = settingsMaster.getGlobalString(TOTAL_STATE_PREVIOUS);
+    let latestStored = settingsMaster.getGlobalString(settingsMaster.TOTAL_STATE_LATEST);
+    let previousStored = settingsMaster.getGlobalString(settingsMaster.TOTAL_STATE_PREVIOUS);
 
     if (step == -1 && (latestStored != null || previousStored != null)) {
         //recover previous step sequence
