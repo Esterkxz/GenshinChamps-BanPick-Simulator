@@ -27,7 +27,7 @@ SOFTWARE.
 */
 
 //page established(loaded unique value)
-let established = Date.now;
+let established = Date.now();
 
 //end of array alias
 let eoa = "reserved";
@@ -46,14 +46,15 @@ var loca = null;
 var lang = null;
 
 //state variables
+var gameId = -1;
 var step = -1;
 var stepLast = 0;
 var stepHistory = [];
-var stepHistoryPrev = null;
+//var stepHistoryPrev = null;
 var redName = "";
 var blueName = "";
-var redNamePrev = null;
-var blueNamePrev = null;
+// var redNamePrev = null;
+// var blueNamePrev = null;
 
 function buildStepHistory(seqReference, id = null, extra = buildStepHistoryExtra()) {
     return {
@@ -77,6 +78,47 @@ function buildStepHistoryExtraForBanCard(banCard, usingBanCard = false) {
 
 function buildStepHistoryExtraForUsingBanCard() {
     return buildStepHistoryExtraForBanCard(null, true);
+}
+
+function packTotalStateForStore() {
+    let store = {
+        gId: gameId,
+        stepHis: stepHistory,
+        redInfo: packSideInfo("red"),
+        blueInfo: packSideInfo("blue"),
+        previous: settingsMaster.getGlobalString(settingsMaster.TOTAL_STATE_PREVIOUS),
+    }
+    return store;
+}
+
+function packSideInfo(side) {
+    let sideInfo = {
+        name: null,
+        uid: null,
+        ap: null,
+        code: sideMaster.sideAccCode[side],
+        playerInfo: packPlayerInfo(side),
+    }
+    switch (side) {
+        case "red":
+            sideInfo.name = redName;
+            sideInfo.uid = sideMaster.redPlayerUidInput.val();
+            sideInfo.ap = sideMaster.redAccountPointInput.val();
+            break;
+
+        case "blue":
+            sideInfo.name = blueName;
+            sideInfo.uid = sideMaster.bluePlayerUidInput.val();
+            sideInfo.ap = sideMaster.blueAccountPointInput.val();
+            break;
+    }
+    return sideInfo;
+}
+
+function packPlayerInfo(side) {
+    //구현
+
+    return {};
 }
 
 //common static values
@@ -2516,10 +2558,11 @@ let sideMaster = {
     banCardUsed: {"red": [], "blue": []},
     weaponBanPicked: {"red": [], "blue": []},
 
+    sideAccCode: { "red": null, "blue": null },
     sideAccInfo: { "red": null, "blue": null },
     sideAccInfoPrev: { "red": null, "blue": null },
 
-    vsTimeRemains: { "refd": [], "blue": [] },
+    vsTimeRemains: { "red": [], "blue": [] },
     vsClearTime: { "red": [], "blue": [] },
 
     timeAdds: null,
@@ -2888,6 +2931,7 @@ let sideMaster = {
     },
 
     applyAccountInfo: function(raw, side) {
+        sideMaster.sideAccCode[side] = raw;
         var data = sideMaster.parsePlayerData(raw);
 
         if (data != null) {
@@ -8305,6 +8349,7 @@ let timerMaster = {
     },
 
     onChangedStep: function() {
+        this.settingsMaster.putGlobalString(settingsMaster.TOTAL_STATE_LATEST, JSON.stringify(packTotalStateForStore()));
         if (this.settings.interlockSide) {
             this.initTimer();
         }
@@ -8484,11 +8529,15 @@ function bindCommonHandles(window) {
 
 //reset pick progress
 function initializeStep() {
+    gameId = Date.now();
     step = -1;
-    if (stepHistory.length > 0) stepHistoryPrev = stepHistory;
+    if (stepHistory.length > 0) {
+        //stepHistoryPrev = stepHistory;
+        settingsMaster.putGlobalString(settingsMaster.TOTAL_STATE_PREVIOUS, settingsMaster.getGlobalString(settingsMaster.TOTAL_STATE_LATEST));
+    }
     stepHistory = [];
-    redNamePrev = redName;
-    blueNamePrev = blueName;
+    // redNamePrev = redName;
+    // blueNamePrev = blueName;
     redName = "";
     blueName = "";
     latestStep = -2;
@@ -8535,17 +8584,32 @@ function initializeStep() {
     playSound("풛");
 }
 
+function restoreStoredState(stored) {
+    if (stored == null || stored == "") return;
+    
+    gameId = stored.gameId;
+    //구현
+}
+
 function undoStep() {
-    if (step == -1 && stepHistoryPrev != null) {
+    let latestStored = settingsMaster.getGlobalString(TOTAL_STATE_LATEST);
+    let previousStored = settingsMaster.getGlobalString(TOTAL_STATE_PREVIOUS);
+
+    if (step == -1 && (latestStored != null || previousStored != null)) {
         //recover previous step sequence
-        stepHistory = stepHistoryPrev;
-        step = stepHistory.length;
-        redName = redNamePrev;
-        blueName = blueNamePrev;
-        sideMaster.setNameplate(redName, blueName);
-        sideMaster.updateCostUsed();
-        sequenceMaster.checkUpdateCurrentStepComplition()
-        sequenceMaster.releaseStepStateDisplay();
+        // stepHistory = stepHistoryPrev;
+        // step = stepHistory.length;
+        // redName = redNamePrev;
+        // blueName = blueNamePrev;
+        // sideMaster.setNameplate(redName, blueName);
+        // sideMaster.updateCostUsed();
+        // sequenceMaster.checkUpdateCurrentStepComplition()
+        // sequenceMaster.releaseStepStateDisplay();
+
+        let latest = JSON.parse(latestStored);
+        let prev = JSON.parse(previousStored);
+        if (latest.gameId != gameId) restoreStoredState(latest);
+        else restoreStoredState(prev);
         playSound("롿");
     } else if (step > rules.sequence.length) {
         sequenceMaster.undoFinishPick();
@@ -8873,6 +8937,9 @@ let settingsMaster = {
 
     prefix: "settings_",
 
+    TOTAL_STATE_LATEST: "total_state_latest",
+    TOTAL_STATE_PREVIOUS: "total_state_previous",
+
     SE_VOLUME: "sevolume",
     DARK_MODE: "darkmode",
     DROP_SNOW: "dropsnow",
@@ -8928,7 +8995,20 @@ let settingsMaster = {
         let str = localStorage.getItem(this.prefix + key);
 
         if (str == null) return def;
-        else return parseFloat(str);
+        else return str;
+    },
+
+    putGlobalString: function(key, str) {
+        if (key == null || key == "") return;
+        localStorage.setItem(key, str);
+    },
+
+    getGlobalString: function(key, def = null) {
+        if (key == null || key == "") return undefined;
+        let str = localStorage.getItem(key);
+
+        if (str == null) return def;
+        else return str;
     },
 }
 
@@ -9049,6 +9129,8 @@ $(document).ready(function() {
 
     //initializing//
     //Initialize section objects & Generate variable things//
+
+    gameId = Date.now();
 
     //version display
     releaseVersionDisplay();
