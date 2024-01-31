@@ -12,7 +12,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard.\n\
     ",
     "rule_title": "앙챔스 룰북",
-    "rule_version": "4.2",
+    "rule_version": "4.3",
 
     "rule_type": "ban card",
 
