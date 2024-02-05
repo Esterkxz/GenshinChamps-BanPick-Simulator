@@ -6449,7 +6449,7 @@ let playerInfoMaster = {
         for (var i=0; i<sideCons.length; i++) {
             var adds = 0;
             let charId = $(sideEntries[i]).attr(this.char);
-            if (charId != null || charId != "" || charId != "treveler" || charId != "trevelerF" || charId != "trevelerM") {
+            if (charId != null && charId != "" && charId != "treveler" && charId != "trevelerF" && charId != "trevelerM") {
                 let info = charactersInfo.list[charactersInfo[charId]];
                 if (info != null && info.rarity == "5") {
                     var cons = sideCons[i].value;
