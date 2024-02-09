@@ -1184,8 +1184,8 @@ let charactersInfo = {
             "res_icon": "UI_AvatarIcon_Gaming.png",
             "res_vcut": "gaming_092_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "26%", "vHover": "9%" },
-            "res_wide": ".png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "64%", "v": "32%" },
+            "res_wide": "gaming_genshin_impact_portrait_render_by_deg5270_dgt6zpg-fullview.png",
+            "res_wide_meta_pos": { "scale": "360%", "h": "60%", "v": "31%" },
         },
         {
             "id": "liuyun",
@@ -1199,8 +1199,8 @@ let charactersInfo = {
             "res_icon": "UI_AvatarIcon_Liuyun.png",
             "res_vcut": "liuyun_093_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "23%", "vHover": "25%" },
-            "res_wide": ".png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "64%", "v": "32%" },
+            "res_wide": "xianyun_genshin_impact_portrait_render_by_deg5270_dgt6zu1-fullview.png",
+            "res_wide_meta_pos": { "scale": "460%", "h": "64%", "v": "29%" },
         },
         {
             "comment": "temporary data for pre-official release",
