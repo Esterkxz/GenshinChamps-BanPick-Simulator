@@ -83,10 +83,11 @@ function buildStepHistoryExtraForUsingBanCard() {
 function packTotalStateForStore() {
     let store = {
         gId: gameId,
+        league: parseInt(rulesMaster.ruleAlter.val()),
         stepHis: stepHistory,
         redInfo: packSideInfo("red"),
         blueInfo: packSideInfo("blue"),
-        previous: settingsMaster.getGlobalString(settingsMaster.TOTAL_STATE_PREVIOUS),
+        // previous: settingsMaster.getGlobalString(settingsMaster.TOTAL_STATE_PREVIOUS), //exceed storage
     }
     return store;
 }
@@ -116,9 +117,18 @@ function packSideInfo(side) {
 }
 
 function packPlayerInfo(side) {
-    //구현
+    var code;
+    switch (side) {
+        case "red":
+            code = playerInfoMaster.redInfoCode.val();
+            break;
 
-    return {};
+        case "blue":
+            code = playerInfoMaster.blueInfoCode.val();
+            break;
+    }
+
+    return { code: code, data: playerInfoMaster.playerAccInfo[side] };
 }
 
 //common static values
@@ -5936,7 +5946,7 @@ let playerInfoMaster = {
 
     clearPlayerInfos: function(side) {
         this.setPlayerInfo(side);
-        this.playerAccInfo[side] = "";
+        this.playerAccInfo[side] = null;
         for (var i=0; i<this.charConstells[side].length; i++) {
             let cons = $(this.charConstells[side][i]);
             let char = $(this.selectionEntries[side][i]).attr(this.char);
@@ -6917,6 +6927,12 @@ let rulesMaster = {
         let self = $(this);
         let offset = parseInt(self.val());
 
+        rulesMaster.releaseRuleAlterBy(offset);
+
+        playSound("풛");
+    },
+
+    releaseRuleAlterBy(offset) {
         rulesMaster.applyRuleAlterSelection(offset);
 
         if (rules.rule_type == "ban card") poolMaster.releasePosessionBanCard();
@@ -6931,7 +6947,6 @@ let rulesMaster = {
 
         playerInfoMaster.applyAddsDefaultByRuleBook();
 
-        playSound("풛");
     },
 
     applyRuleAlterSelection: function(offset = rules.alter_default) {
@@ -8531,7 +8546,7 @@ function bindCommonHandles(window) {
 function initializeStep() {
     gameId = Date.now();
     step = -1;
-    if (stepHistory.length > 0) {
+    if (stepHistory.length > 0 || playerInfoMaster.playerAccInfo.red != null || playerInfoMaster.playerAccInfo.blue != null) {
         //stepHistoryPrev = stepHistory;
         settingsMaster.putGlobalString(settingsMaster.TOTAL_STATE_PREVIOUS, settingsMaster.getGlobalString(settingsMaster.TOTAL_STATE_LATEST));
     }
@@ -8586,9 +8601,55 @@ function initializeStep() {
 
 function restoreStoredState(stored) {
     if (stored == null || stored == "") return;
+
+    initializeStep();
     
     gameId = stored.gameId;
-    //구현
+
+    // settingsMaster.putGlobalString(settingsMaster.TOTAL_STATE_PREVIOUS, stored.previous); //exceed storage
+
+    if (stored.league != null && !isNaN(stored.league)) rulesMaster.ruleAlter.val(stored.league).change();//rulesMaster.releaseRuleAlterBy(stored.league);
+
+    let red = stored.redInfo;
+    let blue = stored.blueInfo;
+
+    if (red.code != null) sideMaster.applyAccountInfo(red.code, "red");
+    if (blue.code != null) sideMaster.applyAccountInfo(red.code, "blue");
+
+    let redInfo = red.playerInfo;
+    let blueInfo = blue.playerInfo;
+    
+    playerInfoMaster.redInfoCode.val(redInfo.code);
+    playerInfoMaster.blueInfoCode.val(blueInfo.code);
+
+    playerInfoMaster.playerAccInfo.red = redInfo.data;
+    playerInfoMaster.playerAccInfo.blue = blueInfo.data;
+
+    let his = stored.stepHis;
+    sequenceMaster.startPick();
+    var i = 0;
+    let picker = function() {
+        if (i < his.length) {
+            let stp = his[i];
+            if (stp != null) {
+                if (stp.picked == null) controllerMaster.mainButton();
+                else {
+                    let id = stp.picked.id;
+                    let item = poolMaster.eachCharacters.filter('[data-id="' + id + '"]');
+                    sequenceMaster.onPick(id, $(item[0]));
+                }
+                i++;
+                setTimeout(picker, 100);
+            }
+        } else {
+            //구현
+            //side constell 복원
+            //playerinfo constell/weapon/refine 복원
+            //versusboard 복원
+            //last step 상태(versus 전/후 여부) 복원
+        }
+    };
+    setTimeout(picker, 100);
 }
 
 function undoStep() {
