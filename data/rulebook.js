@@ -12,7 +12,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard.\n\
     ",
     "rule_title": "앙챔스 룰북",
-    "rule_version": "4.3",
+    "rule_version": "4.4",
 
     "rule_type": "ban card",
 
@@ -24,10 +24,14 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "league_tail": "LEAGUE",
         "double_pick": null,
         "sequence": [
-            { "side": "red", "pick": 'ban', "amount": "2" },
-            { "side": "blue", "pick": 'ban', "amount": "2" },
             { "side": "red", "pick": 'entry', "amount": "1" },
             { "side": "blue", "pick": 'entry', "amount": "1" },
+            { "side": "red", "pick": 'ban', "amount": "1" },
+            { "side": "blue", "pick": 'ban', "amount": "1" },
+            { "side": "red", "pick": 'entry', "amount": "1" },
+            { "side": "blue", "pick": 'entry', "amount": "1" },
+            { "side": "red", "pick": 'ban', "amount": "1" },
+            { "side": "blue", "pick": 'ban', "amount": "1" },
             { "side": "red", "pick": 'entry', "amount": "1" },
             { "side": "blue", "pick": 'entry', "amount": "1" },
             { "side": "red", "pick": 'entry', "amount": "1" },
@@ -38,8 +42,6 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             { "side": "red", "pick": 'entry', "amount": "2" },
             { "side": "blue", "pick": 'entry', "amount": "2" },
             { "side": "red", "pick": 'entry', "amount": "2" },
-            { "side": "blue", "pick": 'entry', "amount": "1" },
-            { "side": "red", "pick": 'entry', "amount": "1" },
             { "side": "blue", "pick": 'entry', "amount": "0" },
             { "side": "red", "pick": 'entry', "amount": "0" },
             "reserved"
