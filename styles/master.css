@@ -1196,9 +1196,9 @@ div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(7) > div
 div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(8) > div.entry_icon::before { content: '8'; }
 body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(1) { translate: var(--super-pick-shift) -3px; filter: drop-shadow(0 0 0 rgb(var(--signature-color-lighter))); }
 body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(1) > div.entry_icon { box-shadow: 0 0 5px 4px rgb(var(--signature-color-lighter)); }
-body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(2) { margin-top: 4px;  }
-body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(3) { margin-top: 2px;  }
-body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(5) { margin-top: 2px;  }
+body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(2) { margin-top: 4px; }
+body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(3) { margin-top: 2px; }
+body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(4) { margin-top: 2px; }
 body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(1) > div.entry_icon::before { content: 'S'; }
 body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(2) > div.entry_icon::before { content: '1'; }
 body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(3) > div.entry_icon::before { content: '2'; }
