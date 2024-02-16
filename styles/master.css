@@ -1194,24 +1194,27 @@ div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(5) > div
 div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(6) > div.entry_icon::before { content: '6'; }
 div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(7) > div.entry_icon::before { content: '7'; }
 div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(8) > div.entry_icon::before { content: '8'; }
-div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(1) > div.entry_icon::before { content: 'S'; }
-div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(2) > div.entry_icon::before { content: '1'; }
-div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(3) > div.entry_icon::before { content: '2'; }
-div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(4) > div.entry_icon::before { content: '3'; }
-div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(5) > div.entry_icon::before { content: '4'; }
-div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(6) > div.entry_icon::before { content: '5'; }
-div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(7) > div.entry_icon::before { content: '6'; }
-div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(8) > div.entry_icon::before { content: '7'; }
-body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(2) { margin-top: 3px;  }
+body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(1) { translate: var(--super-pick-shift) -3px; filter: drop-shadow(0 0 0 rgb(var(--signature-color-lighter))); }
+body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(1) > div.entry_icon { box-shadow: 0 0 5px 4px rgb(var(--signature-color-lighter)); }
+body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(2) { margin-top: 4px;  }
 body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(3) { margin-top: 2px;  }
 body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(5) { margin-top: 2px;  }
+body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(1) > div.entry_icon::before { content: 'S'; }
+body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(2) > div.entry_icon::before { content: '1'; }
+body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(3) > div.entry_icon::before { content: '2'; }
+body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(4) > div.entry_icon::before { content: '3'; }
+body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(5) > div.entry_icon::before { content: '4'; }
+body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(6) > div.entry_icon::before { content: '5'; }
+body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(7) > div.entry_icon::before { content: '6'; }
+body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry:nth-child(8) > div.entry_icon::before { content: '7'; }
 div.player_board div.entry_slots_area ul.entry_slots li.entry > div.entry_icon > img { position: absolute; bottom: 0; left: 0; right: 0; margin: auto; filter: drop-shadow(2px 4px 4px #333); transition-duration: 0.5s; transition-timing-function: ease; }
 div.player_board div.entry_slots_area ul.entry_slots li.entry[data-picked="1"] div.entry_icon > img.element_icon { top: 0; width: 24px; margin: 3px auto auto 3px; }
 body[data-ctrl="1"] div.player_board div.entry_slots_area ul.entry_slots li.entry[data-picked="1"] div.entry_icon > img.element_icon { z-index: 10; }
-div.player_board div.entry_slots_area ul.entry_slots li.entry[data-enter=""] > div.entry_icon > img.character_icon { height: 90%; filter: saturate(0.5) blur(1.5px) drop-shadow(2px 4px 4px #333); }
+div.player_board div.entry_slots_area ul.entry_slots li.entry[data-enter=""] > div.entry_icon > img.character_icon { height: 90%; filter: saturate(0.5) blur(1.5px) drop-shadow(2px 4px 4px #333) !important; }
 div.player_board div.entry_slots_area ul.entry_slots li.entry[data-enter="1"] > div.entry_icon > img.character_icon { height: 100%; filter: saturate(1) blur(0) drop-shadow(2px 4px 4px #333); }
 div.player_board div.entry_slots_area ul.entry_slots li.entry[data-picked="1"] div.entry_icon > span.name_tag { position: absolute; display: block; bottom: 0; left: 0; right: 0; padding: 4px 0; color: rgba(var(--bgcolor-base) / 90%); background-color: rgba(var(--main-color) / 50%); font-family: 'Noto Sans KR'; font-weight: bold; font-size: 14px; line-height: 11px; text-align: center; text-shadow: 0 0 2px rgb(var(--main-color)); word-break: keep-all; box-shadow: 0 0 4px 0 rgba(var(--main-color) / 50%); opacity: 0; transition-duration: 0.3s; transition-timing-function: ease-out; }
 body[data-ctrl="1"] div.player_board div.entry_slots_area ul.entry_slots li.entry[data-picked="1"] div.entry_icon > span.name_tag { opacity: 1; }
+body[data-rule-type="ban card"] div.player_board div.entry_slots_area ul.entry_slots li.entry[data-picked="1"]:nth-child(1) div.entry_icon > span.name_tag { opacity: 1; }
 div.player_board div.entry_slots_area ul.entry_slots li.entry[data-picked="1"] div.entry_icon > input { }
 div.player_board div.entry_slots_area ul.entry_slots li.entry[data-picked="1"] div.entry_icon > input.entry_constell { position: absolute; top: 0; right: 0; width: 22px; padding: 1px 2px 0 1px; border: none; border-radius: 4px; border-bottom-left-radius: 8px; background-color: rgba(var(--sharp-text-bg-base) / 0.25); color: rgba(var(--sharp-text-base) / 0.9); font-size: 24px; font-weight: bold; text-align: center; text-shadow: 0 0 2px #222E; transition-duration: 0.25s; }
 div.player_board div.entry_slots_area ul.entry_slots li.entry[data-picked="1"] div.entry_icon > input.entry_constell:focus { outline: none; width: var(--entry-char-icon-size); padding: 3px 2px 2px 1px; font-size: 70px; box-shadow: 0 0 6px 1px var(--bgcolor-rgb); }
@@ -1324,6 +1327,7 @@ div.player_board {
     --ban-card-long: 96px;
     --ban-card-place: 48px;
     --ban-card-roz-deg: 28deg;
+    --super-pick-shift-depth: 36px;
 }
 /* Player board each side custom */
 div.player_board.red {
@@ -1367,6 +1371,7 @@ div.player_board.red {
     --ban-card-holder-margin-left-even: 20px;
     --ban-card-holder-margin-right-odd: 0px;
     --ban-card-holder-margin-right-even: 0px;
+    --super-pick-shift: var(--super-pick-shift-depth);
 }
 div.player_board.blue {
     right: 0;
@@ -1409,6 +1414,7 @@ div.player_board.blue {
     --ban-card-holder-margin-left-even: 0px;
     --ban-card-holder-margin-right-odd: 10px;
     --ban-card-holder-margin-right-even: 20px;
+    --super-pick-shift: calc(var(--super-pick-shift-depth) * -1);
 }
 div.player_board.red div.player_uid { left: 0; }
 div.player_board.red div.nameplate { left: 0; }
