@@ -739,6 +739,8 @@ div.pick_pool { margin: 8px; --char-icon-size: 64px; --char-card-width-max: 60px
 div#simple_ban_card_pool { --grade-divider-border-width: 12px; margin: 28px 0 16px; }
 body:not([data-rule-type="ban card"]) div#simple_ban_card_pool { display: none; }
 div#simple_ban_card_pool div.ban_card_grade_area { position: relative; --icon-src-size: 64px; margin: 10px 0; border-top: dotted 0px var(--plain-text-color); transition-duration: 0.3s; transition-timing-function: ease; }
+div#simple_ban_card_pool div.ban_card_grade_area.global_banned { position: absolute; width: -webkit-fill-available; height: 0px; margin: -20px auto 0 !important; }
+div#simple_ban_card_pool div.ban_card_grade_area.global_banned:hover { translate: 0 -76px; transition-duration: 0.5s; }
 div#simple_ban_card_pool[data-league="0"] div.ban_card_grade_area[data-ban-card-grade="0"] { border-top-width: var(--grade-divider-border-width); }
 div#simple_ban_card_pool[data-league="1"] div.ban_card_grade_area[data-ban-card-grade="1"] { border-top-width: var(--grade-divider-border-width); }
 div#simple_ban_card_pool[data-league="2"] div.ban_card_grade_area[data-ban-card-grade="2"] { border-top-width: var(--grade-divider-border-width); }

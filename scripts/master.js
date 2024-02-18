@@ -1279,6 +1279,7 @@ let poolMaster = {
 
     league: "data-league",
 
+    global_banned: "global_banned",
     ban_card_grade_area: "ban_card_grade_area",
     middle_position_holder: "middle_position_holder",
     each_grade_rarity_area: "each_grade_rarity_area",
@@ -1605,11 +1606,13 @@ let poolMaster = {
 
         let alters = rules.rule_alter;
         let pool = this.simpleBanCardPool;
-        for (var i=0; i <= alters.length; i++) {
+        let isOnGlobalBanned = rules.global_banned != null && Object.keys(rules.global_banned).length > 0;
+        let areas = alters.length + (isOnGlobalBanned ? 1 : 0);
+        for (var i=0; i <= areas; i++) {
             let alt = alters[i];
 
             let banCardGradeArea = document.createElement("div");
-            banCardGradeArea.setAttribute("class", this.ban_card_grade_area);
+            banCardGradeArea.setAttribute("class", this.ban_card_grade_area + (isOnGlobalBanned  && i == areas ? " " + this.global_banned : ""));
             banCardGradeArea.setAttribute(this.ban_card_grade, i);
             let eachGradePool = document.createElement("ul");
             eachGradePool.setAttribute("class", this.each_pool_block + " " + this.each_grade_pool);
@@ -1618,9 +1621,10 @@ let poolMaster = {
         }
         this.eachGradeArea = pool.find("div." + this.ban_card_grade_area);
 
-        for (var i=0; i <= alters.length; i++) {
+        let alterEx = alters.length + (isOnGlobalBanned ? 1 : 0);
+        for (var i=0; i <= alterEx; i++) {
             let alt = alters[i];
-            let acc = i == alters.length ? rules.ban_card_excepted : alt.ban_card_accure;
+            let acc = i == alters.length ? rules.ban_card_excepted : (i == alters.length + 1 ? rules.global_banned : alt.ban_card_accure);
 
             let set = [{}, {}];
             for (id in acc) {

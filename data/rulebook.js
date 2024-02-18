@@ -376,8 +376,11 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "shogun": true,
         "yelan": true,
         "nahida": true,
-        //"neuvillette": true,
         "furina": true,
+    },
+
+    "global_banned": {
+        "neuvillette": true,
     },
 
     "characters_override": {
