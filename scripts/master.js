@@ -398,6 +398,7 @@ let sequenceMaster = {
         playSound("힇");
 
         this.releaseStepStateDisplay();
+        onChangedStep();
     },
     
     onPick: function(id, item, usingBanCard = false) {
@@ -2807,6 +2808,7 @@ let sideMaster = {
         this.initCostRemains();
         this.initCostUsedCount();
 
+        this.initEntries();
         this.resetEntryPicked();
 
         this.initBanEntries();
@@ -3227,6 +3229,71 @@ let sideMaster = {
 
     //entry
 
+    initEntries: function() {
+        this.eachEntrySlots.empty();
+
+        var pickSeq = { "red": 0, "blue": 0 };
+        var afterBan = { "red": false, "blue": false };
+        for (var i=0; i<rules.sequence.length; i++) {
+            let seq = rules.sequence[i];
+            let counterSide = seq.side == "red" ? "blue" : "red";
+            var targetSide = seq.side;
+
+            for (var n=0; n<seq.amount; n++) {
+                var slot;
+                switch (seq.pick) {
+                    case "entry":
+                        if (seq.isSuper !== true) pickSeq[seq.side]++;
+                        slot = this.buildEntrySlot(seq.side, pickSeq[seq.side], afterBan[seq.side], seq.isSuper);
+                        afterBan[seq.side] = false;
+                        break;
+
+                    case "proffer":
+                        if (seq.isSuper !== true) pickSeq[seq.side]++;
+                        slot = this.buildEntrySlot(counterSide, pickSeq[seq.side], afterBan[seq.side], seq.isSuper);
+                        targetSide = counterSide;
+                        afterBan[seq.side] = false;
+                        break;
+                        
+                    case "ban":
+                        afterBan[seq.side] = true;
+                        continue;
+                }
+
+                switch (targetSide) {
+                    case "red":
+                        this.redEntrySlots.append(slot);
+                        break;
+        
+                    case "blue":
+                        this.blueEntrySlots.append(slot);
+                        break;
+                }
+            }
+        }
+
+        this.eachEntries = this.eachEntrySlots.find(this.entry);
+        this.redEntries = this.redEntrySlots.find(this.entry);
+        this.blueEntries = this.blueEntrySlots.find(this.entry);
+    },
+
+    buildEntrySlot(side, seq, afterBan, isSuper) {
+        let item = document.createElement("li");
+        item.setAttribute("class", "entry " + side);
+        if (afterBan) item.setAttribute("data-after-ban", "1");
+        if (isSuper === true) item.setAttribute("data-super-pick", "1");
+
+        let icon = document.createElement("div");
+        icon.setAttribute("class", "entry_icon");
+        icon.setAttribute("data-seq", "" + seq);
+        item.appendChild(icon);
+        let info = document.createElement("div");
+        info.setAttribute("class", "entry_info");
+        item.appendChild(info);
+
+        return item;
+    },
+
     resetEntryPicked: function() {
         this.entryPicked["red"] = [];
         this.entryPicked["blue"] = [];
@@ -3237,6 +3304,10 @@ let sideMaster = {
             item.attr(sideMaster.id, "");
             item.attr(sideMaster.rarity, "");
             item.attr(sideMaster.enter, "");
+            item.css("--src", "");
+            item.css("--scale", "");
+            item.css("--ph", "");
+            item.css("--pv", "");
         });
     },
 
@@ -3264,6 +3335,10 @@ let sideMaster = {
         this.setEntryContent(slot, this.buildEntryIcon(info), this.buildEntryInfoArea(id, adds), info);
         slot.attr(this.id, info.id);
         slot.attr(this.rarity, info.rarity);
+        slot.css("--src", "url('" + getPath("images", "character_wide", info.res_wide) + "')");
+        slot.css("--scale", info.res_wide_meta_pos.scale);
+        slot.css("--ph", info.res_wide_meta_pos.h);
+        slot.css("--pv", info.res_wide_meta_pos.v);
         setTimeout(function() {
             slot.attr(sideMaster.enter, "1");
         }, 10);
@@ -3335,6 +3410,10 @@ let sideMaster = {
                 slot.attr(this.id, "");
                 slot.attr(this.rarity, "");
                 slot.attr(this.enter, "");
+                slot.css("--src", "");
+                slot.css("--scale", "");
+                slot.css("--ph", "");
+                slot.css("--pv", "");
                 break;
             }
         }
@@ -8390,7 +8469,7 @@ let timerMaster = {
             
             case "entry":
             case "proffer":
-                if (this.settings.autoStartEntry) setTimeout(function() { if (triggerStep == step) timerMaster.startTimer(); }, 500);
+                if (this.settings.autoStartEntry && seq.isSuper !== true) setTimeout(function() { if (triggerStep == step) timerMaster.startTimer(); }, 500);
                 break;
         } else if (step == rules.sequence.length) {
             if (this.settings.autoStartSetupPhase) setTimeout(function() { if (triggerStep == step) timerMaster.startTimer(); }, 500);
@@ -8585,6 +8664,7 @@ function initializeStep() {
     sideMaster.initCostUsedCount();
 
     //initialize each side entries
+    sideMaster.initEntries();
     sideMaster.resetEntryPicked();
 
     //initialize each side ban picks

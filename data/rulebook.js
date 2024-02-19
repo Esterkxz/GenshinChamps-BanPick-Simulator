@@ -24,8 +24,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "league_tail": "LEAGUE",
         "double_pick": null,
         "sequence": [
-            { "side": "red", "pick": 'entry', "amount": "1" },
-            { "side": "blue", "pick": 'entry', "amount": "1" },
+            { "side": "red", "pick": 'entry', "amount": "1", "isSuper": true },
+            { "side": "blue", "pick": 'entry', "amount": "1", "isSuper": true },
             { "side": "red", "pick": 'ban', "amount": "1" },
             { "side": "blue", "pick": 'ban', "amount": "1" },
             { "side": "red", "pick": 'entry', "amount": "1" },
