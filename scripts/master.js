@@ -6133,7 +6133,14 @@ let playerInfoMaster = {
                     if (i != "player" && i != "list") {
                         let cons = data[i];
                         let info = charactersInfo.list[charactersInfo[i]];
-                        if (cons != null && info.class == "limited") point += parseInt(cons) + 1;
+                        if (cons != null && info.class == "limited") {
+                            var banned = false;
+                            for (var id in rules.global_banned) if (id == info.id) {
+                                banned = true;
+                                break;
+                            }
+                            if (!banned) point += parseInt(cons) + 1;
+                        }
                     }
                 }
 
