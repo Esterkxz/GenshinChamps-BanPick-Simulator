@@ -1664,9 +1664,9 @@ let poolMaster = {
 
             if (id == "treveler") {
                 let treveler = "" + i;
-                self.unallowedPool.append(self.buildCharacterItem(info, bancard, treveler, true));
+                self.unallowedPool.append(self.buildCharacterItem(info, bancard, treveler, "icon"));
             } else {
-                let item = self.buildCharacterItem(info, bancard, null, true);
+                let item = self.buildCharacterItem(info, bancard, null, "icon");
                 self.unallowedPool.append(item);
             }
         });
@@ -1746,9 +1746,9 @@ let poolMaster = {
 
             if (id == "treveler") {
                 let treveler = "" + i;
-                self.unallowedPool.append(self.buildCharacterItem(info, bancard, treveler, true));
+                self.unallowedPool.append(self.buildCharacterItem(info, bancard, treveler, "icon"));
             } else {
-                let item = self.buildCharacterItem(info, bancard, null, true);
+                let item = self.buildCharacterItem(info, bancard, null, "icon");
                 self.unallowedPool.append(item);
             }
         });
@@ -1825,7 +1825,7 @@ let poolMaster = {
                 let treveler = "" + i;
                 self.elementPool[info.element][treveler].append(self.buildCharacterItem(info, bancard, treveler));
             } else {
-                let item = self.buildCharacterItem(info, bancard, null, bancard == null ? true : null);
+                let item = self.buildCharacterItem(info, bancard, null, bancard == null ? "icon" : null);
                 if (bancard == null) self.unallowedPool.append(item);//사용불가 캐릭터
                 else self.elementPool[info.element][info.rarity == "5" ? "5" : "4"].append(item);
             }
@@ -1916,12 +1916,12 @@ let poolMaster = {
         this.banCardPool.attr(this.league, rules.alterSelected);
     },
 
-    buildCharacterItem: function(info, bancard, treveler, forceIcon) {
+    buildCharacterItem: function(info, bancard, treveler, resType) {
         let item = document.createElement("li");
         item.setAttribute("class", "character");
         let holder = document.createElement("div");
         holder.setAttribute("class", "character_holder");
-        let img = this.buildCharacterIcon(info, forceIcon === true ? "icon" : null);
+        let img = this.buildCharacterIcon(info, resType);
         if (info != null) {
             item.setAttribute(this.id, info.id);
             item.setAttribute(this.rarity, info.rarity);
@@ -1946,7 +1946,7 @@ let poolMaster = {
         item.append(holder);
         if (info != null && treveler == null && info.id == "treveler") {
             item.setAttribute(this.treveler, "0");
-            item.append(this.buildCharacterIcon(charactersInfo.list[charactersInfo.trevelerM], forceIcon === true ? "icon" : null));
+            item.append(this.buildCharacterIcon(charactersInfo.list[charactersInfo.trevelerM], resType));
         }
         let element = document.createElement("img");
         element.setAttribute("class", "element_icon");
@@ -2035,10 +2035,18 @@ let poolMaster = {
                 return img;
 
             case "vcut":
-                let div = document.createElement("div")
+                var div = document.createElement("div")
                 div.setAttribute("class", "character_" + resType);
                 if (info != null) {
                     div.setAttribute("style", "--src: url('" + getPath("images", "character_" + resType, info["res_" + resType]) + "'); --pos-v-basic: " + info.res_vcut_meta_pos.vBasic + "; --pos-v-hover: " + info.res_vcut_meta_pos.vHover + ";");
+                }
+                return div;
+
+            case "wide":
+                var div = document.createElement("div")
+                div.setAttribute("class", "character_" + resType);
+                if (info != null) {
+                    div.setAttribute("style", "--src: url('" + getPath("images", "character_" + resType, info["res_" + resType]) + "'); --scale: " + info.res_wide_meta_pos.scale + "; --ph: " + info.res_wide_meta_pos.h + "; --pv: " + info.res_wide_meta_pos.v + ";");
                 }
                 return div;
         }
