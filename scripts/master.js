@@ -2869,8 +2869,6 @@ let sideMaster = {
         this.redAccountInfo.contextmenu(this.onRightClickRedAccountInfo);
         this.blueAccountInfo.click(this.onClickBlueAccountInfo);
         this.blueAccountInfo.contextmenu(this.onRightClickBlueAccountInfo);
-
-        this.eachEntries.find(this.entry_icon).click(this.onClickEntryIcon);
         
         //매치 현황 패널 이벤트 구현
         this.eachInputRemains.on("input change", this.onVersusInputRemains);
@@ -3311,6 +3309,7 @@ let sideMaster = {
         this.eachEntries = this.eachEntrySlots.find(this.entry);
         this.redEntries = this.redEntrySlots.find(this.entry);
         this.blueEntries = this.blueEntrySlots.find(this.entry);
+        this.setEntryEvents();
     },
 
     buildEntrySlot(side, seq, afterBan, isSuper) {
@@ -3328,6 +3327,10 @@ let sideMaster = {
         item.appendChild(info);
 
         return item;
+    },
+
+    setEntryEvents: function() {
+        this.eachEntries.find(this.entry_icon).click(this.onClickEntryIcon);
     },
 
     resetEntryPicked: function() {
