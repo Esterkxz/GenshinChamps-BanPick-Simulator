@@ -98,37 +98,73 @@ function packSideInfo(side) {
         uid: null,
         ap: null,
         code: sideMaster.sideAccCode[side],
+        constells: [],
         playerInfo: packPlayerInfo(side),
     }
+
+    var inputs;
     switch (side) {
         case "red":
             sideInfo.name = redName;
             sideInfo.uid = sideMaster.redPlayerUidInput.val();
             sideInfo.ap = sideMaster.redAccountPointInput.val();
+            inputs = sideMaster.redEntries.find(sideMaster.entry_constell);
             break;
 
         case "blue":
             sideInfo.name = blueName;
             sideInfo.uid = sideMaster.bluePlayerUidInput.val();
             sideInfo.ap = sideMaster.blueAccountPointInput.val();
+            inputs = sideMaster.blueEntries.find(sideMaster.entry_constell);
             break;
     }
+    for (var i=0; i<inputs.length; i++) sideInfo.constells[i] = inputs[i].value;
+    
     return sideInfo;
 }
 
 function packPlayerInfo(side) {
+    let pim = playerInfoMaster;
     var code;
+    let adds = {
+        apc: "",
+        ahw: "",
+        apr: "",
+        adr: "",
+        ama: "",
+    }
     switch (side) {
         case "red":
-            code = playerInfoMaster.redInfoCode.val();
+            code = pim.redInfoCode.val();
+            adds.apc = pim.redAddPerConstell.val();
+            adds.ahw = pim.redAddByHadWeapon.val();
+            adds.apr = pim.redAddPerRefine.val();
+            adds.adr = pim.redAddDisadvRatio.val();
+            adds.ama = pim.redAddMasterAdjust.val();
             break;
 
         case "blue":
-            code = playerInfoMaster.blueInfoCode.val();
+            code = pim.blueInfoCode.val();
+            adds.apc = pim.blueAddPerConstell.val();
+            adds.ahw = pim.blueAddByHadWeapon.val();
+            adds.apr = pim.blueAddPerRefine.val();
+            adds.adr = pim.blueAddDisadvRatio.val();
+            adds.ama = pim.blueAddMasterAdjust.val();
             break;
     }
 
-    return { code: code, data: playerInfoMaster.playerAccInfo[side] };
+    let constells = [];
+    let weapons = [];
+    let refines = [];
+
+    let cons = pim.charConstells[side];
+    for (var i=0; i<cons.length; i++) constells[i] = cons[i].value;
+    let weps = pim.weaponNames[side];
+    for (var i=0; i<weps.length; i++) weapons[i] = weps[i].value;
+    let refs = pim.weaponRefines[side];
+    for (var i=0; i<cons.length; i++) refines[i] = refs[i].value;
+
+    return { code: code, data: pim.playerAccInfo[side], constells: constells, weapons: weapons, refines: refines, adds: adds };
 }
 
 //common static values
@@ -8717,19 +8753,21 @@ function restoreStoredState(stored) {
 
     let redInfo = red.playerInfo;
     let blueInfo = blue.playerInfo;
-    
-    playerInfoMaster.redInfoCode.val(redInfo.code);
-    playerInfoMaster.blueInfoCode.val(blueInfo.code);
 
-    playerInfoMaster.playerAccInfo.red = redInfo.data;
-    playerInfoMaster.playerAccInfo.blue = blueInfo.data;
+    let pim = playerInfoMaster;
+    
+    pim.redInfoCode.val(redInfo.code);
+    pim.blueInfoCode.val(blueInfo.code);
+
+    pim.playerAccInfo.red = redInfo.data;
+    pim.playerAccInfo.blue = blueInfo.data;
 
     let his = stored.stepHis;
     sequenceMaster.startPick();
-    var i = 0;
+    var s = 0;
     let picker = function() {
-        if (i < his.length) {
-            let stp = his[i];
+        if (s < his.length) {
+            let stp = his[s];
             if (stp != null) {
                 if (stp.picked == null) controllerMaster.mainButton();
                 else {
@@ -8737,13 +8775,47 @@ function restoreStoredState(stored) {
                     let item = poolMaster.eachCharacters.filter('[data-id="' + id + '"]');
                     sequenceMaster.onPick(id, $(item[0]));
                 }
-                i++;
+                s++;
                 setTimeout(picker, 100);
             }
         } else {
             //구현
             //side constell 복원
+            let rsec = sideMaster.redEntries.find(sideMaster.entry_constell);
+            for (var i=0; i<red.constells; i++) $(rsec[i]).val(red.constells[i]).change();
+            let bsec = sideMaster.blueEntries.find(sideMaster.entry_constell);
+            for (var i=0; i<blue.constells; i++) $(bsec[i]).val(blue.constells[i]).change();
             //playerinfo constell/weapon/refine 복원
+            let sides = { "red": redInfo, "blue": blueInfo };
+            for (var side in sides) {
+                let info = sides[side];
+                let cons = pim.charConstells[side];
+                for (var i=0; i<info.constells; i++) $(cons[i]).val(info.constells[i]).change();
+                let weps = pim.weaponNames[side];
+                for (var i=0; i<info.weapons; i++) $(weps[i]).val(info.weapons[i]).change();
+                let refs = pim.weaponRefines[side];
+                for (var i=0; i<info.refines; i++) $(refs[i]).val(info.refines[i]).change();
+
+                let adds = info.adds;
+                switch (side) {
+                    case "red":
+                        pim.redAddPerConstell.val(adds.apc).change();
+                        pim.redAddByHadWeapon.val(adds.ahw).change();
+                        pim.redAddPerRefine.val(adds.apr).change();
+                        pim.redAddDisadvRatio.val(adds.adr).change();
+                        pim.redAddMasterAdjust.val(adds.ama).change();
+                        break;
+
+                    case "blue":
+                        pim.blueAddPerConstell.val(adds.apc).change();
+                        pim.blueAddByHadWeapon.val(adds.ahw).change();
+                        pim.blueAddPerRefine.val(adds.apr).change();
+                        pim.blueAddDisadvRatio.val(adds.adr).change();
+                        pim.blueAddMasterAdjust.val(adds.ama).change();
+                        break;
+                }
+    
+            }
             //versusboard 복원
             //last step 상태(versus 전/후 여부) 복원
         }
