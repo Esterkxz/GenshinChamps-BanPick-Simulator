@@ -1667,8 +1667,10 @@ let poolMaster = {
         for (var i=0; i <= areas; i++) {
             let alt = alters[i];
 
+            let isGlobalBannedArea = isOnGlobalBanned  && i == areas;
             let banCardGradeArea = document.createElement("div");
-            banCardGradeArea.setAttribute("class", this.ban_card_grade_area + (isOnGlobalBanned  && i == areas ? " " + this.global_banned : ""));
+            banCardGradeArea.setAttribute("class", this.ban_card_grade_area + (isGlobalBannedArea ? " " + this.global_banned : ""));
+            if (isGlobalBannedArea) banCardGradeArea.setAttribute("data-area-title", "GLOBAL BAN");
             banCardGradeArea.setAttribute(this.ban_card_grade, i);
             let eachGradePool = document.createElement("ul");
             eachGradePool.setAttribute("class", this.each_pool_block + " " + this.each_grade_pool);
