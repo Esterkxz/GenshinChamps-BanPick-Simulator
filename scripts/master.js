@@ -2103,6 +2103,7 @@ let poolMaster = {
         items.attr(this.picked_blue, "");
         items.attr(this.banned, "");
         items.attr(this.banned_by_card, "");
+        items.attr(this.pick_note, null);
         
         this.toggleTrevelerAlter(0);
     },
