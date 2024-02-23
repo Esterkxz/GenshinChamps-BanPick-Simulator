@@ -80,6 +80,10 @@ function buildStepHistoryExtraForUsingBanCard() {
     return buildStepHistoryExtraForBanCard(null, true);
 }
 
+function saveLatestState() {
+    if (step > 0) settingsMaster.putGlobalString(settingsMaster.TOTAL_STATE_LATEST, JSON.stringify(packTotalStateForStore()));
+}
+
 function packTotalStateForStore() {
     let store = {
         gId: gameId,
@@ -93,32 +97,45 @@ function packTotalStateForStore() {
 }
 
 function packSideInfo(side) {
+    let sm = sideMaster;
     let sideInfo = {
         name: null,
         uid: null,
         ap: null,
-        code: sideMaster.sideAccCode[side],
+        code: sm.sideAccCode[side],
         constells: [],
         playerInfo: packPlayerInfo(side),
+        record: [],
     }
 
     var inputs;
+    var ir;
     switch (side) {
         case "red":
             sideInfo.name = redName;
-            sideInfo.uid = sideMaster.redPlayerUidInput.val();
-            sideInfo.ap = sideMaster.redAccountPointInput.val();
-            inputs = sideMaster.redEntries.find(sideMaster.entry_constell);
+            sideInfo.uid = sm.redPlayerUidInput.val();
+            sideInfo.ap = sm.redAccountPointInput.val();
+            inputs = sm.redEntries.find(sm.entry_constell);
+            ir = sm.redInputRemains;
             break;
 
         case "blue":
             sideInfo.name = blueName;
-            sideInfo.uid = sideMaster.bluePlayerUidInput.val();
-            sideInfo.ap = sideMaster.blueAccountPointInput.val();
-            inputs = sideMaster.blueEntries.find(sideMaster.entry_constell);
+            sideInfo.uid = sm.bluePlayerUidInput.val();
+            sideInfo.ap = sm.blueAccountPointInput.val();
+            inputs = sm.blueEntries.find(sm.entry_constell);
+            ir = sm.blueInputRemains;
             break;
     }
     for (var i=0; i<inputs.length; i++) sideInfo.constells[i] = inputs[i].value;
+
+    let vtr = sm.vsTimeRemains[side];
+    for (var i=0; i<3; i++) {
+        let j = i + 1;
+        let min = ir.filter(".stage" + j + ".min").val();
+        let sec = ir.filter(".stage" + j + ".sec").val();
+        sideInfo.record[i] = { "min": min, "sec": sec, "tr": vtr[j] };
+    }
     
     return sideInfo;
 }
@@ -4425,6 +4442,10 @@ let sideMaster = {
         let stage = parseInt(self.closest(sideMaster.side_record).attr(sideMaster.stage));
         let cause = parseInt(self.attr(sideMaster.tko));
 
+        sideMaster.releaseVersusRecordByTkoButton(side, stage, cause);
+    },
+
+    releaseVersusRecordByTkoButton: function(side, stage, cause) {
         sideMaster.releaseVersusRecordBoard(side, stage, null, cause);
         sideMaster.releaseVersusSuperiorityGraph(stage, side);
     },
@@ -4481,6 +4502,7 @@ let sideMaster = {
         }
 
         this.releaseVersusTimeAttackDisplay(stage, side);
+        saveLatestState();
     },
 
     releaseVersusTimeAttackDisplay: function(stage, side) {
@@ -6584,6 +6606,8 @@ let playerInfoMaster = {
 
         this.addsCalculated.red = Math.max(0, redTotal);
         this.addsCalculated.blue = Math.max(0, blueTotal);
+
+        saveLatestState();
     },
 
     releaseSideAddEntity: function(side) {
@@ -8502,7 +8526,7 @@ let timerMaster = {
     },
 
     onChangedStep: function() {
-        settingsMaster.putGlobalString(settingsMaster.TOTAL_STATE_LATEST, JSON.stringify(packTotalStateForStore()));
+        saveLatestState();
         if (this.settings.interlockSide) {
             this.initTimer();
         }
@@ -8783,7 +8807,6 @@ function restoreStoredState(stored) {
                 setTimeout(picker, 100);
             }
         } else {
-            //구현
             //side constell 복원
             let rsec = sideMaster.redEntries.find(sideMaster.entry_constell);
             for (var i=0; i<red.constells; i++) $(rsec[i]).val(red.constells[i]).change();
@@ -8799,8 +8822,10 @@ function restoreStoredState(stored) {
                 for (var i=0; i<info.weapons; i++) $(weps[i]).val(info.weapons[i]).change();
                 let refs = pim.weaponRefines[side];
                 for (var i=0; i<info.refines; i++) $(refs[i]).val(info.refines[i]).change();
-
+                //add options 복원
                 let adds = info.adds;
+                var rec;
+                var ir;
                 switch (side) {
                     case "red":
                         pim.redAddPerConstell.val(adds.apc).change();
@@ -8808,6 +8833,9 @@ function restoreStoredState(stored) {
                         pim.redAddPerRefine.val(adds.apr).change();
                         pim.redAddDisadvRatio.val(adds.adr).change();
                         pim.redAddMasterAdjust.val(adds.ama).change();
+
+                        rec = red.record;
+                        ir = sideMaster.redInputRemains;
                         break;
 
                     case "blue":
@@ -8816,11 +8844,22 @@ function restoreStoredState(stored) {
                         pim.blueAddPerRefine.val(adds.apr).change();
                         pim.blueAddDisadvRatio.val(adds.adr).change();
                         pim.blueAddMasterAdjust.val(adds.ama).change();
+
+                        rec = blue.record;
+                        ir = sideMaster.blueInputRemains;            
                         break;
                 }
-    
+                //versusboard(Time remains/TKO) 복원
+                for (var i=0; i<3; i++) {
+                    let j = i + 1;
+                    if (rec[i].tr > 0) {
+                        if (rec[i].min != null && rec[i].min != "") ir.filter(".stage" + j + ".min").val(rec[i].min).change();
+                        if (rec[i].sec != null && rec[i].sec != "") ir.filter(".stage" + j + ".sec").val(rec[i].sec).change();
+                    } else {
+                        sideMaster.releaseVersusRecordByTkoButton(side, "" + j, rec[i].tr);
+                    }
+                }
             }
-            //versusboard 복원
             //last step 상태(versus 전/후 여부) 복원
         }
     };
