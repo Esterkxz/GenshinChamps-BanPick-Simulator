@@ -524,7 +524,8 @@ div#bg_area div#bg_video_area div#bg_video_holder video#spiral_enterence { width
 div#center_behind { position: absolute; z-index: -1; width: 100%; height: 1080px; }
 div#center_behind > div { position: absolute; top: 0; left: 0; right: 0; }
 div#center_behind div#center_behind_area { width: calc(100% - 200px); margin: auto; }
-div#center_behind div#center_behind_area div#league_title { left: 0; right: 0; margin: 100px auto 54px; color: rgba(var(--plain-text-base) / 20%); font-size: 144px; font-weight: bold; text-align: center; line-height: 128%; user-select: none; }
+div#center_behind div#center_behind_area div#league_title { left: 0; right: 0; margin: 100px auto 54px; color: rgba(var(--plain-text-base) / 20%); font-size: 144px; font-weight: bold; text-align: center; line-height: 128%; user-select: none; transition-duration: 0.2s; }
+div#center_behind div#center_behind_area div#league_title[data-hide="1"] { opacity: 0; }
 div#center_behind div#center_behind_area div#league_title span {  }
 div#center_behind div#center_behind_area div#league_title span.league_name { font-family: 'Noto Sans KR'; line-height: 76%; }
 div#center_behind div#center_behind_area div#league_title span.league_tail { display: block; margin-top: 30px; color: rgba(var(--plain-text-base) / 13.333%); font-family: Lato; font-size: 256px; line-height: 86%; }

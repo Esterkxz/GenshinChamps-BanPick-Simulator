@@ -677,6 +677,7 @@ let sequenceMaster = {
         timerMaster.pauseTimer();
         playerInfoMaster.hidePlayerInfoLayer();
         versionDisplayShowFor();
+        $("#league_title").attr("data-hide", "");
 
         if (controllerMaster.mainActionButton.is(":focus")) controllerMaster.mainActionButton.blur();
 
@@ -769,6 +770,7 @@ let sequenceMaster = {
         this.releaseActionStateByStep();
         
         versionDisplayShowFor(false);
+        $("#league_title").attr("data-hide", "1");
 
         timerMaster.resumeTimer();
 
