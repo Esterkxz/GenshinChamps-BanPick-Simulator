@@ -273,6 +273,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "navia": "나비아",
         "gaming": "가명",
         "liuyun": "한운",
+        "chiori": "치오리",
         "reserved": ""
     },
     "characters_short": {
@@ -355,6 +356,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "navia": "나비아",
         "gaming": "가명",
         "liuyun": "한운",
+        "chiori": "치오리",
         "reserved": ""
     },
     "weapons": {
@@ -406,6 +408,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "sw_regalis": { "name": "고요히 샘솟는 빛", "aliases": ["고요", "빛샘", "고샘빛", "빛검"] },
         "cm_goldenverdict": { "name": "판정", "aliases": ["판정"] },
         "ct_mountaingale": { "name": "학의 여음", "aliases": ["여음"] },
+        "sw_needle": { "name": "우라쿠의 미스기리", "aliases": ["우라쿠", "미스기리", "바늘"] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }

@@ -1175,7 +1175,7 @@ let charactersInfo = {
         {
             "id": "gaming",
             "class": "ordinary",
-            "version": "4.4",
+            "version": "4.4f",
             "rarity": "4",
             "weapon": "claymore",
             "element": "pyro",
@@ -1190,7 +1190,7 @@ let charactersInfo = {
         {
             "id": "liuyun",
             "class": "limited",
-            "version": "4.4",
+            "version": "4.4f",
             "rarity": "5",
             "weapon": "catalyst",
             "element": "anemo",
@@ -1201,6 +1201,21 @@ let charactersInfo = {
             "res_vcut_meta_pos": { "vBasic": "23%", "vHover": "25%" },
             "res_wide": "xianyun_genshin_impact_portrait_render_by_deg5270_dgt6zu1-fullview.png",
             "res_wide_meta_pos": { "scale": "460%", "h": "64%", "v": "29%" },
+        },
+        {
+            "id": "chiori",
+            "class": "limited",
+            "version": "4.5f",
+            "rarity": "5",
+            "weapon": "sword",
+            "element": "geo",
+            "continent": "inazuma",
+            "res_back": "UI_AvatarIcon_Chiori@3x.png",
+            "res_icon": "UI_AvatarIcon_Chiori.png",
+            "res_vcut": "chiori_094_gacha_card.webp",
+            "res_vcut_meta_pos": { "vBasic": "30%", "vHover": "33%" },
+            "res_wide": "chiori_genshin_impact_portrait_render_by_deg5270_dh1vnd6-fullview.png",
+            "res_wide_meta_pos": { "scale": "360%", "h": "62%", "v": "30%" },
         },
         {
             "comment": "temporary data for pre-official release",
@@ -1313,5 +1328,6 @@ let charactersInfo = {
     "navia": 77,
     "gaming": 78,
     "liuyun": 79,
+    "chiori": 80,
     "reserved": 8
 }

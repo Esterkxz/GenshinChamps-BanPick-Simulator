@@ -136,6 +136,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "navia": false,
             "gaming": false,
             "liuyun": false,
+            "chiori": false,
         },
         "": ""
     },
@@ -327,7 +328,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "wriothesley": true,
                 "navia": true,
                 "liuyun": true,
-                },
+                "chiori": true,
+            },
             "": ""
         },
         {

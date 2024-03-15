@@ -274,6 +274,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "navia": "Navia",
         "gaming": "Gaming",
         "liuyun": "Xianyun",
+        "chiori": "Chiori",
         "reserved": ""
     },
     "characters_short": {
@@ -356,6 +357,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "navia": "Navia",
         "gaming": "Gaming",
         "liuyun": "Xianyun",
+        "chiori": "Chiori",
         "reserved": ""
     },
     "weapons": {
@@ -407,6 +409,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "sw_regalis": { "name": "Splendor of Tranquil Waters", "aliases": [""] },
         "cm_goldenverdict": { "name": "Verdict", "aliases": [""] },
         "ct_mountaingale": { "name": "Crane's Echoing Call", "aliases": [""] },
+        "sw_needle": { "name": "Uraku Misugiri", "aliases": [""] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }

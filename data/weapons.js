@@ -593,10 +593,10 @@ weaponsInfo = {
             "res_vcut": "i_n11513_gacha_icon.webp"
         },
         
-        //Extra 10? - GoldenVerdict
+        //Extra 10 - GoldenVerdict
         {
             "id": "cm_goldenverdict",
-            "class": "unreleased",
+            "class": "limited",
             "version": "4.3f",
             "rarity": "5",
             "type": "claymore",
@@ -607,10 +607,10 @@ weaponsInfo = {
             "res_vcut": "i_n12512_gacha_icon.webp"
         },
         
-        //Extra 11? - MountainGale
+        //Extra 11 - MountainGale
         {
             "id": "ct_mountaingale",
-            "class": "unreleased",
+            "class": "limited",
             "version": "4.4f",
             "rarity": "5",
             "type": "catalyst",
@@ -619,6 +619,20 @@ weaponsInfo = {
             "favority": ["liuyun"],
             "res_icon": "UI_EquipIcon_Catalyst_MountainGale.png",
             "res_vcut": "i_n14515_gacha_icon.webp"
+        },
+        
+        //Extra 12 - Needle
+        {
+            "id": "sw_needle",
+            "class": "limited",
+            "version": "4.5f",
+            "rarity": "5",
+            "type": "sword",
+            "serise": "standalone",
+            "continent": "inazuma",
+            "favority": ["chiori"],
+            "res_icon": "UI_EquipIcon_Sword_Needle.png",
+            "res_vcut": "i_n11514_gacha_icon.webp"
         },
 
         {
