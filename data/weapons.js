@@ -635,6 +635,20 @@ weaponsInfo = {
             "res_vcut": "i_n11514_gacha_icon.webp"
         },
 
+        //Extra 13 - Needle
+        {
+            "id": "pl_bloodmoon",
+            "class": "limited",
+            "version": "4.6f",
+            "rarity": "5",
+            "type": "polearm",
+            "serise": "standalone",
+            "continent": "fontaine",
+            "favority": ["arlecchino"],
+            "res_icon": "UI_EquipIcon_Pole_BloodMoon.png",
+            "res_vcut": "i_n13512_gacha_icon.webp"
+        },
+
         {
             "id": "reserved",
             "class": "",

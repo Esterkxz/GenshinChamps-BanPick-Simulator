@@ -275,6 +275,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "gaming": "Gaming",
         "liuyun": "Xianyun",
         "chiori": "Chiori",
+        "arlecchino": "Arlecchino",
         "reserved": ""
     },
     "characters_short": {
@@ -358,6 +359,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "gaming": "Gaming",
         "liuyun": "Xianyun",
         "chiori": "Chiori",
+        "arlecchino": "Arlecchino",
         "reserved": ""
     },
     "weapons": {
@@ -410,6 +412,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "cm_goldenverdict": { "name": "Verdict", "aliases": [""] },
         "ct_mountaingale": { "name": "Crane's Echoing Call", "aliases": [""] },
         "sw_needle": { "name": "Uraku Misugiri", "aliases": [""] },
-        "reserved": { "name": "", "aliases": [""] }
+        "pl_bloodmoon": { "name": "", "aliases": [""] },
+        "reserved": { "name": "Crimson Moon's Semblance", "aliases": [""] }
     }
 }

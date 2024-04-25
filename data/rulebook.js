@@ -137,6 +137,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "gaming": false,
             "liuyun": false,
             "chiori": false,
+            "arlecchino": false,
         },
         "": ""
     },
@@ -383,6 +384,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 
     "global_banned": {
         "neuvillette": true,
+        "arlecchino": true,
     },
 
     "characters_override": {

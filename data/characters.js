@@ -1218,6 +1218,21 @@ let charactersInfo = {
             "res_wide_meta_pos": { "scale": "360%", "h": "62%", "v": "30%" },
         },
         {
+            "id": "arlecchino",
+            "class": "limited",
+            "version": "4.6f",
+            "rarity": "5",
+            "weapon": "polearm",
+            "element": "pyro",
+            "continent": "fontine",
+            "res_back": "UI_AvatarIcon_Arlecchino@3x.png",
+            "res_icon": "UI_AvatarIcon_Arlecchino.png",
+            "res_vcut": "arlecchino_096_gacha_card.webp",
+            "res_vcut_meta_pos": { "vBasic": "22%", "vHover": "30%" },
+            "res_wide": "arlecchino_genshin_impact_portrait_render_by_deg5270_dhafdlq-fullview.png",
+            "res_wide_meta_pos": { "scale": "680%", "h": "54%", "v": "25%" },
+        },
+        {
             "comment": "temporary data for pre-official release",
             "id": "reserved",
             "class": "",
@@ -1329,5 +1344,6 @@ let charactersInfo = {
     "gaming": 78,
     "liuyun": 79,
     "chiori": 80,
+    "arlecchino": 81,
     "reserved": 8
 }

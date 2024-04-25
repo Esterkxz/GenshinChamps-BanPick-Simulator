@@ -274,6 +274,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "gaming": "가명",
         "liuyun": "한운",
         "chiori": "치오리",
+        "arlecchino": "아를레키노",
         "reserved": ""
     },
     "characters_short": {
@@ -357,6 +358,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "gaming": "가명",
         "liuyun": "한운",
         "chiori": "치오리",
+        "arlecchino": "아를레키노",
         "reserved": ""
     },
     "weapons": {
@@ -409,6 +411,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "cm_goldenverdict": { "name": "판정", "aliases": ["판정"] },
         "ct_mountaingale": { "name": "학의 여음", "aliases": ["여음"] },
         "sw_needle": { "name": "우라쿠의 미스기리", "aliases": ["우라쿠", "미스기리", "바늘"] },
+        "pl_bloodmoon": { "name": "붉은 달의 형상", "aliases": ["붉은달", "붉달형"] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }
