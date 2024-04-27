@@ -374,6 +374,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
     ],
 
     "ban_card_excepted": {
+        "neuvillette": true,
+        "arlecchino": true,
         "zhongli": true,
         "kazuha": true,
         "shogun": true,
@@ -383,8 +385,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
     },
 
     "global_banned": {
-        "neuvillette": true,
-        "arlecchino": true,
+        // "neuvillette": true,
+        // "arlecchino": true,
     },
 
     "characters_override": {
