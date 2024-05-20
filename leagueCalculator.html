@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>앙챔스 계정 점수 계산기 / 리그 체커  v1.9.18</title>
+        <title>앙챔스 계정 점수 계산기 / 리그 체커  v1.9.19</title>
         <meta name="viewport" content="user-scalable=yes, width=720, minimum-scale=0.2, maximum-scale=2.0, initial-scale=1.0">
         <style>
 
@@ -71,14 +71,14 @@ span#gi_rev { color: tomato; font-weight: bold; }
 *:focus { outline-color: #06EE; box-shadow: 0 0 6px 0 #037D; transition-duration: 0.3s; }
 
         </style>
-        <script type="text/javascript" src="./scripts/jcodd.js?rel=20240314"></script>
+        <script type="text/javascript" src="./scripts/jcodd.js?rel=20240428"></script>
         <script type="text/javascript" src="./data/common.js"></script>
         <script>const locales = commonInfo.locales;</script>
-        <script type="text/javascript" src="./data/locale_ko-kr.js?rel=20240314"></script>
-        <script type="text/javascript" src="./data/characters.js?rel=20240314"></script>
+        <script type="text/javascript" src="./data/locale_ko-kr.js?rel=20240428"></script>
+        <script type="text/javascript" src="./data/characters.js?rel=20240428"></script>
         <script>let rules = {};</script>
         <script>let ruleBooks = {};</script>
-        <script type="text/javascript" src="./data/rulebook.js?rel=20240314"></script>
+        <script type="text/javascript" src="./data/rulebook.js?rel=20240428"></script>
         <script>var costTable = null;</script>
         <!-- <script type="text/javascript" src="./data/rule.js?update=4"></script> -->
         <!-- <script type="text/javascript" src="./data/spiral_tier_cost.js?update=5"></script> -->
@@ -135,7 +135,7 @@ charactersInfo.list.forEach(ch => {
                     <td><div><p class="right">1</p></div></td>
                     <td><div><p class="right"><span>벤티</span></p></div></td>
                     <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_venti" class="char_constells">
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_venti" class="char_constells limited">
                     </span></p></div></td>
                     <td><div><p class="right">
                         <span>&nbsp;<span id="c_venti" class="bold">0</span> 점</span>
@@ -548,6 +548,19 @@ charactersInfo.list.forEach(ch => {
                     </p></div></td>
                 </tr>
                 <tr>
+                    <td><div><p class="right">34</p></div></td>
+                    <td><div><p class="right"><span>아를레키노</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_arlecchino" class="char_constells">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_arlecchino" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_arlecchino"></span> +<span class="cost_add" data-cid="c_arlecchino"></span>)&nbsp;<span data-cid="c_arlecchino" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr>
                     <td colspan="5" id="toggle_ordinary"><span class="arrow">︾</span> 상시 5성 캐릭터 정보 입력 (챔스 참여 시 필수) <span class="arrow">︾</span></td>
                 </tr>
                 <tr class="ordinary">
@@ -798,9 +811,9 @@ charactersInfo.list.forEach(ch => {
         <div class="subnote center">
             <span class="bold" style="line-height: 28px; ">- <span id="rule_title">앙챔스 룰북</span> <span id="rule_version">2.0</span> 기준 - </span>
             <br />
-            <span class="bold">GCALC v1.9.18</span>
+            <span class="bold">GCALC v1.9.19</span>
             <br />
-            <span>Release 2024.03.14</span>
+            <span>Release 2024.04.28</span>
         </div>
     </body>
     <script>
@@ -814,6 +827,18 @@ if (rules.rule_type == "cost") {
 
 function getInputs() {
     return document.querySelectorAll('input.char_constells');
+}
+
+function getInputsL() {
+    return document.querySelectorAll('input.char_constells.limited');
+}
+
+function getInputsO() {
+    return document.querySelectorAll('input.char_constells.ordinary');
+}
+
+function getInputs4() {
+    return document.querySelectorAll('input.char_constells.fourstars');
 }
 
 let leagueCalc = function () {
@@ -898,6 +923,31 @@ let lineCalc = function (e) {
         }
     }
 };
+
+let changed = function (e) {
+    var v = e.target.value;
+    v = v != null && !isNaN(parseInt(v)) ? Math.max(Math.min(parseInt(v), 6), 0) : "";
+    e.target.value = v;
+    
+    if (v !== "") {
+        let list = getInputs();
+        var index = null;
+        for (i in list) {
+            let item = list[i];
+            if (item == e.target) {
+                index = parseInt(i);
+                
+                if (index + 1 == list.length) {
+                    document.getElementById("copy_table").focus();
+                    break;
+                }
+            } else if (index != null && i == index + 1) {
+                item.focus();
+                break;
+            }
+        }
+    }
+}
 
 let focused = function (e) {
     e.target.select();
@@ -1360,6 +1410,13 @@ function initCharList() {
                 elem.outerHTML = line;
                 break;
         }
+        
+        getInputs4().forEach(input => {
+            input.onfocus = focused;
+            input.oninput = changed;
+            input.oncut = changed;
+            input.onpaste = changed;
+        });
     }
 }
 
