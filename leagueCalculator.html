@@ -131,7 +131,7 @@ charactersInfo.list.forEach(ch => {
                 </tr>
             </thead>
             <tbody id="main_table_body" data-show-ordinary="1">
-                <tr>
+                <tr class="limited">
                     <td><div><p class="right">1</p></div></td>
                     <td><div><p class="right"><span>벤티</span></p></div></td>
                     <td><div> <p class=""> <span>
@@ -144,423 +144,7 @@ charactersInfo.list.forEach(ch => {
                         <span>(<span class="cost_basic" data-cid="c_venti"></span> +<span class="cost_add" data-cid="c_venti"></span>)&nbsp;<span data-cid="c_venti" class="cost_sum bold">0</span> 코</span>
                     </p></div></td>
                 </tr>
-                <tr>
-                    <td><div><p class="right">2</p></div></td>
-                    <td><div><p class="right"><span>클레</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_klee" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_klee" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_klee"></span> +<span class="cost_add" data-cid="c_klee"></span>)&nbsp;<span data-cid="c_klee" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">3</p></div></td>
-                    <td><div><p class="right"><span>타르탈리아</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_tartaglia" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_tartaglia" style=" font-weight: bold; ">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_tartaglia"></span> +<span class="cost_add" data-cid="c_tartaglia"></span>)&nbsp;<span data-cid="c_tartaglia" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">4</p></div></td>
-                    <td><div><p class="right"><span>종려</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_zhongli" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_zhongli" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_zhongli"></span> +<span class="cost_add" data-cid="c_zhongli"></span>)&nbsp;<span data-cid="c_zhongli" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">5</p></div></td>
-                    <td><div><p class="right"><span>알베도</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_albedo" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_albedo" style=" font-weight: bold; ">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_albedo"></span> +<span class="cost_add" data-cid="c_albedo"></span>)&nbsp;<span data-cid="c_albedo" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">6</p></div></td>
-                    <td><div><p class="right"><span>감우</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_ganyu" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_ganyu" style=" font-weight: bold; ">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_ganyu"></span> +<span class="cost_add" data-cid="c_ganyu"></span>)&nbsp;<span data-cid="c_ganyu" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">7</p></div></td>
-                    <td><div><p class="right"><span>소</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_xiao" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_xiao" style=" font-weight: bold; ">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_xiao"></span> +<span class="cost_add" data-cid="c_xiao"></span>)&nbsp;<span data-cid="c_xiao" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">8</p></div></td>
-                    <td><div><p class="right"><span>호두</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_hutao" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_hutao" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_hutao"></span> +<span class="cost_add" data-cid="c_hutao"></span>)&nbsp;<span data-cid="c_hutao" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">9</p></div></td>
-                    <td><div><p class="right"><span>유라</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_eula" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_eula" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_eula"></span> +<span class="cost_add" data-cid="c_eula"></span>)&nbsp;<span data-cid="c_eula" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">10</p></div></td>
-                    <td><div><p class="right"><span>카에데하라 카즈하</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_kazuha" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_kazuha" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_kazuha"></span> +<span class="cost_add" data-cid="c_kazuha"></span>)&nbsp;<span data-cid="c_kazuha" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">11</p></div></td>
-                    <td><div><p class="right"><span>카미사토 아야카</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_ayaka" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_ayaka" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_ayaka"></span> +<span class="cost_add" data-cid="c_ayaka"></span>)&nbsp;<span data-cid="c_ayaka" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">12</p></div></td>
-                    <td><div><p class="right"><span>요이미야</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_yoimiya" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_yoimiya" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_yoimiya"></span> +<span class="cost_add" data-cid="c_yoimiya"></span>)&nbsp;<span data-cid="c_yoimiya" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">13</p></div></td>
-                    <td><div><p class="right"><span>라이덴 쇼군</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_shogun" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_shogun" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_shogun"></span> +<span class="cost_add" data-cid="c_shogun"></span>)&nbsp;<span data-cid="c_shogun" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">14</p></div></td>
-                    <td><div><p class="right"><span>산고노미야 코코미</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_kokomi" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_kokomi" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_kokomi"></span> +<span class="cost_add" data-cid="c_kokomi"></span>)&nbsp;<span data-cid="c_kokomi" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">15</p></div></td>
-                    <td><div><p class="right"><span>아라타키 이토</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_itto" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_itto" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_itto"></span> +<span class="cost_add" data-cid="c_itto"></span>)&nbsp;<span data-cid="c_itto" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">16</p></div></td>
-                    <td><div><p class="right"><span>신학</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_shenhe" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_shenhe" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_shenhe"></span> +<span class="cost_add" data-cid="c_shenhe"></span>)&nbsp;<span data-cid="c_shenhe" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">17</p></div></td>
-                    <td><div><p class="right"><span>야에 미코</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_yae" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_yae" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_yae"></span> +<span class="cost_add" data-cid="c_yae"></span>)&nbsp;<span data-cid="c_yae" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">18</p></div></td>
-                    <td><div><p class="right"><span>카미사토 아야토</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_ayato" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_ayato" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_ayato"></span> +<span class="cost_add" data-cid="c_ayato"></span>)&nbsp;<span data-cid="c_ayato" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">19</p></div></td>
-                    <td><div><p class="right"><span>야란</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_yelan" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_yelan" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_yelan"></span> +<span class="cost_add" data-cid="c_yelan"></span>)&nbsp;<span data-cid="c_yelan" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">21</p></div></td>
-                    <td><div><p class="right"><span>사이노</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_cyno" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_cyno" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_cyno"></span> +<span class="cost_add" data-cid="c_cyno"></span>)&nbsp;<span data-cid="c_cyno" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">22</p></div></td>
-                    <td><div><p class="right"><span>닐루</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_nilou" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_nilou" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_nilou"></span> +<span class="cost_add" data-cid="c_nilou"></span>)&nbsp;<span data-cid="c_nilou" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">23</p></div></td>
-                    <td><div><p class="right"><span>나히다</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_nahida" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_nahida" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_nahida"></span> +<span class="cost_add" data-cid="c_nahida"></span>)&nbsp;<span data-cid="c_nahida" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">24</p></div></td>
-                    <td><div><p class="right"><span>방랑자</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_wanderer" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_wanderer" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_wanderer"></span> +<span class="cost_add" data-cid="c_wanderer"></span>)&nbsp;<span data-cid="c_wanderer" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">25</p></div></td>
-                    <td><div><p class="right"><span>알하이탐</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_alhaitham" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_alhaitham" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_alhaitham"></span> +<span class="cost_add" data-cid="c_alhaitham"></span>)&nbsp;<span data-cid="c_alhaitham" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">26</p></div></td>
-                    <td><div><p class="right"><span>백출</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_baizhu" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_baizhu" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_baizhu"></span> +<span class="cost_add" data-cid="c_baizhu"></span>)&nbsp;<span data-cid="c_baizhu" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">27</p></div></td>
-                    <td><div><p class="right"><span>리니</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_lyney" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_lyney" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_lyney"></span> +<span class="cost_add" data-cid="c_lyney"></span>)&nbsp;<span data-cid="c_lyney" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">28</p></div></td>
-                    <td><div><p class="right"><span>느비예트</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_neuvillette" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_neuvillette" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_neuvillette"></span> +<span class="cost_add" data-cid="c_neuvillette"></span>)&nbsp;<span data-cid="c_neuvillette" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">29</p></div></td>
-                    <td><div><p class="right"><span>라이오슬리</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_wriothesley" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_wriothesley" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_wriothesley"></span> +<span class="cost_add" data-cid="c_wriothesley"></span>)&nbsp;<span data-cid="c_wriothesley" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">30</p></div></td>
-                    <td><div><p class="right"><span>푸리나</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_furina" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_furina" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_furina"></span> +<span class="cost_add" data-cid="c_furina"></span>)&nbsp;<span data-cid="c_furina" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">31</p></div></td>
-                    <td><div><p class="right"><span>나비아</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_navia" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_navia" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_navia"></span> +<span class="cost_add" data-cid="c_navia"></span>)&nbsp;<span data-cid="c_navia" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">32</p></div></td>
-                    <td><div><p class="right"><span>한운</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_liuyun" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_liuyun" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_liuyun"></span> +<span class="cost_add" data-cid="c_liuyun"></span>)&nbsp;<span data-cid="c_liuyun" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">33</p></div></td>
-                    <td><div><p class="right"><span>치오리</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_chiori" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_chiori" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_chiori"></span> +<span class="cost_add" data-cid="c_chiori"></span>)&nbsp;<span data-cid="c_chiori" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td><div><p class="right">34</p></div></td>
-                    <td><div><p class="right"><span>아를레키노</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_arlecchino" class="char_constells">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_arlecchino" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_arlecchino"></span> +<span class="cost_add" data-cid="c_arlecchino"></span>)&nbsp;<span data-cid="c_arlecchino" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr>
+                <tr class="divider">
                     <td colspan="5" id="toggle_ordinary"><span class="arrow">︾</span> 상시 5성 캐릭터 정보 입력 (챔스 참여 시 필수) <span class="arrow">︾</span></td>
                 </tr>
                 <tr class="ordinary">
@@ -571,78 +155,6 @@ charactersInfo.list.forEach(ch => {
                     </span></p></div></td>
                     <td><div><p class="right">
                         <span>&nbsp;<span id="c_jean" class="bold">-</span>&nbsp; &nbsp;</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                    </p></div></td>
-                </tr>
-                <tr class="ordinary">
-                    <td><div><p class="right">2</p></div></td>
-                    <td><div><p class="right"><span>다이루크</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_diluc" class="char_constells ordinary">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_diluc" class="bold">-</span>&nbsp; &nbsp;</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                    </p></div></td>
-                </tr>
-                <tr class="ordinary">
-                    <td><div><p class="right">3</p></div></td>
-                    <td><div><p class="right"><span>치치</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_qiqi" class="char_constells ordinary">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_qiqi" class="bold">-</span>&nbsp; &nbsp;</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                    </p></div></td>
-                </tr>
-                <tr class="ordinary">
-                    <td><div><p class="right">4</p></div></td>
-                    <td><div><p class="right"><span>모나</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_mona" class="char_constells ordinary">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_mona" class="bold">-</span>&nbsp; &nbsp;</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                    </p></div></td>
-                </tr>
-                <tr class="ordinary">
-                    <td><div><p class="right">5</p></div></td>
-                    <td><div><p class="right"><span>각청</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_keqing" class="char_constells ordinary">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_keqing" class="bold">-</span>&nbsp; &nbsp;</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                    </p></div></td>
-                </tr>
-                <tr class="ordinary">
-                    <td><div><p class="right">6</p></div></td>
-                    <td><div><p class="right"><span>타이나리</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_tighnari" class="char_constells ordinary">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_tighnari" class="bold">-</span>&nbsp; &nbsp;</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                    </p></div></td>
-                </tr>
-                <tr class="ordinary">
-                    <td><div><p class="right">7</p></div></td>
-                    <td><div><p class="right"><span>데히야</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_dehya" class="char_constells ordinary">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_dehya" class="bold">-</span>&nbsp; &nbsp;</span>
                     </p></div></td>
                     <td><div><p class="right">
                     </p></div></td>
@@ -683,84 +195,12 @@ charactersInfo.list.forEach(ch => {
                 </tr>
                 <tr class="fourstars">
                     <td><div><p class="right">1</p></div></td>
-                    <td><div><p class="right"><span>진</span></p></div></td>
+                    <td><div><p class="right"><span>여행자</span></p></div></td>
                     <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_jean" class="char_constells ordinary">
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_jean" class="char_constells fourstars">
                     </span></p></div></td>
                     <td><div><p class="right">
                         <span>&nbsp;<span id="c_jean" class="bold">-</span>&nbsp; &nbsp;</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                    </p></div></td>
-                </tr>
-                <tr class="fourstars">
-                    <td><div><p class="right">2</p></div></td>
-                    <td><div><p class="right"><span>다이루크</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_diluc" class="char_constells fourstars">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_diluc" class="bold">-</span>&nbsp; &nbsp;</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                    </p></div></td>
-                </tr>
-                <tr class="fourstars">
-                    <td><div><p class="right">3</p></div></td>
-                    <td><div><p class="right"><span>치치</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_qiqi" class="char_constells fourstars">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_qiqi" class="bold">-</span>&nbsp; &nbsp;</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                    </p></div></td>
-                </tr>
-                <tr class="fourstars">
-                    <td><div><p class="right">4</p></div></td>
-                    <td><div><p class="right"><span>모나</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_mona" class="char_constells fourstars">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_mona" class="bold">-</span>&nbsp; &nbsp;</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                    </p></div></td>
-                </tr>
-                <tr class="fourstars">
-                    <td><div><p class="right">5</p></div></td>
-                    <td><div><p class="right"><span>각청</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_keqing" class="char_constells fourstars">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_keqing" class="bold">-</span>&nbsp; &nbsp;</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                    </p></div></td>
-                </tr>
-                <tr class="fourstars">
-                    <td><div><p class="right">6</p></div></td>
-                    <td><div><p class="right"><span>타이나리</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_tighnari" class="char_constells fourstars">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_tighnari" class="bold">-</span>&nbsp; &nbsp;</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                    </p></div></td>
-                </tr>
-                <tr class="fourstars">
-                    <td><div><p class="right">7</p></div></td>
-                    <td><div><p class="right"><span>데히야</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_dehya" class="char_constells fourstars">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_dehya" class="bold">-</span>&nbsp; &nbsp;</span>
                     </p></div></td>
                     <td><div><p class="right">
                     </p></div></td>
@@ -928,7 +368,7 @@ let changed = function (e) {
     var v = e.target.value;
     v = v != null && !isNaN(parseInt(v)) ? Math.max(Math.min(parseInt(v), 6), 0) : "";
     e.target.value = v;
-    
+
     if (v !== "") {
         let list = getInputs();
         var index = null;
@@ -1067,12 +507,12 @@ if (costTable != null) {
 }
 
 
-getInputs().forEach(input => {
-    input.onfocus = focused;
-    input.oninput = lineCalc;
-    input.oncut = lineCalc;
-    input.onpaste = lineCalc;
-});
+// getInputs().forEach(input => {
+//     input.onfocus = focused;
+//     input.oninput = lineCalc;
+//     input.oncut = lineCalc;
+//     input.onpaste = lineCalc;
+// });
 
 let pasteTable = document.getElementById("paste_table");
 
@@ -1382,9 +822,15 @@ function buildCharLine(no, name, id, attrs = "", addClass = "", point = 0, usepo
 }
 
 function initCharList() {
+    let tbody = document.getElementById("main_table_body");
+    let divider = tbody.querySelector("tr.divider");
+    let limited = tbody.querySelectorAll("tr.limited");
+    let ordinary = tbody.querySelectorAll("tr.ordinary");
     let tfoot = document.getElementById("main_table_foot");
-    let fourstars = tfoot.querySelectorAll(".fourstars");
+    let fourstars = tfoot.querySelectorAll("tr.fourstars");
 
+    limited.forEach(e => e.remove());
+    ordinary.forEach(e => e.remove());
     fourstars.forEach(e => e.remove());
 
     var seqLimited = 0;
@@ -1402,22 +848,50 @@ function initCharList() {
         } else category = "fourstars";
 
         switch (category) {
+            case "limited":
+                seqLimited++;
+                let linel = buildCharLine(seqLimited, info.name["ko-kr"], info.id, ' class="limited"', " limited");
+                let eleml = document.createElement("div");
+                tbody.insertBefore(eleml, divider);
+                eleml.outerHTML = linel;
+                break;
+
+            case "ordinary":
+                seqOrdinary++;
+                let lineo = buildCharLine(seqOrdinary, info.name["ko-kr"], info.id, ' class="ordinary"', " ordinary", "-", false);
+                let elemo = document.createElement("div");
+                tbody.append(elemo);
+                elemo.outerHTML = lineo;
+                break;
+
             case "fourstars":
                 seq4stars++;
-                let line = buildCharLine(seq4stars, info.name["ko-kr"], info.id, ' class="fourstars"', " fourstars", "-", false);
-                let elem = document.createElement("div");
-                tfoot.append(elem);
-                elem.outerHTML = line;
+                let linef = buildCharLine(seq4stars, info.name["ko-kr"], info.id, ' class="fourstars"', " fourstars", "-", false);
+                let elemf = document.createElement("div");
+                tfoot.append(elemf);
+                elemf.outerHTML = linef;
                 break;
         }
-        
-        getInputs4().forEach(input => {
-            input.onfocus = focused;
-            input.oninput = changed;
-            input.oncut = changed;
-            input.onpaste = changed;
-        });
     }
+
+    getInputsL().forEach(input => {
+        input.onfocus = focused;
+        input.oninput = lineCalc;
+        input.oncut = lineCalc;
+        input.onpaste = lineCalc;
+    });
+    getInputsO().forEach(input => {
+        input.onfocus = focused;
+        input.oninput = lineCalc;
+        input.oncut = lineCalc;
+        input.onpaste = lineCalc;
+    });
+    getInputs4().forEach(input => {
+        input.onfocus = focused;
+        input.oninput = changed;
+        input.oncut = changed;
+        input.onpaste = changed;
+    });
 }
 
 initCharList();
