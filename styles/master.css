@@ -801,7 +801,7 @@ div#elements_pool div.pool_element_area[data-element="switchable"] div.each_elem
 
 div#cost_pool { }
 body:not([data-rule-type="cost"]) div#cost_pool { display: none; }
-div#cost_pool div.pool_cost_area { position: relative; --cost-icon-height: 26px; --icon-size: 44px; --icon-src-size: 64px; }
+div#cost_pool div.pool_cost_area { position: relative; margin-top: -12px; --cost-icon-height: 26px; --icon-size: 44px; --icon-src-size: 64px; }
 div#cost_pool div.pool_cost_area > * { z-index: 1; }
 div#cost_pool div.pool_cost_area div.cost_title_area { position: absolute; left: 0; right: 0; width: fit-content; margin: auto; margin-top: calc(var(--cost-icon-height) * -1); transform-style: preserve-3d; perspective-origin: bottom center; perspective: 100px; }
 div#cost_pool div.pool_cost_area ul.cost_title { position: relative; display: inline-flex; margin: 0; padding: 0; transform-style: preserve-3d; perspective-origin: bottom left; perspective: 175px; filter: drop-shadow(2px 4px 2px #000D); transition-duration: 0.4s; transition-timing-function: ease; cursor: grabbing; }
@@ -816,8 +816,9 @@ div#cost_pool div.pool_cost_area ul.cost_title > li:nth-child(2) { z-index: 2; }
 div#cost_pool div.pool_cost_area ul.cost_title > li:nth-child(3) { z-index: 3; }
 div#cost_pool div.pool_cost_area ul.cost_title > li:nth-child(4) { z-index: 4; }
 div#cost_pool div.pool_cost_area ul.cost_title > li:nth-child(5) { z-index: 5; }
+div#cost_pool div.pool_cost_area ul.cost_title > li:nth-child(6) { z-index: 6; }
 div#cost_pool div.pool_cost_area div.each_cost_pool_area { position: relative; width: 100%; }
-div#cost_pool div.pool_cost_area ul.each_cost_pool { position: relative; z-index: 10; display: flex; flex-wrap: wrap; margin-top: calc(var(--cost-icon-height) + 10px); padding: 0; justify-content: center; }
+div#cost_pool div.pool_cost_area ul.each_cost_pool { position: relative; z-index: 10; display: flex; flex-wrap: nowrap; margin-top: calc(var(--cost-icon-height) + 10px); padding: 0; justify-content: center; }
 
 div.pick_pool[data-char-visual-res-type="icon"] ul.each_pool_block > li.character { --char-box-size: calc(var(--char-icon-size) * 4 / 5); position: relative; display: flex; width: var(--char-icon-size); height: var(--char-icon-size); background-repeat: no-repeat; background-size: contain; border-radius: 12.5%; outline-style: solid; outline-color: transparent; outline-width: 12px; outline-offset: -6px; /* overflow-x: overlay; overflow-y: hidden; scroll-behavior: smooth; scroll-snap-type: both; scroll-snap-align: center; scroll-snap-stop: always; */ transition-duration: 0.3s; transition-timing-function: ease-out; }
 div.pick_pool[data-char-visual-res-type="icon"] ul.each_pool_block > li.character::-webkit-scrollbar { width: 0; height: 0; background-color: transparent; }

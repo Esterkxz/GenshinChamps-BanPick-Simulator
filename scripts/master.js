@@ -495,7 +495,7 @@ let sequenceMaster = {
             if (item.attr(poolMaster.picked + "-" + (seq.pick != "ban" ? pickingSide : pickingCounter)) == "1") return;
             treveler = item.attr(poolMaster.treveler);
             if (isTreveler && treveler == "1") id += "M";
-            banCard = rules.ban_card_accure[id];
+            if (rules.rule_type == "ban card") banCard = rules.ban_card_accure[id];
         } else {//무기 픽
             //if (item.serise == null) return;
             if (id.indexOf("_") < 0) return;
@@ -1354,11 +1354,13 @@ let poolMaster = {
     cost_pool: "#cost_pool",
     pool_cost_area: "div.pool_cost_area",
 
+    cost6: "#cost6",
     cost5: "#cost5",
     cost4: "#cost4",
     cost3: "#cost3",
     cost2: "#cost2",
     cost1: "#cost1",
+    cost0: "#cost0",
 
     each_cost_pool_area: "div.each_cost_pool_area",
     each_cost_pool: "ul.each_cost_pool",
@@ -1415,23 +1417,29 @@ let poolMaster = {
 
     costPool: null,
     poolCostArea: null,
+    pool6Area: null,
     pool5Area: null,
     pool4Area: null,
     pool3Area: null,
     pool2Area: null,
     pool1Area: null,
+    pool0Area: null,
     eachPoolCostPoolArea: null,
+    cost6Area: null,
     cost5Area: null,
     cost4Area: null,
     cost3Area: null,
     cost2Area: null,
     cost1Area: null,
+    cost0Area: null,
     eachCostPool: null,
+    cost6Pool: null,
     cost5Pool: null,
     cost4Pool: null,
     cost3Pool: null,
     cost2Pool: null,
     cost1Pool: null,
+    cost0Pool: null,
 
     eachCharacters: null,
 
@@ -1502,23 +1510,29 @@ let poolMaster = {
 
         this.costPool = this.pickPools.filter(this.cost_pool)
         this.poolCostArea = this.costPool.find(this.pool_cost_area);
+        this.pool6Area = this.poolCostArea.filter(this.cost6);
         this.pool5Area = this.poolCostArea.filter(this.cost5);
         this.pool4Area = this.poolCostArea.filter(this.cost4);
         this.pool3Area = this.poolCostArea.filter(this.cost3);
         this.pool2Area = this.poolCostArea.filter(this.cost2);
         this.pool1Area = this.poolCostArea.filter(this.cost1);
+        this.pool0Area = this.poolCostArea.filter(this.cost0);
         this.eachPoolCostPoolArea = this.poolCostArea.find(this.each_cost_pool_area);
+        this.cost6Area = this.pool6Area.find(this.each_cost_pool_area);
         this.cost5Area = this.pool5Area.find(this.each_cost_pool_area);
         this.cost4Area = this.pool4Area.find(this.each_cost_pool_area);
         this.cost3Area = this.pool3Area.find(this.each_cost_pool_area);
         this.cost2Area = this.pool2Area.find(this.each_cost_pool_area);
         this.cost1Area = this.pool1Area.find(this.each_cost_pool_area);
+        this.cost0Area = this.pool0Area.find(this.each_cost_pool_area);
         this.eachCostPool = this.eachPoolCostPoolArea.find(this.each_cost_pool);
+        this.cost6Pool = this.cost6Area.find(this.each_cost_pool);
         this.cost5Pool = this.cost5Area.find(this.each_cost_pool);
         this.cost4Pool = this.cost4Area.find(this.each_cost_pool);
         this.cost3Pool = this.cost3Area.find(this.each_cost_pool);
         this.cost2Pool = this.cost2Area.find(this.each_cost_pool);
         this.cost1Pool = this.cost1Area.find(this.each_cost_pool);
+        this.cost0Pool = this.cost0Area.find(this.each_cost_pool);
 
         this.underplacer = $(this.underplacer);
 
@@ -1892,9 +1906,7 @@ let poolMaster = {
         this.eachCharacters = this.eachElementPool.find(this.character);
     },
 
-    initCostTable: function(table = costTable) {
-        this.table = table;
-
+    initCostTable: function() {
         this.pool = {};
         charactersInfo.list.forEach(c => {
             if (c.id == eoa) return;
@@ -1904,55 +1916,85 @@ let poolMaster = {
         this.eachCostPool.empty();
         this.unallowedPool.empty();
 
-        //quintuple cost pool list
-        table.tier1.forEach(id => {
-            let self = poolMaster;
-            if (id == eoa) return;
-            self.pool[id] = true;
-            self.cost5Pool.append(self.buildCharacterItem(self.getCharacterInfo(id)));
-        });
+        if (rules.cost_table != null) {
+            this.table = rules.cost_table;
+            
+            charactersInfo.list.forEach((info, i) => {
+                let id = info.id;
+                if (id == eoa) return;
+    
+                let self = poolMaster;
+                let pool = [self.cost0Pool, self.cost1Pool, self.cost2Pool, self.cost3Pool, self.cost4Pool, self.cost5Pool, self.cost6Pool];
+                var cost = self.getCost(id);
+                if (cost > 4) cost = 4;
+    
+                self.pool[id] = true;
+                pool[cost].append(self.buildCharacterItem(info));
+            });
+        } else {
+            this.table = costTable;
 
-        //quadrupple cost pool list
-        table.tier2.forEach(id => {
-            let self = poolMaster;
-            if (id == eoa) return;
-            self.pool[id] = true;
-            self.cost4Pool.append(self.buildCharacterItem(self.getCharacterInfo(id)));
-        });
+            //quintuple cost pool list
+            table.tier1.forEach(id => {
+                let self = poolMaster;
+                if (id == eoa) return;
+                self.pool[id] = true;
+                self.cost5Pool.append(self.buildCharacterItem(self.getCharacterInfo(id)));
+            });
 
-        //tripple cost pool list
-        table.tier3.forEach(id => {
-            let self = poolMaster;
-            if (id == eoa) return;
-            self.pool[id] = true;
-            self.cost3Pool.append(self.buildCharacterItem(self.getCharacterInfo(id)));
-        });
+            //quadrupple cost pool list
+            table.tier2.forEach(id => {
+                let self = poolMaster;
+                if (id == eoa) return;
+                self.pool[id] = true;
+                self.cost4Pool.append(self.buildCharacterItem(self.getCharacterInfo(id)));
+            });
 
-        //double cost pool list
-        table.tier4.forEach(id => {
-            let self = poolMaster;
-            if (id == eoa) return;
-            self.pool[id] = true;
-            self.cost2Pool.append(self.buildCharacterItem(self.getCharacterInfo(id)));
-        });
+            //tripple cost pool list
+            table.tier3.forEach(id => {
+                let self = poolMaster;
+                if (id == eoa) return;
+                self.pool[id] = true;
+                self.cost3Pool.append(self.buildCharacterItem(self.getCharacterInfo(id)));
+            });
 
-        //excluded list
-        table.exclude.forEach(id => {
-            let self = poolMaster;
-            if (id == eoa) return;
-            self.pool[id] = true;
-            self.unallowedPool.append(self.buildCharacterItem(self.getCharacterInfo(id), forceIcon = true));
-        });
+            //double cost pool list
+            table.tier4.forEach(id => {
+                let self = poolMaster;
+                if (id == eoa) return;
+                self.pool[id] = true;
+                self.cost2Pool.append(self.buildCharacterItem(self.getCharacterInfo(id)));
+            });
 
-        //else case to single cost pool
-        for (id in this.pool) {
-            let self = poolMaster;
-            if (self.pool[id]) continue;
-            self.pool[id] = true;
-            self.cost1Pool.append(self.buildCharacterItem(self.getCharacterInfo(id)));
-        };
+            //excluded list
+            table.exclude.forEach(id => {
+                let self = poolMaster;
+                if (id == eoa) return;
+                self.pool[id] = true;
+                self.unallowedPool.append(self.buildCharacterItem(self.getCharacterInfo(id), forceIcon = true));
+            });
+
+            //else case to single cost pool
+            for (id in this.pool) {
+                let self = poolMaster;
+                if (self.pool[id]) continue;
+                self.pool[id] = true;
+                self.cost1Pool.append(self.buildCharacterItem(self.getCharacterInfo(id)));
+            };
+
+        }
 
         this.eachCharacters = this.eachCostPool.find(this.character);
+    },
+
+    getCost: function(id, cons = 0) {
+        if (this.table != null) {
+            let costs = this.table[id];
+            var cost;
+            if (typeof costs == "number") cost = costs;
+            else cost = costs[cons];
+            return cost;
+        } else return null;
     },
 
     releasePosessionBanCard: function() {
@@ -3637,50 +3679,56 @@ let sideMaster = {
     getAdditionalCost(id, constell = 0) {
         let info = charactersInfo.list[charactersInfo[id]];
 
-        let conds = rules.additional_cost.conditions;
-        var adds = 0;
-        for (var i=0; i < conds.length; i++) {
-            let cond = conds[i];
-            if (cond.c_class != null) {
-                if (info.class != cond.c_class) continue;
-            }
-            if (cond.c_constellations != null) {
-                let cons = cond.c_constellations.split(" ");
-                let con =  parseInt(cons[1]);
-
-                switch (cons[0]) {
-                    case "===":
-                        if (!(constell == con)) continue;
-                        break;
-
-                    case "!==":
-                        if (!(constell == con)) continue;
-                        break;
-
-                    case ">=":
-                        if (!(constell >= con)) continue;
-                        break;
-
-                    case "<=":
-                        if (!(constell <= con)) continue;
-                        break;
-
-                    case "<":
-                        if (!(constell < con)) continue;
-                        break;
-
-                    case ">":
-                        if (!(constell > con)) continue;
-                        break;
-
-                    default:
-                        continue;
+        if (rules.cost_table) {
+            let base = poolMaster.getCost(id);
+            let total = poolMaster.getCost(id, constell);
+            return total - base;
+        } else {
+            let conds = rules.additional_cost.conditions;
+            var adds = 0;
+            for (var i=0; i < conds.length; i++) {
+                let cond = conds[i];
+                if (cond.c_class != null) {
+                    if (info.class != cond.c_class) continue;
                 }
-            }
-            adds += parseInt(cond.cost);
-        }
+                if (cond.c_constellations != null) {
+                    let cons = cond.c_constellations.split(" ");
+                    let con = parseInt(cons[1]);
 
-        return adds;
+                    switch (cons[0]) {
+                        case "===":
+                            if (!(constell == con)) continue;
+                            break;
+
+                        case "!==":
+                            if (!(constell == con)) continue;
+                            break;
+
+                        case ">=":
+                            if (!(constell >= con)) continue;
+                            break;
+
+                        case "<=":
+                            if (!(constell <= con)) continue;
+                            break;
+
+                        case "<":
+                            if (!(constell < con)) continue;
+                            break;
+
+                        case ">":
+                            if (!(constell > con)) continue;
+                            break;
+
+                        default:
+                            continue;
+                    }
+                }
+                adds += parseInt(cond.cost);
+            }
+
+            return adds;
+        }
     },
 
     releaseAdditionalCostByEntryConstell(slot) {
@@ -3766,12 +3814,15 @@ let sideMaster = {
     },
 
     getCostByCharacter: function(id) {
-        for (i in costTable.tier1) if (costTable.tier1[i] == id) return 5;
-        for (i in costTable.tier2) if (costTable.tier2[i] == id) return 4;
-        for (i in costTable.tier3) if (costTable.tier3[i] == id) return 3;
-        for (i in costTable.tier4) if (costTable.tier4[i] == id) return 2;
-        for (i in costTable.exclude) if (costTable.exclude[i] == id) return 0;
-        return 1;
+        if (rules.cost_table != null) return poolMaster.getCost(id);
+        else {
+            for (i in costTable.tier1) if (costTable.tier1[i] == id) return 5;
+            for (i in costTable.tier2) if (costTable.tier2[i] == id) return 4;
+            for (i in costTable.tier3) if (costTable.tier3[i] == id) return 3;
+            for (i in costTable.tier4) if (costTable.tier4[i] == id) return 2;
+            for (i in costTable.exclude) if (costTable.exclude[i] == id) return 0;
+            return 1;
+        }
     },
 
     updateCostUsed: function() {
@@ -5828,12 +5879,14 @@ let playerInfoMaster = {
         this.eachInfoAdd.filter(this.class_disadv).find(this.line_title).text(text.pisAddTimeDisadvRatio);
         this.eachInfoAdd.filter(this.class_sum).find(this.line_title).text(text.pisAddTimeAdjust);
         this.eachInfoAdd.filter(this.class_sum).find(this.total_label).text(text.pisAddsTotal);
-        this.redAddPerConstell.attr("title", text.pisAddTimeConstellDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.constell));
-        this.blueAddPerConstell.attr("title", text.pisAddTimeConstellDesc.replace("#SIDE", text.sideBlue) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.constell));
-        this.redAddByHadWeapon.attr("title", text.pisAddTimeHasWaponDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.weapon));
-        this.blueAddByHadWeapon.attr("title", text.pisAddTimeHasWaponDesc.replace("#SIDE", text.sideBlue) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.weapon));
-        this.redAddPerRefine.attr("title", text.pisAddTimeWeponRefineDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.refine));
-        this.blueAddPerRefine.attr("title", text.pisAddTimeWeponRefineDesc.replace("#SIDE", text.sideBlue) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.refine));
+        if (this.addSecDefaults != null) {
+            this.redAddPerConstell.attr("title", text.pisAddTimeConstellDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.constell));
+            this.blueAddPerConstell.attr("title", text.pisAddTimeConstellDesc.replace("#SIDE", text.sideBlue) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.constell));
+            this.redAddByHadWeapon.attr("title", text.pisAddTimeHasWaponDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.weapon));
+            this.blueAddByHadWeapon.attr("title", text.pisAddTimeHasWaponDesc.replace("#SIDE", text.sideBlue) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.weapon));
+            this.redAddPerRefine.attr("title", text.pisAddTimeWeponRefineDesc.replace("#SIDE", text.sideRed) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.refine));
+            this.blueAddPerRefine.attr("title", text.pisAddTimeWeponRefineDesc.replace("#SIDE", text.sideBlue) + "\n" + text.pisAddTimeCommonTails.replace("#SEC", this.addSecDefaults.refine));
+        }
         this.redAddDisadvRatio.attr("title", text.pisAddTimeDisadvRatioDesc.replace("#SIDE", text.sideRed));
         this.blueAddDisadvRatio.attr("title", text.pisAddTimeDisadvRatioDesc.replace("#SIDE", text.sideBlue));
         this.redAddMasterAdjust.attr("title", text.pisAddTimeAdjustDesc.replace("#SIDE", text.sideRed));
@@ -6517,6 +6570,7 @@ let playerInfoMaster = {
     },
 
     initAddsDefault: function() {
+        if (this.addSecDefaults == null) return;
         this.eachAddPerConstell.attr("placeholder", "" + this.addSecDefaults.constell);
         this.eachAddByHadWeapon.attr("placeholder", "" + this.addSecDefaults.weapon);
         this.eachAddPerRefine.attr("placeholder", "" + this.addSecDefaults.refine);
@@ -6535,6 +6589,7 @@ let playerInfoMaster = {
     },
 
     initAddSideSecs: function(side) {
+        if (this.addSecDefaults == null) return;
         this.addSecs[side].constell = this.addSecDefaults.constell;
         this.addSecs[side].weapon = this.addSecDefaults.weapon;
         this.addSecs[side].refine = this.addSecDefaults.refine;
@@ -7489,7 +7544,7 @@ let controllerMaster = {
         content.empty();
         content.append(master.buildCreditItem(commonInfo.comment));
         content.append(master.buildCreditItem(rules.comment, "Pickup rules"));
-        content.append(master.buildCreditItem(costTable.comment, "Cost table"));
+        if (costTable != null) content.append(master.buildCreditItem(costTable.comment, "Cost table"));
     
         for (l in locales) {
             let la = locales[l];
