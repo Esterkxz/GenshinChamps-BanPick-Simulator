@@ -3829,6 +3829,7 @@ let sideMaster = {
 
     updateCostUsed: function() {
         var used = { red: 0, blue: 0 };
+        let overCostRatio = rules.over_cost_ratio;
 
         for (i in stepHistory) {
             let cur = stepHistory[i];
@@ -3853,6 +3854,11 @@ let sideMaster = {
         let blueRemains = rules.cost_amount - blueUsed;
         this.blueCostUsedCount.attr(this.count, blueUsed);
         this.blueCostRemains.attr(this.count, blueRemains);
+
+        if (overCostRatio != null) {
+            if (redRemains < 0) playerInfoMaster.redAddMasterAdjust.val((redRemains * -1) * overCostRatio).change();
+            if (blueRemains < 0) playerInfoMaster.blueAddMasterAdjust.val((blueRemains * -1) * overCostRatio).change();
+        }
 
         this.releaseCostStack(used);
     },
