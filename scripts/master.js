@@ -7567,7 +7567,7 @@ let controllerMaster = {
         content.empty();
         content.append(master.buildCreditItem(commonInfo.comment));
         content.append(master.buildCreditItem(rules.comment, "Pickup rules"));
-        if (costTable != null) content.append(master.buildCreditItem(costTable.comment, "Cost table"));
+        if (typeof costTable != "undefined") content.append(master.buildCreditItem(costTable.comment, "Cost table"));
     
         for (l in locales) {
             let la = locales[l];
