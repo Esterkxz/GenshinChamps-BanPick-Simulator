@@ -3770,6 +3770,7 @@ let sideMaster = {
     },
 
     increaseAdditionalCost: function(adcp) {
+        if (rules.additional_cost == null) return;
         adcp = $(adcp);
         let step = adcp.attr(sideMaster.step);
         let cur = stepHistory[step];
@@ -3785,6 +3786,7 @@ let sideMaster = {
     },
 
     decreaseAdditionalCost: function(adcp) {
+        if (rules.additional_cost == null) return;
         adcp = $(adcp);
         let step = adcp.attr(sideMaster.step);
         let cur = stepHistory[step];
