@@ -6991,6 +6991,14 @@ let searchMaster = {
                 let weaponTypes = {};
                 let entries = sideMaster.entryPicked[counter];
                 let currentSuggest = this.weaponSuggests[counter];
+                var checkLastPick = true;
+                for (var i=step+1; i<rules.sequence.length; i++) {
+                    let cur = rules.sequence[i];
+                    if (cur.pick.indexOf("entry") > -1) {
+                        checkLastPick = false;
+                        break;
+                    }
+                }
 
                 if (currentSuggest.length < 1) {
                     for (var i in entries) {
@@ -7003,7 +7011,7 @@ let searchMaster = {
                         let item = weaponsInfo.list[i];
                         if (item.id == "reserved") continue;
 
-                        if (item.class != "unreleased" && weaponTypes[item.type]) currentSuggest.push(item);
+                        if (item.class != "unreleased" && (!checkLastPick || weaponTypes[item.type])) currentSuggest.push(item);
 
                     }
                 }
