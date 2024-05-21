@@ -4350,6 +4350,13 @@ let sideMaster = {
             }
         }
 
+        if (step == rules.sequence.length) {
+            for (var i=rules.sequence.length-1; i>-1; i--) if (rules.sequence[i].pick == "ban weapon") {
+                this.eachBanPickCharacterHolder.attr(this.appear, "1");
+                this.eachBanPickWeaponHolder.attr(this.appear, null);
+                break;
+            }
+        }
     },
 
 
