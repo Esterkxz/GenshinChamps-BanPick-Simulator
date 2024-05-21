@@ -817,6 +817,8 @@ div#cost_pool div.pool_cost_area ul.cost_title > li:nth-child(3) { z-index: 3; }
 div#cost_pool div.pool_cost_area ul.cost_title > li:nth-child(4) { z-index: 4; }
 div#cost_pool div.pool_cost_area ul.cost_title > li:nth-child(5) { z-index: 5; }
 div#cost_pool div.pool_cost_area ul.cost_title > li:nth-child(6) { z-index: 6; }
+div#cost_pool div.pool_cost_area ul.cost_title > span { z-index: 99; color: #FE9; font-family: 'Lato'; font-size: 48px; font-weight: bold; text-shadow: 0 0 6px #861; line-height: 42px; filter: drop-shadow(2px 2px 2px #000A); }
+div#cost_pool div.pool_cost_area ul.cost_title > li+span { margin-left: -24px; }
 div#cost_pool div.pool_cost_area div.each_cost_pool_area { position: relative; width: 100%; }
 div#cost_pool div.pool_cost_area ul.each_cost_pool { position: relative; z-index: 10; display: flex; flex-wrap: nowrap; margin-top: calc(var(--cost-icon-height) + 10px); padding: 0; justify-content: center; }
 
