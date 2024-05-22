@@ -1989,6 +1989,7 @@ let poolMaster = {
 
     getCost: function(id, cons = 0) {
         if (this.table != null) {
+            if (typeof cons != "number") cons = 0;
             let costs = this.table[id];
             var cost;
             if (typeof costs == "number") cost = costs;
