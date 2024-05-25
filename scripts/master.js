@@ -8860,7 +8860,7 @@ function restoreStoredState(stored) {
     let blue = stored.blueInfo;
 
     if (red.code != null) sideMaster.applyAccountInfo(red.code, "red");
-    if (blue.code != null) sideMaster.applyAccountInfo(red.code, "blue");
+    if (blue.code != null) sideMaster.applyAccountInfo(blue.code, "blue");
 
     let redInfo = red.playerInfo;
     let blueInfo = blue.playerInfo;
