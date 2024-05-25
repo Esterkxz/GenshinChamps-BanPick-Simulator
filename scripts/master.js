@@ -710,7 +710,7 @@ let sequenceMaster = {
 
                         setTimeout(function() {
                             if (step == curStep) {
-                                screenMaster.showSideArea();
+                                if (rules.show_side_area_on_versus === true) screenMaster.showSideArea();
                                 let entrySide = $("div#versus_entry_area div.versus_entry_side");
                                 let redEntries = entrySide.filter(".red").find("div.versus_entry");
                                 let blueEntries = entrySide.filter(".blue").find("div.versus_entry");
@@ -4473,7 +4473,7 @@ let sideMaster = {
     },
 
     hideVersusRecordBoard: function() {
-        screenMaster.hideSideArea();
+        if (rules.show_side_area_on_versus === true) screenMaster.hideSideArea();
         $("div#versus_entry_area div.versus_divider").attr("data-wide", "0");
 
         this.versusRecordBoard.attr(this.show, "0");

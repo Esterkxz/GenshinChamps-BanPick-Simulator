@@ -15,6 +15,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
     "rule_version": "4.4",
 
     "rule_type": "ban card",
+    "show_side_area_on_versus": true,
 
     "sequence": null,
 
