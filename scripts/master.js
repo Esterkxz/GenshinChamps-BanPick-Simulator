@@ -8859,8 +8859,10 @@ function restoreStoredState(stored) {
     let red = stored.redInfo;
     let blue = stored.blueInfo;
 
-    if (red.code != null) sideMaster.applyAccountInfo(red.code, "red");
-    if (blue.code != null) sideMaster.applyAccountInfo(blue.code, "blue");
+    if ($(document.body).attr("data-shift") != "1") {
+        if (red.code != null) sideMaster.applyAccountInfo(red.code, "red");
+        if (blue.code != null) sideMaster.applyAccountInfo(blue.code, "blue");
+    }
 
     let redInfo = red.playerInfo;
     let blueInfo = blue.playerInfo;
@@ -9533,6 +9535,12 @@ $(document).ready(function() {
         let ctrlPrev = self.attr("data-ctrl");
         let ctrlCurr = e.ctrlKey ? "1" : "";
         if (ctrlCurr != ctrlPrev) self.attr("data-ctrl", ctrlCurr);
+        let altPrev = self.attr("data-alt");
+        let altCurr = e.altKey ? "1" : "";
+        if (altCurr != altPrev) self.attr("data-alt", altCurr);
+        let shiftPrev = self.attr("data-shift");
+        let shiftCurr = e.shiftKey ? "1" : "";
+        if (shiftCurr != shiftPrev) self.attr("data-shift", shiftCurr);
     });
 
     //extra event
