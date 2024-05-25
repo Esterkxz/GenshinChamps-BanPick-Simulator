@@ -94,7 +94,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "btnUnstopable": "UNSTOPABLE",
         "btnMainDesc": "다음 단계로 넘어갑니다",
         "btnUndo": "UNDO",
-        "btnUndoDesc": "마지막 픽업을 취소하고 직전 단계로 돌아갑니다",
+        "btnUndoDesc": "마지막 픽업을 취소하고 직전 단계로 돌아갑니다\n초기 상태에서 클릭: 마지막 픽업 상태 복원\n\n초기 상태에서 Shift+클릭: 현재 계정 정보로 마지막 픽업 상태 복원",
         "btnRemoconDesc": "리모컨 호출 (팝업 창 사용)",
         "btnRandomDesc": "클릭: 랜덤하게 1회 픽업합니다\n우클릭: 남은 픽을 자동 랜덤으로 진행합니다.\n [!]버튼을 눌러 중단할 수 있습니다",
         "btnPlayerInfoToggleDesc": "플레이 정보 관리 컨트롤 패널을 숨기거나 표시합니다",

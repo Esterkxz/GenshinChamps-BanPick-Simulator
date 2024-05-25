@@ -94,7 +94,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "btnUnstopable": "UNSTOPABLE",
         "btnMainDesc": "Progress next thing",
         "btnUndo": "UNDO",
-        "btnUndoDesc": "Return to previous step and release last picked",
+        "btnUndoDesc": "Return to previous step and release last picked\nClick on initial: Restore last pickup state\n\nShift+Click on initial: Restore last pickup state with current account info",
         "btnRemoconDesc": "Use remote controller (popup window)",
         "btnRandomDesc": "Click: Pick one randomly\nRight click: Auto pick remains randomly.\n stopable with click [!] button",
         "btnPlayerInfoToggleDesc": "Show/hide player info operator control panel",

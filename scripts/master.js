@@ -8848,7 +8848,9 @@ function initializeStep() {
 function restoreStoredState(stored) {
     if (stored == null || stored == "") return;
 
-    initializeStep();
+    if ($(document.body).attr("data-shift") != "1") {
+        initializeStep();
+    }
     
     gameId = stored.gameId;
 
