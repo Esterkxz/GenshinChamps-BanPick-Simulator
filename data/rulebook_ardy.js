@@ -92,6 +92,38 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "": ""
         },
         {
+            "name": "프로 (테스트)",
+            "name_full": "Pro(Test)",
+            "score_range": "35-54",
+            "established": true,
+            "selectable": true,
+            "sequence": [
+                { "side": "red", "pick": 'ban', "amount": "1" },
+                { "side": "blue", "pick": 'ban', "amount": "2" },
+                { "side": "red", "pick": 'ban', "amount": "1" },
+                { "side": "red", "pick": 'entry', "amount": "1" },
+                { "side": "blue", "pick": 'entry', "amount": "2" },
+                { "side": "red", "pick": 'entry', "amount": "2" },
+                { "side": "blue", "pick": 'entry', "amount": "1" },
+                { "side": "red", "pick": 'ban', "amount": "1" },
+                { "side": "blue", "pick": 'ban', "amount": "1" },
+                { "side": "blue", "pick": 'entry', "amount": "1" },
+                { "side": "red", "pick": 'entry', "amount": "2" },
+                { "side": "blue", "pick": 'entry', "amount": "2" },
+                { "side": "red", "pick": 'entry', "amount": "1" },
+                { "side": "blue", "pick": 'ban', "amount": "1" },
+                { "side": "red", "pick": 'ban', "amount": "1" },
+                { "side": "red", "pick": 'entry', "amount": "1" },
+                { "side": "blue", "pick": 'entry', "amount": "2" },
+                { "side": "red", "pick": 'entry', "amount": "1" },
+                { "side": "blue", "pick": 'entry', "amount": "0" },
+                { "side": "red", "pick": 'entry', "amount": "0" },
+                "reserved"
+            ],
+                
+            "cost_amount": 45,
+        },
+        {
             "name": "프로",
             "name_full": "Pro",
             "score_range": "35-54",
