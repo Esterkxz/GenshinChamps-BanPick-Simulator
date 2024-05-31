@@ -13,7 +13,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard for cost game.\n\
     ",
     "rule_title": "아디컵 룰북",
-    "rule_version": "v.0.1.4",
+    "rule_version": "v.0.1.5",
 
     "rule_type": "cost",
 
@@ -87,29 +87,6 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "score_range": "20-34",
             "established": true,
             "selectable": true,
-            "sequence": [
-                { "side": "red", "pick": 'ban', "amount": "1" },
-                { "side": "blue", "pick": 'ban', "amount": "2" },
-                { "side": "red", "pick": 'ban', "amount": "1" },
-                { "side": "red", "pick": 'entry', "amount": "1" },
-                { "side": "blue", "pick": 'entry', "amount": "2" },
-                { "side": "red", "pick": 'entry', "amount": "2" },
-                { "side": "blue", "pick": 'entry', "amount": "1" },
-                { "side": "red", "pick": 'ban', "amount": "1" },
-                { "side": "blue", "pick": 'ban', "amount": "1" },
-                { "side": "blue", "pick": 'entry', "amount": "1" },
-                { "side": "red", "pick": 'entry', "amount": "2" },
-                { "side": "blue", "pick": 'entry', "amount": "2" },
-                { "side": "red", "pick": 'entry', "amount": "1" },
-                { "side": "blue", "pick": 'ban', "amount": "1" },
-                { "side": "red", "pick": 'ban', "amount": "1" },
-                { "side": "red", "pick": 'entry', "amount": "1" },
-                { "side": "blue", "pick": 'entry', "amount": "2" },
-                { "side": "red", "pick": 'entry', "amount": "1" },
-                { "side": "blue", "pick": 'entry', "amount": "0" },
-                { "side": "red", "pick": 'entry', "amount": "0" },
-                "reserved"
-            ],
     
             "cost_amount": 37,
             "": ""
