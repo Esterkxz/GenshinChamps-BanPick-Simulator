@@ -2,7 +2,7 @@ ruleBooks["ArdyCup v0"] = {
     "comment": "\
 Rule refferenced by 아디 (Ardy - Streamer & Youtuber)\n\
 Youtube: https://www.youtube.com/@ardy703 \n\
-Chzzk: https://chzzk.naver.com/live/b331322b656faef773c9bc732064bf5c \n\
+Chzzk: https://chzzk.naver.com/b331322b656faef773c9bc732064bf5c \n\
 Twitch: https://www.twitch.tv/ardy1ardy \n\
 Discord: https://discord.com/invite/9SWSHycT3Z \n\
 \n\
