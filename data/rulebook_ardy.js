@@ -13,7 +13,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard for cost game.\n\
     ",
     "rule_title": "아디컵 룰북",
-    "rule_version": "v.0.1.5",
+    "rule_version": "v.0.1.7",
 
     "rule_type": "cost",
 
@@ -88,7 +88,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "established": true,
             "selectable": true,
     
-            "cost_amount": 37,
+            "cost_amount": 35,
             "": ""
         },
         {
@@ -162,10 +162,10 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 
     "cost_table": {
         "diluc":       [1, 1, 1, 1, 1, 1, 1],
-        "klee":        [2, 2, 4, 4, 4, 4, 4],
+        "klee":        [2, 2, 3, 3, 4, 4, 4],
         "hutao":       [3, 4, 4, 5, 5, 5, 5],
         "yoimiya":     [1, 1, 1, 1, 1, 1, 3],
-        "dehya":       [1, 1, 1, 1, 1, 1, 3],
+        "dehya":       [1, 1, 2, 2, 2, 2, 3],
         "lyney":       [4, 5, 6, 7, 8, 9, 11],
         "arlecchino":  [5, 7, 8, 9, 10, 10, 13],
 
@@ -175,13 +175,13 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "ayato":       [2, 3, 4, 5, 6, 7, 9],
         "yelan":       [5, 6, 7, 8, 9, 10, 13],
         "nilou":       [3, 4, 5, 5, 5, 5, 7],
-        "neuvillette": [7, 9, 10, 11, 11, 11, 13],
+        "neuvillette": [7, 9, 10, 11, 11, 11, 14],
         "furina":      [6, 7, 8, 9, 10, 11, 13],
 
         "qiqi":        [0, 0, 0, 0, 0, 0, 0],
-        "ganyu":       [2, 3, 4, 5, 6, 6, 7],
+        "ganyu":       [1, 2, 3, 4, 5, 5, 6],
         "eula":        [0, 1, 2, 3, 3, 3, 5],
-        "ayaka":       [3, 3, 4, 5, 7, 7, 8],
+        "ayaka":       [2, 2, 3, 4, 6, 6, 7],
         "aloy":        [0, 0, 0, 0, 0, 0, 0],
         "shenhe":      [2, 3, 4, 4, 4, 4, 6],
         "wriothesley": [2, 4, 5, 6, 7, 8, 10],
@@ -198,7 +198,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "wanderer":    [3, 4, 5, 6, 6, 6, 8],
         "liuyun":      [3, 4, 6, 6, 6, 6, 7],
 
-        "zhongli":     [3, 3, 3, 3, 3, 3, 4],
+        "zhongli":     [3, 3, 3, 3, 4, 4, 4],
         "albedo":      [1, 1, 1, 1, 1, 1, 1],
         "itto":        [1, 1, 2, 2, 2, 3, 5],
         "navia":       [3, 4, 5, 6, 7, 7, 10],
@@ -207,7 +207,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "tighnari":    [3, 4, 5, 6, 6, 6, 8],
         "nahida":      [6, 6, 8, 9, 10, 10, 12],
         "alhaitham":   [3, 4, 5, 6, 7, 8, 9],
-        "baizhu":      [2, 3, 4, 4, 4, 4, 6],
+        "baizhu":      [2, 3, 4, 4, 4, 4, 5],
 
         "treveler":    [1, 1, 1, 1, 1, 1, 1],
         
@@ -223,11 +223,11 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 
         "babara": 1,
         "xingqiu": 4,
-        "candace": 1,
+        "candace": 0,
 
         "kaeya": 1,
         "diona": 1,
-        "rosaria": 2,
+        "rosaria": 1,
         "chongyun": 1,
         "layla": 1,
         "mika": 1,
@@ -237,7 +237,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "lisa": 1,
         "razor": 0,
         "fischl": 3,
-        "beidou": 2,
+        "beidou": 1,
         "sara": 2,
         "shinobu": 3,
         "dori": 1,
@@ -250,7 +250,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 
         "noelle": 1,
         "ningguang": 0,
-        "gorou": 2,
+        "gorou": 1,
         "yunjin": 1,
 
         "collei": 1,
