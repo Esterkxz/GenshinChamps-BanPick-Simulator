@@ -139,6 +139,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "liuyun": false,
             "chiori": false,
             "arlecchino": false,
+            "sethos": false,
+            "clorinde": false,
         },
         "": ""
     },
@@ -217,7 +219,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "kirara": true,
                 "lynette": true,
                 "charlotte": true,
-            },
+                "sethos": true,
+                },
             "": ""
         },
         {
@@ -331,6 +334,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "navia": true,
                 "liuyun": true,
                 "chiori": true,
+                "clorinde": true,
             },
             "": ""
         },

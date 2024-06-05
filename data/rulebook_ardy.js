@@ -190,6 +190,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "shogun":      [3, 4, 7, 8, 8, 8, 8],
         "yae":         [2, 3, 4, 5, 6, 7, 9],
         "cyno":        [1, 1, 2, 2, 2, 2, 4],
+        "clorinde":    [3, 4, 6, 7, 8, 9, 11],
 
         "jean":        [1, 1, 2, 2, 3, 3, 3],
         "venti":       [3, 3, 3, 3, 3, 3, 4],
@@ -241,6 +242,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "sara": 2,
         "shinobu": 3,
         "dori": 1,
+        "sethos": 1,
 
         "sucrose": 2,
         "sayu": 1,

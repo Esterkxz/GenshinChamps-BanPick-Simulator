@@ -276,6 +276,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "liuyun": "Xianyun",
         "chiori": "Chiori",
         "arlecchino": "Arlecchino",
+        "sethos": "Sethos",
+        "clorinde": "Clorinde",
         "reserved": ""
     },
     "characters_short": {
@@ -360,6 +362,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "liuyun": "Xianyun",
         "chiori": "Chiori",
         "arlecchino": "Arlecchino",
+        "sethos": "Sethos",
+        "clorinde": "Clorinde",
         "reserved": ""
     },
     "weapons": {
@@ -412,7 +416,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "cm_goldenverdict": { "name": "Verdict", "aliases": [""] },
         "ct_mountaingale": { "name": "Crane's Echoing Call", "aliases": [""] },
         "sw_needle": { "name": "Uraku Misugiri", "aliases": [""] },
-        "pl_bloodmoon": { "name": "", "aliases": [""] },
-        "reserved": { "name": "Crimson Moon's Semblance", "aliases": [""] }
+        "pl_bloodmoon": { "name": "Crimson Moon's Semblance", "aliases": [""] },
+        "sw_estoc": { "name": "Absolution", "aliases": [""] },
+        "reserved": { "name": "", "aliases": [""] }
     }
 }

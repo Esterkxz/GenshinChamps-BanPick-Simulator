@@ -649,6 +649,20 @@ weaponsInfo = {
             "res_vcut": "i_n13512_gacha_icon.webp"
         },
 
+        //Extra 14 - Estoc
+        {
+            "id": "sw_estoc",
+            "class": "limited",
+            "version": "4.7f",
+            "rarity": "5",
+            "type": "sword",
+            "serise": "standalone",
+            "continent": "fontaine",
+            "favority": ["clorinde"],
+            "res_icon": "UI_EquipIcon_Sword_Estoc.png",
+            "res_vcut": "i_n11515_gacha_icon.webp"
+        },
+
         {
             "id": "reserved",
             "class": "",
