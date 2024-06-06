@@ -1244,8 +1244,8 @@ let charactersInfo = {
             "res_icon": "UI_AvatarIcon_Sethos.png",
             "res_vcut": "sethos_097_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "24%", "vHover": "16%" },
-            "res_wide": ".png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "64%", "v": "32%" },
+            "res_wide": "sethos_genshin_impact_portrait_render_by_deg5270_dhjd5ue-fullview.png",
+            "res_wide_meta_pos": { "scale": "480%", "h": "56%", "v": "32%" },
         },
         {
             "id": "clorinde",
@@ -1259,8 +1259,8 @@ let charactersInfo = {
             "res_icon": "UI_AvatarIcon_Clorinde.png",
             "res_vcut": "clorinde_098_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "21%", "vHover": "7%" },
-            "res_wide": ".png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "64%", "v": "32%" },
+            "res_wide": "clorinde_genshin_impact_portrait_render_by_deg5270_dhjd5v9-fullview.png",
+            "res_wide_meta_pos": { "scale": "460%", "h": "68%", "v": "28%" },
         },
         {
             "comment": "temporary data for pre-official release",
