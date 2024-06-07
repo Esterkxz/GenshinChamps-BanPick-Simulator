@@ -13,7 +13,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard for cost game.\n\
     ",
     "rule_title": "아디컵 룰북",
-    "rule_version": "v.0.1.7",
+    "rule_version": "v.0.1.8",
 
     "rule_type": "cost",
 
