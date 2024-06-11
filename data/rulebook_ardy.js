@@ -13,7 +13,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard for cost game.\n\
     ",
     "rule_title": "아디컵 룰북",
-    "rule_version": "v.0.1.8",
+    "rule_version": "v.0.1.9.1",
 
     "rule_type": "cost",
 
@@ -79,6 +79,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "established": true,
             "selectable": true,
     
+            "cost_amount": 32,
             "": ""
         },
         {
@@ -88,15 +89,15 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "established": true,
             "selectable": true,
     
-            "cost_amount": 35,
+            "cost_amount": 36,
             "": ""
         },
         {
             "name": "프로 (테스트)",
             "name_full": "Pro(Test)",
             "score_range": "35-54",
-            "established": true,
-            "selectable": true,
+            "established": false,
+            "selectable": false,
             "sequence": [
                 { "side": "red", "pick": 'ban', "amount": "1" },
                 { "side": "blue", "pick": 'ban', "amount": "2" },
@@ -155,7 +156,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "reserved"
             ],
                 
-            "cost_amount": 45,
+            "cost_amount": 46,
             "": ""
         },
     ],
@@ -190,7 +191,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "shogun":      [3, 4, 7, 8, 8, 8, 8],
         "yae":         [2, 3, 4, 5, 6, 7, 9],
         "cyno":        [1, 1, 2, 2, 2, 2, 4],
-        "clorinde":    [3, 4, 6, 7, 8, 9, 11],
+        "clorinde":    [2, 5, 7, 9, 10, 10, 12],
 
         "jean":        [1, 1, 2, 2, 3, 3, 3],
         "venti":       [3, 3, 3, 3, 3, 3, 4],
