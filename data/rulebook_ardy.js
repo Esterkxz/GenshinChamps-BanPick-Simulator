@@ -13,7 +13,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard for cost game.\n\
     ",
     "rule_title": "아디컵 룰북",
-    "rule_version": "v.0.1.9.1",
+    "rule_version": "v.0.1.9.2",
 
     "rule_type": "cost",
 
@@ -188,7 +188,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "wriothesley": [2, 4, 5, 6, 7, 8, 10],
 
         "keqing":      [2, 2, 2, 2, 2, 2, 3],
-        "shogun":      [3, 4, 7, 8, 8, 8, 8],
+        "shogun":      [3, 4, 6, 7, 7, 7, 7],
         "yae":         [2, 3, 4, 5, 6, 7, 9],
         "cyno":        [1, 1, 2, 2, 2, 2, 4],
         "clorinde":    [2, 5, 7, 9, 10, 10, 12],
