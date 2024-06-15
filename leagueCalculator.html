@@ -657,7 +657,9 @@ let parsePasted = function(text) {
 
                 let list = data.list;
                 for (var i=0; i<list.length; i++) {
-                    let cons = list[i];
+                    var cons = list[i];
+                    if (cons > 6) cons = 6;
+                    else if (cons < 0) cons = null;
                     let id = charactersInfo.list[i].id;
                     if (id != null) data[id] = cons;
                 }
@@ -681,7 +683,9 @@ let parsePasted = function(text) {
                 continue;
             }
 
-            let consI = parseInt(data[i]);
+            var consI = parseInt(cons);
+            if (consI > 6) consI = 6;
+            else if (consI < 0) consI = null;
             let cid = "c_" + i;
 
             let constell = document.querySelector('input.char_constells[data-cid="' + cid + '"]')

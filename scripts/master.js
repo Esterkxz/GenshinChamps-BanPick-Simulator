@@ -3088,7 +3088,9 @@ let sideMaster = {
 
                     let list = data.list;
                     for (var i=0; i<list.length; i++) {
-                        let cons = list[i];
+                        var cons = list[i];
+                        if (cons > 6) cons = 6;
+                        else if (cons < 0) cons = null;
                         let id = charactersInfo.list[i].id;
                         if (id != null) data[id] = cons;
                     }
