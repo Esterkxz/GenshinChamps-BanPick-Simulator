@@ -433,10 +433,12 @@ let sequenceMaster = {
             } else {
                 controllerMaster.showRandomButton();
             }
+            controllerMaster.globalBanPickerButton.hide();
         } else {
             rulesMaster.releaseAlterSelector();
             localeMaster.releaseLanguageSelector();
             controllerMaster.hideRandomButton();
+            controllerMaster.globalBanPickerButton.show();
         }
         this.releaseMainButton(step);
         checkOnChangedSide();
@@ -470,7 +472,10 @@ let sequenceMaster = {
             return;
         }
         if (item != null && item.attr(poolMaster.banned) != "") return;
-        if (step < 0) {
+        if (step == -2) {
+            globalBanMaster.onPicked(id);
+            return;
+        } else if (step < 0) {
             this.setSequenceTitle(lang.text.readyForStart, 3000);
             return;
         } else if (step == rules.sequence.length) {
@@ -1227,7 +1232,7 @@ let sequenceMaster = {
     randomPick: function() {
         let seq = rules.sequence[step];
 
-        if (seq != null) switch (seq.pick) {
+        if (seq != null || step === -2) switch (step === -2 ? "entry" : seq.pick) {
             case "ban":
             case "entry":
             case "proffer":
@@ -1362,11 +1367,14 @@ let poolMaster = {
     cost1: "#cost1",
     cost0: "#cost0",
 
+
     each_cost_pool_area: "div.each_cost_pool_area",
+    global_banned_area: ".global_banned",
     each_cost_pool: "ul.each_cost_pool",
     character: "li.character",
 
     id: "data-id",
+    class: "data-class",
     treveler: "data-treveler",
     rarity: "data-rarity",
     name: "data-name",
@@ -1379,8 +1387,10 @@ let poolMaster = {
     banned: "data-banned",
     banned_by_card: "data-banned-by-card",
     ban_card: "data-ban-card",
+    cost: "data-cost",
     view: "data-view",
     cursor: "data-cursor",
+    except: "data-except",
 
     unallowed_pool: "ul#unallowed_pool",
 
@@ -1432,6 +1442,7 @@ let poolMaster = {
     cost2Area: null,
     cost1Area: null,
     cost0Area: null,
+    globalBannedArea: null,
     eachCostPool: null,
     cost6Pool: null,
     cost5Pool: null,
@@ -1440,6 +1451,7 @@ let poolMaster = {
     cost2Pool: null,
     cost1Pool: null,
     cost0Pool: null,
+    globalBannedPool: null,
 
     eachCharacters: null,
 
@@ -1517,7 +1529,7 @@ let poolMaster = {
         this.pool2Area = this.poolCostArea.filter(this.cost2);
         this.pool1Area = this.poolCostArea.filter(this.cost1);
         this.pool0Area = this.poolCostArea.filter(this.cost0);
-        this.eachPoolCostPoolArea = this.poolCostArea.find(this.each_cost_pool_area);
+        this.eachPoolCostPoolArea = this.costPool.find(this.each_cost_pool_area);
         this.cost6Area = this.pool6Area.find(this.each_cost_pool_area);
         this.cost5Area = this.pool5Area.find(this.each_cost_pool_area);
         this.cost4Area = this.pool4Area.find(this.each_cost_pool_area);
@@ -1525,6 +1537,7 @@ let poolMaster = {
         this.cost2Area = this.pool2Area.find(this.each_cost_pool_area);
         this.cost1Area = this.pool1Area.find(this.each_cost_pool_area);
         this.cost0Area = this.pool0Area.find(this.each_cost_pool_area);
+        this.globalBannedArea = this.eachPoolCostPoolArea.filter(this.global_banned_area);
         this.eachCostPool = this.eachPoolCostPoolArea.find(this.each_cost_pool);
         this.cost6Pool = this.cost6Area.find(this.each_cost_pool);
         this.cost5Pool = this.cost5Area.find(this.each_cost_pool);
@@ -1533,6 +1546,7 @@ let poolMaster = {
         this.cost2Pool = this.cost2Area.find(this.each_cost_pool);
         this.cost1Pool = this.cost1Area.find(this.each_cost_pool);
         this.cost0Pool = this.cost0Area.find(this.each_cost_pool);
+        this.globalBannedPool = this.globalBannedArea.find(this.each_cost_pool);
 
         this.underplacer = $(this.underplacer);
 
@@ -1676,12 +1690,12 @@ let poolMaster = {
 
         let alters = rules.rule_alter;
         let pool = this.simpleBanCardPool;
-        let isOnGlobalBanned = rules.global_banned != null && Object.keys(rules.global_banned).length > 0;
+        let isOnGlobalBanned = rules.global_banned != null;// && Object.keys(rules.global_banned).length > 0;
         let areas = alters.length + (isOnGlobalBanned ? 1 : 0);
         for (var i=0; i <= areas; i++) {
             let alt = alters[i];
 
-            let isGlobalBannedArea = isOnGlobalBanned  && i == areas;
+            let isGlobalBannedArea = isOnGlobalBanned && i == areas;
             let banCardGradeArea = document.createElement("div");
             banCardGradeArea.setAttribute("class", this.ban_card_grade_area + (isGlobalBannedArea ? " " + this.global_banned : ""));
             if (isGlobalBannedArea) banCardGradeArea.setAttribute("data-area-title", "GLOBAL BAN");
@@ -1929,7 +1943,9 @@ let poolMaster = {
                 if (cost > 4) cost = 4;
     
                 self.pool[id] = true;
-                pool[cost].append(self.buildCharacterItem(info));
+                if (id == "treveler") {
+                    pool[cost].append(self.buildCharacterItem(info, null, info.alter == "F" ? "0" : "1"));
+                } else pool[cost].append(self.buildCharacterItem(info));
             });
         } else {
             this.table = costTable;
@@ -2026,7 +2042,9 @@ let poolMaster = {
         let img = this.buildCharacterIcon(info, resType);
         if (info != null) {
             item.setAttribute(this.id, info.id);
+            item.setAttribute(this.class, info.class);
             item.setAttribute(this.rarity, info.rarity);
+            item.setAttribute(this.cost, this.getCost(info.id));
             try {
                 item.setAttribute(this.name, info.name[loca]);
                 //item.setAttribute("title", info.name[loca]);
@@ -2224,19 +2242,34 @@ let poolMaster = {
     },
 
     setCursorCharacter: function(item) {
+        if (item == null) return;
         this.clearCursorOnPool();
 
         let seq = rules.sequence[step];
-        if (seq == null) return;
+        if (seq == null && step !== -2) return;
 
-        let pick = seq.pick
-        let side = seq.side;
-        item = $(item);
-        let isProfferPick = pick == "proffer";
-        let isEntryPick = pick == "entry" || isProfferPick;
-        let counterSide = side == "red" ? "blue" : "red";
-        let pickingSide = isProfferPick ? counterSide : seq.side
-        let picked = item.attr(this.picked + "-" + pickingSide);//item.attr(this.picked);
+        var pick;
+        var side;
+        var picked;
+        var isProfferPick;
+        var isEntryPick;
+        if (step === -2) {
+            pick = "entry";
+            side = "red";
+            item = $(item);
+            picked = item.attr(this.picked);
+            isProfferPick = false;
+            isEntryPick = true;
+        } else {
+            pick = seq.pick
+            side = seq.side;
+            item = $(item);
+            isProfferPick = pick == "proffer";
+            isEntryPick = pick == "entry" || isProfferPick;
+            let counterSide = side == "red" ? "blue" : "red";
+            let pickingSide = isProfferPick ? counterSide : seq.side
+            picked = item.attr(this.picked + "-" + pickingSide);//item.attr(this.picked);
+        }
         let isPicked = picked != null && picked != "";
         let isBanned = item.attr(this.banned);
 
@@ -2279,9 +2312,9 @@ let poolMaster = {
     },
 
     randomCursorRoller: function() {
-        let seq = rules.sequence[step];
-        let side = seq.type == "proffer" ? (seq.side == "red" ? "blue" : "red") : seq.side;
-        let items = poolMaster.eachCharacters.filter('[' + poolMaster.picked + '=""]:not([' + poolMaster.cursor + '="1"])');
+        //let seq = rules.sequence[step];
+        //let side = seq.type == "proffer" ? (seq.side == "red" ? "blue" : "red") : seq.side;
+        let items = poolMaster.eachCharacters.filter('[' + poolMaster.picked + '=""]:not([' + poolMaster.cursor + '="1"]):not([' + poolMaster.except + '="1"])');
         //let items = poolMaster.eachCharacters.filter('[' + poolMaster.banned + '=""][' + poolMaster.picked + '-' + side + '=""]:not([' + poolMaster.cursor + '="1"])');
 
         let next = Math.floor(Math.random() * items.length);
@@ -6743,6 +6776,512 @@ let playerInfoMaster = {
 }
 
 
+//global ban manager
+let globalBanMaster = {
+
+    global_ban_manager: "div#global_ban_manager",
+
+    previous_global_banned: "div#previous_global_banned",
+
+    clear_list_gb: "button#clear_list_gb",
+    previous_gb: "div#previous_gb",
+    list_previous_gb: "ul#list_previous_gb",
+
+    global_ban_selection: "div#global_ban_selection",
+
+    picked_for_gb: "div#picked_for_gb",
+    entry_picked_for_gb: "ul#entry_picked_for_gb",
+
+    filter_for_cp: "ul.filter_for_cp",
+    gbcp_filter_category: "#gbcp_filter_category",
+    gbcp_filter_cost: "#gbcp_filter_cost",
+    gbcp_filter_previous: "#gbcp_filter_previous",
+
+
+    selected: "data-selected",
+    all: "data-all",
+    include_treveler: "data-include-treveler",
+    previous: "data-previous",
+
+
+    globalBanManager: null,
+    
+    previousGlobalBanned: null,
+
+    clearListGB: null,
+    previousGB: null,
+    listPreviousGB: null,
+
+    globalBanSelection: null,
+
+    pickedForGB: null,
+    entryPickedForGB: null,
+
+    filterForCP: null,
+    gbcpFilterCategory: null,
+    gbcpFilterCost: null,
+
+    cateAll: null,
+    cateItems: null,
+    costAll: null,
+    costItems: null,
+    extraAll: null,
+    extraItems: null,
+
+
+    previousList: [],
+
+    init: function() {
+
+        this.globalBanManager = $(this.global_ban_manager);
+
+        this.previousGlobalBanned = this.globalBanManager.find(this.previous_global_banned);
+
+        this.clearListGB = this.previousGlobalBanned.find(this.clear_list_gb);
+        this.previousGB = this.previousGlobalBanned.find(this.previous_gb);
+        this.listPreviousGB = this.previousGB.find(this.list_previous_gb);
+
+        this.globalBanSelection = this.globalBanManager.find(this.global_ban_selection);
+
+        this.pickedForGB = this.globalBanSelection.find(this.picked_for_gb);
+        this.entryPickedForGB = this.pickedForGB.find(this.entry_picked_for_gb);
+
+        this.filterForCP = this.globalBanSelection.find(this.filter_for_cp);
+        this.gbcpFilterCategory = this.filterForCP.filter(this.gbcp_filter_category);
+        this.gbcpFilterCost = this.filterForCP.filter(this.gbcp_filter_cost);
+        this.gbcpFilterPrevious = this.filterForCP.filter(this.gbcp_filter_previous);
+
+        
+        this.cateAll = this.gbcpFilterCategory.find("> li[" + this.all + "='1']");
+        this.cateItems = this.gbcpFilterCategory.find("> li:not([" + this.all + "='1'])");
+        this.costAll = this.gbcpFilterCost.find("> li[" + this.all + "='1']");
+        this.costItems = this.gbcpFilterCost.find("> li:not([" + this.all + "='1'])");
+        this.extraAll = this.gbcpFilterPrevious.find("> li[" + this.all + "='1']");
+        this.extraItems = this.gbcpFilterPrevious.find("> li:not([" + this.all + "='1'])");
+
+
+        this.loadGlobalBannedStore();
+        this.loadPreviousGlobalBannedStore();
+
+        this.takeGlobalBanned();
+
+        this.clearListGB.click(this.onClickClear);
+
+        this.cateAll.click(this.filterCategoryForAll);
+        this.costAll.click(this.filterCostForAll);
+        this.extraAll.click(this.filterExtraForAll);
+        this.cateItems.click(this.filterOnClick);
+        this.costItems.click(this.filterOnClick);
+        this.extraItems.click(this.filterOnClick);
+    },
+
+    bringGlobalBanPanel: function() {
+        rulesMaster.ruleAlter.prop("disable", true);
+        controllerMaster.globalBanPickerButton.hide();
+        controllerMaster.randomPickButton.show();
+        controllerMaster.togglePlayerInfoButton.hide();
+        controllerMaster.discardPickGlobalBanButton.show();
+        controllerMaster.mainActionButton.text("APPLY");
+        controllerMaster.mainActionButton.attr("title", "현재 선택한 후보 캐릭터를 글로벌 밴으로 적용합니다");
+        controllerMaster.subActionButton.attr("title", "마지막 선택한 캐릭터를 글로벌 밴 후보에서 제외합니다");
+        controllerMaster.buttonReset.attr("title", "현재 선택된 글로벌 밴 목록을 비웁니다");
+        playerInfoMaster.hidePlayerInfoLayer();
+        this.globalBanManager.fadeIn(320);
+
+        this.initFilter();
+        this.initPicked();
+
+        step = -2;
+    },
+
+    discardGlobalBanPanel: function() {
+        this.clearPicked();
+
+        this.closeGlobalBanPanel();
+    },
+
+    applyGlobalBanPicked: function() {
+        this.saveGlobalBannedStore();
+
+        this.closeGlobalBanPanel();
+
+        poolMaster.initPickPool();
+        this.takeGlobalBanned();
+    },
+
+    closeGlobalBanPanel: function() {
+        step = -1;
+
+        this.clearFilter();
+
+        let text = lang.text;
+        this.globalBanManager.fadeOut(320);
+        playerInfoMaster.showPlayerInfoLayer();
+        controllerMaster.buttonReset.attr("title", text.btnResetDesc);
+        controllerMaster.subActionButton.attr("title", text.btnUndoDesc);
+        controllerMaster.mainActionButton.attr("title", text.btnMainDesc);
+        controllerMaster.mainActionButton.text(text.btnStart);
+        controllerMaster.discardPickGlobalBanButton.hide();
+        controllerMaster.togglePlayerInfoButton.show();
+        controllerMaster.randomPickButton.hide();
+        controllerMaster.globalBanPickerButton.show();
+        rulesMaster.ruleAlter.prop("disable", false);
+    },
+
+    takeGlobalBanned: function() {
+        let pool;
+        switch(rules.rule_type) {
+            case "ban card":
+                pool = poolMaster.eachGradeArea.filter(poolMaster.global_banned_area).find("ul." + poolMaster.each_grade_pool);
+                break;
+
+            case "cost":
+                pool = poolMaster.globalBannedPool;
+                break;
+        } 
+
+        if (pool != null && rules.global_banned != null && Object.keys(rules.global_banned).length > 0) {
+            for (id in rules.global_banned) {
+
+                let item = poolMaster.eachCharacters.filter("[" + poolMaster.id + "='" + id + "']");
+                item.remove();
+                pool.append(item);
+            }
+            pool.parent().show();
+        } else {
+            pool.parent().hide();
+        }
+    },
+
+    //store
+    loadGlobalBannedStore: function() {
+        let data = settingsMaster.getGlobalString(settingsMaster.GLOBAL_BANNED, "[]");
+
+        var list;
+        try {
+            list = JSON.parse(data);
+        } catch (e) {
+            list = [];
+        }
+
+        this.pushGlobalBanList(list);
+    },
+
+    saveGlobalBannedStore: function() {
+        let picked = this.entryPickedForGB.find("> li");
+
+        let list = [];
+        for (var i=0; i<picked.length; i++) {
+            let item = $(picked[i]);
+            let id = item.attr("data-id");
+
+            list.push(id);
+        }
+
+        this.emptyGlobalBanList();
+        this.pushGlobalBanList(list);
+        settingsMaster.putGlobalString(settingsMaster.GLOBAL_BANNED, JSON.stringify(list));
+        this.savePreviousGlobalBannedStore(list);
+    },
+
+    loadPreviousGlobalBannedStore: function() {
+        let data = settingsMaster.getGlobalString(settingsMaster.PREVIOUS_GLOBAL_BANNED, "[]");
+
+        var list;
+        try {
+            list = JSON.parse(data);
+        } catch (e) {
+            list = [];
+        }
+        this.previousList = list;
+
+        this.listPreviousGB.empty();
+
+        if (list.length > 0) {
+            for (i in list) {
+                let item = list[i];
+
+                this.listPreviousGB.prepend(this.buildPreviousBannedSet(item));
+            }
+        } else {
+            let span = document.createElement("span");
+            span.innerText = "list is empty";
+            this.listPreviousGB.append(span);
+        }
+        this.listPreviousGB.find("> li > button").click(this.onClickErase);
+    },
+
+    savePreviousGlobalBannedStore: function(picked) {
+        list = this.previousList;
+
+        if (picked != null) {
+            let now = new Date();
+            let date = now.getFullYear() + "-" + (now.getMonth() + 1).toString().padStart(2, "0") + "-" + now.getDate().toString().padStart(2, "0");
+            let time = now.getHours() + ":" + now.getMinutes().toString().padStart(2, "0") + ":" + now.getSeconds().toString().padStart(2, "0");
+            let set = { id: now.getTime(), date: date, time: time, list: picked };
+            list.push(set);
+
+            this.listPreviousGB.prepend(this.buildPreviousBannedSet(set));
+            this.listPreviousGB.find("> span").remove();
+            this.listPreviousGB.find("> li > button").off("click").click(this.onClickErase);
+        }
+
+        let json = JSON.stringify(list);
+        settingsMaster.putGlobalString(settingsMaster.PREVIOUS_GLOBAL_BANNED, json);
+    },
+
+    emptyGlobalBanList: function() {
+        rules.global_banned = [];
+    },
+
+    pushGlobalBanList: function(list) {
+        for (id of list) {
+            rules.global_banned[id] = true;
+        }
+    },
+
+    buildPreviousBannedSet: function(set) {
+        let li = document.createElement("li");
+        li.setAttribute("data-id", set.id);
+        li.setAttribute("data-date", set.date);
+        li.setAttribute("title", set.time);
+        let ul = document.createElement("ul");
+        ul.setAttribute("class", "each_pool_block");
+        if (set.list.length > 0) {
+            for (i in set.list) {
+                let id = set.list[i];
+                let info = charactersInfo.list[charactersInfo[id]];
+
+                ul.append(poolMaster.buildCharacterItem(info, false, id == "treveler" ? "0" : null, "vcut"));
+            }
+        } else {
+            let span = document.createElement("span");
+            span.innerText = "empty";
+            ul.append(span);
+        }
+        li.append(ul);
+        let button = document.createElement("button");
+        button.innerText = "ERASE";
+        li.append(button);
+        return li;
+    },
+
+    //previous list
+    onClickClear: function(e) {
+        globalBanMaster.clearPreviousList();
+    },
+
+    clearPreviousList: function() {
+        if (confirm("기존 글로벌 밴 기록 전체를 지웁니다. 진행할까요?")) {
+            settingsMaster.putGlobalString(settingsMaster.PREVIOUS_GLOBAL_BANNED, "[]");
+            this.loadPreviousGlobalBannedStore();
+            this.applyFilter();
+        }
+    },
+
+    onClickErase: function(e) {
+        globalBanMaster.erasePreviousList($(e.target).parent());
+    },
+
+    erasePreviousList: function(item) {
+        if (confirm("해당 기록을 지웁니다. 진행할까요?")) {
+            let id = item.attr("data-id");
+
+            if (id != null && id != "") for (i in this.previousList) {
+                let set = this.previousList[i];
+                if (set.id == id) {
+                    this.previousList.splice(i, 1);
+                    this.savePreviousGlobalBannedStore();
+                    break;
+                }
+            }
+
+            item.remove();
+            this.applyFilter();
+        }
+    },
+
+    //pick
+    initPicked: function() {
+        this.entryPickedForGB.empty();
+
+        for (id in rules.global_banned) {
+            this.appendPicked(id);
+        }
+        this.entryPickedForGB.find("> li").click(this.onClickPicked);
+    },
+
+    onPicked: function(id) {
+        this.appendPicked(id);
+    },
+
+    appendPicked: function(id) {
+        let info = charactersInfo.list[charactersInfo[id]];
+
+        this.entryPickedForGB.append(poolMaster.buildCharacterItem(info, false, id == "treveler" ? "0" : null, "vcut"));
+
+        let item = poolMaster.eachCharacters.filter("[" + poolMaster.id + "='" + id + "']");
+        item.attr(poolMaster.pick_type, "entry");
+        item.attr(poolMaster.picked, "1");
+        setTimeout(function() {
+            item.attr(poolMaster.picked, "2");
+        }, 600);
+    },
+
+    onClickPicked: function(e) {
+        globalBanMaster.excludePicked($(e.target));
+    },
+
+    excludePicked: function(item) {
+        if (item == null) {
+            let list = this.entryPickedForGB.find("> li");
+            item = list.last();
+        } else if (!(item instanceof jQuery)) item = $(item);
+
+        let id = item.attr("data-id");
+        item.remove();
+
+        item = poolMaster.eachCharacters.filter("[" + poolMaster.id + "='" + id + "']");
+        item.attr(poolMaster.pick_type, "");
+        item.attr(poolMaster.picked, "");
+    },
+
+    clearPicked: function() {
+        let list = this.entryPickedForGB.find("> li");
+
+        for (item of list) this.excludePicked(item);
+    },
+
+    //character pool filter
+    initFilter: function() {
+        if (this.cateAll.attr(this.selected) == "1") this.filterCategoryForAll(true);
+        if (this.costAll.attr(this.selected) == "1") this.filterCostForAll(true);
+
+        this.applyFilter();
+    },
+
+    filterCategoryForAll: function(init) {
+        if (typeof init == "object") {
+            globalBanMaster.filterCategoryForAll();
+            return;
+        }
+
+        var isAll = true;
+        for(var i=0; i<this.cateItems.length; i++) {
+            if ($(this.cateItems[i]).attr(this.selected) !== "1") {
+                isAll = false;
+                break;
+            }
+        }
+
+        this.cateAll.attr(this.selected, "");
+        this.cateItems.attr(this.selected, isAll ? "" : "1");
+
+        if (!init) this.applyFilter();
+    },
+
+    filterCostForAll: function(init) {
+        if (typeof init == "object") {
+            globalBanMaster.filterCostForAll();
+            return;
+        }
+
+        var isAll = true;
+        for(var i=0; i<this.costItems.length; i++) {
+            if ($(this.costItems[i]).attr(this.selected) !== "1") {
+                isAll = false;
+                break;
+            }
+        }
+
+        this.costAll.attr(this.selected, "");
+        this.costItems.attr(this.selected, isAll ? "" : "1");
+
+        if (!init) this.applyFilter();
+    },
+
+    filterExtraForAll: function(init) {
+        if (typeof init == "object") {
+            globalBanMaster.filterExtraForAll();
+            return;
+        }
+
+        var isAll = true;
+        for(var i=0; i<this.extraItems.length; i++) {
+            if ($(this.extraItems[i]).attr(this.selected) !== "1") {
+                isAll = false;
+                break;
+            }
+        }
+
+        this.extraAll.attr(this.selected, "");
+        this.extraItems.attr(this.selected, isAll ? "" : "1");
+
+        if (!init) this.applyFilter();
+    },
+
+    filterOnClick: function(e) {
+        globalBanMaster.toggleFilter($(e.target));
+    },
+
+    toggleFilter(item) {
+        let current = item.attr(this.selected);
+        item.attr(this.selected, current === "1" ? "" : "1");
+
+        this.applyFilter();
+    },
+
+    applyFilter: function() {
+        this.clearFilter();
+
+        let pool = poolMaster.eachCharacters;
+        let cateExcept = this.cateItems.filter(":not([" + this.selected + "='1'])");
+        for (var i=0; i<cateExcept.length; i++) {
+            let item = $(cateExcept[i]);
+            let rarity = item.attr(poolMaster.rarity);
+            let classB = item.attr(poolMaster.class);
+            let incTrev = item.attr(this.include_treveler);
+
+            var filter = "";
+            if (rarity != null && rarity != "") filter += "[" + poolMaster.rarity + "='" + rarity + "']";
+            if (classB != null && classB != "") filter += "[" + poolMaster.class + "='" + classB + "']";
+            if (incTrev === "true") filter += "[" + poolMaster.id + "='treveler']";
+            else if (incTrev === "false") filter += ":not([" + poolMaster.id + "='treveler'])";
+
+            pool.filter(filter).attr(poolMaster.except, "1");
+        }
+        let costExcept = this.costItems.filter(":not([" + this.selected + "='1'])");
+        for (var i=0; i<costExcept.length; i++) {
+            let item = $(costExcept[i]);
+            let cost = item.attr(poolMaster.cost);
+
+            let filter = "[" + poolMaster.cost + "='" + cost + "']";
+
+            pool.filter(filter).attr(poolMaster.except, "1");
+        }
+        let extraExcept = this.extraItems.filter(":not([" + this.selected + "='1'])");
+        for (var i=0; i<extraExcept.length; i++) {
+            let item = $(extraExcept[i]);
+            let previous = item.attr(this.previous);
+
+            for (set of this.previousList) {
+                for (id of set.list) {
+                    pool.filter("[" + poolMaster.id + "='" + id + "']").attr(poolMaster.except, "1");
+                }
+            }
+        }
+
+        pool.filter("[" + poolMaster.treveler + "='1']").attr(poolMaster.except, "1");
+    },
+
+    clearFilter: function() {
+        poolMaster.eachCharacters.attr(poolMaster.except, "");
+    },
+
+    eoo
+}
+
+
 //search handle
 let searchMaster = {
 
@@ -7361,6 +7900,8 @@ let controllerMaster = {
     use_remocon: "button#use_remocon",
     toggle_player_info: "button#toggle_player_info",
     random_picker: "button#random_picker",
+    discard_pick_global_ban: "button#discard_pick_global_ban",
+    global_ban_picker: "button#global_ban_picker",
 
     extra_action: "div#extra_action",
     settings: "button#settings",
@@ -7379,6 +7920,8 @@ let controllerMaster = {
     remoconCallerButton: null,
     togglePlayerInfoButton: null,
     randomPickButton: null,
+    discardPickGlobalBanButton: null,
+    globalBanPickerButton: null,
 
     extraActions: null,
     buttonSettings: null,
@@ -7408,6 +7951,8 @@ let controllerMaster = {
         this.remoconCallerButton = this.mainController.find(this.use_remocon);
         this.togglePlayerInfoButton = this.mainController.find(this.toggle_player_info);
         this.randomPickButton = this.mainController.find(this.random_picker);
+        this.discardPickGlobalBanButton = this.mainController.find(this.discard_pick_global_ban);
+        this.globalBanPickerButton = this.mainController.find(this.global_ban_picker);
 
         this.toolInfos = this.mainController.find(this.tool_infos);
         this.popupCredits = this.toolInfos.find(this.popup_credits);
@@ -7425,6 +7970,8 @@ let controllerMaster = {
         this.randomPickButton.contextmenu(this.randomButtonRight);
         this.randomPickButton.mouseenter(this.randomButtonHover);
         this.randomPickButton.mouseleave(this.randomButtonHoverOut);
+        this.discardPickGlobalBanButton.click(this.discardGlobalBanButton);
+        this.globalBanPickerButton.click(this.globalBanButton);
         this.buttonSettings.click(this.settingsButton);
         this.buttonSettings.contextmenu(this.settingsButtonRight);
         this.buttonReset.click(this.resetButton);
@@ -7452,6 +7999,10 @@ let controllerMaster = {
 
     mainButton: function(e) {
         switch(step) {
+            case -2:
+                globalBanMaster.applyGlobalBanPicked();
+                break;
+    
             case -1:
                 sequenceMaster.startPick();
                 break;
@@ -7471,7 +8022,10 @@ let controllerMaster = {
     mainButtonRight: function(e) {
         let master = controllerMaster;
 
-        if (step < rules.sequence.length) {
+        if (step < -1) {
+            //do nothing
+            return false;
+        } if (step < rules.sequence.length) {
             e.preventDefault();
 
             if (master.triggerCount < master.triggerExceed) {
@@ -7503,7 +8057,9 @@ let controllerMaster = {
     randomButtonRight: function(e) {
         e.preventDefault();
 
-        if (sequenceMaster.rollingRandomPicks === true) {
+        if (step === -2) {
+            //do nothing
+        } else if (sequenceMaster.rollingRandomPicks === true) {
             sequenceMaster.rollingRandomPicks = false;
             poolMaster.stopRollRandomCursor();
         } else sequenceMaster.autoRandomPick();
@@ -7520,11 +8076,11 @@ let controllerMaster = {
     },
 
     showRandomButton: function() {
-        this.randomPickButton.fadeIn(200);
+        this.randomPickButton.show();//fadeIn(200);
     },
 
     hideRandomButton: function() {
-        this.randomPickButton.fadeOut(200);
+        this.randomPickButton.hide();//fadeOut(200);
     },
 
     onRollingRandomPick: function() {
@@ -7534,13 +8090,23 @@ let controllerMaster = {
     nonRollingRandomPick: function() {
         controllerMaster.randomPickButton.text("?");
     },
+
+    discardGlobalBanButton: function() {
+        globalBanMaster.discardGlobalBanPanel();
+    },
+
+    globalBanButton: function() {
+        globalBanMaster.bringGlobalBanPanel();
+    },
     
     subButton: function(e) {
-        undoStep();
+        if (step == -2) globalBanMaster.excludePicked();
+        else undoStep();
     },
     
     resetButton: function(e) {
-        initializeStep();
+        if (step == -2) globalBanMaster.clearPicked();
+        else initializeStep();
     },
     
     settingsButton: function(e) {
@@ -9305,6 +9871,9 @@ let settingsMaster = {
     TOTAL_STATE_LATEST: "total_state_latest",
     TOTAL_STATE_PREVIOUS: "total_state_previous",
 
+    GLOBAL_BANNED: "global_banned",
+    PREVIOUS_GLOBAL_BANNED: "previous_global_banned",
+
     SE_VOLUME: "sevolume",
     DARK_MODE: "darkmode",
     DROP_SNOW: "dropsnow",
@@ -9514,6 +10083,9 @@ $(document).ready(function() {
 
     //each side player board & ban pick board
     sideMaster.init();
+
+    //global ban manager panel
+    globalBanMaster.init();
 
     //player info operation control panel
     playerInfoMaster.init();

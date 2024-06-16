@@ -877,6 +877,13 @@ function getPathA(id, group = "", type = "sounds") {
                                 </ul>
                             </div>
                         </div>
+                        <div id="globalBanned" class="each_cost_pool_area global_banned" data-area-title="GLOBAL BAN">
+                            <ul class="each_pool_block each_cost_pool">
+                                <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                                <li class="character" data-id="treveler" data-rarity="5" data-name="여행자" title="여행자"><img src="./images/character_iconic/UI_AvatarIcon_PlayerGirl.png"></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div id="underplacer" class="position_base underplace">
@@ -1304,18 +1311,89 @@ function getPathA(id, group = "", type = "sounds") {
                         </div>
                     </div>
                 </div>
+                <div id="global_ban_manager" style="display: none; ">
+                    <div id="previous_global_banned">
+                        <label>Previous Global Banned</label>
+                        <button id="clear_list_gb">CLEAR</button>
+                        <div id="previous_gb" class="pick_pool" data-char-visual-res-type="vcut">
+                            <ul id="list_previous_gb">
+                                <li data-date="2024-06-15">
+                                    <ul class="each_pool_block">
+                                        <li class="character" data-id="treveler" data-rarity="5" data-name="여행자"><div class="character_back"></div><div class="character_holder"><div class="character_vcut" style="--src: url('../images/character_vertical/sucrose_043_gacha_card.webp'); --pos-v-basic: 25%; --pos-v-hover: 30%;"></div></div><img class="element_icon" src="./images/elemental_iconic/UI_Buff_Element_Wind.df5c5ebb.png"><span class="name_tag" style="--scaleW: 1; --scaleHW: 1;"><span class="name text_only">여행자</span></span></li>
+                                        <li class="character" data-id="neuvillette" data-rarity="5" data-name="느비예트"><div class="character_back"></div><div class="character_holder"><div class="character_vcut" style="--src: url('../images/character_vertical/sucrose_043_gacha_card.webp'); --pos-v-basic: 25%; --pos-v-hover: 30%;"></div></div><img class="element_icon" src="./images/elemental_iconic/UI_Buff_Element_Wind.df5c5ebb.png"><span class="name_tag" style="--scaleW: 1; --scaleHW: 1;"><span class="name text_only">여행자</span></span></li>
+                                        <li class="character" data-id="arlecchino" data-rarity="5" data-name="아를레키노"><div class="character_back"></div><div class="character_holder"><div class="character_vcut" style="--src: url('../images/character_vertical/sucrose_043_gacha_card.webp'); --pos-v-basic: 25%; --pos-v-hover: 30%;"></div></div><img class="element_icon" src="./images/elemental_iconic/UI_Buff_Element_Wind.df5c5ebb.png"><span class="name_tag" style="--scaleW: 1; --scaleHW: 1;"><span class="name text_only">여행자</span></span></li>
+                                    </ul>
+                                    <button>ERASE</button>
+                                </li>
+                                <li data-date="2024-06-13">
+                                    <ul class="each_pool_block">
+                                        <li class="character" data-id="kazuha" data-rarity="5" data-name="카즈하"><div class="character_back"></div><div class="character_holder"><div class="character_vcut" style="--src: url('../images/character_vertical/sucrose_043_gacha_card.webp'); --pos-v-basic: 25%; --pos-v-hover: 30%;"></div></div><img class="element_icon" src="./images/elemental_iconic/UI_Buff_Element_Wind.df5c5ebb.png"><span class="name_tag" style="--scaleW: 1; --scaleHW: 1;"><span class="name text_only">여행자</span></span></li>
+                                        <li class="character" data-id="nahida" data-rarity="5" data-name="나히다"><div class="character_back"></div><div class="character_holder"><div class="character_vcut" style="--src: url('../images/character_vertical/sucrose_043_gacha_card.webp'); --pos-v-basic: 25%; --pos-v-hover: 30%;"></div></div><img class="element_icon" src="./images/elemental_iconic/UI_Buff_Element_Wind.df5c5ebb.png"><span class="name_tag" style="--scaleW: 1; --scaleHW: 1;"><span class="name text_only">여행자</span></span></li>
+                                        <li class="character" data-id="furina" data-rarity="5" data-name="푸리나"><div class="character_back"></div><div class="character_holder"><div class="character_vcut" style="--src: url('../images/character_vertical/sucrose_043_gacha_card.webp'); --pos-v-basic: 25%; --pos-v-hover: 30%;"></div></div><img class="element_icon" src="./images/elemental_iconic/UI_Buff_Element_Wind.df5c5ebb.png"><span class="name_tag" style="--scaleW: 1; --scaleHW: 1;"><span class="name text_only">여행자</span></span></li>
+                                        <li class="character" data-id="yelan" data-rarity="5" data-name="야란"><div class="character_back"></div><div class="character_holder"><div class="character_vcut" style="--src: url('../images/character_vertical/sucrose_043_gacha_card.webp'); --pos-v-basic: 25%; --pos-v-hover: 30%;"></div></div><img class="element_icon" src="./images/elemental_iconic/UI_Buff_Element_Wind.df5c5ebb.png"><span class="name_tag" style="--scaleW: 1; --scaleHW: 1;"><span class="name text_only">여행자</span></span></li>
+                                    </ul>
+                                    <button>ERASE</button>
+                                </li>
+                                <li data-date="2024-06-05">
+                                    <ul class="each_pool_block">
+                                        <li class="character" data-id="qiqi" data-rarity="5" data-name="치치"><div class="character_back"></div><div class="character_holder"><div class="character_vcut" style="--src: url('../images/character_vertical/sucrose_043_gacha_card.webp'); --pos-v-basic: 25%; --pos-v-hover: 30%;"></div></div><img class="element_icon" src="./images/elemental_iconic/UI_Buff_Element_Wind.df5c5ebb.png"><span class="name_tag" style="--scaleW: 1; --scaleHW: 1;"><span class="name text_only">여행자</span></span></li>
+                                        <li class="character" data-id="aloy" data-rarity="5.1" data-name="에일로이"><div class="character_back"></div><div class="character_holder"><div class="character_vcut" style="--src: url('../images/character_vertical/sucrose_043_gacha_card.webp'); --pos-v-basic: 25%; --pos-v-hover: 30%;"></div></div><img class="element_icon" src="./images/elemental_iconic/UI_Buff_Element_Wind.df5c5ebb.png"><span class="name_tag" style="--scaleW: 1; --scaleHW: 1;"><span class="name text_only">여행자</span></span></li>
+                                        <li class="character" data-id="xinyan" data-rarity="4" data-name="신염"><div class="character_back"></div><div class="character_holder"><div class="character_vcut" style="--src: url('../images/character_vertical/sucrose_043_gacha_card.webp'); --pos-v-basic: 25%; --pos-v-hover: 30%;"></div></div><img class="element_icon" src="./images/elemental_iconic/UI_Buff_Element_Wind.df5c5ebb.png"><span class="name_tag" style="--scaleW: 1; --scaleHW: 1;"><span class="name text_only">여행자</span></span></li>
+                                    </ul>
+                                    <button>ERASE</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="global_ban_selection">
+                        <label>Current picks for new Global Ban</label>
+                        <div id="picked_for_gb" class="pick_pool" data-char-visual-res-type="vcut">
+                            <ul id="entry_picked_for_gb" class="each_pool_block">
+                                <li class="character" data-id="treveler" data-rarity="5" data-name="여행자"><div class="character_back"></div><div class="character_holder"><div class="character_vcut" style="--src: url('../images/character_vertical/sucrose_043_gacha_card.webp'); --pos-v-basic: 25%; --pos-v-hover: 30%;"></div></div><img class="element_icon" src="./images/elemental_iconic/UI_Buff_Element_Wind.df5c5ebb.png"><span class="name_tag" style="--scaleW: 1; --scaleHW: 1;"><span class="name text_only">여행자</span></span></li>
+                                <li class="character" data-id="neuvillette" data-rarity="5" data-name="느비예트"><div class="character_back"></div><div class="character_holder"><div class="character_vcut" style="--src: url('../images/character_vertical/sucrose_043_gacha_card.webp'); --pos-v-basic: 25%; --pos-v-hover: 30%;"></div></div><img class="element_icon" src="./images/elemental_iconic/UI_Buff_Element_Wind.df5c5ebb.png"><span class="name_tag" style="--scaleW: 1; --scaleHW: 1;"><span class="name text_only">여행자</span></span></li>
+                                <li class="character" data-id="arlecchino" data-rarity="5" data-name="아를레키노"><div class="character_back"></div><div class="character_holder"><div class="character_vcut" style="--src: url('../images/character_vertical/sucrose_043_gacha_card.webp'); --pos-v-basic: 25%; --pos-v-hover: 30%;"></div></div><img class="element_icon" src="./images/elemental_iconic/UI_Buff_Element_Wind.df5c5ebb.png"><span class="name_tag" style="--scaleW: 1; --scaleHW: 1;"><span class="name text_only">여행자</span></span></li>
+                            </ul>
+                        </div>
+                        <label>Character pool filter</label>
+                        <ul id="gbcp_filter_category" class="filter_for_cp">
+                            <li title="전체 캐릭터 출력" data-all="1" data-selected="1">전체</li>
+                            <li data-rarity="5" data-class="limited" data-include-treveler="false" title="">5⭐한정</li>
+                            <li data-rarity="5" data-class="ordinary" data-include-treveler="false" title="">5⭐상시</li>
+                            <li data-rarity="4" data-include-treveler="false" title="">4⭐</li>
+                            <li data-class="event" title="">콜라보</li>
+                            <li data-include-treveler="true" title="">여행자</li>
+                        </ul>
+                        <ul id="gbcp_filter_cost" class="filter_for_cp">
+                            <li title="전체 코스트" data-all="1" data-selected="1">전체</li>
+                            <li data-cost="0" title="0 코스트 캐릭터">0코</li>
+                            <li data-cost="1" title="1 코스트 캐릭터">1코</li>
+                            <li data-cost="2" title="2 코스트 캐릭터">2코</li>
+                            <li data-cost="3" title="3 코스트 캐릭터">3코</li>
+                            <li data-cost="4" title="4 코스트 캐릭터">4코</li>
+                            <li data-cost="5" title="5 코스트 캐릭터">5코</li>
+                            <li data-cost="6" title="6 코스트 캐릭터">6코</li>
+                            <li data-cost="7" title="7 코스트 캐릭터">7코</li>
+                        </ul>
+                        <ul id="gbcp_filter_previous" class="filter_for_cp">
+                            <li title="전체 코스트" data-all="1">전체</li>
+                            <li data-previous="1" title="이전에 글로벌 밴 되었던 기록에 있는 캐릭터를 포함시킵니다">이전 글로벌 밴 포함</li>
+                        </ul>
+                    </div>
+                </div>
                 <div id="main_controller" data-hide="0">
                     <div id="main_actions">
                         <div class="side_placer">
                             <div class="left_place">
                                 <button id="use_remocon" class="emoji_button" title="Use remote controller (popup window)" style="display: none; ">🎛️</button>
                                 <button id="toggle_player_info" class="emoji_button" title="Show/hide player info operator control panel">📇</button>
+                                <button id="discard_pick_global_ban" class="emoji_button" title="Discard changes of global ban picker" style="display: none; ">✖️</button>
                             </div>
                         </div>
                         <button id="main_action" title="Progress next thing">START</button>
                         <div class="side_placer">
                             <div class="right_place">
                                 <button id="random_picker" title="Pick one randomly">?</button>
+                                <button id="global_ban_picker" title="Assign characters for global ban">!!</button>
                             </div>
                         </div>
                     </div>

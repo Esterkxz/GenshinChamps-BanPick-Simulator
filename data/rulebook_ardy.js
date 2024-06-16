@@ -264,6 +264,11 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "": []
     },
 
+    "global_banned": {
+        // "neuvillette": true,
+        // "arlecchino": true,
+    },
+
     "characters_override": {
         "comment": "\
 For using alter of characters classification by rule \n\
