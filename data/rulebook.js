@@ -24,6 +24,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
     "base_rule": {
         "league_tail": "LEAGUE",
         "double_pick": null,
+        "apply_dynamic_global_ban": true,
         "sequence": [
             { "side": "red", "pick": 'entry', "amount": "1", "isSuper": true },
             { "side": "blue", "pick": 'entry', "amount": "1", "isSuper": true },

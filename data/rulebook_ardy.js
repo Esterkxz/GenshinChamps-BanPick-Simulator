@@ -24,6 +24,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
     "base_rule": {
         "league_tail": "LEAGUE",
         "double_pick": null,
+        "apply_dynamic_global_ban": true,
         "sequence": [
             { "side": "red", "pick": 'ban', "amount": "1" },
             { "side": "blue", "pick": 'ban', "amount": "1" },
@@ -69,6 +70,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "established": true,
             "selectable": true,
             "over_cost_ratio": 10,
+            "apply_dynamic_global_ban": false,
     
             "": ""
         },
@@ -78,6 +80,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "score_range": "10-19",
             "established": true,
             "selectable": true,
+            "apply_dynamic_global_ban": false,
     
             "cost_amount": 32,
             "": ""

@@ -6887,6 +6887,7 @@ let globalBanMaster = {
         controllerMaster.buttonReset.attr("title", "현재 선택된 글로벌 밴 목록을 비웁니다");
         playerInfoMaster.hidePlayerInfoLayer();
         this.globalBanManager.fadeIn(320);
+        this.getGlobalBanPool().parent().show();
 
         this.initFilter();
         this.initPicked();
@@ -6913,6 +6914,7 @@ let globalBanMaster = {
         step = -1;
 
         this.clearFilter();
+        this.takeGlobalBanned();
 
         let text = lang.text;
         this.globalBanManager.fadeOut(320);
@@ -6929,18 +6931,9 @@ let globalBanMaster = {
     },
 
     takeGlobalBanned: function() {
-        let pool;
-        switch(rules.rule_type) {
-            case "ban card":
-                pool = poolMaster.eachGradeArea.filter(poolMaster.global_banned_area).find("ul." + poolMaster.each_grade_pool);
-                break;
+        let pool = this.getGlobalBanPool();
 
-            case "cost":
-                pool = poolMaster.globalBannedPool;
-                break;
-        } 
-
-        if (pool != null && rules.global_banned != null && Object.keys(rules.global_banned).length > 0) {
+        if (pool != null && rules.global_banned != null && Object.keys(rules.global_banned).length > 0 && rules.apply_dynamic_global_ban) {
             for (id in rules.global_banned) {
 
                 let item = poolMaster.eachCharacters.filter("[" + poolMaster.id + "='" + id + "']");
@@ -6951,6 +6944,18 @@ let globalBanMaster = {
         } else {
             pool.parent().hide();
         }
+    },
+
+    getGlobalBanPool: function() {
+        switch(rules.rule_type) {
+            case "ban card":
+                return poolMaster.eachGradeArea.filter(poolMaster.global_banned_area).find("ul." + poolMaster.each_grade_pool);
+                break;
+
+            case "cost":
+                return poolMaster.globalBannedPool;
+                break;
+        } 
     },
 
     //store
@@ -7731,6 +7736,9 @@ let rulesMaster = {
         sideMaster.initBanEntries();
 
         sideMaster.initBanWeapons();
+
+        poolMaster.initPickPool();
+        globalBanMaster.takeGlobalBanned();
 
         playerInfoMaster.applyAddsDefaultByRuleBook();
 
