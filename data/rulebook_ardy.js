@@ -13,7 +13,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard for cost game.\n\
     ",
     "rule_title": "아디컵 룰북",
-    "rule_version": "v.0.2.0",
+    "rule_version": "v.0.2.1",
 
     "rule_type": "cost",
 
@@ -143,14 +143,14 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 { "side": "blue", "pick": 'entry', "amount": "1" },
                 { "side": "red", "pick": 'ban', "amount": "1" },
                 { "side": "blue", "pick": 'ban', "amount": "1" },
-                { "side": "red", "pick": 'ban weapon', "amount": "1" },
-                { "side": "blue", "pick": 'ban weapon', "amount": "1" },
                 { "side": "blue", "pick": 'entry', "amount": "1" },
                 { "side": "red", "pick": 'entry', "amount": "2" },
                 { "side": "blue", "pick": 'entry', "amount": "2" },
                 { "side": "red", "pick": 'entry', "amount": "1" },
                 { "side": "blue", "pick": 'ban', "amount": "1" },
                 { "side": "red", "pick": 'ban', "amount": "1" },
+                { "side": "blue", "pick": 'ban weapon', "amount": "1" },
+                { "side": "red", "pick": 'ban weapon', "amount": "1" },
                 { "side": "red", "pick": 'entry', "amount": "1" },
                 { "side": "blue", "pick": 'entry', "amount": "2" },
                 { "side": "red", "pick": 'entry', "amount": "1" },
@@ -194,13 +194,13 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "shogun":      [3, 4, 6, 7, 7, 7, 7],
         "yae":         [2, 3, 4, 5, 6, 7, 9],
         "cyno":        [1, 1, 2, 2, 2, 2, 4],
-        "clorinde":    [2, 5, 7, 9, 10, 10, 12],
+        "clorinde":    [2, 4, 7, 9, 10, 10, 12],
 
         "jean":        [1, 1, 2, 2, 3, 3, 3],
         "venti":       [3, 3, 3, 3, 3, 3, 4],
         "xiao":        [2, 3, 3, 3, 3, 4, 5],
         "kazuha":      [5, 6, 7, 7, 7, 7, 8],
-        "wanderer":    [3, 4, 5, 6, 6, 6, 8],
+        "wanderer":    [3, 4, 5, 7, 7, 7, 9],
         "liuyun":      [3, 4, 6, 6, 6, 6, 7],
 
         "zhongli":     [3, 3, 3, 3, 4, 4, 4],
@@ -249,7 +249,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "sethos": 1,
 
         "sucrose": 2,
-        "sayu": 1,
+        "sayu": 0,
         "heizo": 1,
         "faruzan": 3,
         "lynette": 1,
