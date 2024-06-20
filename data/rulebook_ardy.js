@@ -13,7 +13,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard for cost game.\n\
     ",
     "rule_title": "아디컵 룰북",
-    "rule_version": "v.0.2.1",
+    "rule_version": "v.0.2.3",
 
     "rule_type": "cost",
 
@@ -200,7 +200,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "venti":       [3, 3, 3, 3, 3, 3, 4],
         "xiao":        [2, 3, 3, 3, 3, 4, 5],
         "kazuha":      [5, 6, 7, 7, 7, 7, 8],
-        "wanderer":    [3, 4, 5, 7, 7, 7, 9],
+        "wanderer":    [3, 4, 5, 6, 6, 6, 8],
         "liuyun":      [3, 4, 6, 6, 6, 6, 7],
 
         "zhongli":     [3, 3, 3, 3, 4, 4, 4],
