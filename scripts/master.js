@@ -689,7 +689,7 @@ let sequenceMaster = {
         $(":focus").blur();
         setTimeout(function() { hideCursorWholeScreen(); }, 800);
 
-        this.sequenceTitleHolder.attr(this.shift, "1");
+        this.sequenceTitleHolder.attr(this.shift, "2");
         this.sequenceBlock.attr(this.hide, "1");
         poolMaster.poolBlock.attr(this.hide, "1");
         poolMaster.unavailables.attr(this.hide, "1");
@@ -6790,6 +6790,11 @@ let playerInfoMaster = {
 //global ban manager
 let globalBanMaster = {
 
+    hide: "data-hide",
+    wide: "data-wide",
+    shift: "data-shift",
+
+
     global_ban_manager: "div#global_ban_manager",
 
     global_ban_entries: "div#global_ban_entries",
@@ -6906,7 +6911,24 @@ let globalBanMaster = {
         controllerMaster.mainActionButton.attr("title", "현재 선택한 후보 캐릭터를 글로벌 밴으로 적용합니다");
         controllerMaster.subActionButton.attr("title", "마지막 선택한 캐릭터를 글로벌 밴 후보에서 제외합니다");
         controllerMaster.buttonReset.attr("title", "현재 선택된 글로벌 밴 목록을 비웁니다");
+
+        sequenceMaster.setSequenceTitle("Edit global ban entries");
+        
+        sequenceMaster.sequenceTitleHolder.attr(this.shift, "1");
+        sequenceMaster.sequenceBlock.attr(this.hide, "1");
+        $("#center_area").attr(this.wide, "1");
+        $("#league_title").attr(this.hide, "1");
+        poolMaster.eachSideSelectionArea.attr(this.wide, "1");
+        poolMaster.poolBlock.attr(this.shift, "1");
+        poolMaster.unavailables.attr(this.hide, "1");
+        versionDisplayShowFor();
         playerInfoMaster.hidePlayerInfoLayer();
+        sideMaster.eachPlayerBoard.attr(this.hide, "3");
+        sideMaster.banPickBoard.attr(this.hide, "1");
+        // timerMaster.timerGauges.attr(this.hide, "1");
+        timerMaster.timerHost.attr(this.hide, "1");
+        // timerMaster.timerRelay.attr(this.hide, "1");
+        
         this.globalBanManager.fadeIn(320);
         this.getGlobalBanPool().parent().show();
 
@@ -6939,7 +6961,24 @@ let globalBanMaster = {
 
         let text = lang.text;
         this.globalBanManager.fadeOut(320);
-        playerInfoMaster.showPlayerInfoLayer();
+
+        sequenceMaster.sequenceTitleHolder.attr(this.shift, "");
+        sequenceMaster.sequenceBlock.attr(this.hide, "");
+        $("#center_area").attr(this.wide, "");
+        $("#league_title").attr(this.hide, "");
+        poolMaster.eachSideSelectionArea.attr(this.wide, "");
+        poolMaster.poolBlock.attr(this.shift, "");
+        poolMaster.unavailables.attr(this.hide, "");
+        versionDisplayShowFor(false);
+        playerInfoMaster.checkBackShowingPlayerInfoLayer();
+        sideMaster.eachPlayerBoard.attr(this.hide, "");
+        sideMaster.banPickBoard.attr(this.hide, "");
+        // timerMaster.timerGauges.attr(this.hide, "");
+        timerMaster.timerHost.attr(this.hide, "");
+        // timerMaster.timerRelay.attr(this.hide, "");
+
+        sequenceMaster.setSequenceTitleByCurrent(step);
+
         controllerMaster.buttonReset.attr("title", text.btnResetDesc);
         controllerMaster.subActionButton.attr("title", text.btnUndoDesc);
         controllerMaster.mainActionButton.attr("title", text.btnMainDesc);
