@@ -3035,6 +3035,15 @@ let sideMaster = {
         }
     },
 
+    isEmptySideInfo: function() {
+        return this.redPlayerUidInput.val() == "" && this.bluePlayerUidInput.val() == ""
+            && this.redNameplateInput.val() == lang.text.sideRed && this.blueNameplateInput.val() == lang.text.sideBlue
+            && this.redAccountPointInput.val() == "" && this.blueAccountPointInput.val() == ""
+            && this.redProfileCharacterImage.css("--src") == urlTpGif && this.blueProfileCharacterImage.css("--src") == urlTpGif
+            && this.redProfileCharacter.attr("data-show") == "" && this.blueProfileCharacter.attr("data-show") == ""
+            && this.sideAccInfo["red"] == null && this.sideAccInfo["blue"] == null;
+    },
+
     onEachNameplateInputKeydown: function(e) {
         let self = $(this);
         let isSideRed = self.hasClass(sideMaster.red_side);
@@ -8116,7 +8125,11 @@ let controllerMaster = {
     
     resetButton: function(e) {
         if (step == -2) globalBanMaster.clearPicked();
-        else initializeStep();
+        else if (step == -1 && sideMaster.isEmptySideInfo()) {
+            playerInfoMaster.clearPlayerInfos("red");
+            playerInfoMaster.clearPlayerInfos("blue");
+            this.focus();
+        } else initializeStep();
     },
     
     settingsButton: function(e) {
