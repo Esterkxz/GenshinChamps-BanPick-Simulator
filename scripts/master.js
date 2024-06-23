@@ -6212,8 +6212,10 @@ let playerInfoMaster = {
         for (var i=0; i<this.charConstells[side].length; i++) {
             let cons = $(this.charConstells[side][i]);
             let char = $(this.selectionEntries[side][i]).attr(this.char);
-            let c = charactersInfo.list[charactersInfo[char]];
-            cons.val(c.rarity == 5 ? "0" : "");
+            if (char != null && char != "") {
+                let c = charactersInfo.list[charactersInfo[char]];
+                cons.val(c.rarity == 5 ? "0" : "");
+            }
         }
         this.breakPlayerProfile(side);
         sideMaster.clearAccountInfo(side);
