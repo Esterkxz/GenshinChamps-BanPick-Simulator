@@ -8144,7 +8144,7 @@ let controllerMaster = {
     
         content.empty();
         content.append(master.buildCreditItem(commonInfo.comment));
-        content.append(master.buildCreditItem(rules.comment, "Pickup rules"));
+        content.append(master.buildCreditItem( "<span class=\"subject\">" + rules.rule_title + " &nbsp;" + rules.rule_version + " &nbsp;<i>&lt;" + master.getRuleTypeForText() + "&gt;</i></span><br/>" +  rules.comment, "Pickup rules"));
         if (typeof costTable != "undefined") content.append(master.buildCreditItem(costTable.comment, "Cost table"));
     
         for (l in locales) {
@@ -8154,6 +8154,10 @@ let controllerMaster = {
     
         float.fadeIn(300);
         popup.show(300);
+    },
+
+    getRuleTypeForText: function(type = rules.rule_type) {
+        return type == "cost" ? lang.text.ruleTypeCost : (type == "ban card" ? lang.text.ruleTypeBanCard : type + " system");
     },
 
     soundPanelButton: function(e) {

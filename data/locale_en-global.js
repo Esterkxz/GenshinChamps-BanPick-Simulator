@@ -124,6 +124,9 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
 
         "setConstellationDesc": "Set constellation",
 
+        "ruleTypeCost": "Cost system",
+        "ruleTypeBanCard": "Ban card system",
+
         "soundMuteDesc": "Mute",
 
         "timerDisplayDesc": "Click: Start / stop and reset the timer\nRight-click:\n - Before the timer starts: Reset the increase/decrease application of the current timer\n - After the timer starts: Pause/resume the timer\nWheel Up/Down: Adjust the default timer time (only available when stopped/paused)\nWheel Click: Return the default timer time to the default value (30 seconds) even when paused/operating",

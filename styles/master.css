@@ -1975,7 +1975,9 @@ div.popup_layer#credits div.popup_content { padding: 8px 12px; color: var(--plai
 div.popup_layer#credits div.popup_content div { }
 div.popup_layer#credits div.popup_content > div { margin-bottom: 32px; }
 div.popup_layer#credits div.popup_content > div span.title { display: flex; font-weight: bold; }
+div.popup_layer#credits div.popup_content > div span.subject { color: rgb(var(--plain-text-base) / 66.666%); font-size: 16px; font-weight: bolder; }
 div.popup_layer#credits div.popup_content > div span.content { display: block; }
+div.popup_layer#credits div.popup_content > div span.content a:link { color: #278D; }
 
 /* snow field for christ mas edition */
 div#snow_field { width: 100vw; height: 0; overflow: overlay; }

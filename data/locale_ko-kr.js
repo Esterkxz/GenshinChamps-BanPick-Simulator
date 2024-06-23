@@ -124,6 +124,9 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
 
         "setConstellationDesc": "별자리 돌파 입력/수정",
 
+        "ruleTypeCost": "코스트제",
+        "ruleTypeBanCard": "밴카드제",
+
         "soundMuteDesc": "음소거",
 
         "timerDisplayDesc": "클릭: 타이머 시작 / 정지 및 리셋\n우클릭:\n - 타이머 작동 전: 현재 타이머의 증감 적용 초기화\n - 타이머 작동 후: 타이머 일시정지/재개\n휠 Up/Down: 기본 타이머 시간 조정 (정지/일시정지 때만 가능)\n휠 클릭: 기본 타이머 시간을 기본값으로(30초) 되돌리기 (일시정지/작동 중 일 때도 가능)",
