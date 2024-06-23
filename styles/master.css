@@ -1080,46 +1080,72 @@ div#player_info_op_cp div.player_info_side div.selection_side div.selection_entr
 
 div#global_ban_manager { --center-area--size: 320px; --center-area-cutoff: var(--center-area--size); position: relative; top: 0; left: 0; right: 0; margin: 16px 0 0; /* transition-duration: 0.27s; */ }
 div#global_ban_manager > div { --margin-outside: 72px; --margin-innerside: 112px; --inter-padding: 4px; position: absolute; top: 0px; width: calc(((100% - var(--center-area-cutoff)) / 2) - var(--margin-innerside)); margin: 0 auto; font-size: 18px; }
-div#global_ban_manager > div#previous_global_banned { left: var(--margin-outside); }
-div#global_ban_manager > div#global_ban_selection { right: var(--margin-outside); }
-div#global_ban_manager > div > label { display: block; padding: 0 4px; color: rgb(var(--plain-text-base) / 85%); font-size: 20px; font-weight: bold; font-style: italic; line-height: 24px; transform: scaleY(0.9); }
+div#global_ban_manager > div#global_ban_entries { left: var(--margin-outside); }
+div#global_ban_manager > div#global_ban_character_pool_filter { right: var(--margin-outside); }
+div#global_ban_manager > div > div.range_wrap { position: relative; }
+div#global_ban_manager > div > div.range_wrap > label { display: block; padding: 0 4px; color: rgb(var(--plain-text-base) / 85%); font-size: 20px; font-weight: bold; font-style: italic; line-height: 24px; transform: scaleY(0.9); }
 
-div#global_ban_manager > div#previous_global_banned label { }
-div#global_ban_manager > div#previous_global_banned div { }
-div#global_ban_manager > div#previous_global_banned ul { display: flex; flex-wrap: nowrap; margin: 0; padding: 0; list-style: none; }
-div#global_ban_manager > div#previous_global_banned ul > li { }
-div#global_ban_manager > div#previous_global_banned button { cursor: pointer; }
-div#global_ban_manager > div#previous_global_banned > label { }
-div#global_ban_manager > div#previous_global_banned > button { }
-div#global_ban_manager > div#previous_global_banned > button#clear_list_gb { position: absolute; top: 0; right: 0; }
-div#global_ban_manager > div#previous_global_banned > div { }
-div#global_ban_manager > div#previous_global_banned > div > ul { }
-div#global_ban_manager > div#previous_global_banned > div > ul > li { }
-div#global_ban_manager > div#previous_global_banned > div#previous_gb { height: 280px; margin: 0; padding: 0 5px; overflow: visible auto; }
-div#global_ban_manager > div#previous_global_banned > div#previous_gb > ul#list_previous_gb { flex-direction: column; }
-div#global_ban_manager > div#previous_global_banned > div#previous_gb > ul#list_previous_gb > li { position: relative; }
-div#global_ban_manager > div#previous_global_banned > div#previous_gb > ul#list_previous_gb > li::before { content: attr(data-date); display: block; padding: 0 2px; color: rgb(var(--plain-text-base) / 75%); font-size: 18px; font-weight: bold; font-style: italic; line-height: 18px; transform: scaleY(0.9); }
-div#global_ban_manager > div#previous_global_banned > div#previous_gb > ul#list_previous_gb > li > ul.each_pool_block { flex-direction: row; height: fit-content; }
-div#global_ban_manager > div#previous_global_banned > div#previous_gb > ul#list_previous_gb > li > ul.each_pool_block > li.character { scale: 0.75; margin: -2.5% -1.5%; }
-div#global_ban_manager > div#previous_global_banned > div#previous_gb > ul#list_previous_gb > li > ul.each_pool_block > span { display: block; }
-div#global_ban_manager > div#previous_global_banned > div#previous_gb > ul#list_previous_gb > li > button { position: absolute; top: 0; right: 0; }
-div#global_ban_manager > div#previous_global_banned > div#previous_gb > ul#list_previous_gb > span { display: block; }
+div#global_ban_manager > div#global_ban_entries label { }
+div#global_ban_manager > div#global_ban_entries div { }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap { }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap ul { display: flex; flex-direction: row; flex-wrap: nowrap; margin: 0; padding: 0; list-style: none; }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap ul > li { }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap button { padding: 1px 7px; border: outset 3px #888; border-radius: 12px; background-color: rgb(221 221 221 / 80%); color: rgb(0 0 0 / 80%); cursor: pointer; transition-duration: 0.2s; }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap button:focus { outline: dashed 2px rgb(var(--color-focusive) / 90%); outline-offset: 2px; }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap button:hover { box-shadow: 0 0 12px -2px rgb(var(--main-color) / 80%); }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap button:active { border-style: groove; color: rgb(255 255 255 / 95%); }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > label { }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > button { }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > button#clear_list_gb { position: absolute; top: 0; right: 0; }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > div { }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > div > ul { }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > div > ul > li { }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > div#picked_for_gb { }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > div#picked_for_gb > ul#entry_picked_for_gb { }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > div#picked_for_gb > ul#entry_picked_for_gb > li.character { cursor: alias; }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > div#previous_gb { --expand-right: 25px; width: calc(100% + var(--expand-right)); height: 140px; margin: 0; padding: 0 calc(var(--expand-right) + 5px) 0 5px; overflow: visible auto; scrollbar-width: thin; }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > div#previous_gb > ul#list_previous_gb { flex-wrap: wrap; justify-content: space-between; }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > div#previous_gb > ul#list_previous_gb > li { position: relative; min-width: 174px; margin: 1px 5px 3px 4px; padding: 2px 0 0; }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > div#previous_gb > ul#list_previous_gb > li::before { content: attr(data-date); display: block; padding: 0 2px 2px; color: rgb(var(--plain-text-base) / 75%); font-size: 18px; font-weight: bold; font-style: italic; line-height: 16px; transform: scaleY(0.9); }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > div#previous_gb > ul#list_previous_gb > li > ul.each_pool_block { flex-direction: row; height: fit-content; margin: 4px 0; }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > div#previous_gb > ul#list_previous_gb > li > ul.each_pool_block > li.character { scale: 0.75; margin: -7px -5px; }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > div#previous_gb > ul#list_previous_gb > li > ul.each_pool_block > span { display: block; }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > div#previous_gb > ul#list_previous_gb > li > button { position: absolute; top: 0; right: 0; }
+div#global_ban_manager > div#global_ban_entries > div.range_wrap > div#previous_gb > ul#list_previous_gb > span { display: block; }
 
-div#global_ban_manager > div#global_ban_selection { }
-div#global_ban_manager > div#global_ban_selection label { }
-div#global_ban_manager > div#global_ban_selection div { }
-div#global_ban_manager > div#global_ban_selection ul { display: flex; flex-direction: row; flex-wrap: nowrap; margin: 0; padding: 0; list-style: none; }
-div#global_ban_manager > div#global_ban_selection ul > li { }
-div#global_ban_manager > div#global_ban_selection > label { }
-div#global_ban_manager > div#global_ban_selection > div { }
-div#global_ban_manager > div#global_ban_selection > div#picked_for_gb { }
-div#global_ban_manager > div#global_ban_selection > div#picked_for_gb > ul#entry_picked_for_gb { }
-div#global_ban_manager > div#global_ban_selection > div#picked_for_gb > ul#entry_picked_for_gb > li.character { cursor: alias; }
-div#global_ban_manager > div#global_ban_selection > ul.filter_for_cp { margin: 10px 2px 16px; }
-div#global_ban_manager > div#global_ban_selection > ul.filter_for_cp > li { display: block; flex-grow: 1; flex-shrink: 1; margin: 0px 2px; padding: 0 1px; border: solid 2px var(--cfh); color: rgb(var(--plain-text-base) / 80%); border-radius: 6px; font-weight: bold; text-align: center; line-height: 30px; cursor: pointer; transition-duration: 0.25s; }
-div#global_ban_manager > div#global_ban_selection > ul.filter_for_cp > li[data-selected="1"] { background-color: rgb(var(--color-important-highlighter) / 60%); border-color: var(--cf); color: rgb(var(--color-important-darker) / 70%); }
-div#global_ban_manager > div#global_ban_selection > ul.filter_for_cp > li:hover { color: rgb(var(--plain-text-base) / 95%); box-shadow: 0 0 8px rgb(var(--color-focusive-dark) / 60%); }
-div#global_ban_manager > div#global_ban_selection > ul.filter_for_cp > li:active { color: rgb(var(--color-important) / 100%); box-shadow: 0 0 8px rgb(var(--color-important-highlight) / 80%); }
+div#global_ban_manager > div#global_ban_character_pool_filter { }
+div#global_ban_manager > div#global_ban_character_pool_filter label { }
+div#global_ban_manager > div#global_ban_character_pool_filter div { }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap { }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap ul { display: flex; flex-direction: row; flex-wrap: nowrap; margin: 0; padding: 0; list-style: none; }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap ul > li { }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > label { }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div { }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset { display: flex; flex-direction: row; flex-wrap: nowrap; margin: 6px 2px; }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > button.start_sequence_afp { width: 64px; margin: 0px 2px; padding: 7px 3px; border: solid 2px var(--cil); color: rgb(var(--color-important-dark) / 80%); border-radius: 6px; background-color: rgb(255 255 255 / 80%); font-size: 16px; font-weight: bold; text-align: center; line-height: 17px; cursor: pointer; transition-duration: 0.25s; }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > button.start_sequence_afp:focus { outline: dashed 3px rgb(var(--color-focusive-light) / 85%); outline-offset: -6px; }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > button.start_sequence_afp:hover { color: rgb(var(--color-important-light) / 80%); }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > button.start_sequence_afp:active { color: rgb(var(--color-important-dark) / 100%); }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > ul.preset_for_auto_filter { flex-grow: 1; margin-left: 4px; align-items: center; }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > ul.preset_for_auto_filter > li { flex-grow: 1; margin: 0px 2px; padding: 0 1px 6px; color: var(--preset-sequence-item-color); font-weight: bold; text-decoration: double; text-decoration-line: underline; text-decoration-thickness: 2px; text-decoration-color: rgb(var(--color-focusive-highlighter) / 50%); transition-duration: 0.3s; }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > ul.preset_for_auto_filter > li:hover { text-decoration-color: rgb(var(--color-focusive-highlighter) / 80%); text-shadow: 0 0 5px rgb(var(--main-color) / 15%); }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > ul.preset_for_auto_filter > li > sub { color: rgb(var(--color-focusive-dark) / 90%); font-size: 16px; letter-spacing: -1px; vertical-align: bottom; }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > ul.preset_for_auto_filter > li > sub > span { letter-spacing: -3.2px; }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > ul.preset_for_auto_filter > li[data-current="1"] { color: rgb(var(--color-important-light) / 95%); text-decoration: wavy; text-decoration-line: underline; text-decoration-color: rgb(var(--color-important-lighter) / 90%); text-shadow: 0.7px 1px 0 rgb(var(--color-important-darker) / 80%); }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > ul.preset_for_auto_filter > li[data-current="1"] > sub { color: rgb(var(--color-important) / 90%); }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > ul.preset_for_auto_filter > li { --preset-sequence-item-color: var(--cfd); }
+body.dark div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > ul.preset_for_auto_filter > li { --preset-sequence-item-color: var(--cf); }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > ul.filter_for_cp { margin: 6px 2px 8px; }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > ul.filter_for_cp > li { position: relative; display: block; flex-grow: 1; flex-shrink: 1; margin: 0px 2px; padding: 0 1px; border: solid 2px var(--cfh); color: rgb(var(--plain-text-base) / 80%); border-radius: 6px; font-weight: bold; text-align: center; line-height: 30px; cursor: pointer; transition-duration: 0.25s; }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > ul.filter_for_cp > li[data-selected="1"] { background-color: rgb(var(--filter-selected-bg-color) / 60%); border-color: var(--cf); color: rgb(var(--filter-selected-color) / 70%); }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > ul.filter_for_cp > li[data-selected="1"]:after { content: '✔️'; position: absolute; bottom: -9px; right: -9px; font-size: 18px; filter: hue-rotate(108deg) drop-shadow(-1px -1px 0 #FFFC) drop-shadow(1px 1px 0 rgb(var(--filter-selected-bg-color) / 40%)); }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > ul.filter_for_cp > li:hover { color: rgb(var(--plain-text-base) / 95%); box-shadow: 0 0 8px rgb(var(--filter-hover-shadow-color) / 60%); }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > ul.filter_for_cp > li:active { color: rgb(var(--color-important) / 100%); box-shadow: 0 0 8px rgb(var(--color-important-highlight) / 80%); }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > ul.filter_for_cp > li[data-all="1"] { flex-grow: 0; color: rgb(0 0 0 / 80%); border-color: var(--cih); background-color: rgb(255 255 255 / 75%); }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > ul.filter_for_cp > li[data-all="1"]:hover { color: rgb(0 0 0 / 95%); background-color: rgb(255 255 255 / 90%); }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > ul.filter_for_cp > li[data-all="1"]:active { color: rgb(0 0 0 / 30%); background-color: rgb(255 255 255 / 40%); }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > ul.filter_for_cp > li { --filter-selected-color: var(--color-important-darker); --filter-selected-bg-color: var(--color-important-highlight); --filter-hover-shadow-color: var(--color-focusive-dark); }
+body.dark div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > ul.filter_for_cp > li { --filter-selected-color: var(--color-important-lighter); --filter-selected-bg-color: var(--color-important); --filter-hover-shadow-color: var(--color-focusive-light); }
 
 
 div#main_controller { display: table; margin: 30px auto 0; }

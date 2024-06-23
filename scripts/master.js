@@ -6792,16 +6792,20 @@ let globalBanMaster = {
 
     global_ban_manager: "div#global_ban_manager",
 
-    previous_global_banned: "div#previous_global_banned",
+    global_ban_entries: "div#global_ban_entries",
+
+    picked_for_gb: "div#picked_for_gb",
+    entry_picked_for_gb: "ul#entry_picked_for_gb",
 
     clear_list_gb: "button#clear_list_gb",
     previous_gb: "div#previous_gb",
     list_previous_gb: "ul#list_previous_gb",
 
-    global_ban_selection: "div#global_ban_selection",
+    global_ban_character_pool_filter: "div#global_ban_character_pool_filter",
 
-    picked_for_gb: "div#picked_for_gb",
-    entry_picked_for_gb: "ul#entry_picked_for_gb",
+    gbcp_saf_preset: "div.gbcp_saf_preset",
+    start_sequence_afp: "button.start_sequence_afp",
+    preset_for_auto_filter: "ul.preset_for_auto_filter",
 
     filter_for_cp: "ul.filter_for_cp",
     gbcp_filter_category: "#gbcp_filter_category",
@@ -6817,16 +6821,19 @@ let globalBanMaster = {
 
     globalBanManager: null,
     
-    previousGlobalBanned: null,
+    globalBanEntries: null,
+
+    pickedForGB: null,
+    entryPickedForGB: null,
 
     clearListGB: null,
     previousGB: null,
     listPreviousGB: null,
 
-    globalBanSelection: null,
+    globalBanCharacterPoolFilter: null,
 
-    pickedForGB: null,
-    entryPickedForGB: null,
+    gbcpSafPresets: null,
+    startAfpSeqButtons: null,
 
     filterForCP: null,
     gbcpFilterCategory: null,
@@ -6846,18 +6853,21 @@ let globalBanMaster = {
 
         this.globalBanManager = $(this.global_ban_manager);
 
-        this.previousGlobalBanned = this.globalBanManager.find(this.previous_global_banned);
+        this.globalBanEntries = this.globalBanManager.find(this.global_ban_entries);
 
-        this.clearListGB = this.previousGlobalBanned.find(this.clear_list_gb);
-        this.previousGB = this.previousGlobalBanned.find(this.previous_gb);
-        this.listPreviousGB = this.previousGB.find(this.list_previous_gb);
-
-        this.globalBanSelection = this.globalBanManager.find(this.global_ban_selection);
-
-        this.pickedForGB = this.globalBanSelection.find(this.picked_for_gb);
+        this.pickedForGB = this.globalBanEntries.find(this.picked_for_gb);
         this.entryPickedForGB = this.pickedForGB.find(this.entry_picked_for_gb);
 
-        this.filterForCP = this.globalBanSelection.find(this.filter_for_cp);
+        this.clearListGB = this.globalBanEntries.find(this.clear_list_gb);
+        this.previousGB = this.globalBanEntries.find(this.previous_gb);
+        this.listPreviousGB = this.previousGB.find(this.list_previous_gb);
+
+        this.globalBanCharacterPoolFilter = this.globalBanManager.find(this.global_ban_character_pool_filter);
+
+        this.gbcpSafPresets = this.globalBanCharacterPoolFilter.find(this.gbcp_saf_preset);
+        this.startAfpSeqButtons = this.gbcpSafPresets.find(this.start_sequence_afp);
+
+        this.filterForCP = this.globalBanCharacterPoolFilter.find(this.filter_for_cp);
         this.gbcpFilterCategory = this.filterForCP.filter(this.gbcp_filter_category);
         this.gbcpFilterCost = this.filterForCP.filter(this.gbcp_filter_cost);
         this.gbcpFilterPrevious = this.filterForCP.filter(this.gbcp_filter_previous);
