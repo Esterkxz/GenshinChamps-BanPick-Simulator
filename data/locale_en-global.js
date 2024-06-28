@@ -281,6 +281,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "arlecchino": "Arlecchino",
         "sethos": "Sethos",
         "clorinde": "Clorinde",
+        "sigewinne": "Sigewinne",
         "reserved": ""
     },
     "characters_short": {
@@ -367,6 +368,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "arlecchino": "Arlecchino",
         "sethos": "Sethos",
         "clorinde": "Clorinde",
+        "sigewinne": "Sigewinne",
         "reserved": ""
     },
     "weapons": {
@@ -421,6 +423,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "sw_needle": { "name": "Uraku Misugiri", "aliases": [""] },
         "pl_bloodmoon": { "name": "Crimson Moon's Semblance", "aliases": [""] },
         "sw_estoc": { "name": "Absolution", "aliases": [""] },
+        "bw_arcdange": { "name": "Silvershower Heartstrings", "aliases": [""] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }

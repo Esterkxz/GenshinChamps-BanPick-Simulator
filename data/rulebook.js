@@ -142,6 +142,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "arlecchino": false,
             "sethos": false,
             "clorinde": false,
+            "sigewinne": false,
         },
         "": ""
     },
@@ -380,14 +381,15 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
     ],
 
     "ban_card_excepted": {
-        "neuvillette": true,
-        "arlecchino": true,
         "zhongli": true,
         "kazuha": true,
         "shogun": true,
         "yelan": true,
         "nahida": true,
         "furina": true,
+        "neuvillette": true,
+        "arlecchino": true,
+        "sigewinne": true,
     },
 
     "global_banned": {

@@ -1263,6 +1263,21 @@ let charactersInfo = {
             "res_wide_meta_pos": { "scale": "460%", "h": "68%", "v": "28%" },
         },
         {
+            "id": "sigewinne",
+            "class": "limited",
+            "version": "4.7h",
+            "rarity": "5",
+            "weapon": "bow",
+            "element": "hydro",
+            "continent": "fontine",
+            "res_back": "UI_AvatarIcon_Sigewinne@1x.png",
+            "res_icon": "UI_AvatarIcon_Sigewinne.png",
+            "res_vcut": "sigewinne_095_gacha_card.webp",
+            "res_vcut_meta_pos": { "vBasic": "24%", "vHover": "22%" },
+            "res_wide": ".png",
+            "res_wide_meta_pos": { "scale": "360%", "h": "64%", "v": "32%" },
+        },
+        {
             "comment": "temporary data for pre-official release",
             "id": "reserved",
             "class": "",
@@ -1377,5 +1392,6 @@ let charactersInfo = {
     "arlecchino": 81,
     "sethos": 82,
     "clorinde": 83,
+    "sigewinne": 84,
     "reserved": 8
 }

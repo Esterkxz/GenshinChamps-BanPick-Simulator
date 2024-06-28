@@ -663,6 +663,20 @@ weaponsInfo = {
             "res_vcut": "i_n11515_gacha_icon.webp"
         },
 
+        //Extra 15 - Arcdange
+        {
+            "id": "bw_arcdange",
+            "class": "limited",
+            "version": "4.7h",
+            "rarity": "5",
+            "type": "bow",
+            "serise": "standalone",
+            "continent": "fontaine",
+            "favority": ["sigewinne"],
+            "res_icon": "UI_EquipIcon_Bow_Arcdange.png",
+            "res_vcut": "i_n15513_gacha_icon.webp"
+        },
+
         {
             "id": "reserved",
             "class": "",

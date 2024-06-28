@@ -280,6 +280,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "arlecchino": "아를레키노",
         "sethos": "세토스",
         "clorinde": "클로린드",
+        "sigewinne": "시그윈",
         "reserved": ""
     },
     "characters_short": {
@@ -366,6 +367,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "arlecchino": "아를레키노",
         "sethos": "세토스",
         "clorinde": "클로린드",
+        "sigewinne": "시그윈",
         "reserved": ""
     },
     "weapons": {
@@ -420,6 +422,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "sw_needle": { "name": "우라쿠의 미스기리", "aliases": ["우라쿠", "미스기리", "바늘"] },
         "pl_bloodmoon": { "name": "붉은 달의 형상", "aliases": ["붉은달", "붉달형"] },
         "sw_estoc": { "name": "사면", "aliases": ["사면"] },
+        "bw_arcdange": { "name": "심금을 울리는 하얀 비", "aliases": ["심금", "하얀비"] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }
