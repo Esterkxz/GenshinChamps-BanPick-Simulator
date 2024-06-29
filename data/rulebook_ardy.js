@@ -13,7 +13,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard for cost game.\n\
     ",
     "rule_title": "아디컵 룰북",
-    "rule_version": "v.0.2.4",
+    "rule_version": "v.0.2.4.1",
 
     "rule_type": "cost",
 
@@ -181,7 +181,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "nilou":       [3, 4, 5, 5, 5, 5, 7],
         "neuvillette": [7, 9, 10, 11, 11, 11, 14],
         "furina":      [6, 7, 8, 9, 10, 11, 13],
-        "sigewinne":   [1, 2, 3, 3, 4, 5, 6],//접대 적용 [2, 3, 4, 4, 5, 6, 7],
+        "sigewinne":   [2, 3, 4, 4, 5, 6, 7],
 
         "qiqi":        [0, 0, 0, 0, 0, 0, 0],
         "ganyu":       [1, 2, 3, 4, 5, 5, 6],
