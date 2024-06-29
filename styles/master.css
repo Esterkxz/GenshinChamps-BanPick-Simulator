@@ -978,7 +978,7 @@ div#unavailables ul#unallowed_pool li.character span.name_tag { position: absolu
 body[data-ctrl="1"] div#unavailables ul#unallowed_pool li.character span.name_tag { opacity: 1; }
 
 
-div#player_info_op_cp { --center-area--size: 320px; --center-area-cutoff: var(--center-area--size); position: relative; top: 0; left: 0; right: 0; margin: 30px 0 0; /* transition-duration: 0.27s; */ }
+div#player_info_op_cp { --center-area-size: 320px; --center-area-cutoff: var(--center-area-size); position: relative; top: 0; left: 0; right: 0; margin: 30px 0 0; /* transition-duration: 0.27s; */ }
 div#player_info_op_cp div.player_info_side { --margin-outside: 72px; --margin-innerside: 112px; --inter-padding: 4px; display: flex; flex-wrap: nowrap; position: absolute; top: 0px; width: calc(((100% - var(--center-area-cutoff)) / 2) - var(--margin-innerside)); margin: 0 auto; font-size: 18px; }
 div#player_info_op_cp div.player_info_side.red { flex-direction: row-reverse; left: var(--margin-outside); }
 div#player_info_op_cp div.player_info_side.blue { flex-direction: row; right: var(--margin-outside); }
@@ -1081,10 +1081,12 @@ div#player_info_op_cp div.player_info_side div.selection_side div.selection_entr
 div#player_info_op_cp div.player_info_side div.selection_side div.selection_entry div.entry_weapon_icon_area div.entry_weapon_icon input.weapon_refine:hover { }
 
 
-div#global_ban_manager { --center-area--size: 320px; --center-area-cutoff: var(--center-area--size); position: relative; top: 0; left: 0; right: 0; margin: 16px 0 0; /* transition-duration: 0.27s; */ }
-div#global_ban_manager > div { --margin-outside: 72px; --margin-innerside: 112px; --inter-padding: 4px; position: absolute; top: 0px; width: calc(((100% - var(--center-area-cutoff)) / 2) - var(--margin-innerside)); margin: 0 auto; font-size: 18px; }
-div#global_ban_manager > div#global_ban_entries { left: var(--margin-outside); }
-div#global_ban_manager > div#global_ban_character_pool_filter { right: var(--margin-outside); }
+div#global_ban_manager { --center-area-size: 320px; --center-area-cutoff: var(--center-area-size); position: relative; top: 0; left: 0; right: 0; margin: 16px 0 0; /* transition-duration: 0.27s; */ }
+div#global_ban_manager > div { --margin-outside: 72px; --margin-innerside: 112px; --inter-padding: 4px; --side-expand: 0px; position: absolute; top: 0px; width: calc(((100% - var(--center-area-cutoff)) / 2) - var(--margin-innerside) - var(--side-expand)); margin: 0 auto; font-size: 18px; }
+div#global_ban_manager > div#global_ban_entries { left: var(--margin-outside); margin-left: var(--side-expand); }
+div#center_area[data-wide="1"] div#global_ban_manager > div#global_ban_entries { --side-expand: -72px; }
+div#global_ban_manager > div#global_ban_character_pool_filter { left: calc(((100% + var(--center-area-cutoff) + var(--margin-innerside)) / 2) - 16px); /* right: var(--margin-outside); */ margin-right: var(--side-expand); max-width: 447px; }
+div#center_area[data-wide="1"] div#global_ban_manager > div#global_ban_character_pool_filter { }
 div#global_ban_manager > div > div.range_wrap { position: relative; }
 div#global_ban_manager > div > div.range_wrap > label { display: block; padding: 0 4px; color: rgb(var(--plain-text-base) / 85%); font-size: 20px; font-weight: bold; font-style: italic; line-height: 24px; transform: scaleY(0.9); }
 
