@@ -264,6 +264,8 @@ let sequenceMaster = {
 
     rollingRandomPicks: null,
 
+    lastPickedTime: null,
+
 
     pickingPlayerProfile: { "red": false, "blue": false },
     pickedPlayerProfile: { "red": null, "blue": null },
@@ -360,55 +362,59 @@ let sequenceMaster = {
 
     setSequenceTitleByCurrent: function(newStep = step) {
         let text = lang.text;
-        let seq = rules.sequence[newStep];
-        let checkRes = this.getCheckRes();
-        let isBanCardUsingPhase = checkRes != null ? (checkRes.banCardRem > 0) : false;
-        let isBanCardLeftsNotUsed = isBanCardUsingPhase && checkRes.rem < 1;
-
-        var message = "";
-
-        if (newStep < 0) {
-             message = text.titleReady;
-        } else if (newStep == rules.sequence.length) {
-            message = text.titlePicked;
-        } else if (newStep > rules.sequence.length) {
-            message = text.titleVersus;
+        if (newStep == -2) {
+            this.setSequenceTitle("Edit global ban entries");
         } else {
-            let eClass = seq.side == "red" ? "textRed" : "textBlue";
-            let tSide = seq.side == "red" ? redName : blueName;
-            var tType = "?";
-            if (isBanCardLeftsNotUsed) tType = text.pickUseBanCard;
-            else switch (seq.pick) {
-                case "ban":
-                    tType = text.pickBan;
-                    break;
-                case "entry":
-                    tType = text.pickEntry;
-                    break;
-                case "proffer":
-                    tType = text.pickProffer;
-                    break;
-                case "ban weapon":
-                    tType = text.pickBanWeapon;
-                    break;
-            }
-            var tAmount = "?";
-            switch (seq.pick) {
-                case "ban":
-                case "entry":
-                case "proffer":
-                    if (isBanCardLeftsNotUsed) tAmount = text.amountPickCharacter.replace("#AMOUNT", "" + checkRes.res[seq.side == "red" ?  "bccstr" : "bccstb"]);
-                    else if (seq.amount < 1) tAmount = text.amountFillCharacter
-                    else tAmount = text.amountPickCharacter.replace("#AMOUNT", seq.amount)
-                    break;
-                case "ban weapon":
-                    tAmount = text.amountPick.replace("#AMOUNT", seq.amount)
-                    break;
-            }
-            message = text.stepTitle.replace("#CLASS", eClass).replace("#SIDE", tSide).replace("#TYPE", tType).replace("#AMOUNT", tAmount);
-        }
+            let seq = rules.sequence[newStep];
+            let checkRes = this.getCheckRes();
+            let isBanCardUsingPhase = checkRes != null ? (checkRes.banCardRem > 0) : false;
+            let isBanCardLeftsNotUsed = isBanCardUsingPhase && checkRes.rem < 1;
 
-        this.setSequenceTitleHtml(message);
+            var message = "";
+
+            if (newStep < 0) {
+                message = text.titleReady;
+            } else if (newStep == rules.sequence.length) {
+                message = text.titlePicked;
+            } else if (newStep > rules.sequence.length) {
+                message = text.titleVersus;
+            } else {
+                let eClass = seq.side == "red" ? "textRed" : "textBlue";
+                let tSide = seq.side == "red" ? redName : blueName;
+                var tType = "?";
+                if (isBanCardLeftsNotUsed) tType = text.pickUseBanCard;
+                else switch (seq.pick) {
+                    case "ban":
+                        tType = text.pickBan;
+                        break;
+                    case "entry":
+                        tType = text.pickEntry;
+                        break;
+                    case "proffer":
+                        tType = text.pickProffer;
+                        break;
+                    case "ban weapon":
+                        tType = text.pickBanWeapon;
+                        break;
+                }
+                var tAmount = "?";
+                switch (seq.pick) {
+                    case "ban":
+                    case "entry":
+                    case "proffer":
+                        if (isBanCardLeftsNotUsed) tAmount = text.amountPickCharacter.replace("#AMOUNT", "" + checkRes.res[seq.side == "red" ?  "bccstr" : "bccstb"]);
+                        else if (seq.amount < 1) tAmount = text.amountFillCharacter
+                        else tAmount = text.amountPickCharacter.replace("#AMOUNT", seq.amount)
+                        break;
+                    case "ban weapon":
+                        tAmount = text.amountPick.replace("#AMOUNT", seq.amount)
+                        break;
+                }
+                message = text.stepTitle.replace("#CLASS", eClass).replace("#SIDE", tSide).replace("#TYPE", tType).replace("#AMOUNT", tAmount);
+            }
+
+            this.setSequenceTitleHtml(message);
+        }
     },
 
     releaseStepStateDisplay: function() {
@@ -457,6 +463,8 @@ let sequenceMaster = {
     },
     
     onPick: function(id, item, usingBanCard = false) {
+        this.lastPickedTime = Date.now();
+
         if (this.pickingPlayerProfile.red) {
             let pcid = this.pickedPlayerProfile.red;
             this.selectedPlayerProfile.red = pcid;
@@ -2292,7 +2300,11 @@ let poolMaster = {
     setPickCursorCharacter: function(item) {
         item = $(item);
         sequenceMaster.onPick(item.attr(poolMaster.id), item);
-        poolMaster.removeSideSelectionView(item);
+        if (this.cursorRoller != null) {
+            setTimeout(function() {
+                poolMaster.removeSideSelectionView(item);
+            }, 600);
+        } else poolMaster.removeSideSelectionView(item);
         playSound("휙");
     },
 
@@ -2312,6 +2324,7 @@ let poolMaster = {
     },
 
     randomCursorRoller: function() {
+        if (sequenceMaster.lastPickedTime != null && Date.now() < sequenceMaster.lastPickedTime + 1000) return;
         //let seq = rules.sequence[step];
         //let side = seq.type == "proffer" ? (seq.side == "red" ? "blue" : "red") : seq.side;
         let items = poolMaster.eachCharacters.filter('[' + poolMaster.picked + '=""]:not([' + poolMaster.cursor + '="1"]):not([' + poolMaster.except + '="1"])');
@@ -6812,12 +6825,24 @@ let globalBanMaster = {
     start_sequence_afp: "button.start_sequence_afp",
     preset_for_auto_filter: "ul.preset_for_auto_filter",
 
+    started: "data-started",
+    textStart: "data-text-start",
+    textStop: "data-text-stop",
+    current: "data-current",
+
+    reset: "data-reset",
+    allCate: "data-all-cate",
+    allCost: "data-all-cost",
+    allExtras: "data-all-extras",
+    selection: "data-selection",
+
     filter_for_cp: "ul.filter_for_cp",
     gbcp_filter_category: "#gbcp_filter_category",
     gbcp_filter_cost: "#gbcp_filter_cost",
-    gbcp_filter_previous: "#gbcp_filter_previous",
+    gbcp_filter_extras: "#gbcp_filter_extras",
 
 
+    default: "data-default",
     selected: "data-selected",
     all: "data-all",
     include_treveler: "data-include-treveler",
@@ -6854,6 +6879,9 @@ let globalBanMaster = {
 
     previousList: [],
 
+    afpSequence: null,
+    afpsBegin: null,
+
     init: function() {
 
         this.globalBanManager = $(this.global_ban_manager);
@@ -6875,15 +6903,15 @@ let globalBanMaster = {
         this.filterForCP = this.globalBanCharacterPoolFilter.find(this.filter_for_cp);
         this.gbcpFilterCategory = this.filterForCP.filter(this.gbcp_filter_category);
         this.gbcpFilterCost = this.filterForCP.filter(this.gbcp_filter_cost);
-        this.gbcpFilterPrevious = this.filterForCP.filter(this.gbcp_filter_previous);
+        this.gbcpFilterExtras = this.filterForCP.filter(this.gbcp_filter_extras);
 
         
         this.cateAll = this.gbcpFilterCategory.find("> li[" + this.all + "='1']");
         this.cateItems = this.gbcpFilterCategory.find("> li:not([" + this.all + "='1'])");
         this.costAll = this.gbcpFilterCost.find("> li[" + this.all + "='1']");
         this.costItems = this.gbcpFilterCost.find("> li:not([" + this.all + "='1'])");
-        this.extraAll = this.gbcpFilterPrevious.find("> li[" + this.all + "='1']");
-        this.extraItems = this.gbcpFilterPrevious.find("> li:not([" + this.all + "='1'])");
+        this.extraAll = this.gbcpFilterExtras.find("> li[" + this.all + "='1']");
+        this.extraItems = this.gbcpFilterExtras.find("> li:not([" + this.all + "='1'])");
 
 
         this.loadGlobalBannedStore();
@@ -6891,7 +6919,12 @@ let globalBanMaster = {
 
         this.takeGlobalBanned();
 
+        this.initAFPS();
+
+
         this.clearListGB.click(this.onClickClear);
+
+        this.startAfpSeqButtons.click(this.onClickStartAFPS)
 
         this.cateAll.click(this.filterCategoryForAll);
         this.costAll.click(this.filterCostForAll);
@@ -6904,7 +6937,9 @@ let globalBanMaster = {
     bringGlobalBanPanel: function() {
         rulesMaster.ruleAlter.prop("disable", true);
         controllerMaster.globalBanPickerButton.hide();
-        controllerMaster.randomPickButton.show();
+        setTimeout(function() {
+            if (step == -2) controllerMaster.randomPickButton.fadeIn(300);
+        }, 1700);
         controllerMaster.togglePlayerInfoButton.hide();
         controllerMaster.discardPickGlobalBanButton.show();
         controllerMaster.mainActionButton.text("APPLY");
@@ -6912,8 +6947,6 @@ let globalBanMaster = {
         controllerMaster.subActionButton.attr("title", "마지막 선택한 캐릭터를 글로벌 밴 후보에서 제외합니다");
         controllerMaster.buttonReset.attr("title", "현재 선택된 글로벌 밴 목록을 비웁니다");
 
-        sequenceMaster.setSequenceTitle("Edit global ban entries");
-        
         sequenceMaster.sequenceTitleHolder.attr(this.shift, "1");
         sequenceMaster.sequenceBlock.attr(this.hide, "1");
         $("#center_area").attr(this.wide, "1");
@@ -6931,11 +6964,13 @@ let globalBanMaster = {
         
         this.globalBanManager.fadeIn(320);
         this.getGlobalBanPool().parent().show();
-
+        
         this.initFilter();
         this.initPicked();
-
+        
         step = -2;
+
+        sequenceMaster.setSequenceTitleByCurrent(step);
     },
 
     discardGlobalBanPanel: function() {
@@ -6956,6 +6991,9 @@ let globalBanMaster = {
     closeGlobalBanPanel: function() {
         step = -1;
 
+        sequenceMaster.setSequenceTitleByCurrent(step);
+
+        this.stopAFPS();
         this.clearFilter();
         this.takeGlobalBanned();
 
@@ -6976,8 +7014,6 @@ let globalBanMaster = {
         // timerMaster.timerGauges.attr(this.hide, "");
         timerMaster.timerHost.attr(this.hide, "");
         // timerMaster.timerRelay.attr(this.hide, "");
-
-        sequenceMaster.setSequenceTitleByCurrent(step);
 
         controllerMaster.buttonReset.attr("title", text.btnResetDesc);
         controllerMaster.subActionButton.attr("title", text.btnUndoDesc);
@@ -7178,12 +7214,15 @@ let globalBanMaster = {
 
     onPicked: function(id) {
         this.appendPicked(id);
+
+        this.releaseAfpsStep();
     },
 
     appendPicked: function(id) {
         let info = charactersInfo.list[charactersInfo[id]];
 
         this.entryPickedForGB.append(poolMaster.buildCharacterItem(info, false, id == "treveler" ? "0" : null, "vcut"));
+        this.entryPickedForGB.find("> li").last().click(this.onClickPicked);
 
         let item = poolMaster.eachCharacters.filter("[" + poolMaster.id + "='" + id + "']");
         item.attr(poolMaster.pick_type, "entry");
@@ -7194,13 +7233,26 @@ let globalBanMaster = {
     },
 
     onClickPicked: function(e) {
-        globalBanMaster.excludePicked($(e.target));
+        if (globalBanMaster.afpSequence != null) {
+            let list = globalBanMaster.entryPickedForGB.find("> li");
+            
+            if (list[list.length-1] == e.target) {
+                globalBanMaster.excludePicked($(e.target)); 
+
+                globalBanMaster.releaseAfpsStep();
+            } else {
+                sequenceMaster.setSequenceTitle("순차 뽑기 중에는 가장 마지막에 선택한 캐릭터만 제외할 수 있습니다", 2000);
+            }
+
+        } else globalBanMaster.excludePicked($(e.target));
     },
 
     excludePicked: function(item) {
+        var forLast = false;
         if (item == null) {
             let list = this.entryPickedForGB.find("> li");
             item = list.last();
+            forLast = true;
         } else if (!(item instanceof jQuery)) item = $(item);
 
         let id = item.attr("data-id");
@@ -7209,35 +7261,38 @@ let globalBanMaster = {
         item = poolMaster.eachCharacters.filter("[" + poolMaster.id + "='" + id + "']");
         item.attr(poolMaster.pick_type, "");
         item.attr(poolMaster.picked, "");
+
+        if (forLast) this.releaseAfpsStep();
     },
 
     clearPicked: function() {
         let list = this.entryPickedForGB.find("> li");
 
         for (item of list) this.excludePicked(item);
+
+        this.releaseAfpsStep();
     },
 
     //character pool filter
     initFilter: function() {
-        if (this.cateAll.attr(this.selected) == "1") this.filterCategoryForAll(true);
-        if (this.costAll.attr(this.selected) == "1") this.filterCostForAll(true);
+        let isSelectCate = this.cateAll.attr(this.default);
+        let isSelectCost = this.costAll.attr(this.default);
+        let isSelectExtra = this.extraAll.attr(this.default);
+
+        if (isSelectCate != null) this.filterCategoryForAll(true, isSelectCate == "1" ? true : false);
+        if (isSelectCost != null) this.filterCostForAll(true, isSelectCost == "1" ? true : false);
+        if (isSelectExtra != null) this.filterExtraForAll(true, isSelectExtra == "1" ? true : false);
 
         this.applyFilter();
     },
 
-    filterCategoryForAll: function(init) {
+    filterCategoryForAll: function(init, force) {
         if (typeof init == "object") {
             globalBanMaster.filterCategoryForAll();
             return;
         }
 
-        var isAll = true;
-        for(var i=0; i<this.cateItems.length; i++) {
-            if ($(this.cateItems[i]).attr(this.selected) !== "1") {
-                isAll = false;
-                break;
-            }
-        }
+        let isAll = force != null ? !force : this.isAllSelected(this.cateItems);
 
         this.cateAll.attr(this.selected, "");
         this.cateItems.attr(this.selected, isAll ? "" : "1");
@@ -7245,19 +7300,13 @@ let globalBanMaster = {
         if (!init) this.applyFilter();
     },
 
-    filterCostForAll: function(init) {
+    filterCostForAll: function(init, force) {
         if (typeof init == "object") {
             globalBanMaster.filterCostForAll();
             return;
         }
 
-        var isAll = true;
-        for(var i=0; i<this.costItems.length; i++) {
-            if ($(this.costItems[i]).attr(this.selected) !== "1") {
-                isAll = false;
-                break;
-            }
-        }
+        let isAll = force != null ? !force : this.isAllSelected(this.costItems);
 
         this.costAll.attr(this.selected, "");
         this.costItems.attr(this.selected, isAll ? "" : "1");
@@ -7265,24 +7314,27 @@ let globalBanMaster = {
         if (!init) this.applyFilter();
     },
 
-    filterExtraForAll: function(init) {
+    filterExtraForAll: function(init, force) {
         if (typeof init == "object") {
             globalBanMaster.filterExtraForAll();
             return;
         }
 
-        var isAll = true;
-        for(var i=0; i<this.extraItems.length; i++) {
-            if ($(this.extraItems[i]).attr(this.selected) !== "1") {
-                isAll = false;
-                break;
-            }
-        }
+        let isAll = force != null ? !force : this.isAllSelected(this.extraItems);
 
         this.extraAll.attr(this.selected, "");
         this.extraItems.attr(this.selected, isAll ? "" : "1");
 
         if (!init) this.applyFilter();
+    },
+
+    isAllSelected: function(filterItems) {
+        for(var i=0; i<filterItems.length; i++) {
+            if ($(filterItems[i]).attr(this.selected) !== "1") {
+                return false;
+            }
+        }
+        return true;
     },
 
     filterOnClick: function(e) {
@@ -7341,6 +7393,110 @@ let globalBanMaster = {
 
     clearFilter: function() {
         poolMaster.eachCharacters.attr(poolMaster.except, "");
+    },
+
+    //Sequenced auto filter preset
+    initAFPS: function() {
+        if (this.afpSequence == null) {
+            this.startAfpSeqButtons.attr(this.started, "");
+            this.startAfpSeqButtons.attr("title", "조건 별 순차 뽑기 시작");
+            this.gbcpSafPresets.find("li[" + this.current + "='1']").attr(this.current, "");
+        } else {
+            this.afpSequence.filter("[" + this.current + "='1']").attr(this.current, "");
+            this.afpSequence = null;
+            this.afpsBegin = null;
+
+            this.initFilter();
+        }
+    },
+
+    onClickStartAFPS: function(e) {
+        $this = $(this);
+        if ($this.attr(globalBanMaster.started) != "1") globalBanMaster.startAFPS($this.parent());
+        else globalBanMaster.stopAFPS($this.parent());
+    },
+
+    startAFPS: function(presetBlock) {
+        let button = presetBlock.find(this.start_sequence_afp);
+        let preset = presetBlock.find(this.preset_for_auto_filter);
+        this.afpSequence = preset.find("li");
+
+        let isbeCleared = this.afpSequence.filter("[" + this.reset + "='1']").length > 0;
+        this.afpsBegin = isbeCleared ? 0 : this.entryPickedForGB.find("> li").length;
+
+        button.attr(this.started, "1");
+        button.attr("title", "순차 뽑기 진행을 중단합니다");
+
+        $(this.afpSequence[0]).attr(this.current, "1");
+        this.processAfpsCurrentStep();
+    },
+
+    stopAFPS: function(presetBlock) {
+        if (presetBlock != null) {
+            let button = presetBlock.find(this.start_sequence_afp);
+
+            button.attr(this.started, "");
+            button.attr("title", "조건 별 순차 뽑기 시작");
+        }
+
+        this.initAFPS();
+    },
+
+    processAfpsCurrentStep: function() {
+        let current = this.afpSequence.filter("[" + this.current + "='1']");
+        this.applyFilterPreset($(current[0]));
+
+        // for (var i=0; i<this.afpSequence.length; i++) {
+        //     let item = $(this.afpSequence[i]);
+
+        //     if (item.attr(this.current) == "1") {
+        //         this.applyFilterPreset(item);
+        //         break;
+        //     }
+        // }
+    },
+
+    releaseAfpsStep: function() {
+        if (this.afpSequence != null) {
+            let current = this.afpSequence.filter("[" + this.current + "='1']");
+            var cs = -1;
+            for (cs=0; cs<this.afpSequence.length; cs++) if (this.afpSequence[cs] == current[0]) break;
+
+            current.attr(this.current, "");
+
+            let isCleared = this.afpSequence.filter("[" + this.reset + "='1']").length > 0;
+            //let totalPicks = this.afpSequence.filter(":not([" + this.reset + "='1'])").length;
+            let currentPick = this.entryPickedForGB.find("> li").length - this.afpsBegin;
+            let previousStep = cs + (isCleared ? -1 : 0);
+
+            let next = cs + (currentPick < previousStep ? -1 : 1);
+            if (next >= this.afpSequence.length) this.stopAFPS(this.afpSequence.closest(this.gbcp_saf_preset));
+            else {
+                $(this.afpSequence[next]).attr(this.current, "1");
+                this.processAfpsCurrentStep();
+            }
+        }
+    },
+
+    applyFilterPreset: function(current) {
+        let reset = current.attr(this.reset);
+
+        if (reset == "1") this.clearPicked();
+        else {
+            let allCate = current.attr(this.allCate);
+            let allCost = current.attr(this.allCost);
+            let allExtras = current.attr(this.allExtras);
+            let selection = current.attr(this.selection);
+
+            if (allCate != null && allCate != "") this.filterCategoryForAll(false, allCate == "select" ? true : (allCate == "drop" ? false : null));
+            if (allCost != null && allCost != "") this.filterCostForAll(false, allCost == "select" ? true : (allCost == "drop" ? false : null));
+            if (allExtras != null && allExtras != "") this.filterExtraForAll(false, allExtras == "select" ? true : (allExtras == "drop" ? false : null));
+
+            if (selection != null && selection != "") {
+                let selections = selection.split(",");
+                for (target of selections) this.filterForCP.find("#" + target).click();
+            }
+        }
     },
 
     eoo

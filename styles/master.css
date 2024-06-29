@@ -1126,6 +1126,8 @@ div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap >
 div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div { }
 div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset { display: flex; flex-direction: row; flex-wrap: nowrap; margin: 6px 2px; }
 div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > button.start_sequence_afp { width: 64px; margin: 0px 2px; padding: 7px 3px; border: solid 2px var(--cil); color: rgb(var(--color-important-dark) / 80%); border-radius: 6px; background-color: rgb(255 255 255 / 80%); font-size: 16px; font-weight: bold; text-align: center; line-height: 17px; cursor: pointer; transition-duration: 0.25s; }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > button.start_sequence_afp::after { content: attr(data-text-start); }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > button.start_sequence_afp[data-started="1"]::after { content: attr(data-text-stop); }
 div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > button.start_sequence_afp:focus { outline: dashed 3px rgb(var(--color-focusive-light) / 85%); outline-offset: -6px; }
 div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > button.start_sequence_afp:hover { color: rgb(var(--color-important-light) / 80%); }
 div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > div.gbcp_saf_preset > button.start_sequence_afp:active { color: rgb(var(--color-important-dark) / 100%); }
