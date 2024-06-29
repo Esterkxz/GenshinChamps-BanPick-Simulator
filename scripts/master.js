@@ -2303,7 +2303,7 @@ let poolMaster = {
     setPickCursorCharacter: function(item) {
         item = $(item);
         sequenceMaster.onPick(item.attr(poolMaster.id), item);
-        if (this.cursorRoller != null) {
+        if (sequenceMaster.rollingRandomPicks !== true && this.cursorRoller != null) {
             setTimeout(function() {
                 poolMaster.removeSideSelectionView(item);
             }, 600);
@@ -2327,7 +2327,7 @@ let poolMaster = {
     },
 
     randomCursorRoller: function() {
-        if (sequenceMaster.lastPickedTime != null && Date.now() < sequenceMaster.lastPickedTime + 1000) return;
+        if (!sequenceMaster.rollingRandomPicks && sequenceMaster.lastPickedTime != null && Date.now() < sequenceMaster.lastPickedTime + 1000) return;
         //let seq = rules.sequence[step];
         //let side = seq.type == "proffer" ? (seq.side == "red" ? "blue" : "red") : seq.side;
         let items = poolMaster.eachCharacters.filter('[' + poolMaster.picked + '=""]:not([' + poolMaster.cursor + '="1"]):not([' + poolMaster.except + '="1"])');
