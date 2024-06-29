@@ -1364,14 +1364,33 @@ function getPathA(id, group = "", type = "sounds") {
                                 <button class="start_sequence_afp" data-text-start="START" data-text-stop="STOP" data-started="" title="조건 별 순차 뽑기 시작"></button>
                                 <ul class="preset_for_auto_filter">
                                     <li data-reset="1"><sub>0.<span> </span></sub>비움</li>
-                                    <li data-all-cate="drop" data-all-cost="select" data-all-prev="drop" data-selection="gbcp_fc_limited_5star,gbcp_fc_0cost,gbcp_fc_1cost" title="3코 이상 한정 5성"><sub>1.<span> </span></sub>5⭐한정</li>
-                                    <li data-all-cate="drop" data-all-cost="select" data-all-prev="drop" data-selection="gbcp_fc_ordinary_5star" title="전체 코스트 5성 상시" data-current="1"><sub>2.<span> </span></sub>5⭐상시</li>
-                                    <li data-all-cate="drop" data-all-cost="select" data-all-prev="drop" data-selection="gbcp_fc_4star,gbcp_fc_0cost,gbcp_fc_1cost" title="3코 이상 4성"><sub>3.<span> </span></sub>4⭐</li>
+                                    <li data-all-cate="drop" data-all-cost="select" data-selection="gbcp_fc_limited_5star,gbcp_fc_0cost,gbcp_fc_1cost" title="3코 이상 한정 5성"><sub>1.<span> </span></sub>5⭐한정</li>
+                                    <li data-all-cate="drop" data-all-cost="select" data-selection="gbcp_fc_ordinary_5star" title="전체 코스트 5성 상시" data-current="1"><sub>2.<span> </span></sub>5⭐상시</li>
+                                    <li data-all-cate="drop" data-all-cost="select" data-selection="gbcp_fc_4star,gbcp_fc_0cost,gbcp_fc_1cost" title="3코 이상 4성"><sub>3.<span> </span></sub>4⭐</li>
                                 </ul>
                             </div>
                         </div>
                         <div class="range_wrap">
                             <label>Character pool filter</label>
+                            <ul id="gbcp_filter_element" class="filter_for_cp">
+                                <li title="전체 원소" data-all="1" data-default="1">전체</li>
+                                <li data-element="pyro" title="불 원소"><img src="./images/elemental_iconic/UI_Buff_Element_Fire.5d7fae03.png" /></li>
+                                <li data-element="hydro" title="물 원소"><img src="./images/elemental_iconic/UI_Buff_Element_Water.b6c53c5a.png" /></li>
+                                <li data-element="anemo" title="바람 원소"><img src="./images/elemental_iconic/UI_Buff_Element_Wind.df5c5ebb.png" /></li>
+                                <li data-element="electro" title="번개 원소"><img src="./images/elemental_iconic/UI_Buff_Element_Elect.0a028170.png" /></li>
+                                <li data-element="dendro" title="풀 원소"><img src="./images/elemental_iconic/UI_Buff_Element_Grass.c77bf16c.png" /></li>
+                                <li data-element="cryo" title="얼음 원소"><img src="./images/elemental_iconic/UI_Buff_Element_Frost.91ff296b.png" /></li>
+                                <li data-element="geo" title="바위 원소"><img src="./images/elemental_iconic/UI_Buff_Element_Roach.2ed0cb50.png" /></li>
+                                <li data-element="switchable" title="원소 전환 가능">✦</li>
+                            </ul>
+                            <ul id="gbcp_filter_weapon" class="filter_for_cp">
+                                <li title="전체 무기" data-all="1" data-default="1">전체</li>
+                                <li data-weapon="bow" title="활">활</li>
+                                <li data-weapon="catalyst" title="법구">법구</li>
+                                <li data-weapon="polearm" title="장병기">장병기</li>
+                                <li data-weapon="claymore" title="양손검">양손검</li>
+                                <li data-weapon="sword" title="한손검">한손검</li>
+                            </ul>
                             <ul id="gbcp_filter_category" class="filter_for_cp">
                                 <li title="전체 캐릭터 출력" data-all="1" data-default="1">전체</li>
                                 <li id="gbcp_fc_limited_5star" data-rarity="5" data-class="limited" data-include-treveler="false" title="5성 한정 픽업">5⭐한정</li>

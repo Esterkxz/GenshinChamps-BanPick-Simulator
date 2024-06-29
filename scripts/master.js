@@ -1385,6 +1385,7 @@ let poolMaster = {
     class: "data-class",
     treveler: "data-treveler",
     rarity: "data-rarity",
+    weapon: "data-weapon",
     name: "data-name",
     pick_side: "data-pick-side",
     pick_type: "data-pick-type",
@@ -2052,6 +2053,8 @@ let poolMaster = {
             item.setAttribute(this.id, info.id);
             item.setAttribute(this.class, info.class);
             item.setAttribute(this.rarity, info.rarity);
+            item.setAttribute(this.element, info.element);
+            item.setAttribute(this.weapon, info.weapon);
             item.setAttribute(this.cost, this.getCost(info.id));
             try {
                 item.setAttribute(this.name, info.name[loca]);
@@ -6831,12 +6834,16 @@ let globalBanMaster = {
     current: "data-current",
 
     reset: "data-reset",
+    allElem: "data-all-elem",
+    allWeap: "data-all-weap",
     allCate: "data-all-cate",
     allCost: "data-all-cost",
     allExtras: "data-all-extras",
     selection: "data-selection",
 
     filter_for_cp: "ul.filter_for_cp",
+    gbcp_filter_element: "#gbcp_filter_element",
+    gbcp_filter_weapon: "#gbcp_filter_weapon",
     gbcp_filter_category: "#gbcp_filter_category",
     gbcp_filter_cost: "#gbcp_filter_cost",
     gbcp_filter_extras: "#gbcp_filter_extras",
@@ -6866,9 +6873,16 @@ let globalBanMaster = {
     startAfpSeqButtons: null,
 
     filterForCP: null,
+    gbcpFilterElement: null,
+    gbcpFilterWeapon: null,
     gbcpFilterCategory: null,
     gbcpFilterCost: null,
+    gbcpFilterExtras: null,
 
+    elemAll: null,
+    elemItems: null,
+    weapAll: null,
+    weapItems: null,
     cateAll: null,
     cateItems: null,
     costAll: null,
@@ -6901,11 +6915,17 @@ let globalBanMaster = {
         this.startAfpSeqButtons = this.gbcpSafPresets.find(this.start_sequence_afp);
 
         this.filterForCP = this.globalBanCharacterPoolFilter.find(this.filter_for_cp);
+        this.gbcpFilterElement = this.filterForCP.filter(this.gbcp_filter_element);
+        this.gbcpFilterWeapon = this.filterForCP.filter(this.gbcp_filter_weapon);
         this.gbcpFilterCategory = this.filterForCP.filter(this.gbcp_filter_category);
         this.gbcpFilterCost = this.filterForCP.filter(this.gbcp_filter_cost);
         this.gbcpFilterExtras = this.filterForCP.filter(this.gbcp_filter_extras);
 
         
+        this.elemAll = this.gbcpFilterElement.find("> li[" + this.all + "='1']");
+        this.elemItems = this.gbcpFilterElement.find("> li:not([" + this.all + "='1'])");
+        this.weapAll = this.gbcpFilterWeapon.find("> li[" + this.all + "='1']");
+        this.weapItems = this.gbcpFilterWeapon.find("> li:not([" + this.all + "='1'])");
         this.cateAll = this.gbcpFilterCategory.find("> li[" + this.all + "='1']");
         this.cateItems = this.gbcpFilterCategory.find("> li:not([" + this.all + "='1'])");
         this.costAll = this.gbcpFilterCost.find("> li[" + this.all + "='1']");
@@ -6926,9 +6946,13 @@ let globalBanMaster = {
 
         this.startAfpSeqButtons.click(this.onClickStartAFPS)
 
+        this.elemAll.click(this.filterElementForAll);
+        this.weapAll.click(this.filterWeaponForAll);
         this.cateAll.click(this.filterCategoryForAll);
         this.costAll.click(this.filterCostForAll);
         this.extraAll.click(this.filterExtraForAll);
+        this.elemItems.click(this.filterOnClick);
+        this.weapItems.click(this.filterOnClick);
         this.cateItems.click(this.filterOnClick);
         this.costItems.click(this.filterOnClick);
         this.extraItems.click(this.filterOnClick);
@@ -7213,9 +7237,11 @@ let globalBanMaster = {
     },
 
     onPicked: function(id) {
-        this.appendPicked(id);
+        if (globalBanMaster.entryPickedForGB.find("> li[" + poolMaster.id + "='" + id + "']").length < 1) {
+            this.appendPicked(id);
 
-        this.releaseAfpsStep();
+            this.releaseAfpsStep();
+        }
     },
 
     appendPicked: function(id) {
@@ -7275,15 +7301,47 @@ let globalBanMaster = {
 
     //character pool filter
     initFilter: function() {
+        let isSelectElem = this.elemAll.attr(this.default);
+        let isSelectWeap = this.weapAll.attr(this.default);
         let isSelectCate = this.cateAll.attr(this.default);
         let isSelectCost = this.costAll.attr(this.default);
         let isSelectExtra = this.extraAll.attr(this.default);
 
+        if (isSelectCate != null) this.filterElementForAll(true, isSelectElem == "1" ? true : false);
+        if (isSelectCate != null) this.filterWeaponForAll(true, isSelectWeap == "1" ? true : false);
         if (isSelectCate != null) this.filterCategoryForAll(true, isSelectCate == "1" ? true : false);
         if (isSelectCost != null) this.filterCostForAll(true, isSelectCost == "1" ? true : false);
         if (isSelectExtra != null) this.filterExtraForAll(true, isSelectExtra == "1" ? true : false);
 
         this.applyFilter();
+    },
+
+    filterElementForAll: function(init, force) {
+        if (typeof init == "object") {
+            globalBanMaster.filterElementForAll();
+            return;
+        }
+
+        let isAll = force != null ? !force : this.isAllSelected(this.elemItems);
+
+        this.elemAll.attr(this.selected, "");
+        this.elemItems.attr(this.selected, isAll ? "" : "1");
+
+        if (!init) this.applyFilter();
+    },
+
+    filterWeaponForAll: function(init, force) {
+        if (typeof init == "object") {
+            globalBanMaster.filterWeaponForAll();
+            return;
+        }
+
+        let isAll = force != null ? !force : this.isAllSelected(this.weapItems);
+
+        this.weapAll.attr(this.selected, "");
+        this.weapItems.attr(this.selected, isAll ? "" : "1");
+
+        if (!init) this.applyFilter();
     },
 
     filterCategoryForAll: function(init, force) {
@@ -7338,7 +7396,7 @@ let globalBanMaster = {
     },
 
     filterOnClick: function(e) {
-        globalBanMaster.toggleFilter($(e.target));
+        globalBanMaster.toggleFilter($(this));
     },
 
     toggleFilter(item) {
@@ -7352,6 +7410,24 @@ let globalBanMaster = {
         this.clearFilter();
 
         let pool = poolMaster.eachCharacters;
+        let elemExcept = this.elemItems.filter(":not([" + this.selected + "='1'])");
+        for (var i=0; i<elemExcept.length; i++) {
+            let item = $(elemExcept[i]);
+            let element = item.attr(poolMaster.element);
+
+            let filter = "[" + poolMaster.element + "='" + element + "']";
+
+            pool.filter(filter).attr(poolMaster.except, "1");
+        }
+        let weapExcept = this.weapItems.filter(":not([" + this.selected + "='1'])");
+        for (var i=0; i<weapExcept.length; i++) {
+            let item = $(weapExcept[i]);
+            let weapon = item.attr(poolMaster.weapon);
+
+            let filter = "[" + poolMaster.weapon + "='" + weapon + "']";
+
+            pool.filter(filter).attr(poolMaster.except, "1");
+        }
         let cateExcept = this.cateItems.filter(":not([" + this.selected + "='1'])");
         for (var i=0; i<cateExcept.length; i++) {
             let item = $(cateExcept[i]);
@@ -7432,6 +7508,10 @@ let globalBanMaster = {
     },
 
     stopAFPS: function(presetBlock) {
+        if (presetBlock == null && this.afpSequence != null) {
+            presetBlock = this.afpSequence.closest(this.gbcp_saf_preset);
+        }
+
         if (presetBlock != null) {
             let button = presetBlock.find(this.start_sequence_afp);
 
@@ -7470,7 +7550,7 @@ let globalBanMaster = {
             let previousStep = cs + (isCleared ? -1 : 0);
 
             let next = cs + (currentPick < previousStep ? -1 : 1);
-            if (next >= this.afpSequence.length) this.stopAFPS(this.afpSequence.closest(this.gbcp_saf_preset));
+            if (next >= this.afpSequence.length) this.stopAFPS();
             else {
                 $(this.afpSequence[next]).attr(this.current, "1");
                 this.processAfpsCurrentStep();
@@ -7483,6 +7563,8 @@ let globalBanMaster = {
 
         if (reset == "1") this.clearPicked();
         else {
+            let allElem = current.attr(this.allElem);
+            let allWeap = current.attr(this.allWeap);
             let allCate = current.attr(this.allCate);
             let allCost = current.attr(this.allCost);
             let allExtras = current.attr(this.allExtras);

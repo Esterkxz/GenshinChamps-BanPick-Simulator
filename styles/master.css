@@ -1151,6 +1151,8 @@ div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap >
 div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > ul.filter_for_cp > li[data-all="1"]:active { color: rgb(0 0 0 / 30%); background-color: rgb(255 255 255 / 40%); }
 div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > ul.filter_for_cp > li { --filter-selected-color: var(--color-important-darker); --filter-selected-bg-color: var(--color-important-highlight); --filter-hover-shadow-color: var(--color-focusive-dark); }
 body.dark div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > ul.filter_for_cp > li { --filter-selected-color: var(--color-important-lighter); --filter-selected-bg-color: var(--color-important); --filter-hover-shadow-color: var(--color-focusive-light); }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > ul.filter_for_cp#gbcp_filter_element > li[data-element="switchable"] { font-size: 30px; line-height: 26px; }
+div#global_ban_manager > div#global_ban_character_pool_filter > div.range_wrap > ul.filter_for_cp#gbcp_filter_element > li > img { width: 30px; }
 
 
 div#main_controller { display: table; margin: 30px auto 0; }
