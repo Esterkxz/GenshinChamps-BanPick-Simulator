@@ -1274,8 +1274,8 @@ let charactersInfo = {
             "res_icon": "UI_AvatarIcon_Sigewinne.png",
             "res_vcut": "sigewinne_095_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "24%", "vHover": "22%" },
-            "res_wide": ".png",
-            "res_wide_meta_pos": { "scale": "360%", "h": "64%", "v": "32%" },
+            "res_wide": "segewinne_genshin_impact_art_render_by_deg5270_dhofsra-fullview.png",
+            "res_wide_meta_pos": { "scale": "360%", "h": "53%", "v": "32%" },
         },
         {
             "comment": "temporary data for pre-official release",
