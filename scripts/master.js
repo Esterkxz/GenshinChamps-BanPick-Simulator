@@ -6991,7 +6991,7 @@ let globalBanMaster = {
         this.getGlobalBanPool().parent().show();
         
         this.initFilter();
-        this.initPicked();
+        this.initPicked(true);
         
         step = -2;
 
@@ -7064,6 +7064,11 @@ let globalBanMaster = {
             pool.parent().show();
         } else {
             pool.parent().hide();
+        }
+
+        if (step == -2){
+            this.releasePicked();
+            this.applyFilter();
         }
     },
 
@@ -7237,6 +7242,12 @@ let globalBanMaster = {
         this.entryPickedForGB.find("> li").click(this.onClickPicked);
     },
 
+    releasePicked: function() {
+        let list = this.entryPickedForGB.find("> li");
+
+        for (item of list) this.appendPicked($(item).attr(poolMaster.id), true);
+    },
+
     onPicked: function(id) {
         if (globalBanMaster.entryPickedForGB.find("> li[" + poolMaster.id + "='" + id + "']").length < 1) {
             this.appendPicked(id);
@@ -7245,11 +7256,13 @@ let globalBanMaster = {
         }
     },
 
-    appendPicked: function(id) {
+    appendPicked: function(id, release = false) {
         let info = charactersInfo.list[charactersInfo[id]];
 
-        this.entryPickedForGB.append(poolMaster.buildCharacterItem(info, false, id == "treveler" ? "0" : null, "vcut"));
-        this.entryPickedForGB.find("> li").last().click(this.onClickPicked);
+        if (release !== true) {
+            this.entryPickedForGB.append(poolMaster.buildCharacterItem(info, false, id == "treveler" ? "0" : null, "vcut"));
+            this.entryPickedForGB.find("> li").last().click(this.onClickPicked);
+        }
 
         let item = poolMaster.eachCharacters.filter("[" + poolMaster.id + "='" + id + "']");
         item.attr(poolMaster.pick_type, "entry");
