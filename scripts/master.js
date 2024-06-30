@@ -6944,7 +6944,8 @@ let globalBanMaster = {
 
         this.clearListGB.click(this.onClickClear);
 
-        this.startAfpSeqButtons.click(this.onClickStartAFPS)
+        this.startAfpSeqButtons.click(this.onClickStartAFPS);
+        this.gbcpSafPresets.find("li").click(this.onClickAfpsItem);
 
         this.elemAll.click(this.filterElementForAll);
         this.weapAll.click(this.filterWeaponForAll);
@@ -7556,6 +7557,10 @@ let globalBanMaster = {
                 this.processAfpsCurrentStep();
             }
         }
+    },
+
+    onClickAfpsItem: function(e) {
+        globalBanMaster.applyFilterPreset($(this));
     },
 
     applyFilterPreset: function(current) {
