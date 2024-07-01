@@ -650,6 +650,8 @@ div#side_behind div.side_behind#right_behind_area div.character_name_display spa
 div#side_behind div.side_behind#right_behind_area div.character_name_display span:nth-last-of-type(1) { transform: translateX(40px); }
 div#side_behind div.side_behind#right_behind_area div.character_name_display span:nth-last-of-type(2) { }
 div#side_behind div.side_behind#right_behind_area div.character_name_display span:nth-last-of-type(3) { transform: translateX(-30px); }
+div#side_behind[data-wide="1"] div.side_behind#left_behind_area div.character_name_display { margin-left: 0px; }
+div#side_behind[data-wide="1"] div.side_behind#right_behind_area div.character_name_display { margin-right: -50px; }
 
 /* Full width area */
 div#full_behind { position: absolute; top: 0; left: 0; right: 0; overflow: visible; }

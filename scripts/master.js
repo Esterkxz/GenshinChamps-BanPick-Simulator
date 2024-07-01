@@ -6977,6 +6977,7 @@ let globalBanMaster = {
         $("#center_area").attr(this.wide, "1");
         $("#league_title").attr(this.hide, "1");
         poolMaster.eachSideSelectionArea.attr(this.wide, "1");
+        poolMaster.sideBehind.attr(this.wide, "1");
         poolMaster.poolBlock.attr(this.shift, "1");
         poolMaster.unavailables.attr(this.hide, "1");
         versionDisplayShowFor();
@@ -7030,6 +7031,7 @@ let globalBanMaster = {
         $("#center_area").attr(this.wide, "");
         $("#league_title").attr(this.hide, "");
         poolMaster.eachSideSelectionArea.attr(this.wide, "");
+        poolMaster.sideBehind.attr(this.wide, "");
         poolMaster.poolBlock.attr(this.shift, "");
         poolMaster.unavailables.attr(this.hide, "");
         versionDisplayShowFor(false);
