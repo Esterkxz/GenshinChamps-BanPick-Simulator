@@ -311,7 +311,7 @@ let sequenceMaster = {
         item.setAttribute("class", "sequence_item");
         item.setAttribute(this.side, info.side == "red" ? "R" : "B");
         item.setAttribute(this.target, info.pick.indexOf("weapon") > -1 ? "W" : "C");
-        item.setAttribute(this.pick, info.pick.indexOf("ban") > -1 ? "B" : (info.pick.indexOf("entry") > -1 ? "E" : "P"));
+        item.setAttribute(this.pick, info.pick.indexOf("preban") > -1 ? "PreB" : (info.pick.indexOf("ban") > -1 ? "B" : (info.pick.indexOf("entry") > -1 ? "E" : "P")));
         item.setAttribute(this.amount, info.amount);
         item.setAttribute(this.current, "");
         item.appendChild(document.createElement("hr"));
@@ -384,6 +384,9 @@ let sequenceMaster = {
                 var tType = "?";
                 if (isBanCardLeftsNotUsed) tType = text.pickUseBanCard;
                 else switch (seq.pick) {
+                    case "preban":
+                        tType = text.pickPreban;
+                        break;
                     case "ban":
                         tType = text.pickBan;
                         break;
@@ -399,6 +402,7 @@ let sequenceMaster = {
                 }
                 var tAmount = "?";
                 switch (seq.pick) {
+                    case "preban":
                     case "ban":
                     case "entry":
                     case "proffer":
@@ -479,7 +483,6 @@ let sequenceMaster = {
             if (pcid != null) this.pickingPlayerProfile.blue = false;
             return;
         }
-        if (item != null && item.attr(poolMaster.banned) != "") return;
         if (step == -2) {
             globalBanMaster.onPicked(id);
             return;
@@ -491,6 +494,7 @@ let sequenceMaster = {
             return;
         }
         let seq = rules.sequence[step];
+        if (item != null && item.attr(poolMaster.banned) != "" && !(step > -1 && seq.pick.indexOf("ban") > -1 && item.attr(poolMaster.pick_side) != seq.side)) return;
 
         let isCharacterPick = seq.pick.indexOf("weapon") < 0;
         let isProfferPick = seq.pick == "proffer";
@@ -505,7 +509,7 @@ let sequenceMaster = {
         if (isCharacterPick) {//캐릭터 픽
             //if (item.weapon == null) return;
             if (id.indexOf("_") > -1) return;
-            if (item.attr(poolMaster.picked + "-" + (seq.pick != "ban" ? pickingSide : pickingCounter)) == "1") return;
+            if (item.attr(poolMaster.picked + "-" + (seq.pick != "ban" || seq.pick != "preban" ? pickingSide : pickingCounter)) == "1") return;
             treveler = item.attr(poolMaster.treveler);
             if (isTreveler && treveler == "1") id += "M";
             if (rules.rule_type == "ban card") banCard = rules.ban_card_accure[id];
@@ -524,6 +528,7 @@ let sequenceMaster = {
         //구현 - 현재 step에 따른 entry pick / ban pick 구분 처리
         var pickNote;
         switch(seq.pick) {
+            case "preban":
             case "ban":
                 sideMaster.onPickedBan(id);
                 pickNote = lang.text.pickedBan;
@@ -550,10 +555,10 @@ let sequenceMaster = {
         //update pick pool
         if (isCharacterPick) {
             if (isTreveler) item = poolMaster.eachCharacters.filter('[' + poolMaster.id + '="treveler"]');
-            item.attr(poolMaster.pick_side, pickingSide);
+            item.attr(poolMaster.pick_side, item.attr(poolMaster.pick_side) != "" ? "both" : pickingSide);
             item.attr(poolMaster.pick_type, seq.pick);
             item.attr(poolMaster.picked, "1");
-            if (seq.pick == "ban" || usingBanCard) {
+            if (seq.pick == "ban" || seq.pick == "preban" || usingBanCard) {
                 item.attr(poolMaster.banned, "1");
                 item.attr(poolMaster.banned_by_card, usingBanCard ? "1" : "");
                 item.attr(poolMaster.pick_note, pickNote);
@@ -622,6 +627,7 @@ let sequenceMaster = {
 
             //픽/밴 엔트리 캐릭터 검색 복원 구현
             switch (ref.pick) {
+                case "preban":
                 case "ban":
                     sideMaster.onUndoPickBan(picked.id, pickingSide);
                     break;
@@ -640,12 +646,16 @@ let sequenceMaster = {
             //코스트 테이블 캐릭터 검색 복원
             if (isCharacterPick) {
                 let item = poolMaster.eachCharacters.filter('[' + poolMaster.id  + '="' + picked.id + '"]');
-                if (ref.pick == "ban" || (last.isBanCardBan)) {
-                    item.attr(poolMaster.banned, "");
-                    item.attr(poolMaster.banned_by_card, "");
-                    item.attr(poolMaster.pick_side, "");
-                    item.attr(poolMaster.pick_type, "");
-                    item.attr(poolMaster.pick_note, null);
+                if (ref.pick == "ban" || ref.pick == "preban" || (last.isBanCardBan)) {
+                    if (item.attr(poolMaster.pick_side) == "both") {
+                        item.attr(poolMaster.pick_side, counterSide);                        
+                    } else {
+                        item.attr(poolMaster.banned, "");
+                        item.attr(poolMaster.banned_by_card, "");
+                        item.attr(poolMaster.pick_side, "");
+                        item.attr(poolMaster.pick_type, "");
+                        item.attr(poolMaster.pick_note, null);
+                    }
                 } else switch (pickingSide) {
                     case "red":
                         item.attr(poolMaster.picked_red, "");
@@ -926,7 +936,7 @@ let sequenceMaster = {
     },
 
     getCheckRes: function() {
-        return this.checkRes != null && this.checkRes.step != step ? this.issueCheckRes() : this.checkRes;
+        return this.checkRes == null || this.checkRes.step != step ? this.issueCheckRes() : this.checkRes;
     },
 
     issueCheckRes: function() {
@@ -945,6 +955,7 @@ let sequenceMaster = {
         switch (seq.side) {
             case "red":
                 switch (seq.pick) {
+                    case "preban":
                     case "ban":
                         rem = res.rbx;
                         for (var i in res.rb) {
@@ -982,6 +993,7 @@ let sequenceMaster = {
 
             case "blue":
                 switch (seq.pick) {
+                    case "preban":
                     case "ban":
                         rem = res.bbx;
                         for (var i in res.bb) {
@@ -1037,6 +1049,7 @@ let sequenceMaster = {
             switch (s.side) {
                 case "red":
                     switch (s.pick) {
+                        case "preban":
                         case "ban":
                             res.rbx += amount;
                             break;
@@ -1058,6 +1071,7 @@ let sequenceMaster = {
 
                 case "blue":
                     switch (s.pick) {
+                        case "preban":
                         case "ban":
                             res.bbx += amount;
                             break;
@@ -1115,6 +1129,7 @@ let sequenceMaster = {
             switch (ref.side) {
                 case "red":
                     switch (ref.pick) {
+                        case "preban":
                         case "ban":
                             res.rb.push(cur);
                             break;
@@ -1149,6 +1164,7 @@ let sequenceMaster = {
 
                 case "blue":
                     switch (ref.pick) {
+                        case "preban":
                         case "ban":
                             res.bb.push(cur);
                             break;
@@ -1241,6 +1257,7 @@ let sequenceMaster = {
         let seq = rules.sequence[step];
 
         if (seq != null || step === -2) switch (step === -2 ? "entry" : seq.pick) {
+            case "preban":
             case "ban":
             case "entry":
             case "proffer":
@@ -1666,6 +1683,7 @@ let poolMaster = {
                 this.banCardPool.attr(this.league, rules.alterSelected);
                 break;
 
+            case "preban":
             case "cost":
                 this.initCostTable();
                 break;
@@ -2357,12 +2375,12 @@ let poolMaster = {
         
         switch(side) {
             case "red":
-                if (pick == "ban") this.leftSideBehind.append(display);
+                if (pick == "ban" || pick == "preban") this.leftSideBehind.append(display);
                 else this.rightSideBehind.append(display);
                 break;
 
             case "blue":
-                if (pick == "ban") this.rightSideBehind.append(display);
+                if (pick == "ban" || pick == "preban") this.rightSideBehind.append(display);
                 else this.leftSideBehind.append(display);
                 break;
         }
@@ -2385,7 +2403,7 @@ let poolMaster = {
     },
 
     toggleTrevelerAlter(forced) {
-        if (rules.rule_type != "cost") return;
+        if (rules.rule_type != "cost" && rules.rule_type != "preban") return;
 
         let item = this.eachCharacters.filter('[' + this.id + '="treveler"]');
         if (item.length < 1) return;
@@ -3172,7 +3190,7 @@ let sideMaster = {
             var point = 0;
 
             for(var i in data) {
-                if (i != "player" && i != "list") {
+                if (i != "player" && i != "prebanned" && i != "list") {
                     let cons = data[i];
                     let info = charactersInfo.list[charactersInfo[i]];
                     if (cons != null && info.class == "limited") point += parseInt(cons) + 1;
@@ -3415,6 +3433,7 @@ let sideMaster = {
                         afterBan[seq.side] = false;
                         break;
                         
+                    case "preban":
                     case "ban":
                         afterBan[seq.side] = true;
                         continue;
@@ -3496,7 +3515,7 @@ let sideMaster = {
 
         let constell = this.sideAccInfo[side] != null ? this.sideAccInfo[side][id] : null;
 
-        let adds = (rules.rule_type == "cost" && constell != null) ? this.getAdditionalCost(id, parseInt(constell)) : 0;
+        let adds = ((rules.rule_type == "cost" || rules.rule_type == "preban") && constell != null) ? this.getAdditionalCost(id, parseInt(constell)) : 0;
         this.setEntryContent(slot, this.buildEntryIcon(info), this.buildEntryInfoArea(id, adds), info);
         slot.attr(this.id, info.id);
         slot.attr(this.rarity, info.rarity);
@@ -3654,6 +3673,7 @@ let sideMaster = {
     buildEntryInfoArea: function(id, add = 0) {
         let info = document.createElement("div");
         switch(rules.rule_type) {
+            case "preban":
             case "cost":
                 info.setAttribute(this.step, stepHistory.length);
                 let cost = this.getCostByCharacter(id);
@@ -3734,7 +3754,7 @@ let sideMaster = {
 
         let slot = self.closest(sideMaster.entry);
 
-        if (rules.rule_type == "cost") sideMaster.releaseAdditionalCostByEntryConstell(slot);
+        if (rules.rule_type == "cost" || rules.rule_type == "preban") sideMaster.releaseAdditionalCostByEntryConstell(slot);
         playerInfoMaster.onChangedCharConstell(slot.attr(sideMaster.id), self.val());
     },
 
@@ -4333,7 +4353,7 @@ let sideMaster = {
             let side = entry.hasClass("red") ? "red" : "blue";
             banCount[side]++;
             var isOn = false;
-            if (seq != null && seq.pick == "ban" && side == seq.side) {
+            if (seq != null && (seq.pick == "ban" || seq.pick == "preban") && side == seq.side) {
                 let cur = banCount[side];
                 let picked = this.banPicked[side].length;
                 //현재 픽 되어있는 것 이후(빈) 항목
@@ -6328,7 +6348,7 @@ let playerInfoMaster = {
 
             try {
                 for(var i in data) {
-                    if (i != "player" && i != "list") {
+                    if (i != "player" && i != "prebanned" && i != "list") {
                         let cons = data[i];
                         let info = charactersInfo.list[charactersInfo[i]];
                         if (cons != null && info.class == "limited") {
@@ -7080,6 +7100,7 @@ let globalBanMaster = {
                 return poolMaster.eachGradeArea.filter(poolMaster.global_banned_area).find("ul." + poolMaster.each_grade_pool);
                 break;
 
+            case "preban":
             case "cost":
                 return poolMaster.globalBannedPool;
                 break;
@@ -9519,6 +9540,7 @@ let timerMaster = {
         let seq = rules.sequence[step];
         let triggerStep = step;
         if (seq != null && seq.amount > 0) switch (seq.pick) {
+            case "preban":
             case "ban":
             case "ban weapon":
                 if (this.settings.autoStartBan) setTimeout(function() { if (triggerStep == step) timerMaster.startTimer(); }, 500);
@@ -9908,6 +9930,26 @@ function onChangedSide(cur) {
 function onChangedStep() {
     timerMaster.onChangedStep();
     if (step < 0 || step >= rules.sequence.length) poolMaster.stopRollRandomCursor();
+    if (step > -1) {
+        let seq = rules.sequence[step];
+        if (seq.pick == "preban") {
+            let info = playerInfoMaster.playerAccInfo[seq.side];
+            if (info != null) {
+                let entries = info.prebanned;
+                if (entries != null) {
+                    let res = sequenceMaster.getCheckRes();
+                    if (res.rem == seq.amount) {
+                        let delay = seq.side == "red" ? 0 : 500;
+                        for (i in entries) if (i < seq.amount) {
+                            let id = entries[i];
+                            let item = poolMaster.eachCharacters.filter('[data-id="' + id + '"]');
+                            setTimeout(() => { sequenceMaster.onPick(id, item); }, delay + (i * 200));
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 function hideCursorWholeScreen() {

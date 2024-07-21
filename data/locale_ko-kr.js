@@ -13,6 +13,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "pick": "픽",
         "ban": "밴픽",
 
+        "pickPreban": "사전 밴",
         "pickBan": "밴픽",
         "pickEntry": "픽",
         "pickProffer": "상대 픽",

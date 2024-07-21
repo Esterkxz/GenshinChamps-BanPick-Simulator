@@ -13,6 +13,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "pick": "PICK",
         "ban": "BAN",
 
+        "pickPreban": "PRE-BAN",
         "pickBan": "BAN",
         "pickEntry": "Party ENTRY",
         "pickProffer": "PROFFER Entry",

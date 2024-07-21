@@ -1,0 +1,1018 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>아디컵 블라인드 밴 선택기  v1.0.0</title>
+        <meta name="viewport" content="user-scalable=yes, width=720, minimum-scale=0.2, maximum-scale=2.0, initial-scale=1.0">
+        <style>
+
+div.note { display: table; margin: 25px auto; }
+div.subnote { display: table; margin: 10px auto; }
+
+table { margin: 0 auto; padding: 8px 10px; border: ridge 2px #4AF; border-radius: 16px; }
+thead { }
+tfoot { }
+tbody { }
+tr { }
+td { }
+
+input[type=text], input[type=number] { width: 100%; font-size: 100%; text-align: right; }
+textarea { font-family: '맑은 고딕', 'Malgun Gothic', 'Noto Sans KR', NotoSansKR, '나눔고딕', 'Nanum Gothic', NanumGothic, 'Open Sans', '돋움', Dotum, 'Apple SD 산돌고딕 Neo', 'Apple SD Gothic Neo', AppleGothic, Arial, Helvetica, sans-serif; }
+
+table.score_calc { border-spacing: 0px 1px; }
+table.score_calc td:not([colspan="4"]):nth-child(5) { width: 113px; }
+table.score_calc thead td { border-bottom: solid 2px #08D; }
+table.score_calc tbody td:not([colspan="4"]):nth-child(1) { }
+table.score_calc tbody td:not([colspan="4"]):nth-child(2) { padding: 0 2px 0 12px; font-weight: bold; }
+table.score_calc tbody td:not([colspan="4"]):nth-child(3) { width: 138px; }
+table.score_calc tbody td:not([colspan="4"]):nth-child(4) { width: 60px; }
+table.score_calc tbody td:not([colspan="4"]):nth-child(5) { }
+table.score_calc tbody td#toggle_ordinary { border-top: solid 2px #08D; border-bottom: dotted 1px #08D; font-weight: bold; text-align: center; cursor: pointer; transition-duration: 0.3s; user-select: none; }
+table.score_calc tbody td#toggle_ordinary:hover { color: #6BF; }
+table.score_calc tbody td#toggle_ordinary:active { color: #8CF; }
+table.score_calc tbody tr.ordinary { }
+table.score_calc tbody[data-show-ordinary="1"] tr.ordinary { display: table-row; }
+table.score_calc tfoot tr:first-child td { padding: 4px 0; border-top: double 6px #08D; font-size: 18px; }
+table.score_calc tfoot tr:nth-child(2) td { padding: 8px 0 5px; border-top: dashed 2px #08D; }
+table.score_calc tfoot td:nth-child(2) { padding: 0 2px 0 12px; font-weight: bold; }
+table.score_calc tfoot tr:nth-child(3) td { padding: 8px 0 0; border-top: solid 2px #08D; }
+table.score_calc tfoot tr:nth-child(4) td { padding: 8px 0 0; border-top: dotted 1px #08D; }
+table.score_calc tfoot td#toggle_4stars { font-weight: bold; text-align: center; cursor: pointer; transition-duration: 0.3s; user-select: none; }
+table.score_calc tfoot td#toggle_4stars:hover { color: #6BF; }
+table.score_calc tfoot td#toggle_4stars:active { color: #8CF; }
+table.score_calc tfoot tr.fourstars { display: none; }
+table.score_calc tfoot[data-show-4stars="1"] tr.fourstars { display: table-row; }
+table.score_calc td span.cost_sum { display: inline-block; width: 16px; }
+table.score_calc td:nth-child(4):hover { background-color: #ACF; cursor: pointer; }
+table.score_calc td:nth-child(4):active { background-color: #8AF; }
+table.score_calc td:nth-child(4) input[type=checkbox] { cursor: pointer;}
+
+table.league_guide { margin-top: 10px; text-align: right; }
+table.league_guide td:nth-child(2) { padding-left: 12px; font-weight: bold; text-align: right; }
+table.league_guide td:nth-child(3) { display: none; padding-left: 18px; text-align: right; }
+
+button#copy_table { cursor: pointer; }
+
+.player_infos div { }
+.player_infos input[type=text], .player_infos input[type=number] { border: solid 1px #777; font-size: 20px; }
+div.player_name { width: calc(100% - 18px); margin-right: 50px; }
+input#player_name { padding: 3px 1px 1px 5px; border-radius: 2px; border-bottom-left-radius: 8px; text-align: left; }
+input#player_uid { padding: 3px 6px 1px; border-radius: 8px; text-align: left; }
+div#treveler_selection { display: table; margin: 0 auto; }
+div#treveler_selection input { cursor: pointer; }
+div#treveler_selection label { margin-right: 4px; font-size: 17px; cursor: pointer; }
+
+textarea#paste_table { display: table; margin: 10px auto 0; text-align: center; overflow: hidden; }
+
+span.cost_add { color: #08C; }
+
+span#gi_rev { color: tomato; font-weight: bold; }
+
+.center  {text-align: center; }
+.right { text-align: right; }
+.bold { font-weight: bold; }
+
+*:focus { outline-color: #06EE; box-shadow: 0 0 6px 0 #037D; transition-duration: 0.3s; }
+
+        </style>
+        <script type="text/javascript" src="./scripts/jcodd.js?rel=20240428"></script>
+        <script type="text/javascript" src="./data/common.js"></script>
+        <script>const locales = commonInfo.locales;</script>
+        <script type="text/javascript" src="./data/locale_ko-kr.js?rel=20240628"></script>
+        <script type="text/javascript" src="./data/characters.js?rel=20240628"></script>
+        <script>let rules = {};</script>
+        <script>let ruleBooks = {};</script>
+        <script>let prebanRule = {};</script>
+        <script type="text/javascript" src="./data/rulebook_ardy.js?rel=20240706"></script>
+        <script>var costTable = null;</script>
+        <!-- <script type="text/javascript" src="./data/rule.js?update=4"></script> -->
+        <!-- <script type="text/javascript" src="./data/spiral_tier_cost.js?update=5"></script> -->
+        <script>
+//rule book load
+for (var book in ruleBooks) {
+    rules = ruleBooks[book];
+    break;
+}
+
+for (var alter of rules.rule_alter) {
+    if (alter.rule_type == "preban") {
+        prebanRule = alter;
+        break;
+    }
+}
+
+
+charactersInfo.list.pop();
+charactersInfo.list.forEach(ch => {
+    //load character name every languages
+    ch.name = [];
+    ch.nameShort = [];
+    for (l in locales) {
+        let text = locales[l];
+        ch.name[l] = text["characters"][ch.id];
+        ch.nameShort[l] = text["characters_short"][ch.id];
+    }
+
+    //override character info for rule
+    let override = rules.characters_override[ch.id];
+    if (override != null) {
+        for (attr in override) {
+            if (attr == "comment" || attr == "reserved" || attr == "") continue;
+            ch[attr] = override[attr];
+        }
+    }
+})
+    </script>
+    </head>
+    <body>
+        <div class="note">
+            <p>
+                <span>◆ 여행자 제외 <b>5성 3명</b>, <b>4성 2명</b> (총 5명) 사전 밴 선택</span>
+            </p>
+            <!-- <p><span>◆ 여행자, 에일로이 게임 내 5성 취급이지만 4성급 성능 상 계산 안 함(0점)</span></p> -->
+        </div>
+        <table id="main_table" class="score_calc">
+            <thead>
+                <tr>
+                    <td><div><p class="center bold"><span>순서</span></p></div></td>
+                    <td><div><p class="center bold"><span>이름</span></p></div></td>
+                    <td><div><p class="center bold"><span>돌파 (명함=0)</span></p></div></td>
+                    <td><div><p class="center bold"><span>밴(<span id="count_checked">0</span>)</span></p></div></td>
+                    <td><div><p class="center bold"><span>코스트</span></p></div></td>
+                </tr>
+            </thead>
+            <tbody id="main_table_body" data-show-ordinary="1">
+                <tr class="limited">
+                    <td><div><p class="right">1</p></div></td>
+                    <td><div><p class="right"><span>벤티</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_venti" class="char_constells limited">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_venti" class="bold">0</span> 점</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span>(<span class="cost_basic" data-cid="c_venti"></span> +<span class="cost_add" data-cid="c_venti"></span>)&nbsp;<span data-cid="c_venti" class="cost_sum bold">0</span> 코</span>
+                    </p></div></td>
+                </tr>
+                <tr class="divider">
+                    <td colspan="5" id="toggle_ordinary"><span class="arrow">︾</span> 상시 5성 캐릭터 정보 입력 <span class="arrow">︾</span></td>
+                </tr>
+                <tr class="ordinary">
+                    <td><div><p class="right">1</p></div></td>
+                    <td><div><p class="right"><span>진</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_jean" class="char_constells ordinary">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_jean" class="bold">-</span>&nbsp; &nbsp;</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                    </p></div></td>
+                </tr>
+                <tr>
+                    <td colspan="4"></td>
+                </tr>
+            </tbody>
+            <tfoot id="main_table_foot" data-show-4stars="1">
+                <tr>
+                    <td colspan="2"><div><p class="center"><span>
+                        <b>사전 밴 선택</b>
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <button id="init_check"><b>초기화</b> (체크 해제)</button>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <span><span id="preban_completed" class="bold">미완료</span></span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                        <button id="copy_table" class="bold" disabled>계정 정보 복사</button>
+                    </p></div></td>
+                </tr>
+                <tr class="player_infos">
+                    <td colspan="2"><div class="player_name">
+                        <input type="text" id="player_name" size="12" maxlength="12" placeholder="챔스에 사용할 닉네임" />
+                    </div></td>
+                    <td><div class="player_uid">
+                        <input type="number" id="player_uid" min="800000000" maxlength="9" placeholder="원신 UID" />
+                    </div></td>
+                    <td colspan="2"><div id="treveler_selection">
+                        <input type="radio" id="trevelerF" name="trevelers" value="0" checked /><label for="trevelerF">여행자</label>
+                        <input type="radio" id="trevelerM" name="trevelers" value="1" /><label for="trevelerM">남행자</label>
+                    </div></td>
+                </tr>
+                <tr>
+                    <td colspan="5" id="toggle_4stars"><span class="arrow">︾</span> 4성(급) 캐릭터 정보 입력 (옵션) <span class="arrow">︾</span></td>
+                </tr>
+                <tr class="fourstars">
+                    <td><div><p class="right">1</p></div></td>
+                    <td><div><p class="right"><span>여행자</span></p></div></td>
+                    <td><div> <p class=""> <span>
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_jean" class="char_constells fourstars">
+                    </span></p></div></td>
+                    <td><div><p class="right">
+                        <span>&nbsp;<span id="c_jean" class="bold">-</span>&nbsp; &nbsp;</span>
+                    </p></div></td>
+                    <td><div><p class="right">
+                    </p></div></td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="subnote center">
+            <span>◆ <b>계정 정보 복사</b> 버튼으로 복사 후 메모장 등에 보관해 두시면<br />아래의 <b>붙여넣기 영역</b>에 붙여넣어서 입력했던 내용을 다시 불러올 수 있습니다 ◆</span>
+        </div>
+        <textarea id="paste_table" rows="1" placeholder="계정 정보 붙여넣기"></textarea>
+        <div id="cost_table_info" class="subnote center" style="display: none; ">
+            <span>◆ 현재 코스트 기준은 원신 <span id="gi_ver">3.4</span> 페이즈<span id="gi_phase">3</span> (<span id="gi_spiral">2월 하반기</span>)<span id="gi_rev"></span> 입니다 ◆</span>
+        </div>
+        <table class="league_guide">
+            <tbody id="leagues">
+                <tr>
+                    <td><b>무인검</b> 리그</td>
+                    <td>10~19점</td>
+                    <td>22코스트</td>
+                </tr>
+                <tr>
+                    <td><b>흑술창</b> 리그</td>
+                    <td>20~34점</td>
+                    <td>24코스트</td>
+                </tr>
+                <tr>
+                    <td><b>제례활</b> 리그</td>
+                    <td>35~54점</td>
+                    <td>26코스트</td>
+                </tr>
+                <tr>
+                    <td><b>이무기</b> 리그</td>
+                    <td>55~84점</td>
+                    <td>26코스트</td>
+                </tr>
+                <tr>
+                    <td><b>카구라</b> 리그</td>
+                    <td>85~124점</td>
+                    <td>28코스트</td>
+                </tr>
+                <tr>
+                    <td><b>일태도</b> 리그</td>
+                    <td>125점 이상</td>
+                    <td>코스트 무제한</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="subnote center">
+            <span class="bold" style="line-height: 28px; ">- <span id="rule_title">아디컵</span> <span id="rule_version">0.0</span> 기준 - </span>
+            <br />
+            <span class="bold">GACALC v1.0.0</span>
+            <br />
+            <span>Release 2024.05.20</span>
+        </div>
+    </body>
+    <script>
+
+if (rules.rule_type == "cost") {
+    document.getElementById("gi_ver").innerText = costTable != null ? costTable.version : "???";
+    document.getElementById("gi_phase").innerText = costTable != null ? costTable.phase : "???";
+    document.getElementById("gi_spiral").innerText = costTable != null ? costTable.month + "월 " + (costTable.half === 1 ? "상" : "하") + "반기" : "???";
+    document.getElementById("gi_rev").innerText = costTable != null && costTable.revision > 0 ? " rev." + costTable.revision : "";
+} else document.querySelector("#cost_table_info").style.display = "none";
+
+function getInputs() {
+    return document.querySelectorAll('input.char_constells');
+}
+
+function getInputsL() {
+    return document.querySelectorAll('input.char_constells.limited');
+}
+
+function getInputsO() {
+    return document.querySelectorAll('input.char_constells.ordinary');
+}
+
+function getInputs4() {
+    return document.querySelectorAll('input.char_constells.fourstars');
+}
+
+function getChecker() {
+    return document.querySelectorAll('input.preban_checker');
+}
+
+function getCheckerRarity(rarity) {
+    return document.querySelectorAll('input.preban_checker:not([excluded])[data-rarity="' + rarity + '"]');
+}
+
+function getChecked() {
+    return document.querySelectorAll('input.preban_checker:checked');
+}
+
+function getCheckedRarity(rarity) {
+    return document.querySelectorAll('input.preban_checker:not([excluded])[data-rarity="' + rarity + '"]:checked');
+}
+
+let leagueCalc = function () {
+    var totals = 0;
+    getInputs().forEach(input => {
+        let isOrdinary = input.className.indexOf("ordinary") > -1;
+        let is4stars = input.className.indexOf("fourstars") > -1;
+        var v = parseInt(input.value);
+        if (!isOrdinary && !is4stars && v != null && !isNaN(v)) totals += v + 1;
+    });
+    var hideTail = false;
+    var l = null;
+    // if (totals < 10) {
+    //     l = '참여 조건 미달';
+    //     hideTail = true;
+    // }
+    // else if (totals < 20) l = '무인검';
+    // else if (totals < 30) l = '흑술창';
+    // else if (totals < 60) l = '제례활';
+    // else if (totals < 100) l = '카구라';
+    // else if (totals < 176) l = '일태도';
+    // else l = '?????';
+
+    let ra = rules.rule_alter;
+    for (var i=0; i < ra.length; i++) {
+        let cr = ra[i];
+        if (!cr.established) continue;
+        let scr = cr.score_range;
+
+        if (scr.indexOf("+") > -1) {
+            let scl = parseInt(scr.replace("+", ""));
+            if (totals >= scl) {
+                l = cr.name.replace(" 리그", "");
+                break;
+            }
+        } else {
+            let scrs = scr.split("-");
+            if (totals >= parseInt(scrs[0]) && totals <= parseInt(scrs[1])) {
+                l = cr.name.replace(" 리그", "");
+                break;
+            }
+        }
+    }
+    if (l == null) {
+        l = '참여 조건 미달';
+        hideTail = true;
+    }
+    
+    //document.getElementById('res_league_class').innerText = l;
+    //document.getElementById('league_tail').style.display = hideTail ? "none" : "initial";
+    //document.getElementById('acc_score_total').innerText = totals;
+}
+
+let lineCalc = function (e) {
+    let isOrdinary = this.className.indexOf("ordinary") > -1;
+    let is4stars = this.className.indexOf("fourstars") > -1;
+    var v = e.target.value;
+    v = v != null && !isNaN(parseInt(v)) ? Math.max(Math.min(parseInt(v), 6), 0) : "";
+    e.target.value = v;
+    let val = parseInt(e.target.value);
+    let cid = e.target.getAttribute('data-cid');
+    //if (!isOrdinary && !is4stars) document.getElementById(cid).innerText = !isNaN(val) ? v + 1 : 0;
+    if (rules.rule_type == "cost") addCost(cid, v);
+    //leagueCalc();
+
+    if (v !== "") {
+        let list = getInputs();
+        var index = null;
+        for (i in list) {
+            let item = list[i];
+            if (item == e.target) {
+                index = parseInt(i);
+                
+                if (index + 1 == list.length) {
+                    document.getElementById("copy_table").focus();
+                    break;
+                }
+            } else if (index != null && i == index + 1) {
+                item.focus();
+                break;
+            }
+        }
+    }
+};
+
+let changed = function (e) {
+    var v = e.target.value;
+    v = v != null && !isNaN(parseInt(v)) ? Math.max(Math.min(parseInt(v), 6), 0) : "";
+    e.target.value = v;
+
+    if (v !== "") {
+        let list = getInputs();
+        var index = null;
+        for (i in list) {
+            let item = list[i];
+            if (item == e.target) {
+                index = parseInt(i);
+                
+                if (index + 1 == list.length) {
+                    document.getElementById("copy_table").focus();
+                    break;
+                }
+            } else if (index != null && i == index + 1) {
+                item.focus();
+                break;
+            }
+        }
+    }
+}
+
+let focused = function (e) {
+    e.target.select();
+}
+
+
+//cost calc
+let setCost = function (cid) {
+    let id = cid.replace("c_", "");
+    let constells = document.querySelector('input[data-cid="' + cid + '"]');
+    if (constells == null) return;
+    let cons = constells.value;
+    var basic = getAddCost(id);
+    var add = getAddCost(id, cons);
+    if (add == null) add = 0;
+    else add = add - basic;
+    let costBasic = document.querySelector('span[class="cost_basic"][data-cid="' + cid + '"]');
+    if (costBasic != null) costBasic.innerText = basic;
+    let cosAdd = document.querySelector('span[class="cost_add"][data-cid="' + cid + '"]')
+    if (cosAdd != null) cosAdd.innerText = add;
+    let cosSum = document.querySelector('span[class*="cost_sum"][data-cid="' + cid + '"]')
+    if (cosSum != null) cosSum.innerText = isNaN(add) ? basic : basic + add;
+}
+
+let addCost = function (cid, cons) {
+    let id = cid.replace("c_", "");
+    var basic = getAddCost(id);
+    var add = getAddCost(id, cons);
+    if (add == null) add = 0;
+    else add = add - basic;
+    let costBasic = document.querySelector('span[class="cost_basic"][data-cid="' + cid + '"]');
+    if (costBasic != null) {
+        let basic = parseInt(costBasic.innerText);
+        let cosAdd = document.querySelector('span[class="cost_add"][data-cid="' + cid + '"]')
+        if (cosAdd != null) cosAdd.innerText = add;
+        let cosSum = document.querySelector('span[class*="cost_sum"][data-cid="' + cid + '"]')
+        if (cosSum != null) cosSum.innerText = isNaN(add) ? basic : basic + add;
+    }
+}
+
+let getAddCost = function (id, constell = 0) {
+    // var add = null;
+    // if (cons != null && cons != "") {
+    //     if (cons == 0) add = 0;
+    //     else if (cons < 3) add = 1;
+    //     else if (cons > 5) add = 3;
+    //     else if (cons > 2 && cons < 6) add = 2;
+    // }
+    // return add;
+
+    // let conds = rules.additional_cost.conditions;
+    // var adds = 0;
+    // for (var i=0; i < conds.length; i++) {
+    //     let cond = conds[i];
+    //     // if (cond.c_class != null) {
+    //     //     if (info.class != cond.c_class) continue;
+    //     // }
+    //     if (cond.c_constellations != null) {
+    //         let cons = cond.c_constellations.split(" ");
+    //         let con =  parseInt(cons[1]);
+
+    //         switch (cons[0]) {
+    //             case "===":
+    //                 if (!(constell == con)) continue;
+    //                 break;
+
+    //             case "!==":
+    //                 if (!(constell != con)) continue;
+    //                 break;
+
+    //             case ">=":
+    //                 if (!(constell >= con)) continue;
+    //                 break;
+
+    //             case "<=":
+    //                 if (!(constell <= con)) continue;
+    //                 break;
+
+    //             case "<":
+    //                 if (!(constell < con)) continue;
+    //                 break;
+
+    //             case ">":
+    //                 if (!(constell > con)) continue;
+    //                 break;
+
+    //             default:
+    //                 continue;
+    //         }
+    //     }
+    //     adds += parseInt(cond.cost);
+    // }
+
+    // return adds;
+
+    let line = rules.cost_table[id];
+    var cost;
+    if (typeof line == "number") cost = line;
+    else cost = line[constell];
+
+    return cost;
+}
+
+let calcSumCkecked = function() {
+    let checked = getChecked();
+    // var sum = 0;
+    // for (var i=0; i<checked.length; i++) {
+    //     let id = checked[i].getAttribute("data-id");
+    //     let constells = document.querySelector('input[data-cid="c_' + id + '"]');
+    //     if (constells == null) continue;
+    //     let cons = constells.value;
+    //     if (cons == "") cons = 0;
+    //     sum += getAddCost(id, cons);
+    // }
+    // document.getElementById("total_cost_sum").innerText = sum;
+    document.getElementById("count_checked").innerText = checked.length;
+    checkPreban();
+}
+
+let checkPreban = function() {
+    let selections = prebanRule.prebanSelections;
+    var completed = true;
+    for (selection of selections) {
+        let checker = getCheckerRarity(selection.rarity);
+        let checked = getCheckedRarity(selection.rarity);
+
+        let isCompleted = checked.length >= selection.amount;
+        for (check of checker) if (!check.checked) check.disabled = isCompleted;
+
+        if (checked.length != selection.amount) completed = false;
+    }
+
+    document.getElementById("preban_completed").innerText = completed ? "완료" : "미완료";
+    document.getElementById("copy_table").disabled = !completed;
+}
+
+document.getElementById("init_check").onclick = function (e) {
+    getChecked().forEach(input => {
+        input.checked = false;
+    });
+    calcSumCkecked();
+}
+
+// if (costTable != null) {
+
+//     for (var i in costTable.tier1) {
+//         var cid = costTable.tier1[i];
+//         setCost("c_" + cid, 5);
+//     }
+
+//     for (var i in costTable.tier2) {
+//         var cid = costTable.tier2[i];
+//         setCost("c_" + cid, 4);
+//     }
+
+//     for (var i in costTable.tier3) {
+//         var cid = costTable.tier3[i];
+//         setCost("c_" + cid, 3);
+//     }
+
+//     for (var i in costTable.tier4) {
+//         var cid = costTable.tier4[i];
+//         setCost("c_" + cid, 2);
+//     }
+
+//     for (var i in costTable.else) {
+//         var cid = costTable.else[i];
+//         setCost("c_" + cid, 1);
+//     }
+
+// }
+
+
+// getInputs().forEach(input => {
+//     input.onfocus = focused;
+//     input.oninput = lineCalc;
+//     input.oncut = lineCalc;
+//     input.onpaste = lineCalc;
+// });
+
+let pasteTable = document.getElementById("paste_table");
+
+document.getElementById("copy_table").onclick = function(e) {
+    if (e.shiftKey) packDataSet(false, 1);
+    else packDataSet();
+};
+document.getElementById("copy_table").oncontextmenu = function(e) {
+    e.preventDefault();
+
+    if (e.shiftKey) packDataSet(true, 1);
+    else packDataSet(true);
+
+    return false;
+};
+
+let packDataSet = function(pureJson = false, format = 2) {
+    var data = {};
+
+    let name = document.getElementById("player_name").value;
+    let uid = document.getElementById("player_uid").value;
+    let treveler = document.querySelector("input[name=trevelers]:checked").value;
+    
+    let checked = getChecked();
+    
+    let player = { name: name, uid: uid, treveler: treveler };
+    let prebanned = [];
+    for (check of checked) prebanned.push(check.dataset.id);
+
+    data["player"] = player;
+    data["prebanned"] = prebanned;
+
+    let arr = [];
+    let obj = {};
+    var code;
+    var fv;
+    var collect = "";
+
+    getInputs().forEach(input => {
+        let id = input.getAttribute("data-cid").split("_")[1];
+
+        let value = input.value;
+
+        obj[id] = value == "" ? null : parseInt(value);
+        collect += value;
+    });
+
+    //if (collect.length < 1) return;
+
+    switch (format) {
+        default:
+        case 2:
+            for (var i=0; i<charactersInfo.list.length; i++) {
+                let c = charactersInfo.list[i];
+
+                let cons = obj[c.id];
+                var char;
+                if (cons != null) char = cons;
+                else char = null;
+
+                arr.push(char);
+            }
+
+            data["list"] = arr;
+
+            code = Jcodd.coddify(data);
+
+            break;
+
+        case 1:
+            if (player.name.match(/[\u0080-\uFFFF]/g) != null) player.name = escape(player.name);
+
+            for (var id in obj) {
+                let c = obj[id];
+                data[id] = c;
+            }
+
+            code = JSON.stringify(data);
+
+            break;
+    }
+
+    fV = format;
+
+    var text;
+    if (pureJson) text = code;
+    else text = "@GCBPSv" + fV + ":" + btoa(code) + ";";
+
+    copyToClipboard(text);
+}
+
+let ontake = function(e) {
+    let self = e.target;
+
+    setTimeout(function() {
+        clearing(self);
+    }, 100);
+}
+
+let clearing = function(self) {
+    self.value = "";
+    self.blur();
+}
+
+let forParse = function(e) {
+    let self = e.target == null ? e : e.target;
+    setTimeout(function() {
+        parsePasted(self.value);
+        clearing(self)
+    }, 10);
+}
+
+// pasteTable.onblur = ontake;
+// pasteTable.oninput = ontake;
+pasteTable.onchange = ontake;
+pasteTable.onpaste = forParse;
+
+pasteTable.onfocus = function(e) {
+    getInputs().forEach(input => {
+        let cid = input.getAttribute("data-cid");
+        input.value = "";
+        // if (document.getElementById(cid).innerText != "-") document.getElementById(cid).innerText = 0;
+        if (rules.rule_type == "cost") addCost(cid, 0);
+    });
+}
+
+
+let parsePasted = function(text) {
+    if (text == null || text == "") return false;
+
+    text = text.trim();
+    var version;
+    try {
+        if (text.substr(0, 7) == "@GCBPSv") {
+            let texts = text.split(":");
+            let header = texts[0];
+            version = parseInt(header.split("v")[1]);
+            let base64 = texts[1].replace(/;/g, "");
+            text = atob(base64);
+        }
+
+        var data;
+        switch(version) {
+            default:
+            case 2:
+                data = Jcodd.parse(text);
+
+                let list = data.list;
+                for (var i=0; i<list.length; i++) {
+                    var cons = list[i];
+                    if (cons > 6) cons = 6;
+                    else if (cons < 0) cons = null;
+                    let id = charactersInfo.list[i].id;
+                    if (id != null) data[id] = cons;
+                }
+                break;
+
+            case 1:
+                data = JSON.parse(text);
+                break;
+        }
+
+        for (var i in data) {
+            let cons = data[i];
+
+            if (i == "player") {
+                document.getElementById("player_name").value = unescape(cons.name);
+                document.getElementById("player_uid").value = cons.uid;
+                document.querySelector('input[name=trevelers][value="' + cons.treveler + '"]').checked = true;
+
+                continue;
+            } else if (i == "list") {
+                continue;
+            }
+
+            var consI = parseInt(cons);
+            if (consI > 6) consI = 6;
+            else if (consI < 0) consI = null;
+            let cid = "c_" + i;
+
+            let constell = document.querySelector('input.char_constells[data-cid="' + cid + '"]')
+            if (constell != null) constell.value = cons;
+            let point = document.getElementById(cid)
+            if (point != null) {
+                if (point.innerText != "-") point.innerText = cons != null && !isNaN(cons) ? consI + 1 : 0;
+                if (rules.rule_type == "cost") addCost(cid, consI);
+            }
+        }
+        for (var i=1; i<charactersInfo.list.length; i++) {
+            let info = charactersInfo.list[i];
+            let id = info.id;
+            var cons = data[id];
+            if (cons != null) cons = 0;
+            addCost("c_" + id, data[id]);
+        }
+        calcSumCkecked();
+        //leagueCalc();
+
+        return true;
+    } catch(e) {
+        console.error(e.name, e.message, e.stack);
+    }
+    return false;
+}
+
+let copyToClipboard = function(text) {
+    if (!navigator.clipboard) {
+        pasteTable.value = text;
+        pasteTable.select();
+        document.execCommand("copy");
+        setTimeout(function() { forParse(pasteTable); }, 10);
+    } else {
+        navigator.clipboard.writeText(text)
+            .then(() => {
+                console.log("Text copied to clipboard...")
+            })
+            .catch(err => {
+                console.log('Something went wrong', err);
+            });
+    }
+}
+
+let leagues = document.getElementById("leagues");
+leagues.innerHTML = "";
+for (var i=0; i < rules.rule_alter.length; i++) {
+    let cr = rules.rule_alter[i];
+    if (!cr.established) continue;
+
+    let ca = cr.cost_amount != null ? cr.cost_amount : rules.base_rule.cost_amount;
+    let scr = cr.score_range;
+
+    var cst;
+    if (ca < 64) cst = "<b>" + ca + "</b> 코스트";
+    else cst = "<b>무제한</b>";
+
+    let tr = document.createElement("tr");
+    let td1 = document.createElement("td");
+    td1.innerHTML = "<b>" + cr.name + "</b> " + "룰";
+    tr.append(td1);
+    let td2 = document.createElement("td");
+    td2.innerHTML = cst;
+    tr.append(td2);
+
+    leagues.append(tr);
+}
+
+document.getElementById("rule_title").innerText = rules.rule_title;
+document.getElementById("rule_version").innerText = rules.rule_version;
+
+document.getElementById("toggle_ordinary").onclick = function(e) {
+    let tbody = document.getElementById("main_table_body");
+    let show = tbody.getAttribute("data-show-ordinary");
+    let spans = this.querySelectorAll("span.arrow");
+    
+    var toShow;
+    switch (show) {
+        case "1":
+            toShow = "";
+            break;
+
+        default:
+            toShow = "1";
+            break;
+    }
+
+    tbody.setAttribute("data-show-ordinary", toShow);
+
+    
+    if (toShow == "1") {
+        for (var i=0; i<spans.length; i++) spans[i].innerText = "︽";
+        document.querySelector("input.ordinary").focus();
+    } else for (var i=0; i<spans.length; i++) spans[i].innerText = "︾";
+};
+
+document.getElementById("toggle_4stars").onclick = function(e) {
+    let foot = document.getElementById("main_table_foot");
+    let show = foot.getAttribute("data-show-4stars");
+    let spans = this.querySelectorAll("span.arrow");
+    
+    var toShow;
+    switch (show) {
+        case "1":
+            toShow = "";
+            break;
+
+        default:
+            toShow = "1";
+            break;
+    }
+
+    foot.setAttribute("data-show-4stars", toShow);
+
+    
+    if (toShow == "1") {
+        for (var i=0; i<spans.length; i++) spans[i].innerText = "︽";
+        document.querySelector("input.fourstars").focus();
+    } else for (var i=0; i<spans.length; i++) spans[i].innerText = "︾";
+};
+
+function buildCharLine(no, name, id, rarity, excluded = false, attrs = "", addClass = "", point = 0, usepoint = true, cost = 0, usecost = true) {
+    let charLine = '                <tr#ATTRS>\n\
+                    <td><div><p class="right">#NO</p></div></td>\n\
+                    <td><div><p class="right"><span>#NAME</span></p></div></td>\n\
+                    <td><div> <p class=""> <span>\n\
+                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_#ID" class="char_constells#CLASS">\n\
+                    </span></p></div></td>\n\
+                    <td class="checkbox"><div><p class="center">\n\
+                        <input type="checkbox" class="preban_checker" id="check_#ID" data-id="#ID" data-rarity="#RARITY" #CHECK_ATTR />\n\
+                    </p></div></td>\n\
+                    <td><div><p class="right">\n\
+                        <span>(<span class="cost_basic" data-cid="c_#ID"></span> +<span class="cost_add" data-cid="c_#ID"></span>)&nbsp;<span data-cid="c_#ID" class="cost_sum bold">#COST</span>#COSTUNIT</span>\n\
+                    </p></div></td>\n\
+                </tr>\n\
+'
+    return charLine.replace("#NO", no).replace("#NAME", name).replace(/#ID/g, id).replace("#RARITY", rarity).replace("#CHECK_ATTR", excluded ? "excluded disabled" : "").replace("#ATTRS", attrs).replace("#CLASS", addClass).replace("#POINTUNIT", usepoint ? " 점" : "&nbsp; &nbsp;").replace("#COSTUNIT", usepoint ? " 코" : "&nbsp; &nbsp;").replace("#POINT", point).replace("#COST", cost);
+}
+
+function initCharList() {
+    let tbody = document.getElementById("main_table_body");
+    let divider = tbody.querySelector("tr.divider");
+    let limited = tbody.querySelectorAll("tr.limited");
+    let ordinary = tbody.querySelectorAll("tr.ordinary");
+    let tfoot = document.getElementById("main_table_foot");
+    let fourstars = tfoot.querySelectorAll("tr.fourstars");
+
+    limited.forEach(e => e.remove());
+    ordinary.forEach(e => e.remove());
+    fourstars.forEach(e => e.remove());
+
+    var seqLimited = 0;
+    var seqOrdinary = 0;
+    var seq4stars = 0;
+
+    for (var i=1; i<charactersInfo.list.length; i++) {
+        let info = charactersInfo.list[i];
+        let excluded = isExcluded(info.id);
+
+        if (info.class == "unreleased") continue;
+
+        var category;
+        if (info.rarity == "5" && info.id != "treveler") {
+            category = info.class;
+        } else category = "fourstars";
+
+        switch (category) {
+            case "limited":
+                seqLimited++;
+                let linel = buildCharLine(seqLimited, info.name["ko-kr"], info.id, info.rarity, excluded, ' class="limited"', " limited");
+                let eleml = document.createElement("div");
+                tbody.insertBefore(eleml, divider);
+                eleml.outerHTML = linel;
+                break;
+
+            case "ordinary":
+                seqOrdinary++;
+                let lineo = buildCharLine(seqOrdinary, info.name["ko-kr"], info.id, info.rarity, excluded, ' class="ordinary"', " ordinary");
+                let elemo = document.createElement("div");
+                tbody.append(elemo);
+                elemo.outerHTML = lineo;
+                break;
+
+            case "fourstars":
+                seq4stars++;
+                let linef = buildCharLine(seq4stars, info.name["ko-kr"], info.id, info.rarity, excluded, ' class="fourstars"', " fourstars");
+                let elemf = document.createElement("div");
+                tfoot.append(elemf);
+                elemf.outerHTML = linef;
+                break;
+        }
+
+        setCost("c_" + info.id);
+    }
+
+    getInputsL().forEach(input => {
+        input.onfocus = focused;
+        input.oninput = lineCalc;
+        input.oncut = lineCalc;
+        input.onpaste = lineCalc;
+    });
+    getInputsO().forEach(input => {
+        input.onfocus = focused;
+        input.oninput = lineCalc;
+        input.oncut = lineCalc;
+        input.onpaste = lineCalc;
+    });
+    getInputs4().forEach(input => {
+        input.onfocus = focused;
+        input.oninput = changed;
+        input.oncut = changed;
+        input.onpaste = changed;
+    });
+
+    getChecker().forEach(input => {
+        input.onchange = function(e) {
+            e.stopPropagation();
+
+            calcSumCkecked();
+        }
+    });
+
+    document.querySelectorAll("table.score_calc td.checkbox").forEach(td => {
+        td.onclick = function (e) {    
+            if (e.target.tagName != "INPUT" && e.target.tagName != "BUTTON") {
+                e.stopPropagation();
+
+                this.querySelector("input[type=checkbox]").click();
+            }
+        }
+    });
+
+}
+
+function isExcluded(id) {
+    for (var current of prebanRule.excludePreban) if (current == id) return true;
+    return false;
+}
+
+initCharList();
+
+document.querySelector('input.char_constells').focus();
+
+    </script>
+</html>

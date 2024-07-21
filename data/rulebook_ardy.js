@@ -48,6 +48,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "reserved"
         ],
 
+        "prebanSelection": null,
+
         "addSecDefaults": {
             "constell": 0,
             "weapon": 0,
@@ -63,6 +65,42 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
     "alter_default": 0,
 
     "rule_alter": [
+        {
+            "name": "블라인드 밴",
+            "name_full": "Blinded ban",
+            "rule_type": "preban",
+            "score_range": "0",
+            "established": true,
+            "selectable": true,
+            "apply_dynamic_global_ban": false,
+            "sequence": [
+                { "side": "red", "pick": 'preban', "amount": "5" },
+                { "side": "blue", "pick": 'preban', "amount": "5" },
+                { "side": "red", "pick": 'entry', "amount": "1" },
+                { "side": "blue", "pick": 'entry', "amount": "2" },
+                { "side": "red", "pick": 'entry', "amount": "2" },
+                { "side": "blue", "pick": 'entry', "amount": "2" },
+                { "side": "red", "pick": 'entry', "amount": "2" },
+                { "side": "blue", "pick": 'entry', "amount": "2" },
+                { "side": "red", "pick": 'entry', "amount": "2" },
+                { "side": "blue", "pick": 'entry', "amount": "2" },
+                { "side": "red", "pick": 'entry', "amount": "1" },
+                { "side": "blue", "pick": 'entry', "amount": "0" },
+                { "side": "red", "pick": 'entry', "amount": "0" },
+                "reserved"
+            ],
+
+            "excludePreban": [
+                "treveler", "aloy"
+            ],
+            "prebanSelections": [
+                { "rarity": "5", "amount": 3 },
+                { "rarity": "4", "amount": 2 },
+            ],
+            
+            "cost_amount": 128,
+            "": ""
+        },
         {
             "name": "튜토리얼",
             "name_full": "Tutorial",
