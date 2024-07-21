@@ -30,7 +30,7 @@ SOFTWARE.
 //
 // The JSON based lite code format
 //
-// v0.2 / release 2023.11.25
+// v0.3 / release 2024.07.21
 //
 // Take to be liten from JSON code to smaller converted characters for like as BASE64.
 //
@@ -94,7 +94,7 @@ let Jcodd = {
      */
     toJson: function (codd) {
         //Assign ""
-        let p1 = codd.replace(/([\{\,])([^\:]*)\:/g, '$1"$2":');
+        let p1 = codd.replace(/([\{\,])([^\"\:]*)\:/g, '$1"$2":');
         //Convert n to null
         let p2 = p1.replace(/([\[\,\:])n([\]\,\}])/g, "$1null$2").replace(/([\[\,\:])n([\]\,\}])/g, "$1null$2");
 
