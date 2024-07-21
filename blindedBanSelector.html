@@ -295,12 +295,20 @@ function getChecker() {
     return document.querySelectorAll('input.preban_checker');
 }
 
+function getCheckerUnexcluded() {
+    return document.querySelectorAll('input.preban_checker:not([excluded])');
+}
+
 function getCheckerRarity(rarity) {
     return document.querySelectorAll('input.preban_checker:not([excluded])[data-rarity="' + rarity + '"]');
 }
 
 function getChecked() {
     return document.querySelectorAll('input.preban_checker:checked');
+}
+
+function getCheckedUnexcluded() {
+    return document.querySelectorAll('input.preban_checker:not([excluded]):checked');
 }
 
 function getCheckedRarity(rarity) {
@@ -541,7 +549,7 @@ let checkPreban = function() {
         let checked = getCheckedRarity(selection.rarity);
 
         let isCompleted = checked.length >= selection.amount;
-        for (check of checker) if (!check.checked) check.disabled = isCompleted;
+        for (check of checker) check.disabled = isCompleted && !check.checked;
 
         if (checked.length != selection.amount) completed = false;
     }
@@ -755,6 +763,9 @@ let parsePasted = function(text) {
                 break;
         }
 
+        getChecked().forEach((input) => { input.checked = false; });
+        getCheckerUnexcluded().forEach((input) => { input.disabled = false; });
+
         for (var i in data) {
             let cons = data[i];
 
@@ -764,7 +775,15 @@ let parsePasted = function(text) {
                 document.querySelector('input[name=trevelers][value="' + cons.treveler + '"]').checked = true;
 
                 continue;
-            } else if (i == "list") {
+            } else if (i == "prebanned") {
+                let prebanned = data[i];
+                if (prebanned != null) for (preban of prebanned) {
+                    let check = document.getElementById("check_" + preban);
+                    if (check != null) check.checked = true;
+                }
+
+                continue;
+            } if (i == "list") {
                 continue;
             }
 
