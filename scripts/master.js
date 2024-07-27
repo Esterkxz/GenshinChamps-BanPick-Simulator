@@ -9930,7 +9930,7 @@ function onChangedSide(cur) {
 function onChangedStep() {
     timerMaster.onChangedStep();
     if (step < 0 || step >= rules.sequence.length) poolMaster.stopRollRandomCursor();
-    if (step > -1) {
+    else {
         let seq = rules.sequence[step];
         if (seq.pick == "preban") {
             let info = playerInfoMaster.playerAccInfo[seq.side];
