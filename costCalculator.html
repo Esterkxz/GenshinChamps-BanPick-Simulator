@@ -1,7 +1,8 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>아디컵 코스트 계산기  v1.0.0</title>
+        <title lang="en">ArdyCup cost calculator  v1.0.1</title>
+        <title lang="ko">아디컵 코스트 계산기  v1.0.1</title>
         <meta name="viewport" content="user-scalable=yes, width=720, minimum-scale=0.2, maximum-scale=2.0, initial-scale=1.0">
         <style>
 
@@ -77,6 +78,7 @@ span#gi_rev { color: tomato; font-weight: bold; }
         <script type="text/javascript" src="./scripts/jcodd.js?rel=20240721"></script>
         <script type="text/javascript" src="./data/common.js"></script>
         <script>const locales = commonInfo.locales;</script>
+        <script type="text/javascript" src="./data/locale_en-global.js?rel=20240810"></script>
         <script type="text/javascript" src="./data/locale_ko-kr.js?rel=20240810"></script>
         <script type="text/javascript" src="./data/characters.js?rel=20240810"></script>
         <script>let rules = {};</script>
@@ -116,154 +118,332 @@ charactersInfo.list.forEach(ch => {
     </script>
     </head>
     <body>
-        <div class="note">
-            <p>
-                <span>◆ <a target="_blank" href="https://docs.google.com/spreadsheets/d/12Dg_OWHA0QBD9QeXj-JUNHj6DATnw2cMwETFVhYns0k/edit#gid=1397116232">아디컵 캐릭터 코스트 테이블</a> 참조</span>
-            </p>
-            <!-- <p><span>◆ 여행자, 에일로이 게임 내 5성 취급이지만 4성급 성능 상 계산 안 함(0점)</span></p> -->
+        <div lang="en">
+            <div class="note">
+                <p>
+                    <span>◆ Refer to <a target="_blank" href="https://docs.google.com/spreadsheets/d/12Dg_OWHA0QBD9QeXj-JUNHj6DATnw2cMwETFVhYns0k/edit#gid=1397116232">the ArdyCup character cost table</a></span>
+                </p>
+                <!-- <p><span>◆ 여행자, 에일로이 게임 내 5성 취급이지만 4성급 성능 상 계산 안 함(0점)</span></p> -->
+            </div>
+            <table id="main_table" class="score_calc">
+                <thead>
+                    <tr>
+                        <td><div><p class="center bold"><span>#</span></p></div></td>
+                        <td><div><p class="center bold"><span>Name</span></p></div></td>
+                        <td><div><p class="center bold"><span>Constellation</span></p></div></td>
+                        <td><div><p class="center bold"><span>Sum(<span id="count_checked">0</span>)</span></p></div></td>
+                        <td><div><p class="center bold"><span>Cost</span></p></div></td>
+                    </tr>
+                </thead>
+                <tbody id="main_table_body" data-show-ordinary="1">
+                    <tr class="limited">
+                        <td><div><p class="right">1</p></div></td>
+                        <td><div><p class="right"><span>Venti</span></p></div></td>
+                        <td><div> <p class=""> <span>
+                            <input type="number" min="0" max="6" placeholder="Not own(empty)" data-cid="c_venti" class="char_constells limited">
+                        </span></p></div></td>
+                        <td><div><p class="right">
+                            <span>&nbsp;<span id="c_venti" class="bold">0</span> cost</span>
+                        </p></div></td>
+                        <td><div><p class="right">
+                            <span>(<span class="cost_basic" data-cid="c_venti"></span> +<span class="cost_add" data-cid="c_venti"></span>)&nbsp;<span data-cid="c_venti" class="cost_sum bold">0</span> cost</span>
+                        </p></div></td>
+                    </tr>
+                    <tr class="divider">
+                        <td colspan="5" id="toggle_ordinary"><span class="arrow">︾</span> Enter ordinary 5-star characters info <span class="arrow">︾</span></td>
+                    </tr>
+                    <tr class="ordinary">
+                        <td><div><p class="right">1</p></div></td>
+                        <td><div><p class="right"><span>Jean</span></p></div></td>
+                        <td><div> <p class=""> <span>
+                            <input type="number" min="0" max="6" placeholder="Not own(empty)" data-cid="c_jean" class="char_constells ordinary">
+                        </span></p></div></td>
+                        <td><div><p class="right">
+                            <span>&nbsp;<span id="c_jean" class="bold">-</span>&nbsp; &nbsp;</span>
+                        </p></div></td>
+                        <td><div><p class="right">
+                        </p></div></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"></td>
+                    </tr>
+                </tbody>
+                <tfoot id="main_table_foot" data-show-4stars="">
+                    <tr>
+                        <td colspan="2"><div><p class="center"><span>
+                            <b>Sum</b>
+                        </span></p></div></td>
+                        <td><div><p class="right">
+                            <button id="init_check"><b>initialize</b> (unchecks)</button>
+                        </p></div></td>
+                        <td><div><p class="right">
+                            <span>&nbsp;<span id="total_cost_sum" class="bold">0</span>cost</span>
+                        </p></div></td>
+                        <td><div><p class="right">
+                            <button id="copy_table" class="bold">Copy coded</button>
+                        </p></div></td>
+                    </tr>
+                    <tr class="player_infos">
+                        <td colspan="2"><div class="player_name">
+                            <input type="text" id="player_name" size="12" maxlength="12" placeholder="Nickname for versus" />
+                        </div></td>
+                        <td><div class="player_uid">
+                            <input type="number" id="player_uid" min="800000000" maxlength="9" placeholder="GI UID" />
+                        </div></td>
+                        <td colspan="2"><div id="treveler_selection">
+                            <input type="radio" id="trevelerF" name="trevelers" value="0" checked /><label for="trevelerF">Female</label>
+                            <input type="radio" id="trevelerM" name="trevelers" value="1" /><label for="trevelerM">Male</label>
+                        </div></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" id="toggle_4stars"><span class="arrow">︾</span> Enter 4-star(or same graded) character info (option) <span class="arrow">︾</span></td>
+                    </tr>
+                    <tr class="fourstars">
+                        <td><div><p class="right">1</p></div></td>
+                        <td><div><p class="right"><span>Treveler</span></p></div></td>
+                        <td><div> <p class=""> <span>
+                            <input type="number" min="0" max="6" placeholder="Not own(empty)" data-cid="c_jean" class="char_constells fourstars">
+                        </span></p></div></td>
+                        <td><div><p class="right">
+                            <span>&nbsp;<span id="c_jean" class="bold">-</span>&nbsp; &nbsp;</span>
+                        </p></div></td>
+                        <td><div><p class="right">
+                        </p></div></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="subnote center">
+                <span>◆ After copying <b>Coopy coded</b> button and saving it in a notepad or similar,<br />you can retrieve the information you entered by pasting it into <b>the paste area</b> below ◆</span>
+            </div>
+            <textarea id="paste_table" rows="1" placeholder="Paste coded"></textarea>
+            <div id="cost_table_info" class="subnote center" style="display: none; ">
+                <span>◆ 현재 코스트 기준은 원신 <span id="gi_ver">3.4</span> 페이즈<span id="gi_phase">3</span> (<span id="gi_spiral">2월 하반기</span>)<span id="gi_rev"></span> 입니다 ◆</span>
+            </div>
+            <table class="league_guide">
+                <tbody id="leagues">
+                    <tr>
+                        <td><b>무인검</b> 리그</td>
+                        <td>10~19점</td>
+                        <td>22코스트</td>
+                    </tr>
+                    <tr>
+                        <td><b>흑술창</b> 리그</td>
+                        <td>20~34점</td>
+                        <td>24코스트</td>
+                    </tr>
+                    <tr>
+                        <td><b>제례활</b> 리그</td>
+                        <td>35~54점</td>
+                        <td>26코스트</td>
+                    </tr>
+                    <tr>
+                        <td><b>이무기</b> 리그</td>
+                        <td>55~84점</td>
+                        <td>26코스트</td>
+                    </tr>
+                    <tr>
+                        <td><b>카구라</b> 리그</td>
+                        <td>85~124점</td>
+                        <td>28코스트</td>
+                    </tr>
+                    <tr>
+                        <td><b>일태도</b> 리그</td>
+                        <td>125점 이상</td>
+                        <td>코스트 무제한</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="subnote center">
+                <span class="bold" style="line-height: 28px; ">- <span id="rule_title">Refferenced ArdyCup</span> <span id="rule_version">0.0</span> - </span>
+                <br />
+                <span class="bold">GACALC v1.0.1</span>
+                <br />
+                <span>Release 2024.08.10</span>
+            </div>
         </div>
-        <table id="main_table" class="score_calc">
-            <thead>
-                <tr>
-                    <td><div><p class="center bold"><span>순서</span></p></div></td>
-                    <td><div><p class="center bold"><span>이름</span></p></div></td>
-                    <td><div><p class="center bold"><span>돌파 (명함=0)</span></p></div></td>
-                    <td><div><p class="center bold"><span>합산(<span id="count_checked">0</span>)</span></p></div></td>
-                    <td><div><p class="center bold"><span>코스트</span></p></div></td>
-                </tr>
-            </thead>
-            <tbody id="main_table_body" data-show-ordinary="1">
-                <tr class="limited">
-                    <td><div><p class="right">1</p></div></td>
-                    <td><div><p class="right"><span>벤티</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_venti" class="char_constells limited">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_venti" class="bold">0</span> 점</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>(<span class="cost_basic" data-cid="c_venti"></span> +<span class="cost_add" data-cid="c_venti"></span>)&nbsp;<span data-cid="c_venti" class="cost_sum bold">0</span> 코</span>
-                    </p></div></td>
-                </tr>
-                <tr class="divider">
-                    <td colspan="5" id="toggle_ordinary"><span class="arrow">︾</span> 상시 5성 캐릭터 정보 입력 <span class="arrow">︾</span></td>
-                </tr>
-                <tr class="ordinary">
-                    <td><div><p class="right">1</p></div></td>
-                    <td><div><p class="right"><span>진</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_jean" class="char_constells ordinary">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_jean" class="bold">-</span>&nbsp; &nbsp;</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                    </p></div></td>
-                </tr>
-                <tr>
-                    <td colspan="4"></td>
-                </tr>
-            </tbody>
-            <tfoot id="main_table_foot" data-show-4stars="">
-                <tr>
-                    <td colspan="2"><div><p class="center"><span>
-                        <b>합산</b>
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <button id="init_check"><b>초기화</b> (체크 해제)</button>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="total_cost_sum" class="bold">0</span> 코</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                        <button id="copy_table" class="bold">계정 정보 복사</button>
-                    </p></div></td>
-                </tr>
-                <tr class="player_infos">
-                    <td colspan="2"><div class="player_name">
-                        <input type="text" id="player_name" size="12" maxlength="12" placeholder="챔스에 사용할 닉네임" />
-                    </div></td>
-                    <td><div class="player_uid">
-                        <input type="number" id="player_uid" min="800000000" maxlength="9" placeholder="원신 UID" />
-                    </div></td>
-                    <td colspan="2"><div id="treveler_selection">
-                        <input type="radio" id="trevelerF" name="trevelers" value="0" checked /><label for="trevelerF">여행자</label>
-                        <input type="radio" id="trevelerM" name="trevelers" value="1" /><label for="trevelerM">남행자</label>
-                    </div></td>
-                </tr>
-                <tr>
-                    <td colspan="5" id="toggle_4stars"><span class="arrow">︾</span> 4성(급) 캐릭터 정보 입력 (옵션) <span class="arrow">︾</span></td>
-                </tr>
-                <tr class="fourstars">
-                    <td><div><p class="right">1</p></div></td>
-                    <td><div><p class="right"><span>여행자</span></p></div></td>
-                    <td><div> <p class=""> <span>
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_jean" class="char_constells fourstars">
-                    </span></p></div></td>
-                    <td><div><p class="right">
-                        <span>&nbsp;<span id="c_jean" class="bold">-</span>&nbsp; &nbsp;</span>
-                    </p></div></td>
-                    <td><div><p class="right">
-                    </p></div></td>
-                </tr>
-            </tfoot>
-        </table>
-        <div class="subnote center">
-            <span>◆ <b>계정 정보 복사</b> 버튼으로 복사 후 메모장 등에 보관해 두시면<br />아래의 <b>붙여넣기 영역</b>에 붙여넣어서 입력했던 내용을 다시 불러올 수 있습니다 ◆</span>
-        </div>
-        <textarea id="paste_table" rows="1" placeholder="계정 정보 붙여넣기"></textarea>
-        <div id="cost_table_info" class="subnote center" style="display: none; ">
-            <span>◆ 현재 코스트 기준은 원신 <span id="gi_ver">3.4</span> 페이즈<span id="gi_phase">3</span> (<span id="gi_spiral">2월 하반기</span>)<span id="gi_rev"></span> 입니다 ◆</span>
-        </div>
-        <table class="league_guide">
-            <tbody id="leagues">
-                <tr>
-                    <td><b>무인검</b> 리그</td>
-                    <td>10~19점</td>
-                    <td>22코스트</td>
-                </tr>
-                <tr>
-                    <td><b>흑술창</b> 리그</td>
-                    <td>20~34점</td>
-                    <td>24코스트</td>
-                </tr>
-                <tr>
-                    <td><b>제례활</b> 리그</td>
-                    <td>35~54점</td>
-                    <td>26코스트</td>
-                </tr>
-                <tr>
-                    <td><b>이무기</b> 리그</td>
-                    <td>55~84점</td>
-                    <td>26코스트</td>
-                </tr>
-                <tr>
-                    <td><b>카구라</b> 리그</td>
-                    <td>85~124점</td>
-                    <td>28코스트</td>
-                </tr>
-                <tr>
-                    <td><b>일태도</b> 리그</td>
-                    <td>125점 이상</td>
-                    <td>코스트 무제한</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="subnote center">
-            <span class="bold" style="line-height: 28px; ">- <span id="rule_title">아디컵</span> <span id="rule_version">0.0</span> 기준 - </span>
-            <br />
-            <span class="bold">GACALC v1.0.0</span>
-            <br />
-            <span>Release 2024.05.20</span>
+        <div lang="ko">
+            <div class="note">
+                <p>
+                    <span>◆ <a target="_blank" href="https://docs.google.com/spreadsheets/d/12Dg_OWHA0QBD9QeXj-JUNHj6DATnw2cMwETFVhYns0k/edit#gid=1397116232">아디컵 캐릭터 코스트 테이블</a> 참조</span>
+                </p>
+                <!-- <p><span>◆ 여행자, 에일로이 게임 내 5성 취급이지만 4성급 성능 상 계산 안 함(0점)</span></p> -->
+            </div>
+            <table id="main_table" class="score_calc">
+                <thead>
+                    <tr>
+                        <td><div><p class="center bold"><span>순서</span></p></div></td>
+                        <td><div><p class="center bold"><span>이름</span></p></div></td>
+                        <td><div><p class="center bold"><span>돌파 (명함=0)</span></p></div></td>
+                        <td><div><p class="center bold"><span>합산(<span id="count_checked">0</span>)</span></p></div></td>
+                        <td><div><p class="center bold"><span>코스트</span></p></div></td>
+                    </tr>
+                </thead>
+                <tbody id="main_table_body" data-show-ordinary="1">
+                    <tr class="limited">
+                        <td><div><p class="right">1</p></div></td>
+                        <td><div><p class="right"><span>벤티</span></p></div></td>
+                        <td><div> <p class=""> <span>
+                            <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_venti" class="char_constells limited">
+                        </span></p></div></td>
+                        <td><div><p class="right">
+                            <span>&nbsp;<span id="c_venti" class="bold">0</span> 점</span>
+                        </p></div></td>
+                        <td><div><p class="right">
+                            <span>(<span class="cost_basic" data-cid="c_venti"></span> +<span class="cost_add" data-cid="c_venti"></span>)&nbsp;<span data-cid="c_venti" class="cost_sum bold">0</span> 코</span>
+                        </p></div></td>
+                    </tr>
+                    <tr class="divider">
+                        <td colspan="5" id="toggle_ordinary"><span class="arrow">︾</span> 상시 5성 캐릭터 정보 입력 <span class="arrow">︾</span></td>
+                    </tr>
+                    <tr class="ordinary">
+                        <td><div><p class="right">1</p></div></td>
+                        <td><div><p class="right"><span>진</span></p></div></td>
+                        <td><div> <p class=""> <span>
+                            <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_jean" class="char_constells ordinary">
+                        </span></p></div></td>
+                        <td><div><p class="right">
+                            <span>&nbsp;<span id="c_jean" class="bold">-</span>&nbsp; &nbsp;</span>
+                        </p></div></td>
+                        <td><div><p class="right">
+                        </p></div></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"></td>
+                    </tr>
+                </tbody>
+                <tfoot id="main_table_foot" data-show-4stars="">
+                    <tr>
+                        <td colspan="2"><div><p class="center"><span>
+                            <b>합산</b>
+                        </span></p></div></td>
+                        <td><div><p class="right">
+                            <button id="init_check"><b>초기화</b> (체크 해제)</button>
+                        </p></div></td>
+                        <td><div><p class="right">
+                            <span>&nbsp;<span id="total_cost_sum" class="bold">0</span> 코</span>
+                        </p></div></td>
+                        <td><div><p class="right">
+                            <button id="copy_table" class="bold">계정 정보 복사</button>
+                        </p></div></td>
+                    </tr>
+                    <tr class="player_infos">
+                        <td colspan="2"><div class="player_name">
+                            <input type="text" id="player_name" size="12" maxlength="12" placeholder="챔스에 사용할 닉네임" />
+                        </div></td>
+                        <td><div class="player_uid">
+                            <input type="number" id="player_uid" min="800000000" maxlength="9" placeholder="원신 UID" />
+                        </div></td>
+                        <td colspan="2"><div id="treveler_selection">
+                            <input type="radio" id="trevelerF" name="trevelers" value="0" checked /><label for="trevelerF">여행자</label>
+                            <input type="radio" id="trevelerM" name="trevelers" value="1" /><label for="trevelerM">남행자</label>
+                        </div></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" id="toggle_4stars"><span class="arrow">︾</span> 4성(급) 캐릭터 정보 입력 (옵션) <span class="arrow">︾</span></td>
+                    </tr>
+                    <tr class="fourstars">
+                        <td><div><p class="right">1</p></div></td>
+                        <td><div><p class="right"><span>여행자</span></p></div></td>
+                        <td><div> <p class=""> <span>
+                            <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_jean" class="char_constells fourstars">
+                        </span></p></div></td>
+                        <td><div><p class="right">
+                            <span>&nbsp;<span id="c_jean" class="bold">-</span>&nbsp; &nbsp;</span>
+                        </p></div></td>
+                        <td><div><p class="right">
+                        </p></div></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="subnote center">
+                <span>◆ <b>계정 정보 복사</b> 버튼으로 복사 후 메모장 등에 보관해 두시면<br />아래의 <b>붙여넣기 영역</b>에 붙여넣어서 입력했던 내용을 다시 불러올 수 있습니다 ◆</span>
+            </div>
+            <textarea id="paste_table" rows="1" placeholder="계정 정보 붙여넣기"></textarea>
+            <div id="cost_table_info" class="subnote center" style="display: none; ">
+                <span>◆ 현재 코스트 기준은 원신 <span id="gi_ver">3.4</span> 페이즈<span id="gi_phase">3</span> (<span id="gi_spiral">2월 하반기</span>)<span id="gi_rev"></span> 입니다 ◆</span>
+            </div>
+            <table class="league_guide">
+                <tbody id="leagues">
+                    <tr>
+                        <td><b>무인검</b> 리그</td>
+                        <td>10~19점</td>
+                        <td>22코스트</td>
+                    </tr>
+                    <tr>
+                        <td><b>흑술창</b> 리그</td>
+                        <td>20~34점</td>
+                        <td>24코스트</td>
+                    </tr>
+                    <tr>
+                        <td><b>제례활</b> 리그</td>
+                        <td>35~54점</td>
+                        <td>26코스트</td>
+                    </tr>
+                    <tr>
+                        <td><b>이무기</b> 리그</td>
+                        <td>55~84점</td>
+                        <td>26코스트</td>
+                    </tr>
+                    <tr>
+                        <td><b>카구라</b> 리그</td>
+                        <td>85~124점</td>
+                        <td>28코스트</td>
+                    </tr>
+                    <tr>
+                        <td><b>일태도</b> 리그</td>
+                        <td>125점 이상</td>
+                        <td>코스트 무제한</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="subnote center">
+                <span class="bold" style="line-height: 28px; ">- <span id="rule_title">아디컵</span> <span id="rule_version">0.0</span> 기준 - </span>
+                <br />
+                <span class="bold">GACALC v1.0.1</span>
+                <br />
+                <span>Release 2024.08.10</span>
+            </div>
         </div>
     </body>
     <script>
 
+var loca;
+var lang;
+
+const initLocale = function() {
+    let langs = navigator.languages;
+    for (i in langs) {
+        var l = langs[i];
+        if (l.indexOf("-") == -1) {
+            for (la in locales) {
+                var ln = la.split("-");
+                if (ln[0] == l) {
+                    loca = la;
+                    break;
+                }
+            }
+            if (loca != null) break;
+        } else if (locales[l] != null) {
+            lmatch = l;
+            break;
+        }
+    }
+    if (loca == null) loca = "en-global";
+    lang = locales[loca];
+
+    var unused;
+    if (loca.indexOf("ko") > -1) unused = document.querySelector("body > div:lang(en)");
+    else unused = document.querySelector("body > div:lang(ko)");
+    unused.remove();
+
+}
+initLocale();
+
 if (rules.rule_type == "cost") {
     document.getElementById("gi_ver").innerText = costTable != null ? costTable.version : "???";
     document.getElementById("gi_phase").innerText = costTable != null ? costTable.phase : "???";
-    document.getElementById("gi_spiral").innerText = costTable != null ? costTable.month + "월 " + (costTable.half === 1 ? "상" : "하") + "반기" : "???";
+    if (loca.indexOf("ko") > -1)document.getElementById("gi_spiral").innerText = costTable != null ? costTable.month + "월 " + (costTable.half === 1 ? "상" : "하") + "반기" : "???";
+    else document.getElementById("gi_spiral").innerText = costTable != null ? costTable.month + "월 " + (costTable.half === 1 ? "1st" : "2nd") + "lanf" : "???";
     document.getElementById("gi_rev").innerText = costTable != null && costTable.revision > 0 ? " rev." + costTable.revision : "";
 } else document.querySelector("#cost_table_info").style.display = "none";
 
@@ -321,19 +501,22 @@ let leagueCalc = function () {
         if (scr.indexOf("+") > -1) {
             let scl = parseInt(scr.replace("+", ""));
             if (totals >= scl) {
-                l = cr.name.replace(" 리그", "");
+                if (loca.indexOf("ko") > -1)l = cr.name.replace(" 리그", "");
+                else l = cr.name.replace(" LEAGUE", "");
                 break;
             }
         } else {
             let scrs = scr.split("-");
             if (totals >= parseInt(scrs[0]) && totals <= parseInt(scrs[1])) {
-                l = cr.name.replace(" 리그", "");
+                if (loca.indexOf("ko") > -1)l = cr.name.replace(" 리그", "");
+                else l = cr.name.replace(" LEAGUE", "");
                 break;
             }
         }
     }
     if (l == null) {
-        l = '참여 조건 미달';
+        if (loca.indexOf("ko") > -1)l = '참여 조건 미달';
+        else l = 'Participation conditions not met';
         hideTail = true;
     }
     
@@ -786,12 +969,18 @@ for (var i=0; i < rules.rule_alter.length; i++) {
     let scr = cr.score_range;
 
     var cst;
-    if (ca < 64) cst = "<b>" + ca + "</b> 코스트";
-    else cst = "<b>무제한</b>";
+    if (ca < 64) {
+        if (loca.indexOf("ko") > -1)cst = "<b>" + ca + "</b> 코스트";
+        else cst = "<b>" + ca + "</b> cost";
+    } else {
+        if (loca.indexOf("ko") > -1)cst = "<b>무제한</b>";
+        else cst = "<b>unlimited</b>";
+    }
 
     let tr = document.createElement("tr");
     let td1 = document.createElement("td");
-    td1.innerHTML = "<b>" + cr.name + "</b> " + "룰";
+    if (loca.indexOf("ko") > -1)td1.innerHTML = "<b>" + cr.name + "</b> " + "룰";
+    else td1.innerHTML = "<b>" + cr.name + "</b> " + "rule";
     tr.append(td1);
     let td2 = document.createElement("td");
     td2.innerHTML = cst;
@@ -854,7 +1043,8 @@ document.getElementById("toggle_4stars").onclick = function(e) {
 };
 
 function buildCharLine(no, name, id, attrs = "", addClass = "", point = 0, usepoint = true, cost = 0, usecost = true) {
-    let charLine = '                <tr#ATTRS>\n\
+    var charLine;
+    if (loca.indexOf("ko") > -1) charLine = '                <tr#ATTRS>\n\
                     <td><div><p class="right">#NO</p></div></td>\n\
                     <td><div><p class="right"><span>#NAME</span></p></div></td>\n\
                     <td><div> <p class=""> <span>\n\
@@ -867,8 +1057,23 @@ function buildCharLine(no, name, id, attrs = "", addClass = "", point = 0, usepo
                         <span>(<span class="cost_basic" data-cid="c_#ID"></span> +<span class="cost_add" data-cid="c_#ID"></span>)&nbsp;<span data-cid="c_#ID" class="cost_sum bold">#COST</span>#COSTUNIT</span>\n\
                     </p></div></td>\n\
                 </tr>\n\
-'
-    return charLine.replace("#NO", no).replace("#NAME", name).replace(/#ID/g, id).replace("#ATTRS", attrs).replace("#CLASS", addClass).replace("#POINTUNIT", usepoint ? " 점" : "&nbsp; &nbsp;").replace("#COSTUNIT", usepoint ? " 코" : "&nbsp; &nbsp;").replace("#POINT", point).replace("#COST", cost);
+';
+    else charLine = '                <tr#ATTRS>\n\
+                    <td><div><p class="right">#NO</p></div></td>\n\
+                    <td><div><p class="right"><span>#NAME</span></p></div></td>\n\
+                    <td><div> <p class=""> <span>\n\
+                        <input type="number" min="0" max="6" placeholder="Now own(empty)" data-cid="c_#ID" class="char_constells#CLASS">\n\
+                    </span></p></div></td>\n\
+                    <td><div><p class="center">\n\
+                        <input type="checkbox" class="sum_checker" id="check_#ID" data-id="#ID" />\n\
+                    </p></div></td>\n\
+                    <td><div><p class="right">\n\
+                        <span>(<span class="cost_basic" data-cid="c_#ID"></span> +<span class="cost_add" data-cid="c_#ID"></span>)&nbsp;<span data-cid="c_#ID" class="cost_sum bold">#COST</span>#COSTUNIT</span>\n\
+                    </p></div></td>\n\
+                </tr>\n\
+';
+    if (loca.indexOf("ko") > -1) return charLine.replace("#NO", no).replace("#NAME", name).replace(/#ID/g, id).replace("#ATTRS", attrs).replace("#CLASS", addClass).replace("#POINTUNIT", usepoint ? " 점" : "&nbsp; &nbsp;").replace("#COSTUNIT", usepoint ? " 코" : "&nbsp; &nbsp;").replace("#POINT", point).replace("#COST", cost);
+    else return charLine.replace("#NO", no).replace("#NAME", name).replace(/#ID/g, id).replace("#ATTRS", attrs).replace("#CLASS", addClass).replace("#POINTUNIT", usepoint ? " p" : "&nbsp; &nbsp;").replace("#COSTUNIT", usepoint ? " cost" : "&nbsp; &nbsp;").replace("#POINT", point).replace("#COST", cost);
 }
 
 function initCharList() {
@@ -900,7 +1105,7 @@ function initCharList() {
         switch (category) {
             case "limited":
                 seqLimited++;
-                let linel = buildCharLine(seqLimited, info.name["ko-kr"], info.id, ' class="limited"', " limited");
+                let linel = buildCharLine(seqLimited, info.name[loca], info.id, ' class="limited"', " limited");
                 let eleml = document.createElement("div");
                 tbody.insertBefore(eleml, divider);
                 eleml.outerHTML = linel;
@@ -908,7 +1113,7 @@ function initCharList() {
 
             case "ordinary":
                 seqOrdinary++;
-                let lineo = buildCharLine(seqOrdinary, info.name["ko-kr"], info.id, ' class="ordinary"', " ordinary");
+                let lineo = buildCharLine(seqOrdinary, info.name[loca], info.id, ' class="ordinary"', " ordinary");
                 let elemo = document.createElement("div");
                 tbody.append(elemo);
                 elemo.outerHTML = lineo;
@@ -916,7 +1121,7 @@ function initCharList() {
 
             case "fourstars":
                 seq4stars++;
-                let linef = buildCharLine(seq4stars, info.name["ko-kr"], info.id, ' class="fourstars"', " fourstars");
+                let linef = buildCharLine(seq4stars, info.name[loca], info.id, ' class="fourstars"', " fourstars");
                 let elemf = document.createElement("div");
                 tfoot.append(elemf);
                 elemf.outerHTML = linef;
