@@ -8172,9 +8172,9 @@ let localeMaster = {
                 break;
             }
         }
-        if (loca != null) lang = locales[loca];
-        else loca = locales["en-us"];
-
+        if (loca == null) loca = "en-global";
+        lang = locales[loca];
+    
     },
 
     initLanguageSelector: function(init = false) {
