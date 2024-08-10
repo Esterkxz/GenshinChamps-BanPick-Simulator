@@ -88,6 +88,10 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "vsTotalElapsed": "총 소요 시간",
         "vsChamber": "#NO번 방",
         "vsAggregated": "전체",
+        "vsWins": "#NAME 승",
+        "vsWinsByTko": "#NAME TKO 승",
+        "vsDoubleTko": "Double TKO",
+        "vsDraw" : "무승부",
         
         "btnStart": "START",
         "btnPass": "PASS",

@@ -4971,6 +4971,7 @@ let sideMaster = {
         this.vsTimeRemains["blue"][0] = blueRemains;
 
         if (isComplete || isTkoEnd || isDoubleTko) {
+            let text = lang.text;
             var redWins = false;
             var blueWins = false;
             if (isTko) {
@@ -5048,14 +5049,16 @@ let sideMaster = {
                     if (step > rules.sequence.length) {
                         console.log(":: finish");
                         versusEntryArea.attr("data-wins", wins);
-                        sequenceMaster.setSequenceTitle((wins == "red" ? redName : blueName) + (isTko ? " TKO" : "") + " 승");
+                        let winner = wins == "red" ? redName : blueName;
+                        let winsText = isTko ? text.vsWinsByTko : text.vsWins;
+                        sequenceMaster.setSequenceTitle(winsText.replace("#NAME", winner));
                     }
                 };
 
                 if (isFirstResult) setTimeout(finish, 2000);
                 else finish();
             } else {
-                sequenceMaster.setSequenceTitle(isTko ? "Double TKO" : "무승부");
+                sequenceMaster.setSequenceTitle(isTko ? text.vsDoubleTko : text.vsDraw);
                 versusEntryArea.attr("data-wins", "");
             }
 

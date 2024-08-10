@@ -88,7 +88,11 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "vsTotalElapsed": "Total Elapsed",
         "vsChamber": "Chamber #NO",
         "vsAggregated": "AGGREGATED",
-  
+        "vsWins": "#NAME wins",
+        "vsWinsByTko": "#NAME wins by TKO",
+        "vsDoubleTko": "Double TKO",
+        "vsDraw" : "DRAW",
+
         "btnStart": "START",
         "btnPass": "PASS",
         "btnVersus": "VERSUS",
