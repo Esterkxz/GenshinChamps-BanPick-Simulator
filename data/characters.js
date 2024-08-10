@@ -1278,6 +1278,21 @@ let charactersInfo = {
             "res_wide_meta_pos": { "scale": "360%", "h": "53%", "v": "32%" },
         },
         {
+            "id": "emilie",
+            "class": "limited",
+            "version": "4.8h",
+            "rarity": "5",
+            "weapon": "polearm",
+            "element": "dendro",
+            "continent": "fontine",
+            "res_back": "UI_AvatarIcon_Emilie@2x.png",
+            "res_icon": "UI_AvatarIcon_Emilie.png",
+            "res_vcut": "emilie_099_gacha_card.webp",
+            "res_vcut_meta_pos": { "vBasic": "25%", "vHover": "19%" },
+            "res_wide": "emile_genshin_impact_art_render_by_deg5270_dhxd9hi-fullview.png",
+            "res_wide_meta_pos": { "scale": "540%", "h": "60%", "v": "29.5%" },
+        },
+        {
             "comment": "temporary data for pre-official release",
             "id": "reserved",
             "class": "",
@@ -1393,5 +1408,6 @@ let charactersInfo = {
     "sethos": 82,
     "clorinde": 83,
     "sigewinne": 84,
+    "emilie": 85,
     "reserved": 8
 }

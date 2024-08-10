@@ -283,6 +283,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "sethos": "Sethos",
         "clorinde": "Clorinde",
         "sigewinne": "Sigewinne",
+        "emilie": "Emilie",
         "reserved": ""
     },
     "characters_short": {
@@ -370,6 +371,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "sethos": "Sethos",
         "clorinde": "Clorinde",
         "sigewinne": "Sigewinne",
+        "emilie": "Emilie",
         "reserved": ""
     },
     "weapons": {

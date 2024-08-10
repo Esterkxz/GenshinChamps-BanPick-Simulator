@@ -143,6 +143,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "sethos": false,
             "clorinde": false,
             "sigewinne": false,
+            "emilie": false,
         },
         "": ""
     },
@@ -310,6 +311,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "faruzan": true,
                 "baizhu": true,
                 "gaming": true,
+
             },
             "": ""
         },
@@ -337,6 +339,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "liuyun": true,
                 "chiori": true,
                 "clorinde": true,
+                "emilie": true,
             },
             "": ""
         },
