@@ -677,6 +677,20 @@ weaponsInfo = {
             "res_vcut": "i_n15513_gacha_icon.webp"
         },
 
+        //Extra 16 - Muguet
+        {
+            "id": "pl_muguet",
+            "class": "limited",
+            "version": "4.8h",
+            "rarity": "5",
+            "type": "polearm",
+            "serise": "standalone",
+            "continent": "fontaine",
+            "favority": ["emilie"],
+            "res_icon": "UI_EquipIcon_Pole_Muguet.png",
+            "res_vcut": "i_n13513_gacha_icon.webp"
+        },
+
         {
             "id": "reserved",
             "class": "",

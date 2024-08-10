@@ -426,6 +426,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "pl_bloodmoon": { "name": "붉은 달의 형상", "aliases": ["붉은달", "붉달형"] },
         "sw_estoc": { "name": "사면", "aliases": ["사면"] },
         "bw_arcdange": { "name": "심금을 울리는 하얀 비", "aliases": ["심금", "하얀비"] },
+        "pl_muguet": { "name": "등방울꽃의 애가", "aliases": ["등방울꽃", "애가"] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }

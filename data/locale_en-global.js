@@ -427,6 +427,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "pl_bloodmoon": { "name": "Crimson Moon's Semblance", "aliases": [""] },
         "sw_estoc": { "name": "Absolution", "aliases": [""] },
         "bw_arcdange": { "name": "Silvershower Heartstrings", "aliases": [""] },
+        "pl_muguet": { "name": "Lumidouce Elegy", "aliases": [""] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }
