@@ -5970,7 +5970,8 @@ let playerInfoMaster = {
         this.eachInfoTreveler.find('label.info_treveler_style.male').text(text.pisAether);
         this.eachInfoCopy.text(text.pisCopyAccountCode);
         this.eachInfoCopy.attr("title", text.pisCopyAccountCodeDesc);
-        this.eachInfoCode.text(text.pisDataAccountCode);
+        this.eachInfoCode.attr("placeholder", text.pisDataAccountCode);
+        this.eachInfoCode.attr("title", text.pisDataAccountCodeDesc);
         this.eachInfoAdd.filter(this.class_constell).find(this.line_title).text(text.pisAddTimeConstell);
         this.eachInfoAdd.filter(this.class_weapon).find(this.line_title).text(text.pisAddTimeHasWapon);
         this.eachInfoAdd.filter(this.class_refine).find(this.line_title).text(text.pisAddTimeWeponRefine);
