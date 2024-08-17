@@ -252,7 +252,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "nahida":      [6, 6, 8, 9, 10, 10, 12],
         "alhaitham":   [2, 3, 4, 5, 6, 7, 8],
         "baizhu":      [2, 3, 4, 4, 4, 4, 5],
-        "emilie":      [1, 2, 4, 4, 5, 5, 6],
+        "emilie":      [2, 4, 6, 6, 7, 7, 8],
 
         "treveler":    [1, 1, 1, 1, 1, 1, 1],
         
