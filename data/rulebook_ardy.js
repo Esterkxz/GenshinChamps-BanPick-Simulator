@@ -13,7 +13,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard for cost game.\n\
     ",
     "rule_title": "아디컵 룰북",
-    "rule_version": "v.0.2.6",
+    "rule_version": "v.0.2.7",
 
     "rule_type": "cost",
 
@@ -200,6 +200,41 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "cost_amount": 46,
             "": ""
         },
+        {
+            "name": "카디컵",
+            "name_full": "Cardy cup",
+            "rule_type": "cardy",
+            "score_range": "0",
+            "established": false,
+            "selectable": true,
+            "apply_dynamic_global_ban": false,
+            "sequence": [
+                { "side": "red", "pick": 'ban', "amount": "1" },
+                { "side": "blue", "pick": 'ban', "amount": "1" },
+                { "side": "red", "pick": 'ban', "amount": "1" },
+                { "side": "blue", "pick": 'ban', "amount": "1" },
+                { "side": "red", "pick": 'ban', "amount": "1" },
+                { "side": "blue", "pick": 'ban', "amount": "1" },
+                { "side": "red", "pick": 'entry', "amount": "1" },
+                { "side": "blue", "pick": 'entry', "amount": "2" },
+                { "side": "red", "pick": 'entry', "amount": "2" },
+                { "side": "blue", "pick": 'entry', "amount": "2" },
+                { "side": "red", "pick": 'entry', "amount": "1" },
+                { "side": "blue", "pick": 'ban', "amount": "1" },
+                { "side": "red", "pick": 'ban', "amount": "1" },
+                { "side": "blue", "pick": 'entry', "amount": "1" },
+                { "side": "red", "pick": 'entry', "amount": "2" },
+                { "side": "blue", "pick": 'entry', "amount": "2" },
+                { "side": "red", "pick": 'entry', "amount": "2" },
+                { "side": "blue", "pick": 'entry', "amount": "1" },
+                { "side": "red", "pick": 'entry', "amount": "0" },
+                { "side": "blue", "pick": 'entry', "amount": "0" },
+                "reserved"
+            ],
+            
+            "cost_amount": 0,
+            "": ""
+        },
     ],
 
     "cost_table": {
@@ -306,6 +341,65 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 
         "": []
     },
+
+    "cardy_rating": {
+        "adds_table": {},
+        "adds_sheet": `Characters	0	1	2	3	4	5	6
+클로린드	42	64	86	96	114	120	190
+사이노	8	12	28	32	35	37	67
+각청	6	6	6	6	8	8	14
+라이덴	38	40	72	86	90	92	92
+미코	39	41	58	66	68	72	120
+사라	0	1	1	2	2	3	16
+아야토	28	34	48	52	56	60	120
+푸리나	50	70	110	125	130	140	199
+코코미	26	32	32	32	34	34	34
+시그윈	20	27	40	41	60	62	90
+모나	16	20	20	24	28	28	28
+닐루	38	42	84	86	90	92	100
+타르탈리아	20	26	28	34	40	44	52
+야란	42	56	80	88	120	126	170
+느비예트	80	110	120	140	150	150	210
+알하이탐	55	57	67	73	83	87	123
+백출	20	22	34	35	39	40	51
+에밀리	40	50	58	62	68	70	130
+나히다	44	46	90	92	100	102	160
+타이나리	10	15	20	20	25	28	70
+진	6	6	10	10	16	16	16
+카즈하	50	56	70	70	72	72	82
+방랑자	22	27	35	38	42	45	120
+벤티	30	30	30	30	34	34	45
+소	16	21	23	25	25	28	95
+한운	18	20	58	58	58	58	80
+파루잔	2	4	4	4	6	6	32
+아를레키노	50	80	90	95	99	105	190
+가명	1	1	1	1	4	4	12
+다이루크	6	8	8	8	8	8	8
+호두	34	50	56	62	65	67	82
+클레	6	8	25	27	33	35	39
+데히야	2	3	4	5	7	8	15
+요이미야	10	11	15	16	18	20	42
+리니	42	56	70	78	90	95	140
+슈브르즈	20	24	24	24	28	28	40
+아야카	22	24	44	48	80	84	100
+유라	2	4	6	8	12	14	74
+감우	8	14	16	18	24	25	60
+치치	1	1	1	1	1	1	2
+신학	10	20	28	31	35	37	90
+라이오슬리	18	52	62	74	81	85	140
+알베도	14	14	18	20	22	23	30
+치오리	28	37	50	60	70	71	150
+이토	16	24	32	34	35	39	100
+나비아	44	46	70	80	98	102	160
+종려	24	24	30	30	30	30	30
+고로	1	1	1	1	1	1	6`,
+
+        "aban_pointer": [100, 200, 300, 500, 600, 900, 1000, 1100, 1300, 1400, 1500, 1600, 1700, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000, 3100, 3200],
+        "jban_pointer": [400, 800, 1200],
+
+        "": ""
+    },
+
 
     "global_banned": {
         // "neuvillette": true,
