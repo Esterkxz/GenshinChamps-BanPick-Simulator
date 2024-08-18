@@ -8024,6 +8024,8 @@ let rulesMaster = {
         this.leagueName = this.leagueTitle.find(this.league_name);
         this.leagueTail = this.leagueTitle.find(this.league_tail);
 
+        this.initRuleTables();
+
         this.initAlterSelector();
         this.initAlterSelections();
 
@@ -8129,6 +8131,37 @@ let rulesMaster = {
         if (to == null || from == null) return;
         if (!Array.isArray(from)) for (k in from) to[k] = from[k];
         else for (i in from) if (to.indexOf(rule[i]) < 0) to.push(from[i]);
+    },
+
+    initRuleTables() {
+        if (rules.cardy_rating != null && rules.cardy_rating.adds_sheet != null) this.loadTable(rules.cardy_rating, "adds_sheet", "adds_table", ["Characters"]);
+    },
+
+    loadTable(set, from, to, ignores = [], def = [0, 0, 0, 0, 0, 0, 0]) {
+        set[to] = {};
+        let bp = set[from];
+        let ap = set[to];
+        for (var info of charactersInfo.list) ap[info.id] = def;
+
+        let lines = bp.split(/[\r\n]+/);
+        for (var line of lines) {
+            let divided = line.split("\t");
+            let key = divided.shift();
+            if (ignores.indexOf(key) > -1) continue;
+            
+            var id = null;
+            for (var info of charactersInfo.list) {
+                for (var locate in info.nameShort) if (info.nameShort[locate] == key) {
+                    id = info.id;
+                    break;
+                }
+                if (id != null) break;
+            }
+            if (id != null) {
+                let values = divided.map((v) => parseInt(v));
+                ap[info.id] = values;
+            }
+        }
     },
 
     eoo
