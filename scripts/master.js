@@ -1922,6 +1922,10 @@ let poolMaster = {
     initElementTable: function() {
         var table;
         switch (rules.rule_type) {
+            case "cost":
+                table = rules.cost_table;
+                break;
+
             case "bancard":
                 table = rules.ban_card_accure;
                 break;
