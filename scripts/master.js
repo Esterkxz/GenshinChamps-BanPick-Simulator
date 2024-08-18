@@ -267,6 +267,9 @@ let sequenceMaster = {
     lastPickedTime: null,
 
 
+    cardyBans: { side: null, aban: 0, jban: 0 },
+
+
     pickingPlayerProfile: { "red": false, "blue": false },
     pickedPlayerProfile: { "red": null, "blue": null },
     selectedPlayerProfile: { "red": null, "blue": null },
@@ -455,6 +458,8 @@ let sequenceMaster = {
     },
 
     startPick: function() {
+        if (rules.rule_type == "cardy") this.calcCardyPreBans();
+
         step = 0;
 
         redName = sideMaster.redNameplateInput.val();
@@ -1203,6 +1208,43 @@ let sequenceMaster = {
         return res;
     },
 
+    calcCardyPreBans: function() {
+        this.cardyBans = { side: null, aban: 0, jban: 0 };
+        let limit = rules.cardy_rating.diff_limit;
+
+        let red = playerInfoMaster.playerAccInfo.red;
+        let blue = playerInfoMaster.playerAccInfo.blue;
+
+        if (red != null && blue != null) {
+            var totalDiff = 0;           
+            for (var info of charactersInfo.list) {
+                let id = info.id;
+                let points = rules.cardy_rating.point_table[id];
+
+                let redConst = red[id];
+                let blueConst = blue[id];
+                let redPoint = redConst != null ? points[redConst] : 0;
+                let bluePoint = blueConst != null ? points[blueConst] : 0;
+                let diff = redPoint - bluePoint;
+
+                totalDiff += Math.max(Math.min(diff, limit), limit * -1);
+            }
+            if (totalDiff != 0) {
+                this.cardyBans.side = totalDiff < 0 ? "red" : "blue";
+                totalDiff = Math.abs(totalDiff);
+
+                for (var v of rules.cardy_rating.aban_pointer) {
+                    if (v <= totalDiff) this.cardyBans.aban++;
+                    else break;
+                }
+                for (var v of rules.cardy_rating.jban_pointer) {
+                    if (v <= totalDiff) this.cardyBans.jban++;
+                    else break;
+                }
+            }
+        }
+    },
+
     releaseMainButton: function(newStep = step) {
         let text = lang.text;
         let lastStep = rules.sequence.length;
@@ -1931,7 +1973,7 @@ let poolMaster = {
                 break;
 
             case "cardy":
-                table = rules.cardy_rating.adds_table;
+                table = rules.cardy_rating.point_table;
                 break;
         }
         this.table = table;
@@ -8150,7 +8192,7 @@ let rulesMaster = {
     },
 
     initRuleTables() {
-        if (rules.cardy_rating != null && rules.cardy_rating.adds_sheet != null) this.loadTable(rules.cardy_rating, "adds_sheet", "adds_table", ["Characters"]);
+        if (rules.cardy_rating != null && rules.cardy_rating.point_sheet != null) this.loadTable(rules.cardy_rating, "point_sheet", "point_table", ["Characters"]);
     },
 
     loadTable(set, from, to, ignores = [], def = [0, 0, 0, 0, 0, 0, 0]) {

@@ -344,8 +344,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
     },
 
     "cardy_rating": {
-        "adds_table": {},
-        "adds_sheet": `Characters	0	1	2	3	4	5	6
+        "point_table": {},
+        "point_sheet": `Characters	0	1	2	3	4	5	6
 클로린드	30	55	80	85	100	105	150
 사이노	2	2	8	18	20	21	70
 각청	2	3	4	5	6	6	6
@@ -394,6 +394,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 나비아	70	72	95	110	125	127	170
 종려	70	71	72	73	74	75	76
 고로	0	0	0	0	0	0	5`,
+
+        "diff_limit": 100,
 
         "aban_pointer": [100, 200, 300, 500, 600, 900, 1000, 1100, 1300, 1400, 1500, 1600, 1700, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000, 3100, 3200],
         "jban_pointer": [400, 800, 1200],
