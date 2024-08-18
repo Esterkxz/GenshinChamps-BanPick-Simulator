@@ -7026,7 +7026,8 @@ let globalBanMaster = {
         // timerMaster.timerRelay.attr(this.hide, "1");
         
         this.globalBanManager.fadeIn(320);
-        this.getGlobalBanPool().parent().show();
+        let globalBanPool = this.getGlobalBanPool();
+        if (globalBanPool != null) globalBanPool.parent().show();
         
         this.initFilter();
         this.initPicked(true);
