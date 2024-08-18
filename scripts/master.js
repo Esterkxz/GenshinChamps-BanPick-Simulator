@@ -310,12 +310,14 @@ let sequenceMaster = {
 
     buildStepItem: function(info) {
         let item = document.createElement("li");
+        let isCardyBan = this.cardyBans.side != null;
+        let side = (info.pick == "aban" || info.pick == "jban") && isCardyBan ? this.cardyBans.side : info.side;
 
         item.setAttribute("class", "sequence_item");
-        item.setAttribute(this.side, info.side == "red" ? "R" : "B");
+        item.setAttribute(this.side, side != null ? (side == "red" ? "R" : "B") : side);
         item.setAttribute(this.target, info.pick.indexOf("weapon") > -1 ? "W" : "C");
-        item.setAttribute(this.pick, info.pick.indexOf("preban") > -1 ? "PreB" : (info.pick.indexOf("ban") > -1 ? "B" : (info.pick.indexOf("entry") > -1 ? "E" : "P")));
-        item.setAttribute(this.amount, info.amount);
+        item.setAttribute(this.pick, info.pick.indexOf("preban") > -1 ? "PreB" : (info.pick == "aban" ? "AB" : (info.pick == "jban" ? "JB" : (info.pick.indexOf("ban") > -1 ? "B" : (info.pick.indexOf("entry") > -1 ? "E" : "P")))));
+        item.setAttribute(this.amount, isCardyBan && info.pick == "aban" ? this.cardyBans.aban : (isCardyBan && info.pick == "jban" ? this.cardyBans.jban : info.amount));
         item.setAttribute(this.current, "");
         item.appendChild(document.createElement("hr"));
         item.appendChild(document.createElement("span"));
@@ -390,6 +392,12 @@ let sequenceMaster = {
                     case "preban":
                         tType = text.pickPreban;
                         break;
+                    case "aban":
+                        tType = text.pickAdditionalBan;
+                        break;
+                    case "jban":
+                        tType = text.pickJokerBan;
+                        break;
                     case "ban":
                         tType = text.pickBan;
                         break;
@@ -413,6 +421,11 @@ let sequenceMaster = {
                         else if (seq.amount < 1) tAmount = text.amountFillCharacter
                         else tAmount = text.amountPickCharacter.replace("#AMOUNT", seq.amount)
                         break;
+                    case "aban":
+                        tAmount = text.amountPickCharacter.replace("#AMOUNT", this.cardyBans.aban);
+                    case "jban":
+                        tAmount = text.amountPickCharacter.replace("#AMOUNT", this.cardyBans.jban);
+                        break;
                     case "ban weapon":
                         tAmount = text.amountPick.replace("#AMOUNT", seq.amount)
                         break;
@@ -426,7 +439,10 @@ let sequenceMaster = {
 
     releaseStepStateDisplay: function() {
         let seq = rules.sequence[step];
-        if (seq != null && seq.amount == "0" && seq.pick == "entry" && this.checkUpdateCurrentStepComplition()) {
+        if (seq != null && ((seq.pick == "aban" && this.cardyBans.aban == 0) || (seq.pick == "jban" && this.cardyBans.jban == 0))) {
+            this.shiftStep();
+            this.releaseStepStateDisplay();
+        } else if (seq != null && seq.amount == "0" && seq.pick == "entry" && this.checkUpdateCurrentStepComplition()) {
             this.releaseStepStateDisplay();
         } else {
             this.releaseActionStateByStep();
@@ -503,9 +519,10 @@ let sequenceMaster = {
 
         let isCharacterPick = seq.pick.indexOf("weapon") < 0;
         let isProfferPick = seq.pick == "proffer";
-        let counterSide = seq.side == "red" ? "blue" : "red";
-        let pickingSide = isProfferPick ? counterSide : seq.side;
-        let pickingCounter = isProfferPick ? seq.side : counterSide;
+        let side = seq.side != null ? seq.side : this.cardyBans.side;
+        let counterSide = side == "red" ? "blue" : "red";
+        let pickingSide = isProfferPick ? counterSide : side;
+        let pickingCounter = isProfferPick ? side : counterSide;
         let entryNo = sideMaster.entryPicked[pickingSide].length;
         let isTreveler = id == "treveler";
         var treveler = null;
@@ -539,6 +556,13 @@ let sequenceMaster = {
                 pickNote = lang.text.pickedBan;
                 break;
 
+            case "aban":
+                pickNote = lang.text.pickedABan;
+                break;
+            case "jban":
+                pickNote = lang.text.pickedJBan;
+                break;
+        
             case "entry":
             case "proffer":
                 if (usingBanCard) {
@@ -563,7 +587,7 @@ let sequenceMaster = {
             item.attr(poolMaster.pick_side, item.attr(poolMaster.pick_side) != "" ? "both" : pickingSide);
             item.attr(poolMaster.pick_type, seq.pick);
             item.attr(poolMaster.picked, "1");
-            if (seq.pick == "ban" || seq.pick == "preban" || usingBanCard) {
+            if (seq.pick == "ban" || seq.pick == "aban" || seq.pick == "jban" || seq.pick == "preban" || usingBanCard) {
                 item.attr(poolMaster.banned, "1");
                 item.attr(poolMaster.banned_by_card, usingBanCard ? "1" : "");
                 item.attr(poolMaster.pick_note, pickNote);
@@ -622,9 +646,10 @@ let sequenceMaster = {
             let prev = stepHistory[stepHistory.length-1];
             let isCharacterPick = ref.pick.indexOf("weapon") < 0;
             let isProfferPick = ref.pick == "proffer";
-            let counterSide = ref.side == "red" ? "blue" : "red";
-            let pickingSide = isProfferPick ? counterSide : ref.side;
-    
+            let side = ref.side != null ? ref.side : this.cardyBans.side;
+            let counterSide = side == "red" ? "blue" : "red";
+            let pickingSide = isProfferPick ? counterSide : side;
+        
             if (ref != seq) this.shiftStep(false);
 
 
@@ -635,6 +660,11 @@ let sequenceMaster = {
                 case "preban":
                 case "ban":
                     sideMaster.onUndoPickBan(picked.id, pickingSide);
+                    break;
+
+                case "aban":
+                case "jban":
+                    this.shiftStep(false);
                     break;
 
                 case "entry":
@@ -651,7 +681,7 @@ let sequenceMaster = {
             //코스트 테이블 캐릭터 검색 복원
             if (isCharacterPick) {
                 let item = poolMaster.eachCharacters.filter('[' + poolMaster.id  + '="' + picked.id + '"]');
-                if (ref.pick == "ban" || ref.pick == "preban" || (last.isBanCardBan)) {
+                if (ref.pick == "ban" || seq.pick == "aban" || seq.pick == "jban" || ref.pick == "preban" || (last.isBanCardBan)) {
                     if (item.attr(poolMaster.pick_side) == "both") {
                         item.attr(poolMaster.pick_side, counterSide);                        
                     } else {
@@ -1208,8 +1238,12 @@ let sequenceMaster = {
         return res;
     },
 
-    calcCardyPreBans: function() {
+    initCalculatedCardyBan: function() {
         this.cardyBans = { side: null, aban: 0, jban: 0 };
+    },
+
+    calcCardyPreBans: function() {
+        this.initCalculatedCardyBan();
         let limit = rules.cardy_rating.diff_limit;
 
         let red = playerInfoMaster.playerAccInfo.red;
@@ -1243,6 +1277,7 @@ let sequenceMaster = {
                 }
             }
         }
+        this.initStepSequences();
     },
 
     releaseMainButton: function(newStep = step) {

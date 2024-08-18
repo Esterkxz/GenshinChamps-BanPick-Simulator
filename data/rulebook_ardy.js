@@ -210,6 +210,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "selectable": true,
             "apply_dynamic_global_ban": false,
             "sequence": [
+                { "side": null, "pick": 'aban', "amount": null },
+                { "side": null, "pick": 'jban', "amount": null },
                 { "side": "red", "pick": 'ban', "amount": "1" },
                 { "side": "blue", "pick": 'ban', "amount": "1" },
                 { "side": "red", "pick": 'ban', "amount": "1" },

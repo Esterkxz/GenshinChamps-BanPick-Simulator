@@ -13,6 +13,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "pick": "픽",
         "ban": "밴픽",
 
+        "pickAdditionalBan": "추가 밴",
+        "pickJokerBan": "조커 밴",
         "pickPreban": "사전 밴",
         "pickBan": "밴픽",
         "pickEntry": "픽",
@@ -20,6 +22,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "pickBanWeapon": "무기 밴",
         "pickUseBanCard": "밴카드 사용",
 
+        "pickedABan": "A밴",
+        "pickedJBan": "J밴",
         "pickedBan": "밴",
         "pickedEntry": "픽",
         "pickedEntryShort": "픽",
