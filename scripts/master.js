@@ -1920,7 +1920,16 @@ let poolMaster = {
     },
 
     initElementTable: function() {
-        table = rules.ban_card_accure;
+        var table;
+        switch (rules.rule_type) {
+            case "bancard":
+                table = rules.ban_card_accure;
+                break;
+
+            case "cardy":
+                table = rules.cardy_rating.adds_table;
+                break;
+        }
         this.table = table;
 
         this.eachElementPool.empty();
@@ -1932,14 +1941,14 @@ let poolMaster = {
             if (id == eoa) return;
 
             let self = poolMaster;
-            let bancard = table[id];
+            let bancard = rules.rule_type == "bancard" ? table[id] : null;
 
             if (id == "treveler") {
                 let treveler = "" + i;
                 self.elementPool[info.element][treveler].append(self.buildCharacterItem(info, bancard, treveler));
             } else {
-                let item = self.buildCharacterItem(info, bancard, null, bancard == null ? "icon" : null);
-                if (bancard == null) self.unallowedPool.append(item);//사용불가 캐릭터
+                let item = self.buildCharacterItem(info, bancard, null);//, bancard == null ? "icon" : null);
+                if (rules.rule_type == "bancard" && bancard == null) self.unallowedPool.append(item);//사용불가 캐릭터
                 else self.elementPool[info.element][info.rarity == "5" ? "5" : "4"].append(item);
             }
         });
@@ -7079,6 +7088,8 @@ let globalBanMaster = {
 
     takeGlobalBanned: function() {
         let pool = this.getGlobalBanPool();
+        if (pool == null) return;
+        let parent = pool.parent();
 
         if (pool != null && rules.global_banned != null && Object.keys(rules.global_banned).length > 0 && rules.apply_dynamic_global_ban) {
             for (id in rules.global_banned) {
@@ -7087,9 +7098,9 @@ let globalBanMaster = {
                 item.remove();
                 pool.append(item);
             }
-            pool.parent().show();
+            if (parent != null) parent.show();
         } else {
-            pool.parent().hide();
+            if (parent != null) parent.hide();
         }
 
         if (step == -2){
