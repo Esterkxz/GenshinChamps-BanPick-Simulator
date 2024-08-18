@@ -23,6 +23,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 
     "base_rule": {
         "league_tail": "LEAGUE",
+        "rule_type": "cost",
         "double_pick": null,
         "apply_dynamic_global_ban": true,
         "sequence": [
