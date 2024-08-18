@@ -310,14 +310,18 @@ let sequenceMaster = {
 
     buildStepItem: function(info) {
         let item = document.createElement("li");
-        let isCardyBan = this.cardyBans.side != null;
-        let side = (info.pick == "aban" || info.pick == "jban") && isCardyBan ? this.cardyBans.side : info.side;
+        let isStarted = step > -1;
+        let isAdditBan = info.pick == "aban";
+        let isJokerBan = info.pick == "jban";
+        let isCardyBan = isAdditBan || isJokerBan;
+        let isOnSideCardyRule = this.cardyBans.side != null;
+        let side = isCardyBan && isOnSideCardyRule ? this.cardyBans.side : info.side;
 
         item.setAttribute("class", "sequence_item");
         item.setAttribute(this.side, side != null ? (side == "red" ? "R" : "B") : side);
         item.setAttribute(this.target, info.pick.indexOf("weapon") > -1 ? "W" : "C");
-        item.setAttribute(this.pick, info.pick.indexOf("preban") > -1 ? "PreB" : (info.pick == "aban" ? "AB" : (info.pick == "jban" ? "JB" : (info.pick.indexOf("ban") > -1 ? "B" : (info.pick.indexOf("entry") > -1 ? "E" : "P")))));
-        item.setAttribute(this.amount, isCardyBan && info.pick == "aban" ? this.cardyBans.aban : (isCardyBan && info.pick == "jban" ? this.cardyBans.jban : info.amount));
+        item.setAttribute(this.pick, info.pick.indexOf("preban") > -1 ? "PreB" : (isAdditBan ? "AB" : (isJokerBan ? "JB" : (info.pick.indexOf("ban") > -1 ? "B" : (info.pick.indexOf("entry") > -1 ? "E" : "P")))));
+        item.setAttribute(this.amount, isStarted && isAdditBan ? this.cardyBans.aban : (isStarted && isJokerBan ? this.cardyBans.jban : info.amount));
         item.setAttribute(this.current, "");
         item.appendChild(document.createElement("hr"));
         item.appendChild(document.createElement("span"));
@@ -474,10 +478,10 @@ let sequenceMaster = {
     },
 
     startPick: function() {
-        if (rules.rule_type == "cardy") this.calcCardyPreBans();
-
         step = 0;
 
+        if (rules.rule_type == "cardy") this.calcCardyPreBans();
+        
         redName = sideMaster.redNameplateInput.val();
         blueName = sideMaster.blueNameplateInput.val();
 
