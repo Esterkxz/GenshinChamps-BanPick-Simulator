@@ -63,7 +63,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "": ""
     },
 
-    "alter_default": 0,
+    "alter_default": 6,
 
     "rule_alter": [
         {

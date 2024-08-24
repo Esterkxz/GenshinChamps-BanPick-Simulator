@@ -321,7 +321,7 @@ let sequenceMaster = {
         item.setAttribute(this.side, side != null ? (side == "red" ? "R" : "B") : side);
         item.setAttribute(this.target, info.pick.indexOf("weapon") > -1 ? "W" : "C");
         item.setAttribute(this.pick, info.pick.indexOf("preban") > -1 ? "PreB" : (isAdditBan ? "AB" : (isJokerBan ? "JB" : (info.pick.indexOf("ban") > -1 ? "B" : (info.pick.indexOf("entry") > -1 ? "E" : "P")))));
-        item.setAttribute(this.amount, isStarted && isAdditBan ? this.cardyBans.aban : (isStarted && isJokerBan ? this.cardyBans.jban : info.amount));
+        item.setAttribute(this.amount, isAdditBan ? this.cardyBans.aban : (isJokerBan ? this.cardyBans.jban : info.amount));
         item.setAttribute(this.current, "");
         item.appendChild(document.createElement("hr"));
         item.appendChild(document.createElement("span"));
@@ -427,6 +427,7 @@ let sequenceMaster = {
                         break;
                     case "aban":
                         tAmount = text.amountPickCharacter.replace("#AMOUNT", this.cardyBans.aban);
+                        break;
                     case "jban":
                         tAmount = text.amountPickCharacter.replace("#AMOUNT", this.cardyBans.jban);
                         break;
@@ -480,7 +481,7 @@ let sequenceMaster = {
     startPick: function() {
         step = 0;
 
-        if (rules.rule_type == "cardy") this.calcCardyPreBans();
+        //if (rules.rule_type == "cardy") this.calcCardyPreBans();
         
         redName = sideMaster.redNameplateInput.val();
         blueName = sideMaster.blueNameplateInput.val();
@@ -519,7 +520,11 @@ let sequenceMaster = {
             return;
         }
         let seq = rules.sequence[step];
-        if (item != null && item.attr(poolMaster.banned) != "" && !(step > -1 && seq.pick.indexOf("ban") > -1 && item.attr(poolMaster.pick_side) != seq.side)) return;
+        let isBan = seq.pick.indexOf("ban") > -1;
+        let pickedSide = item.attr(poolMaster.pick_side);
+        let pickedType = item.attr(poolMaster.pick_type);
+        let profferBan = item.attr(poolMaster.proffer_ban);
+        if (item != null && item.attr(poolMaster.banned) != "" && !(step > -1 && (isBan && pickedSide != seq.side) || ((pickedType != "ban" || pickedSide != "both") && profferBan != "" && seq.side != profferBan && !isBan))) return;
 
         let isCharacterPick = seq.pick.indexOf("weapon") < 0;
         let isProfferPick = seq.pick == "proffer";
@@ -561,9 +566,11 @@ let sequenceMaster = {
                 break;
 
             case "aban":
+                sideMaster.onPickedCardyBan(id);
                 pickNote = lang.text.pickedABan;
                 break;
             case "jban":
+                sideMaster.onPickedCardyBan(id);
                 pickNote = lang.text.pickedJBan;
                 break;
         
@@ -587,11 +594,13 @@ let sequenceMaster = {
 
         //update pick pool
         if (isCharacterPick) {
+            let pickedSide = item.attr(poolMaster.pick_side);
             if (isTreveler) item = poolMaster.eachCharacters.filter('[' + poolMaster.id + '="treveler"]');
-            item.attr(poolMaster.pick_side, item.attr(poolMaster.pick_side) != "" ? "both" : pickingSide);
-            item.attr(poolMaster.pick_type, seq.pick);
+            item.attr(poolMaster.pick_side, pickedSide != "" && pickedSide != pickingSide ? "both" : pickingSide);
             item.attr(poolMaster.picked, "1");
             if (seq.pick == "ban" || seq.pick == "aban" || seq.pick == "jban" || seq.pick == "preban" || usingBanCard) {
+                item.attr(poolMaster.pick_type, "ban");
+                if (seq.pick == "jban") item.attr(poolMaster.proffer_ban, counterSide);
                 item.attr(poolMaster.banned, "1");
                 item.attr(poolMaster.banned_by_card, usingBanCard ? "1" : "");
                 item.attr(poolMaster.pick_note, pickNote);
@@ -668,7 +677,7 @@ let sequenceMaster = {
 
                 case "aban":
                 case "jban":
-                    this.shiftStep(false);
+                    sideMaster.onUndoPickCardyBan(picked.id, ref.pick, pickingSide);
                     break;
 
                 case "entry":
@@ -685,14 +694,16 @@ let sequenceMaster = {
             //코스트 테이블 캐릭터 검색 복원
             if (isCharacterPick) {
                 let item = poolMaster.eachCharacters.filter('[' + poolMaster.id  + '="' + picked.id + '"]');
-                if (ref.pick == "ban" || seq.pick == "aban" || seq.pick == "jban" || ref.pick == "preban" || (last.isBanCardBan)) {
+                if (ref.pick == "ban" || ref.pick == "aban" || ref.pick == "jban" || ref.pick == "preban" || (last.isBanCardBan)) {
                     if (item.attr(poolMaster.pick_side) == "both") {
-                        item.attr(poolMaster.pick_side, counterSide);                        
+                        item.attr(poolMaster.pick_side, counterSide);
+                        if (item.attr(poolMaster.proffer_ban) != "") item.attr(poolMaster.pick_note, lang.text.pickedJBan);
                     } else {
                         item.attr(poolMaster.banned, "");
                         item.attr(poolMaster.banned_by_card, "");
                         item.attr(poolMaster.pick_side, "");
                         item.attr(poolMaster.pick_type, "");
+                        if (ref.pick == "jban") item.attr(poolMaster.proffer_ban, "");
                         item.attr(poolMaster.pick_note, null);
                     }
                 } else switch (pickingSide) {
@@ -751,6 +762,7 @@ let sequenceMaster = {
         poolMaster.poolBlock.attr(this.hide, "1");
         poolMaster.unavailables.attr(this.hide, "1");
         controllerMaster.mainController.attr(this.hide, "1");
+        sideMaster.cardyExtensionBehind.attr(this.hide, "1");
         sideMaster.eachPlayerBoard.attr(this.hide, "1");
         sideMaster.banPickBoard.attr(this.hide, "1");
         timerMaster.timerGauges.attr(this.hide, "1");
@@ -846,6 +858,7 @@ let sequenceMaster = {
         poolMaster.unavailables.attr(this.hide, "");
         playerInfoMaster.checkBackShowingPlayerInfoLayer();
         controllerMaster.mainController.attr(this.hide, "");
+        sideMaster.cardyExtensionBehind.attr(this.hide, "");
         sideMaster.eachPlayerBoard.attr(this.hide, "");
         sideMaster.banPickBoard.attr(this.hide, "");
         timerMaster.timerGauges.attr(this.hide, "");
@@ -987,11 +1000,12 @@ let sequenceMaster = {
     checkCurrentStepComplition: function() {
         if (step < 0 || step >= rules.sequence.length) return;
         let seq = rules.sequence[step];
+        let side = seq.side == null ? this.cardyBans.side : seq.side;
         let res = this.checkHistoryProcessed();
 
         var rem;
         var banCardRem = 0;
-        switch (seq.side) {
+        switch (side) {
             case "red":
                 switch (seq.pick) {
                     case "preban":
@@ -999,6 +1013,21 @@ let sequenceMaster = {
                         rem = res.rbx;
                         for (var i in res.rb) {
                             if (res.rb[i].isPassed()) { if (settings.useEmptyPick) rem--; }
+                            else rem--;
+                        }
+                        break;
+
+                    case "aban":
+                        rem = res.rabx;
+                        for (var i in res.rab) {
+                            if (res.rab[i].isPassed()) { if (settings.useEmptyPick) rem--; }
+                            else rem--;
+                        }
+                        break;
+                    case "jban":
+                        rem = res.rjbx;
+                        for (var i in res.rjb) {
+                            if (res.rjb[i].isPassed()) { if (settings.useEmptyPick) rem--; }
                             else rem--;
                         }
                         break;
@@ -1041,6 +1070,21 @@ let sequenceMaster = {
                         }
                         break;
 
+                    case "aban":
+                        rem = res.babx;
+                        for (var i in res.bab) {
+                            if (res.bab[i].isPassed()) { if (settings.useEmptyPick) rem--; }
+                            else rem--;
+                        }
+                        break;
+                    case "jban":
+                        rem = res.bjbx;
+                        for (var i in res.bjb) {
+                            if (res.bjb[i].isPassed()) { if (settings.useEmptyPick) rem--; }
+                            else rem--;
+                        }
+                        break;
+
                     case "entry":
                         rem = res.bpx;
                         for (var i in res.bp) {
@@ -1074,23 +1118,35 @@ let sequenceMaster = {
 
     countEachPickAmountTotal: function(res = {
         rbx: 0,
+        rabx: 0,
+        rjbx: 0,
         rpx: 0,
         rbwx: 0,
         bbx: 0,
+        babx: 0,
+        bjbx: 0,
         bpx: 0,
         bbwx: 0
     }, eor = rules.sequence.length) {
         
         for (var i=0; i < eor; i++) {
             let s = rules.sequence[i];
+            let side = s.side == null ? this.cardyBans.side : s.side;
             let amount = parseInt(s.amount);
 
-            switch (s.side) {
+            switch (side) {
                 case "red":
                     switch (s.pick) {
                         case "preban":
                         case "ban":
                             res.rbx += amount;
+                            break;
+
+                        case "aban":
+                            res.rabx += this.cardyBans.aban;
+                            break;
+                        case "jban":
+                            res.rjbx += this.cardyBans.jban;
                             break;
 
                         case "entry":
@@ -1115,6 +1171,13 @@ let sequenceMaster = {
                             res.bbx += amount;
                             break;
 
+                        case "aban":
+                            res.babx += this.cardyBans.aban;
+                            break;
+                        case "jban":
+                            res.bjbx += this.cardyBans.jban;
+                            break;
+
                         case "entry":
                             res.bpx += amount;
                             break;
@@ -1137,15 +1200,23 @@ let sequenceMaster = {
     checkHistoryProcessed: function() {
         let res = this.countEachPickAmountTotal({
             rbx: 0,
+            rabx: 0,
+            rjbx: 0,
             rpx: 0,
             rbwx: 0,
             bbx: 0,
+            babx: 0,
+            bjbx: 0,
             bpx: 0,
             bbwx: 0,
             rb: [],
+            rab: [],
+            rjb: [],
             rp: [],
             rbw: [],
             bb: [],
+            bab: [],
+            bjb: [],
             bp: [],
             bbw: [],
             //ban card count
@@ -1162,15 +1233,23 @@ let sequenceMaster = {
         for (var i in stepHistory) {
             let cur = stepHistory[i];
             let ref = cur.stepReference;
+            let side = ref.side == null ? this.cardyBans.side : ref.side;
             let seq = rules.sequence[step];
             let isCurrentStep = ref == seq;
 
-            switch (ref.side) {
+            switch (side) {
                 case "red":
                     switch (ref.pick) {
                         case "preban":
                         case "ban":
                             res.rb.push(cur);
+                            break;
+
+                        case "aban":
+                            res.rab.push(cur);
+                            break;
+                        case "jban":
+                            res.rjb.push(cur);
                             break;
 
                         case "entry":
@@ -1206,6 +1285,13 @@ let sequenceMaster = {
                         case "preban":
                         case "ban":
                             res.bb.push(cur);
+                            break;
+
+                        case "aban":
+                            res.bab.push(cur);
+                            break;
+                        case "jban":
+                            res.bjb.push(cur);
                             break;
 
                         case "entry":
@@ -1246,26 +1332,35 @@ let sequenceMaster = {
         this.cardyBans = { side: null, aban: 0, jban: 0 };
     },
 
-    calcCardyPreBans: function() {
+    calcCardyPreBans: function(init = false) {
         this.initCalculatedCardyBan();
         let limit = rules.cardy_rating.diff_limit;
 
         let red = playerInfoMaster.playerAccInfo.red;
         let blue = playerInfoMaster.playerAccInfo.blue;
 
-        if (red != null && blue != null) {
-            var totalDiff = 0;           
+        if (!init && red != null && blue != null) {
+            var redPoints = 0;
+            var bluePoints = 0;
+            var totalDiff = 0; 
+            var count = 0;          
             for (var info of charactersInfo.list) {
                 let id = info.id;
                 let points = rules.cardy_rating.point_table[id];
+                if (points == null) continue;
 
                 let redConst = red[id];
                 let blueConst = blue[id];
                 let redPoint = redConst != null ? points[redConst] : 0;
                 let bluePoint = blueConst != null ? points[blueConst] : 0;
                 let diff = redPoint - bluePoint;
+                let diffLimited = Math.max(Math.min(diff, limit), limit * -1);
 
-                totalDiff += Math.max(Math.min(diff, limit), limit * -1);
+                redPoints += redPoint;
+                bluePoints += bluePoint;
+                totalDiff += diffLimited;
+                count++;
+                console.log("[" + count + "] " + charactersInfo.list[charactersInfo[id]].nameShort[loca] + ": " + redPoint + " / " + bluePoint + " / " + diff + " / " + diffLimited + " += " + totalDiff);
             }
             if (totalDiff != 0) {
                 this.cardyBans.side = totalDiff < 0 ? "red" : "blue";
@@ -1280,8 +1375,11 @@ let sequenceMaster = {
                     else break;
                 }
             }
+            console.log(playerInfoMaster.redInfoName.val() + ": " + redPoints + " / " + playerInfoMaster.blueInfoName.val() + ": " + bluePoints + " / total diff: " + totalDiff);
         }
+        $(document.body).attr("data-cardy-ban-for", this.cardyBans.side);
         this.initStepSequences();
+        sideMaster.initCardyBanEntries();
     },
 
     releaseMainButton: function(newStep = step) {
@@ -1340,6 +1438,8 @@ let sequenceMaster = {
         if (seq != null || step === -2) switch (step === -2 ? "entry" : seq.pick) {
             case "preban":
             case "ban":
+            case "aban":
+            case "jban":
             case "entry":
             case "proffer":
                 let cursor = poolMaster.getCurrentCursor();
@@ -1488,6 +1588,7 @@ let poolMaster = {
     pick_side: "data-pick-side",
     pick_type: "data-pick-type",
     pick_note: "data-pick-note",
+    proffer_ban: "data-proffer-ban",
     picked: "data-picked",
     picked_red: "data-picked-red",
     picked_blue: "data-picked-blue",
@@ -2131,7 +2232,7 @@ let poolMaster = {
             let costs = this.table[id];
             var cost;
             if (typeof costs == "number") cost = costs;
-            else cost = costs[cons];
+            else cost = costs != null ? costs[cons] : 0;
             return cost;
         } else return null;
     },
@@ -2180,6 +2281,7 @@ let poolMaster = {
             item.setAttribute(this.picked, "");
             item.setAttribute(this.picked_red, "");
             item.setAttribute(this.picked_blue, "");
+            item.setAttribute(this.proffer_ban, "");
             item.setAttribute(this.banned, "");
             item.setAttribute(this.banned_by_card, "");
             item.setAttribute(this.ban_card, bancard ? "1" : "");
@@ -2612,6 +2714,13 @@ let sideMaster = {
     text: "data-text",
 
 
+    cardy_extension_behind: "#cardy_extension_behind",
+
+    cardy_bans: ".cardy_bans",
+    additional_ban_picks: ".additional_ban_picks",
+    joker_ban_picks: ".joker_ban_picks",
+
+
     versus_record_board: "div#versus_record_board",
 
     show: "data-show",
@@ -2755,6 +2864,15 @@ let sideMaster = {
     blueWeaponBanEntries: null,
 
 
+    cardyExtensionBehind: null,
+
+    cardyBans: null,
+    cardyAdditionalBan: null,
+    cardyAdditionalBanSelection: { "red": null, "blue": null },
+    cardyJokerBan: null,
+    cardyJokerBanSelection: { "red": null, "blue": null },
+
+
     versusRecordBoard: null,
 
     eachSideRecordBoard: null,
@@ -2842,6 +2960,8 @@ let sideMaster = {
     entryPicked: {"red": [], "blue": []},
     banPicked: {"red": [], "blue": []},
     banCardUsed: {"red": [], "blue": []},
+    aBanPicked: {"red": [], "blue": []},
+    jBanPicked: {"red": [], "blue": []},
     weaponBanPicked: {"red": [], "blue": []},
 
     sideAccCode: { "red": null, "blue": null },
@@ -2955,6 +3075,19 @@ let sideMaster = {
         this.blueBanSelection = this.blueBanSide.find(this.ban_selection);
         this.blueWeaponBanSelection = this.blueBanSide.find(this.weapon_ban_selection);
         this.blueWeaponBanEntries = this.blueWeaponBanSelection.find(this.weapon_ban_entry);
+
+
+
+        this.cardyExtensionBehind = $(this.cardy_extension_behind);
+
+        this.cardyBans = this.cardyExtensionBehind.find(this.cardy_bans);
+        this.cardyAdditionalBan = this.cardyBans.filter(this.additional_ban_picks);
+        this.cardyAdditionalBanSelection.red = this.cardyAdditionalBan.filter(this.red).find(this.ban_selection);
+        this.cardyAdditionalBanSelection.blue = this.cardyAdditionalBan.filter(this.blue).find(this.ban_selection);
+        this.cardyJokerBan = this.cardyBans.filter(this.joker_ban_picks);
+        this.cardyJokerBanSelection.red = this.cardyJokerBan.filter(this.red).find(this.ban_selection);
+        this.cardyJokerBanSelection.blue = this.cardyJokerBan.filter(this.blue).find(this.ban_selection);
+
 
 
         this.versusRecordBoard = $(this.versus_record_board);
@@ -4293,8 +4426,90 @@ let sideMaster = {
         }
     },
 
-    //ban weapon
 
+    //cardy bans
+    initCardyBanEntries() {
+        this.aBanPicked.red = [];
+        this.aBanPicked.blue = [];
+        this.jBanPicked.red = [];
+        this.jBanPicked.blue = [];
+        this.cardyAdditionalBanSelection.red.empty();
+        this.cardyAdditionalBanSelection.blue.empty();
+        this.cardyJokerBanSelection.red.empty();
+        this.cardyJokerBanSelection.blue.empty();
+
+        let cardyBans = sequenceMaster.cardyBans;
+        if (cardyBans.side != null) {
+            let side = cardyBans.side;
+            let aban = cardyBans.aban;
+            let jban = cardyBans.jban;
+
+            for (var i=0; i<aban; i++) this.cardyAdditionalBanSelection[side].append(this.buildCardyBanEntryHolder());
+            for (var i=0; i<jban; i++) this.cardyJokerBanSelection[side].append(this.buildCardyBanEntryHolder());
+
+        }
+    },
+
+    buildCardyBanEntryHolder() {
+        let entry = document.createElement("li");
+        entry.setAttribute("class", "ban_entry");
+        return entry;
+    },
+
+    onPickedCardyBan: function(id, pick = rules.sequence[step].pick, side = sequenceMaster.cardyBans.side) {
+        let info = charactersInfo.list[charactersInfo[id]];
+        let banPicked = pick == "aban" ? this.aBanPicked : (pick == "jban" ? this.jBanPicked : null);
+        if (banPicked == null) return;
+
+        var index;
+        switch(side) {
+            case "red":
+                index = banPicked["red"].length;
+                banPicked["red"].push(info);
+                break;
+
+            case "blue":
+                index = banPicked["blue"].length;
+                banPicked["blue"].push(info);
+                break;
+        }
+
+        playSound("첩", 100);
+
+        this.setCardyBanEntry(side, index, pick, info);
+    },
+
+    onUndoPickCardyBan: function(id, pick, side) {
+        let banPicked = pick == "aban" ? this.aBanPicked : (pick == "jban" ? this.jBanPicked : null);
+        if (banPicked == null) return;
+        let sidePicked = banPicked[side];
+        
+        for (i = sidePicked.length-1; i>-1; i--) {
+            let picked = sidePicked[i];
+
+            if (picked.id == id) {
+                sidePicked.pop();
+
+                this.setCardyBanEntry(side, i, pick);
+                break;
+            }
+        }
+    },
+
+    setCardyBanEntry: function(side, index, pick, info) {
+        let banSelection = pick == "aban" ? this.cardyAdditionalBanSelection : (pick == "jban" ? this.cardyJokerBanSelection : null);
+        if (banSelection == null) return;
+        let banEntries = banSelection[side].find(this.ban_entry);
+        let holder = $(banEntries[index]);
+        holder.empty();
+
+        if (info != null) {
+            holder.append(poolMaster.buildCharacterIcon(info, "wide"));
+        }
+    },
+
+
+    //ban weapon
     initBanWeapons: function() {
         let ttl = sequenceMaster.countEachPickAmountTotal();
 
@@ -4862,7 +5077,7 @@ let sideMaster = {
         clearTimeMin.text("" + elapsedMin);
         clearTimeSec.text(("" + elapsedSec).padStart(2, "0"));
         clearTimeDivider.text(":");
-},
+    },
 
     onKeydownVersusInputRemains: function(e) {
         let self = $(this);
@@ -6462,6 +6677,7 @@ let playerInfoMaster = {
 
                 let playerInfo = data.player;
                 this.setPlayerInfo(side, point, playerInfo);
+                if (rules.rule_type == "cardy") sequenceMaster.calcCardyPreBans();
             } catch (e) {
                 return false;
             }
@@ -8238,7 +8454,7 @@ let rulesMaster = {
         set[to] = {};
         let bp = set[from];
         let ap = set[to];
-        for (var info of charactersInfo.list) ap[info.id] = def;
+        //for (var info of charactersInfo.list) ap[info.id] = def;
 
         let lines = bp.split(/[\r\n]+/);
         for (var line of lines) {
@@ -9883,6 +10099,10 @@ function initializeStep() {
     //initialize each side ban picks
     sideMaster.resetBanEntries();
 
+    //initialize each side cardy ban picks
+    //sequenceMaster.calcCardyPreBans(true);
+    sideMaster.initCardyBanEntries();
+
     //initialize each side weapon ban picks
     sideMaster.initBanWeapons();
 
@@ -10058,6 +10278,7 @@ function checkOnChangedSide() {
 
 function onChangedSide(cur) {
     poolMaster.onChangedSide(cur);
+    $(document.body).attr("data-step-side", cur);
     latestStepSide = cur;
 }
 
@@ -10066,6 +10287,8 @@ function onChangedStep() {
     if (step < 0 || step >= rules.sequence.length) poolMaster.stopRollRandomCursor();
     else {
         let seq = rules.sequence[step];
+        $(document.body).attr("data-step-pick", seq.pick);
+        $(document.body).attr("data-step-pick-type", seq.pick.indexOf("ban") > -1 ? "ban" : "entry");
         if (seq.pick == "preban") {
             let info = playerInfoMaster.playerAccInfo[seq.side];
             if (info != null) {
@@ -10675,6 +10898,12 @@ $(document).ready(function() {
                 sequenceMaster.setSequenceTitle(lang.text.titleReady);
                 //상단 정보 입력 대신 플레이어 정보 입력을 쓰면서 방해됨
                 //setTimeout(function() { sideMaster.redNameplateInput.focus(); }, 1000);
+
+                //for cardy cup implement works
+                // sideMaster.applyAccountInfo("@GCBPSv2:e3BsYXllcjp7bmFtZToiJXVDNTQ0JXVCNTE0Iix1aWQ6IjgyMTMxNDEzOSIsdHJldmVsZXI6IjEifSxsaXN0Ols2LDYsNSw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsMywzLDMsMywwLDAsNiwwLDYsMCwwLG4sMCwxLDYsNiwwLDIsMCw2LDAsMCw2LDMsMCw2LDYsMCw2LDAsNiwwLDIsNiw2LDYsMyw2LDYsbiwwLDIsNiw2LDAsNiwwLDIsMSwwLDAsNiw2LDEsNixuLDEsNiw2LDYsMCw2LDAsbixuLG4sbixuLG5dfQ==;", "red");
+                // sideMaster.applyAccountInfo("@GCBPSv2:e3BsYXllcjp7bmFtZToiJXVDNTQ0JXVCNTE0Iix1aWQ6IjgyMTMxNDEzOSIsdHJldmVsZXI6IjEifSxsaXN0Ols2LDYsNSw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsbiwzLDMsMywwLG4sNiwwLDYsMCwwLG4sMCwxLDYsNixuLDIsMCw2LDAsMCw2LDMsMCw2LDYsbiw2LDAsNiwwLDIsNiw2LDYsMyw2LDYsbiwwLDIsNiw2LG4sNiwwLDIsMSwwLDAsNiw2LDEsNixuLDEsNiw2LDYsMCw2LDAsbixuLG4sbixuLG5dfQ==;", "red");
+                // sideMaster.applyAccountInfo("@GCBPSv2:e3BsYXllcjp7bmFtZToiJXVDNTQ0JXVCNTE0Iix1aWQ6IjgyMTMxNDEzOSIsdHJldmVsZXI6IjEifSxsaXN0Ols2LDYsNSw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsbiwzLDMsMywwLG4sNiwwLDYsMCwwLG4sMCwxLDYsNixuLDIsMCw2LDAsMCw2LDMsMCw2LDYsbiw2LDAsNiwwLDIsNiw2LDYsMyw2LDYsbiwwLG4sNiw2LG4sNiwwLDIsMSwwLDAsNiw2LDEsNixuLDEsNixuLDYsMCw2LDAsbixuLG4sbixuLG5dfQ==;", "red");
+                // sideMaster.applyAccountInfo("@GCBPSv2:e3BsYXllcjp7bmFtZToiJXVDNUQwJXVDMkE0JXVEMTMwMXoiLHVpZDoiODA2MDkzNzAyIix0cmV2ZWxlcjoiMCJ9LGxpc3Q6WzYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDIsNiw2LDMsNiw2LDIsMiwyLDYsNiw2LDEsNCw2LDYsMywwLDYsMyw0LDYsNiw0LDYsMiw0LDQsNiw2LDYsNiw0LDYsNiwyLDIsMywyLDYsMSwyLDAsMiw0LDIsMCwxLDYsMSwxLDAsMCw0LDAsMCwwLDYsMSwwLDAsMSwwLDAsMF19;", "blue");
             }, 2500);
         }, 100);
     });
