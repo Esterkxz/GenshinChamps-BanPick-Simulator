@@ -13,7 +13,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard for cost game.\n\
     ",
     "rule_title": "아디컵 룰북",
-    "rule_version": "v.0.2.7",
+    "rule_version": "v.0.2.8",
 
     "rule_type": "cost",
 
@@ -244,7 +244,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "diluc":       [1, 1, 1, 1, 1, 1, 1],
         "klee":        [1, 1, 2, 2, 3, 3, 3],
         "hutao":       [3, 4, 4, 5, 5, 5, 5],
-        "yoimiya":     [1, 1, 1, 1, 1, 1, 3],
+        "yoimiya":     [1, 1, 1, 1, 1, 1, 4],
         "dehya":       [1, 1, 2, 2, 2, 2, 3],
         "lyney":       [5, 6, 7, 8, 9, 10, 12],
         "arlecchino":  [7, 9, 10, 11, 12, 12, 15],
