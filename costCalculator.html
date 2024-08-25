@@ -1,8 +1,8 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title lang="en">ArdyCup cost calculator  v1.0.1</title>
-        <title lang="ko">아디컵 코스트 계산기  v1.0.1</title>
+        <title lang="en">ArdyCup cost calculator  v1.0.2</title>
+        <title lang="ko">아디컵 코스트 계산기  v1.0.2</title>
         <meta name="viewport" content="user-scalable=yes, width=720, minimum-scale=0.2, maximum-scale=2.0, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="./styles/common.css">
         <style>
@@ -92,7 +92,7 @@ span#gi_rev { color: tomato; font-weight: bold; }
         <!-- <script type="text/javascript" src="./data/spiral_tier_cost.js?update=5"></script> -->
         <script>
 //rule book load
-for (book in ruleBooks) {
+for (var book in ruleBooks) {
     rules = ruleBooks[book];
     break;
 }
@@ -118,7 +118,8 @@ charactersInfo.list.forEach(ch => {
         }
     }
 })
-    </script>
+        </script>
+        <script type="text/javascript" src="./scripts/calcCommon.js?rel=20240825"></script>
     </head>
     <body>
         <div lang="en">
@@ -414,33 +415,6 @@ charactersInfo.list.forEach(ch => {
 var loca;
 var lang;
 
-const initLocale = function() {
-    let langs = navigator.languages;
-    for (i in langs) {
-        var l = langs[i];
-        if (l.indexOf("-") == -1) {
-            for (la in locales) {
-                var ln = la.split("-");
-                if (ln[0] == l) {
-                    loca = la;
-                    break;
-                }
-            }
-            if (loca != null) break;
-        } else if (locales[l] != null) {
-            lmatch = l;
-            break;
-        }
-    }
-    if (loca == null) loca = "en-global";
-    lang = locales[loca];
-
-    var unused;
-    if (loca.indexOf("ko") > -1) unused = document.querySelector("body > div:lang(en)");
-    else unused = document.querySelector("body > div:lang(ko)");
-    unused.remove();
-
-}
 initLocale();
 
 if (rules.rule_type == "cost") {
@@ -451,245 +425,8 @@ if (rules.rule_type == "cost") {
     document.getElementById("gi_rev").innerText = costTable != null && costTable.revision > 0 ? " rev." + costTable.revision : "";
 } else document.querySelector("#cost_table_info").style.display = "none";
 
-function getInputs() {
-    return document.querySelectorAll('input.char_constells');
-}
-
-function getInputsL() {
-    return document.querySelectorAll('input.char_constells.limited');
-}
-
-function getInputsO() {
-    return document.querySelectorAll('input.char_constells.ordinary');
-}
-
-function getInputs4() {
-    return document.querySelectorAll('input.char_constells.fourstars');
-}
-
-function getChecker() {
-    return document.querySelectorAll('input.sum_checker');
-}
-
-function getChecked() {
-    return document.querySelectorAll('input.sum_checker:checked');
-}
-
-let leagueCalc = function () {
-    var totals = 0;
-    getInputs().forEach(input => {
-        let isOrdinary = input.className.indexOf("ordinary") > -1;
-        let is4stars = input.className.indexOf("fourstars") > -1;
-        var v = parseInt(input.value);
-        if (!isOrdinary && !is4stars && v != null && !isNaN(v)) totals += v + 1;
-    });
-    var hideTail = false;
-    var l = null;
-    // if (totals < 10) {
-    //     l = '참여 조건 미달';
-    //     hideTail = true;
-    // }
-    // else if (totals < 20) l = '무인검';
-    // else if (totals < 30) l = '흑술창';
-    // else if (totals < 60) l = '제례활';
-    // else if (totals < 100) l = '카구라';
-    // else if (totals < 176) l = '일태도';
-    // else l = '?????';
-
-    let ra = rules.rule_alter;
-    for (var i=0; i < ra.length; i++) {
-        let cr = ra[i];
-        if (!cr.established) continue;
-        let scr = cr.score_range;
-
-        if (scr.indexOf("+") > -1) {
-            let scl = parseInt(scr.replace("+", ""));
-            if (totals >= scl) {
-                if (loca.indexOf("ko") > -1)l = cr.name.replace(" 리그", "");
-                else l = cr.name.replace(" LEAGUE", "");
-                break;
-            }
-        } else {
-            let scrs = scr.split("-");
-            if (totals >= parseInt(scrs[0]) && totals <= parseInt(scrs[1])) {
-                if (loca.indexOf("ko") > -1)l = cr.name.replace(" 리그", "");
-                else l = cr.name.replace(" LEAGUE", "");
-                break;
-            }
-        }
-    }
-    if (l == null) {
-        if (loca.indexOf("ko") > -1)l = '참여 조건 미달';
-        else l = 'Participation conditions not met';
-        hideTail = true;
-    }
-    
-    //document.getElementById('res_league_class').innerText = l;
-    //document.getElementById('league_tail').style.display = hideTail ? "none" : "initial";
-    //document.getElementById('acc_score_total').innerText = totals;
-}
-
-let lineCalc = function (e) {
-    let isOrdinary = this.className.indexOf("ordinary") > -1;
-    let is4stars = this.className.indexOf("fourstars") > -1;
-    var v = e.target.value;
-    v = v != null && !isNaN(parseInt(v)) ? Math.max(Math.min(parseInt(v), 6), 0) : "";
-    e.target.value = v;
-    let val = parseInt(e.target.value);
-    let cid = e.target.getAttribute('data-cid');
-    //if (!isOrdinary && !is4stars) document.getElementById(cid).innerText = !isNaN(val) ? v + 1 : 0;
-    if (rules.rule_type == "cost") addCost(cid, v);
-    //leagueCalc();
-
-    if (v !== "") {
-        let list = getInputs();
-        var index = null;
-        for (i in list) {
-            let item = list[i];
-            if (item == e.target) {
-                index = parseInt(i);
-                
-                if (index + 1 == list.length) {
-                    document.getElementById("copy_table").focus();
-                    break;
-                }
-            } else if (index != null && i == index + 1) {
-                item.focus();
-                break;
-            }
-        }
-    }
-};
-
-let changed = function (e) {
-    var v = e.target.value;
-    v = v != null && !isNaN(parseInt(v)) ? Math.max(Math.min(parseInt(v), 6), 0) : "";
-    e.target.value = v;
-
-    if (v !== "") {
-        let list = getInputs();
-        var index = null;
-        for (i in list) {
-            let item = list[i];
-            if (item == e.target) {
-                index = parseInt(i);
-                
-                if (index + 1 == list.length) {
-                    document.getElementById("copy_table").focus();
-                    break;
-                }
-            } else if (index != null && i == index + 1) {
-                item.focus();
-                break;
-            }
-        }
-    }
-}
-
-let focused = function (e) {
-    e.target.select();
-}
-
-
-//cost calc
-let setCost = function (cid) {
-    let id = cid.replace("c_", "");
-    let constells = document.querySelector('input[data-cid="' + cid + '"]');
-    if (constells == null) return;
-    let cons = constells.value;
-    var basic = getAddCost(id);
-    var add = getAddCost(id, cons);
-    if (add == null) add = 0;
-    else add = add - basic;
-    let costBasic = document.querySelector('span[class="cost_basic"][data-cid="' + cid + '"]');
-    if (costBasic != null) costBasic.innerText = basic;
-    let cosAdd = document.querySelector('span[class="cost_add"][data-cid="' + cid + '"]')
-    if (cosAdd != null) cosAdd.innerText = add;
-    let cosSum = document.querySelector('span[class*="cost_sum"][data-cid="' + cid + '"]')
-    if (cosSum != null) cosSum.innerText = isNaN(add) ? basic : basic + add;
-}
-
-let addCost = function (cid, cons) {
-    let id = cid.replace("c_", "");
-    var basic = getAddCost(id);
-    var add = getAddCost(id, cons);
-    if (add == null) add = 0;
-    else add = add - basic;
-    let costBasic = document.querySelector('span[class="cost_basic"][data-cid="' + cid + '"]');
-    if (costBasic != null) {
-        let basic = parseInt(costBasic.innerText);
-        let cosAdd = document.querySelector('span[class="cost_add"][data-cid="' + cid + '"]')
-        if (cosAdd != null) cosAdd.innerText = add;
-        let cosSum = document.querySelector('span[class*="cost_sum"][data-cid="' + cid + '"]')
-        if (cosSum != null) cosSum.innerText = isNaN(add) ? basic : basic + add;
-    }
-}
-
-let getAddCost = function (id, constell = 0) {
-    // var add = null;
-    // if (cons != null && cons != "") {
-    //     if (cons == 0) add = 0;
-    //     else if (cons < 3) add = 1;
-    //     else if (cons > 5) add = 3;
-    //     else if (cons > 2 && cons < 6) add = 2;
-    // }
-    // return add;
-
-    // let conds = rules.additional_cost.conditions;
-    // var adds = 0;
-    // for (var i=0; i < conds.length; i++) {
-    //     let cond = conds[i];
-    //     // if (cond.c_class != null) {
-    //     //     if (info.class != cond.c_class) continue;
-    //     // }
-    //     if (cond.c_constellations != null) {
-    //         let cons = cond.c_constellations.split(" ");
-    //         let con =  parseInt(cons[1]);
-
-    //         switch (cons[0]) {
-    //             case "===":
-    //                 if (!(constell == con)) continue;
-    //                 break;
-
-    //             case "!==":
-    //                 if (!(constell != con)) continue;
-    //                 break;
-
-    //             case ">=":
-    //                 if (!(constell >= con)) continue;
-    //                 break;
-
-    //             case "<=":
-    //                 if (!(constell <= con)) continue;
-    //                 break;
-
-    //             case "<":
-    //                 if (!(constell < con)) continue;
-    //                 break;
-
-    //             case ">":
-    //                 if (!(constell > con)) continue;
-    //                 break;
-
-    //             default:
-    //                 continue;
-    //         }
-    //     }
-    //     adds += parseInt(cond.cost);
-    // }
-
-    // return adds;
-
-    let line = rules.cost_table[id];
-    var cost;
-    if (typeof line == "number") cost = line;
-    else cost = line[constell];
-
-    return cost;
-}
-
 let calcSumCkecked = function() {
-    let checked = getChecked();
+    let checked = getSumChecked();
     var sum = 0;
     for (var i=0; i<checked.length; i++) {
         let id = checked[i].getAttribute("data-id");
@@ -704,48 +441,11 @@ let calcSumCkecked = function() {
 }
 
 document.getElementById("init_check").onclick = function (e) {
-    getChecked().forEach(input => {
+    getSumChecked().forEach(input => {
         input.checked = false;
     });
     calcSumCkecked();
 }
-
-// if (costTable != null) {
-
-//     for (var i in costTable.tier1) {
-//         var cid = costTable.tier1[i];
-//         setCost("c_" + cid, 5);
-//     }
-
-//     for (var i in costTable.tier2) {
-//         var cid = costTable.tier2[i];
-//         setCost("c_" + cid, 4);
-//     }
-
-//     for (var i in costTable.tier3) {
-//         var cid = costTable.tier3[i];
-//         setCost("c_" + cid, 3);
-//     }
-
-//     for (var i in costTable.tier4) {
-//         var cid = costTable.tier4[i];
-//         setCost("c_" + cid, 2);
-//     }
-
-//     for (var i in costTable.else) {
-//         var cid = costTable.else[i];
-//         setCost("c_" + cid, 1);
-//     }
-
-// }
-
-
-// getInputs().forEach(input => {
-//     input.onfocus = focused;
-//     input.oninput = lineCalc;
-//     input.oncut = lineCalc;
-//     input.onpaste = lineCalc;
-// });
 
 let pasteTable = document.getElementById("paste_table");
 
@@ -761,97 +461,6 @@ document.getElementById("copy_table").oncontextmenu = function(e) {
 
     return false;
 };
-
-let packDataSet = function(pureJson = false, format = 2) {
-    var data = {};
-
-    let name = document.getElementById("player_name").value;
-    let uid = document.getElementById("player_uid").value;
-    let treveler = document.querySelector("input[name=trevelers]:checked").value;
-
-    let player = { name: name, uid: uid, treveler: treveler };
-
-    data["player"] = player;
-
-    let arr = [];
-    let obj = {};
-    var code;
-    var fv;
-    var collect = "";
-
-    getInputs().forEach(input => {
-        let id = input.getAttribute("data-cid").split("_")[1];
-
-        let value = input.value;
-
-        obj[id] = value == "" ? null : parseInt(value);
-        collect += value;
-    });
-
-    if (collect.length < 1) return;
-
-    switch (format) {
-        default:
-        case 2:
-            for (var i=0; i<charactersInfo.list.length; i++) {
-                let c = charactersInfo.list[i];
-
-                let cons = obj[c.id];
-                var char;
-                if (cons != null) char = cons;
-                else char = null;
-
-                arr.push(char);
-            }
-
-            data["list"] = arr;
-
-            code = Jcodd.coddify(data);
-
-            break;
-
-        case 1:
-            if (player.name.match(/[\u0080-\uFFFF]/g) != null) player.name = escape(player.name);
-
-            for (var id in obj) {
-                let c = obj[id];
-                data[id] = c;
-            }
-
-            code = JSON.stringify(data);
-
-            break;
-    }
-
-    fV = format;
-
-    var text;
-    if (pureJson) text = code;
-    else text = "@GCBPSv" + fV + ":" + btoa(code) + ";";
-
-    copyToClipboard(text);
-}
-
-let ontake = function(e) {
-    let self = e.target;
-
-    setTimeout(function() {
-        clearing(self);
-    }, 100);
-}
-
-let clearing = function(self) {
-    self.value = "";
-    self.blur();
-}
-
-let forParse = function(e) {
-    let self = e.target == null ? e : e.target;
-    setTimeout(function() {
-        parsePasted(self.value);
-        clearing(self)
-    }, 10);
-}
 
 // pasteTable.onblur = ontake;
 // pasteTable.oninput = ontake;
@@ -946,23 +555,6 @@ let parsePasted = function(text) {
     return false;
 }
 
-let copyToClipboard = function(text) {
-    if (!navigator.clipboard) {
-        pasteTable.value = text;
-        pasteTable.select();
-        document.execCommand("copy");
-        setTimeout(function() { forParse(pasteTable); }, 10);
-    } else {
-        navigator.clipboard.writeText(text)
-            .then(() => {
-                console.log("Text copied to clipboard...")
-            })
-            .catch(err => {
-                console.log('Something went wrong', err);
-            });
-    }
-}
-
 let leagues = document.getElementById("leagues");
 leagues.innerHTML = "";
 for (var i=0; i < rules.rule_alter.length; i++) {
@@ -1054,7 +646,7 @@ function buildCharLine(no, name, id, attrs = "", addClass = "", point = 0, usepo
                     <td><div> <p class=""> <span>\n\
                         <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_#ID" class="char_constells#CLASS">\n\
                     </span></p></div></td>\n\
-                    <td><div><p class="center">\n\
+                    <td class="checkbox"><div><p class="center">\n\
                         <input type="checkbox" class="sum_checker" id="check_#ID" data-id="#ID" />\n\
                     </p></div></td>\n\
                     <td><div><p class="right">\n\
@@ -1068,7 +660,7 @@ function buildCharLine(no, name, id, attrs = "", addClass = "", point = 0, usepo
                     <td><div> <p class=""> <span>\n\
                         <input type="number" min="0" max="6" placeholder="Now own(empty)" data-cid="c_#ID" class="char_constells#CLASS">\n\
                     </span></p></div></td>\n\
-                    <td><div><p class="center">\n\
+                    <td class="checkbox"><div><p class="center">\n\
                         <input type="checkbox" class="sum_checker" id="check_#ID" data-id="#ID" />\n\
                     </p></div></td>\n\
                     <td><div><p class="right">\n\
@@ -1154,15 +746,21 @@ function initCharList() {
         input.onpaste = changed;
     });
 
-    getChecker().forEach(input => {
+    getSumChecker().forEach(input => {
         input.onchange = function(e) {
+            e.stopPropagation();
+
             calcSumCkecked();
         }
     });
 
-    document.querySelectorAll("table.score_calc td:nth-child(4)").forEach(td => {
-    td.onclick = function (e) {
-        e.target.querySelector("input[type=checkbox]").click();
+    document.querySelectorAll("table.score_calc td.checkbox").forEach(td => {
+    td.onclick = function (e) {        
+        if (e.target.tagName != "INPUT" && e.target.tagName != "BUTTON") {
+            e.stopPropagation();
+
+            this.querySelector("input[type=checkbox]").click();
+        }
     }
 });
 
