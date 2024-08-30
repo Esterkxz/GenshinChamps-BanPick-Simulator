@@ -691,6 +691,20 @@ weaponsInfo = {
             "res_vcut": "i_n13513_gacha_icon.webp"
         },
 
+        //Extra 17 - MechaPufferfish
+        {
+            "id": "ct_mechapufferfish",
+            "class": "limited",
+            "version": "5.0f",
+            "rarity": "5",
+            "type": "catalyst",
+            "serise": "standalone",
+            "continent": "natlan",
+            "favority": ["mualani"],
+            "res_icon": "UI_EquipIcon_Catalyst_MechaPufferfish.png",
+            "res_vcut": "i_n14516_gacha_icon.webp"
+        },
+
         {
             "id": "reserved",
             "class": "",

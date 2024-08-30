@@ -292,6 +292,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "clorinde": "Clorinde",
         "sigewinne": "Sigewinne",
         "emilie": "Emilie",
+        "kachina": "Kachina",
+        "mualani": "Mualani",
         "reserved": ""
     },
     "characters_short": {
@@ -380,6 +382,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "clorinde": "Clorinde",
         "sigewinne": "Sigewinne",
         "emilie": "Emilie",
+        "kachina": "Kachina",
+        "mualani": "Mualani",
         "reserved": ""
     },
     "weapons": {
@@ -436,6 +440,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "sw_estoc": { "name": "Absolution", "aliases": [""] },
         "bw_arcdange": { "name": "Silvershower Heartstrings", "aliases": [""] },
         "pl_muguet": { "name": "Lumidouce Elegy", "aliases": [""] },
+        "ct_mechapufferfish": { "name": "Surf's Up", "aliases": [""] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }

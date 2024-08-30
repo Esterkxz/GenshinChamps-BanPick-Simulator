@@ -291,6 +291,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "clorinde": "클로린드",
         "sigewinne": "시그윈",
         "emilie": "에밀리",
+        "kachina": "카치나",
+        "mualani": "말라니",
         "reserved": ""
     },
     "characters_short": {
@@ -379,6 +381,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "clorinde": "클로린드",
         "sigewinne": "시그윈",
         "emilie": "에밀리",
+        "kachina": "카치나",
+        "mualani": "말라니",
         "reserved": ""
     },
     "weapons": {
@@ -435,6 +439,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "sw_estoc": { "name": "사면", "aliases": ["사면"] },
         "bw_arcdange": { "name": "심금을 울리는 하얀 비", "aliases": ["심금", "하얀비"] },
         "pl_muguet": { "name": "등방울꽃의 애가", "aliases": ["등방울꽃", "애가"] },
+        "ct_mechapufferfish": { "name": "서핑 타임", "aliases": ["서핑", "서타", "타임"] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }
