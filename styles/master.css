@@ -513,7 +513,7 @@ div#cardy_extension_behind div.side_behind div.cardy_bans div.ban_title { text-a
 div#cardy_extension_behind div.side_behind.left div.cardy_bans div.ban_title { margin-left: var(--side-inner-position); }
 div#cardy_extension_behind div.side_behind.right div.cardy_bans div.ban_title { margin-right: var(--side-inner-position); }
 div#cardy_extension_behind div.side_behind div.cardy_bans div.ban_title span { display: inline-block; color: rgba(var(--signature-color) / 92%); font-size: 20px; font-weight: bold; text-shadow: var(--ban-pick-title-shadow-x) 0px 1px rgb(var(--signature-color-dark)); transform: rotateY(var(--ban-pick-title-rotate-y)) skew(var(--ban-pick-title-skew)); }
-div#cardy_extension_behind div.side_behind div.cardy_bans ul.ban_selection { display: flex; flex-direction: column; margin: 0; padding: 0; width: 294px; list-style: none; }
+div#cardy_extension_behind div.side_behind div.cardy_bans ul.ban_selection { display: flex; flex-direction: column; max-height: 100%; margin: 0; padding: 0; width: 294px; list-style: none; }
 div#cardy_extension_behind div.side_behind div.cardy_bans ul.ban_selection li.ban_entry { position: relative; width: 100%; height: 84px; flex-shrink: 1; background-color: rgba(var(--signature-color) / 0.4); -webkit-mask-image: linear-gradient(var(--mask-deg), transparent 0%, #0006 5%, black 20%, black 50%, #0006 60%, transparent 95%); }
 div#cardy_extension_behind div.side_behind.left div.cardy_bans ul.ban_selection li.ban_entry { --mask-deg: -90deg; }
 div#cardy_extension_behind div.side_behind.right div.cardy_bans ul.ban_selection li.ban_entry { --mask-deg: 90deg; }
