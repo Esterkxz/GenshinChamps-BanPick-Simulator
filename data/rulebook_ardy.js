@@ -408,6 +408,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "": ""
     },
 
+    "cardy_self_bans": 5,
+
 
     "global_banned": {
         // "neuvillette": true,

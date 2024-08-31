@@ -131,6 +131,9 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "titleVersus": "VERSUS",
         "titleLeagueMatch": "#NAME LEAGUE MATCH",
 
+        "alertPlayerNotOwnCharacter": "Account information shows player is don't own this character",
+        "alertPlayerSelfBannedCharacter": "This character cannot be selected as it is self-banned",
+    
         "setConstellationDesc": "Set constellation",
 
         "ruleTypeCost": "Cost system",

@@ -131,6 +131,9 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "titleVersus": "VERSUS",
         "titleLeagueMatch": "#NAME #TAIL MATCH",
 
+        "alertPlayerNotOwnCharacter": "계정 정보 상 미보유 캐릭터를 선택하였습니다",
+        "alertPlayerSelfBannedCharacter": "셀프 밴 선택한 캐릭터이므로 선택할 수 없습니다",
+
         "setConstellationDesc": "별자리 돌파 입력/수정",
 
         "ruleTypeCost": "코스트제",

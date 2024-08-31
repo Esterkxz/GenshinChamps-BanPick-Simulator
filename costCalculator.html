@@ -1,8 +1,8 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title lang="en">ArdyCup cost calculator  v1.0.2</title>
-        <title lang="ko">아디컵 코스트 계산기  v1.0.2</title>
+        <title lang="en">ArdyCup cost calculator  v1.0.3</title>
+        <title lang="ko">아디컵 코스트 계산기  v1.0.3</title>
         <meta name="viewport" content="user-scalable=yes, width=720, minimum-scale=0.2, maximum-scale=2.0, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="./styles/common.css">
         <style>
@@ -84,42 +84,21 @@ span#gi_rev { color: tomato; font-weight: bold; }
         <script type="text/javascript" src="./data/locale_en-global.js?rel=20240831"></script>
         <script type="text/javascript" src="./data/locale_ko-kr.js?rel=20240831"></script>
         <script type="text/javascript" src="./data/characters.js?rel=20240831"></script>
-        <script>let rules = {};</script>
-        <script>let ruleBooks = {};</script>
+        <script>
+let rules = {};
+let ruleBooks = {};
+        </script>
         <script type="text/javascript" src="./data/rulebook_ardy.js?rel=20240831"></script>
         <script>var costTable = null;</script>
         <!-- <script type="text/javascript" src="./data/rule.js?update=4"></script> -->
         <!-- <script type="text/javascript" src="./data/spiral_tier_cost.js?update=5"></script> -->
         <script>
-//rule book load
-for (var book in ruleBooks) {
-    rules = ruleBooks[book];
-    break;
-}
 
+var loca;
+var lang;
 
-charactersInfo.list.pop();
-charactersInfo.list.forEach(ch => {
-    //load character name every languages
-    ch.name = [];
-    ch.nameShort = [];
-    for (l in locales) {
-        let text = locales[l];
-        ch.name[l] = text["characters"][ch.id];
-        ch.nameShort[l] = text["characters_short"][ch.id];
-    }
-
-    //override character info for rule
-    let override = rules.characters_override[ch.id];
-    if (override != null) {
-        for (attr in override) {
-            if (attr == "comment" || attr == "reserved" || attr == "") continue;
-            ch[attr] = override[attr];
-        }
-    }
-})
         </script>
-        <script type="text/javascript" src="./scripts/calcCommon.js?rel=20240825"></script>
+        <script type="text/javascript" src="./scripts/calcCommon.js?rel=20240831"></script>
     </head>
     <body>
         <div lang="en">
@@ -259,11 +238,11 @@ charactersInfo.list.forEach(ch => {
                 </tbody>
             </table>
             <div class="subnote center">
-                <span class="bold" style="line-height: 28px; ">- <span id="rule_title">Refferenced ArdyCup</span> <span id="rule_version">0.0</span> - </span>
+                <span class="bold" style="line-height: 28px; ">- <span id="rule_title">Refferenced by ArdyCup</span> <span id="rule_version">0.0</span> - </span>
                 <br />
-                <span class="bold">GACALC v1.0.2</span>
+                <span class="bold">GACALC v1.0.3</span>
                 <br />
-                <span>Release 2024.08.25</span>
+                <span>Release 2024.08.31</span>
             </div>
         </div>
         <div lang="ko">
@@ -404,371 +383,10 @@ charactersInfo.list.forEach(ch => {
             <div class="subnote center">
                 <span class="bold" style="line-height: 28px; ">- <span id="rule_title">아디컵</span> <span id="rule_version">0.0</span> 기준 - </span>
                 <br />
-                <span class="bold">GACALC v1.0.2</span>
+                <span class="bold">GACALC v1.0.3</span>
                 <br />
-                <span>Release 2024.08.25</span>
+                <span>Release 2024.08.31</span>
             </div>
         </div>
     </body>
-    <script>
-
-var loca;
-var lang;
-
-initLocale();
-
-if (rules.rule_type == "cost") {
-    document.getElementById("gi_ver").innerText = costTable != null ? costTable.version : "???";
-    document.getElementById("gi_phase").innerText = costTable != null ? costTable.phase : "???";
-    if (loca.indexOf("ko") > -1)document.getElementById("gi_spiral").innerText = costTable != null ? costTable.month + "월 " + (costTable.half === 1 ? "상" : "하") + "반기" : "???";
-    else document.getElementById("gi_spiral").innerText = costTable != null ? costTable.month + "월 " + (costTable.half === 1 ? "1st" : "2nd") + "lanf" : "???";
-    document.getElementById("gi_rev").innerText = costTable != null && costTable.revision > 0 ? " rev." + costTable.revision : "";
-} else document.querySelector("#cost_table_info").style.display = "none";
-
-let calcSumCkecked = function() {
-    let checked = getSumChecked();
-    var sum = 0;
-    for (var i=0; i<checked.length; i++) {
-        let id = checked[i].getAttribute("data-id");
-        let constells = document.querySelector('input[data-cid="c_' + id + '"]');
-        if (constells == null) continue;
-        let cons = constells.value;
-        if (cons == "") cons = 0;
-        sum += getAddCost(id, cons);
-    }
-    document.getElementById("total_cost_sum").innerText = sum;
-    document.getElementById("count_checked").innerText = checked.length;
-}
-
-document.getElementById("init_check").onclick = function (e) {
-    getSumChecked().forEach(input => {
-        input.checked = false;
-    });
-    calcSumCkecked();
-}
-
-let pasteTable = document.getElementById("paste_table");
-
-document.getElementById("copy_table").onclick = function(e) {
-    if (e.shiftKey) packDataSet(false, 1);
-    else packDataSet();
-};
-document.getElementById("copy_table").oncontextmenu = function(e) {
-    e.preventDefault();
-
-    if (e.shiftKey) packDataSet(true, 1);
-    else packDataSet(true);
-
-    return false;
-};
-
-// pasteTable.onblur = ontake;
-// pasteTable.oninput = ontake;
-pasteTable.onchange = ontake;
-pasteTable.onpaste = forParse;
-
-pasteTable.onfocus = function(e) {
-    getInputs().forEach(input => {
-        let cid = input.getAttribute("data-cid");
-        input.value = "";
-        // if (document.getElementById(cid).innerText != "-") document.getElementById(cid).innerText = 0;
-        if (rules.rule_type == "cost") addCost(cid, 0);
-    });
-}
-
-
-let parsePasted = function(text) {
-    if (text == null || text == "") return false;
-
-    text = text.trim();
-    var version;
-    try {
-        if (text.substr(0, 7) == "@GCBPSv") {
-            let texts = text.split(":");
-            let header = texts[0];
-            version = parseInt(header.split("v")[1]);
-            let base64 = texts[1].replace(/;/g, "");
-            text = atob(base64);
-        }
-
-        var data;
-        switch(version) {
-            default:
-            case 2:
-                data = Jcodd.parse(text);
-
-                let list = data.list;
-                for (var i=0; i<list.length; i++) {
-                    var cons = list[i];
-                    if (cons > 6) cons = 6;
-                    else if (cons < 0) cons = null;
-                    let id = charactersInfo.list[i].id;
-                    if (id != null) data[id] = cons;
-                }
-                break;
-
-            case 1:
-                data = JSON.parse(text);
-                break;
-        }
-
-        for (var i in data) {
-            let cons = data[i];
-
-            if (i == "player") {
-                document.getElementById("player_name").value = unescape(cons.name);
-                document.getElementById("player_uid").value = cons.uid;
-                document.querySelector('input[name=trevelers][value="' + cons.treveler + '"]').checked = true;
-
-                continue;
-            } else if (i == "list") {
-                continue;
-            }
-
-            var consI = parseInt(cons);
-            if (consI > 6) consI = 6;
-            else if (consI < 0) consI = null;
-            let cid = "c_" + i;
-
-            let constell = document.querySelector('input.char_constells[data-cid="' + cid + '"]')
-            if (constell != null) constell.value = cons;
-            let point = document.getElementById(cid)
-            if (point != null) {
-                if (point.innerText != "-") point.innerText = cons != null && !isNaN(cons) ? consI + 1 : 0;
-                if (rules.rule_type == "cost") addCost(cid, consI);
-            }
-        }
-        for (var i=1; i<charactersInfo.list.length; i++) {
-            let info = charactersInfo.list[i];
-            let id = info.id;
-            var cons = data[id];
-            if (cons != null) cons = 0;
-            addCost("c_" + id, data[id]);
-        }
-        calcSumCkecked();
-        //leagueCalc();
-
-        return true;
-    } catch(e) {
-        console.error(e.name, e.message, e.stack);
-    }
-    return false;
-}
-
-let leagues = document.getElementById("leagues");
-leagues.innerHTML = "";
-for (var i=0; i < rules.rule_alter.length; i++) {
-    let cr = rules.rule_alter[i];
-    if (!cr.established) continue;
-
-    let ca = cr.cost_amount != null ? cr.cost_amount : rules.base_rule.cost_amount;
-    let scr = cr.score_range;
-
-    var cst;
-    if (ca < 64) {
-        if (loca.indexOf("ko") > -1)cst = "<b>" + ca + "</b> 코스트";
-        else cst = "<b>" + ca + "</b> cost";
-    } else {
-        if (loca.indexOf("ko") > -1)cst = "<b>무제한</b>";
-        else cst = "<b>unlimited</b>";
-    }
-
-    let tr = document.createElement("tr");
-    let td1 = document.createElement("td");
-    if (loca.indexOf("ko") > -1)td1.innerHTML = "<b>" + cr.name + "</b> " + "룰";
-    else td1.innerHTML = "<b>" + cr.name + "</b> " + "rule";
-    tr.append(td1);
-    let td2 = document.createElement("td");
-    td2.innerHTML = cst;
-    tr.append(td2);
-
-    leagues.append(tr);
-}
-
-document.getElementById("rule_title").innerText = rules.rule_title;
-document.getElementById("rule_version").innerText = rules.rule_version;
-
-document.getElementById("toggle_ordinary").onclick = function(e) {
-    let tbody = document.getElementById("main_table_body");
-    let show = tbody.getAttribute("data-show-ordinary");
-    let spans = this.querySelectorAll("span.arrow");
-    
-    var toShow;
-    switch (show) {
-        case "1":
-            toShow = "";
-            break;
-
-        default:
-            toShow = "1";
-            break;
-    }
-
-    tbody.setAttribute("data-show-ordinary", toShow);
-
-    
-    if (toShow == "1") {
-        for (var i=0; i<spans.length; i++) spans[i].innerText = "︽";
-        document.querySelector("input.ordinary").focus();
-    } else for (var i=0; i<spans.length; i++) spans[i].innerText = "︾";
-};
-
-document.getElementById("toggle_4stars").onclick = function(e) {
-    let foot = document.getElementById("main_table_foot");
-    let show = foot.getAttribute("data-show-4stars");
-    let spans = this.querySelectorAll("span.arrow");
-    
-    var toShow;
-    switch (show) {
-        case "1":
-            toShow = "";
-            break;
-
-        default:
-            toShow = "1";
-            break;
-    }
-
-    foot.setAttribute("data-show-4stars", toShow);
-
-    
-    if (toShow == "1") {
-        for (var i=0; i<spans.length; i++) spans[i].innerText = "︽";
-        document.querySelector("input.fourstars").focus();
-    } else for (var i=0; i<spans.length; i++) spans[i].innerText = "︾";
-};
-
-function buildCharLine(no, name, id, attrs = "", addClass = "", point = 0, usepoint = true, cost = 0, usecost = true) {
-    var charLine;
-    if (loca.indexOf("ko") > -1) charLine = '                <tr#ATTRS>\n\
-                    <td><div><p class="right">#NO</p></div></td>\n\
-                    <td><div><p class="right"><span>#NAME</span></p></div></td>\n\
-                    <td><div> <p class=""> <span>\n\
-                        <input type="number" min="0" max="6" placeholder="미보유 (비움)" data-cid="c_#ID" class="char_constells#CLASS">\n\
-                    </span></p></div></td>\n\
-                    <td class="checkbox"><div><p class="center">\n\
-                        <input type="checkbox" class="sum_checker" id="check_#ID" data-id="#ID" />\n\
-                    </p></div></td>\n\
-                    <td><div><p class="right">\n\
-                        <span>(<span class="cost_basic" data-cid="c_#ID"></span> +<span class="cost_add" data-cid="c_#ID"></span>)&nbsp;<span data-cid="c_#ID" class="cost_sum bold">#COST</span>#COSTUNIT</span>\n\
-                    </p></div></td>\n\
-                </tr>\n\
-';
-    else charLine = '                <tr#ATTRS>\n\
-                    <td><div><p class="right">#NO</p></div></td>\n\
-                    <td><div><p class="right"><span>#NAME</span></p></div></td>\n\
-                    <td><div> <p class=""> <span>\n\
-                        <input type="number" min="0" max="6" placeholder="Now own(empty)" data-cid="c_#ID" class="char_constells#CLASS">\n\
-                    </span></p></div></td>\n\
-                    <td class="checkbox"><div><p class="center">\n\
-                        <input type="checkbox" class="sum_checker" id="check_#ID" data-id="#ID" />\n\
-                    </p></div></td>\n\
-                    <td><div><p class="right">\n\
-                        <span>(<span class="cost_basic" data-cid="c_#ID"></span> +<span class="cost_add" data-cid="c_#ID"></span>)&nbsp;<span data-cid="c_#ID" class="cost_sum bold">#COST</span>#COSTUNIT</span>\n\
-                    </p></div></td>\n\
-                </tr>\n\
-';
-    if (loca.indexOf("ko") > -1) return charLine.replace("#NO", no).replace("#NAME", name).replace(/#ID/g, id).replace("#ATTRS", attrs).replace("#CLASS", addClass).replace("#POINTUNIT", usepoint ? " 점" : "&nbsp; &nbsp;").replace("#COSTUNIT", usepoint ? " 코" : "&nbsp; &nbsp;").replace("#POINT", point).replace("#COST", cost);
-    else return charLine.replace("#NO", no).replace("#NAME", name).replace(/#ID/g, id).replace("#ATTRS", attrs).replace("#CLASS", addClass).replace("#POINTUNIT", usepoint ? " p" : "&nbsp; &nbsp;").replace("#COSTUNIT", usepoint ? " cost" : "&nbsp; &nbsp;").replace("#POINT", point).replace("#COST", cost);
-}
-
-function initCharList() {
-    let tbody = document.getElementById("main_table_body");
-    let divider = tbody.querySelector("tr.divider");
-    let limited = tbody.querySelectorAll("tr.limited");
-    let ordinary = tbody.querySelectorAll("tr.ordinary");
-    let tfoot = document.getElementById("main_table_foot");
-    let fourstars = tfoot.querySelectorAll("tr.fourstars");
-
-    limited.forEach(e => e.remove());
-    ordinary.forEach(e => e.remove());
-    fourstars.forEach(e => e.remove());
-
-    var seqLimited = 0;
-    var seqOrdinary = 0;
-    var seq4stars = 0;
-
-    for (var i=1; i<charactersInfo.list.length; i++) {
-        let info = charactersInfo.list[i];
-
-        if (info.class == "unreleased") continue;
-
-        var category;
-        if (info.rarity == "5" && info.id != "treveler") {
-            category = info.class;
-        } else category = "fourstars";
-
-        switch (category) {
-            case "limited":
-                seqLimited++;
-                let linel = buildCharLine(seqLimited, info.name[loca], info.id, ' class="limited"', " limited");
-                let eleml = document.createElement("div");
-                tbody.insertBefore(eleml, divider);
-                eleml.outerHTML = linel;
-                break;
-
-            case "ordinary":
-                seqOrdinary++;
-                let lineo = buildCharLine(seqOrdinary, info.name[loca], info.id, ' class="ordinary"', " ordinary");
-                let elemo = document.createElement("div");
-                tbody.append(elemo);
-                elemo.outerHTML = lineo;
-                break;
-
-            case "fourstars":
-                seq4stars++;
-                let linef = buildCharLine(seq4stars, info.name[loca], info.id, ' class="fourstars"', " fourstars");
-                let elemf = document.createElement("div");
-                tfoot.append(elemf);
-                elemf.outerHTML = linef;
-                break;
-        }
-
-        setCost("c_" + info.id);
-    }
-
-    getInputsL().forEach(input => {
-        input.onfocus = focused;
-        input.oninput = lineCalc;
-        input.oncut = lineCalc;
-        input.onpaste = lineCalc;
-    });
-    getInputsO().forEach(input => {
-        input.onfocus = focused;
-        input.oninput = lineCalc;
-        input.oncut = lineCalc;
-        input.onpaste = lineCalc;
-    });
-    getInputs4().forEach(input => {
-        input.onfocus = focused;
-        input.oninput = changed;
-        input.oncut = changed;
-        input.onpaste = changed;
-    });
-
-    getSumChecker().forEach(input => {
-        input.onchange = function(e) {
-            e.stopPropagation();
-
-            calcSumCkecked();
-        }
-    });
-
-    document.querySelectorAll("table.score_calc td.checkbox").forEach(td => {
-    td.onclick = function (e) {        
-        if (e.target.tagName != "INPUT" && e.target.tagName != "BUTTON") {
-            e.stopPropagation();
-
-            this.querySelector("input[type=checkbox]").click();
-        }
-    }
-});
-
-}
-
-initCharList();
-
-document.querySelector('input.char_constells').focus();
-
-    </script>
 </html>

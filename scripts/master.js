@@ -540,6 +540,17 @@ let sequenceMaster = {
         if (isCharacterPick) {//캐릭터 픽
             //if (item.weapon == null) return;
             if (id.indexOf("_") > -1) return;
+
+            if (rules.rule_type == "cardy" && !isBan) {
+                let info = playerInfoMaster.playerAccInfo[side];
+                if (info != null && info.selfbanned != null) {
+                    if (info.selfbanned.indexOf(id) > -1) {
+                        this.setSequenceTitle(lang.text.alertPlayerSelfBannedCharacter, 5000);
+                        return;
+                    }
+                }
+            }
+
             if (item.attr(poolMaster.picked + "-" + (seq.pick != "ban" || seq.pick != "preban" ? pickingSide : pickingCounter)) == "1") return;
             treveler = item.attr(poolMaster.treveler);
             if (isTreveler && treveler == "1") id += "M";
@@ -1340,27 +1351,45 @@ let sequenceMaster = {
         let blue = playerInfoMaster.playerAccInfo.blue;
 
         if (!init && red != null && blue != null) {
+            let redSelfbanned = red.selfbanned != null ? red.selfbanned : [];
+            let blueSelfbanned = blue.selfbanned != null ? blue.selfbanned : [];
+
             var redPoints = 0;
             var bluePoints = 0;
+            var redDieted = 0;
+            var blueDieted = 0;
             var totalDiff = 0; 
             var count = 0;          
             for (var info of charactersInfo.list) {
                 let id = info.id;
+                let redIsBanned = redSelfbanned.indexOf(id) > -1;
+                let blueIsBanned = blueSelfbanned.indexOf(id) > -1;
+
                 let points = rules.cardy_rating.point_table[id];
                 if (points == null) continue;
 
                 let redConst = red[id];
                 let blueConst = blue[id];
-                let redPoint = redConst != null ? points[redConst] : 0;
-                let bluePoint = blueConst != null ? points[blueConst] : 0;
+                let redPoint = redConst != null && !redIsBanned ? points[redConst] : 0;
+                let bluePoint = blueConst != null && !blueIsBanned ? points[blueConst] : 0;
                 let diff = redPoint - bluePoint;
                 let diffLimited = Math.max(Math.min(diff, limit), limit * -1);
 
                 redPoints += redPoint;
                 bluePoints += bluePoint;
+                var redDiet = 0;
+                var blueDiet = 0;
+                if (redIsBanned && redConst != null) {
+                    redDiet = points[redConst];
+                    redDieted += redDiet;
+                }
+                if (blueIsBanned && blueConst != null) {
+                    blueDiet = points[blueConst];
+                    blueDieted += blueDiet;
+                }
                 totalDiff += diffLimited;
                 count++;
-                console.log("[" + count + "] " + charactersInfo.list[charactersInfo[id]].nameShort[loca] + ": " + redPoint + " / " + bluePoint + " / " + diff + " / " + diffLimited + " += " + totalDiff);
+                console.log("[" + count + "] " + charactersInfo.list[charactersInfo[id]].nameShort[loca] + ":\t" + (redDiet > 0 ? "(" + redDiet + ") " : "") + redPoint + "\t: " + (blueDiet > 0 ? "(" + blueDiet + ") " : "") + bluePoint + "\t/ " + (diff != diffLimited ? diff + " => ": "") + diffLimited + "\t+= " + totalDiff);
             }
             if (totalDiff != 0) {
                 this.cardyBans.side = totalDiff < 0 ? "red" : "blue";
@@ -1375,7 +1404,7 @@ let sequenceMaster = {
                     else break;
                 }
             }
-            console.log(playerInfoMaster.redInfoName.val() + ": " + redPoints + " / " + playerInfoMaster.blueInfoName.val() + ": " + bluePoints + " / total diff: " + totalDiff);
+            console.log(playerInfoMaster.redInfoName.val() + ": " + (redDieted > 0 ? (redPoints + redDieted) + " - " + redDieted + " = " : "") + redPoints + " / " + playerInfoMaster.blueInfoName.val() + ": " + (blueDieted > 0 ? (bluePoints + blueDieted) + " - " + blueDieted + " = " : "") + bluePoints + " / total diff: " + totalDiff);
         }
         $(document.body).attr("data-cardy-ban-for", this.cardyBans.side);
         this.initStepSequences();
@@ -3417,7 +3446,7 @@ let sideMaster = {
             var point = 0;
 
             for(var i in data) {
-                if (i != "player" && i != "prebanned" && i != "list") {
+                if (i != "player" && i != "prebanned" && i != "selfbanned" && i != "list") {
                     let cons = data[i];
                     let info = charactersInfo.list[charactersInfo[i]];
                     if (cons != null && info.class == "limited") point += parseInt(cons) + 1;
@@ -6523,7 +6552,7 @@ let playerInfoMaster = {
                     rarity = "" + rarityValue;
                     switch (rarity) {
                         case "null":
-                            if (isForCalc) sequenceMaster.setSequenceTitle("계정 정보 상 미보유 캐릭터를 선택하였습니다", 5000);
+                            if (isForCalc) sequenceMaster.setSequenceTitle(lang.text.alertPlayerNotOwnCharacter, 5000);
                             break;
                         case "undefined":
                             rarity = "";
@@ -6661,7 +6690,7 @@ let playerInfoMaster = {
 
             try {
                 for(var i in data) {
-                    if (i != "player" && i != "prebanned" && i != "list") {
+                    if (i != "player" && i != "prebanned" && i != "selfbanned" && i != "list") {
                         let cons = data[i];
                         let info = charactersInfo.list[charactersInfo[i]];
                         if (cons != null && info.class == "limited") {
@@ -10903,7 +10932,9 @@ $(document).ready(function() {
                 // sideMaster.applyAccountInfo("@GCBPSv2:e3BsYXllcjp7bmFtZToiJXVDNTQ0JXVCNTE0Iix1aWQ6IjgyMTMxNDEzOSIsdHJldmVsZXI6IjEifSxsaXN0Ols2LDYsNSw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsMywzLDMsMywwLDAsNiwwLDYsMCwwLG4sMCwxLDYsNiwwLDIsMCw2LDAsMCw2LDMsMCw2LDYsMCw2LDAsNiwwLDIsNiw2LDYsMyw2LDYsbiwwLDIsNiw2LDAsNiwwLDIsMSwwLDAsNiw2LDEsNixuLDEsNiw2LDYsMCw2LDAsbixuLG4sbixuLG5dfQ==;", "red");
                 // sideMaster.applyAccountInfo("@GCBPSv2:e3BsYXllcjp7bmFtZToiJXVDNTQ0JXVCNTE0Iix1aWQ6IjgyMTMxNDEzOSIsdHJldmVsZXI6IjEifSxsaXN0Ols2LDYsNSw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsbiwzLDMsMywwLG4sNiwwLDYsMCwwLG4sMCwxLDYsNixuLDIsMCw2LDAsMCw2LDMsMCw2LDYsbiw2LDAsNiwwLDIsNiw2LDYsMyw2LDYsbiwwLDIsNiw2LG4sNiwwLDIsMSwwLDAsNiw2LDEsNixuLDEsNiw2LDYsMCw2LDAsbixuLG4sbixuLG5dfQ==;", "red");
                 sideMaster.applyAccountInfo("@GCBPSv2:e3BsYXllcjp7bmFtZToiJXVDNTQ0JXVCNTE0Iix1aWQ6IjgyMTMxNDEzOSIsdHJldmVsZXI6IjEifSxsaXN0Ols2LDYsNSw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsbiwzLDMsMywwLG4sNiwwLDYsMCwwLG4sMCwxLDYsNixuLDIsMCw2LDAsMCw2LDMsMCw2LDYsbiw2LDAsNiwwLDIsNiw2LDYsMyw2LDYsbiwwLG4sNiw2LG4sNiwwLDIsMSwwLDAsNiw2LDEsNixuLDEsNixuLDYsMCw2LDAsbixuLG4sbixuLG5dfQ==;", "red");
-                sideMaster.applyAccountInfo("@GCBPSv2:e3BsYXllcjp7bmFtZToiJXVDNUQwJXVDMkE0JXVEMTMwMXoiLHVpZDoiODA2MDkzNzAyIix0cmV2ZWxlcjoiMCJ9LGxpc3Q6WzYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDIsNiw2LDMsNiw2LDIsMiwyLDYsNiw2LDEsNCw2LDYsMywwLDYsMyw0LDYsNiw0LDYsMiw0LDQsNiw2LDYsNiw0LDYsNiwyLDIsMywyLDYsMSwyLDAsMiw0LDIsMCwxLDYsMSwxLDAsMCw0LDAsMCwwLDYsMSwwLDAsMSwwLDAsMF19;", "blue");
+                // sideMaster.applyAccountInfo("@GCBPSv2:e3BsYXllcjp7bmFtZToiJXVDNUQwJXVDMkE0JXVEMTMwMXoiLHVpZDoiODA2MDkzNzAyIix0cmV2ZWxlcjoiMCJ9LGxpc3Q6WzYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDIsNiw2LDMsNiw2LDIsMiwyLDYsNiw2LDEsNCw2LDYsMywwLDYsMyw0LDYsNiw0LDYsMiw0LDQsNiw2LDYsNiw0LDYsNiwyLDIsMywyLDYsMSwyLDAsMiw0LDIsMCwxLDYsMSwxLDAsMCw0LDAsMCwwLDYsMSwwLDAsMSwwLDAsMF19;", "blue");
+                // sideMaster.applyAccountInfo("@GCBPSv2:e3BsYXllcjp7bmFtZToiJXVDNUQwJXVDMkE0JXVEMTMwMXoiLHVpZDoiODA2MDkzNzAyIix0cmV2ZWxlcjoiMCJ9LHNlbGZiYW5uZWQ6WyJ0YXJ0YWdsaWEiLCJodXRhbyIsImFsaGFpdGhhbSIsImx5bmV5IiwiY2hldnJldXNlIl0sbGlzdDpbNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsMiw2LDYsMyw2LDYsMiwyLDIsNiw2LDYsMSw0LDYsNiwzLDAsNiwzLDQsNiw2LDQsNiwyLDQsNCw2LDYsNiw2LDUsNiw2LDIsMiwzLDIsNiwxLDIsMCwyLDQsMiwwLDEsNiwxLDEsMCwwLDQsMCwwLDAsNiwxLDAsMCwxLDAsMCwwLDEsMF19;", "blue");
+                sideMaster.applyAccountInfo("@GCBPSv2:e3BsYXllcjp7bmFtZToiJXVDNjI0JXVENjFDJXVDNkQwIix1aWQ6IiIsdHJldmVsZXI6IjEifSxsaXN0Ols2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2LDYsNiw2XX0=;", "blue");
             }, 2500);
         }, 100);
     });
