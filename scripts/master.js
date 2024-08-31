@@ -524,7 +524,12 @@ let sequenceMaster = {
         let pickedSide = item.attr(poolMaster.pick_side);
         let pickedType = item.attr(poolMaster.pick_type);
         let profferBan = item.attr(poolMaster.proffer_ban);
-        if (item != null && item.attr(poolMaster.banned) != "" && !(step > -1 && (isBan && pickedSide != seq.side) || ((pickedType != "ban" || pickedSide != "both") && profferBan != "" && seq.side != profferBan && !isBan))) return;
+        if (item != null &&
+            item.attr(poolMaster.banned) != "" &&
+            !(step > -1 && (isBan && pickedSide != seq.side) || ((pickedType != "ban" || pickedSide != "both") &&
+            profferBan != "" &&
+            seq.side != profferBan &&
+            !isBan))) return;
 
         let isCharacterPick = seq.pick.indexOf("weapon") < 0;
         let isProfferPick = seq.pick == "proffer";
@@ -551,7 +556,16 @@ let sequenceMaster = {
                 }
             }
 
-            if (item.attr(poolMaster.picked + "-" + (seq.pick != "ban" || seq.pick != "preban" ? pickingSide : pickingCounter)) == "1") return;
+            let isAlreadyPicked = item.attr(poolMaster.picked + "-" + pickingSide) == "1";
+            let isBanPicked = pickedType == "ban";
+            if (isBan) {
+                if (isBanPicked && pickedSide != pickingCounter) return;
+            } else {
+                if (isBanPicked) {
+                    if (pickedSide == "both" || profferBan == pickingSide) return;
+                } else if (isAlreadyPicked) return;
+            }
+
             treveler = item.attr(poolMaster.treveler);
             if (isTreveler && treveler == "1") id += "M";
             if (rules.rule_type == "ban card") banCard = rules.ban_card_accure[id];
