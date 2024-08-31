@@ -388,8 +388,9 @@ let sequenceMaster = {
             } else if (newStep > rules.sequence.length) {
                 message = text.titleVersus;
             } else {
-                let eClass = seq.side == "red" ? "textRed" : "textBlue";
-                let tSide = seq.side == "red" ? redName : blueName;
+                let side = seq.side == null ? this.cardyBans.side : (seq.side == "red" ? "red" : (seq.side == "blue" ? "blue" : "?"))
+                let eClass = side == "red" ? "textRed" : "textBlue";
+                let tSide = side == "red" ? redName : blueName;
                 var tType = "?";
                 if (isBanCardLeftsNotUsed) tType = text.pickUseBanCard;
                 else switch (seq.pick) {
