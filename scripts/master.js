@@ -5496,6 +5496,8 @@ let playerInfoMaster = {
     entry_weapon_icon: "div.entry_weapon_icon",
     weapon_refine: "input.weapon_refine",
 
+    index: "data-index",
+
 
 
     playerInfoOpCP: null,
@@ -5651,6 +5653,8 @@ let playerInfoMaster = {
         "bow": [],
         "catalyst": []
     },
+
+    weaponFiltered: [],
 
 
     init: function() {
@@ -6304,6 +6308,7 @@ let playerInfoMaster = {
 
         this.eachWeaponName.on("input cut paste change", this.onInputWeaponName);
 
+        this.eachWeaponName.focus(this.onFocusWeaponName);
         this.eachWeaponName.blur(this.onBlurWeaponName);
 
 
@@ -6862,9 +6867,23 @@ let playerInfoMaster = {
         }
     },
 
-    onKeydownWeaponName: function(e) {
+    onFocusWeaponName: function(e) {
         let pim = playerInfoMaster;
         let selectionEntry = $(this).closest(pim.selection_entry);
+        let charId = selectionEntry.attr(pim.char);
+        if (charId == null || charId == "") return;
+        let info = charactersInfo.list[charactersInfo[charId]];
+        if (info == null || info == "" || info == {}) return;
+        // if (this.value.length > 0) pim.weaponFiltered = pim.checkWeaponName(selectionEntry);
+        // else
+        pim.weaponFiltered = pim.weapons[info.weapon].filter((info, index) => info.class != "unreleased");
+    },
+
+    onKeydownWeaponName: function(e) {
+        let pim = playerInfoMaster;
+        let self = $(this);
+        let selectionEntry = self.closest(pim.selection_entry);
+        let input = selectionEntry.find(pim.weapon_name);
 
         if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
             e.preventDefault();
@@ -6881,17 +6900,51 @@ let playerInfoMaster = {
         } else switch (e.keyCode) {
             case 9://Tab
                 if (e.shiftKey) {
+                    e.preventDefault();
                     $(this).closest(pim.selection_entry).find(pim.char_constell).focus();
                     return false;
                 }
                 break;
 
+            case 38://Up
+                e.preventDefault();
+                pim.setWeaponSelectionBy(input, false);
+                return false;
+
+            case 40://Down
+                e.preventDefault();
+                pim.setWeaponSelectionBy(input, true);
+                return false;
+
             case 191:// '/'/ ?
+                e.preventDefault();
                 if (!e.shiftKey) {
                     pim.setWeaponIsSignature(selectionEntry);
                     return false;
-                } else this.value = "";
-                break;
+                } else {
+                    let refine = selectionEntry.find(pim.weapon_refine);
+
+                    searchMaster.request({
+                        callback: (info) => {
+                            this.setWeaponIn(selectionEntry, info);
+                            input.val(info.name[loca]);
+                            refine.focus();
+                        },
+                        onCancel: () => input.focus(),
+                        element: this,
+                        searchFor: "weapon",
+                        searchWord: input.val(),
+                        from: playerInfoMaster,
+                        side: selectionEntry.closest(pim.selection_side).hasClass("red") ? "red" : "blue",
+                        character: { id: selectionEntry.attr(pim.char) }
+                    });
+                }
+                return false;
+
+            case 220:
+                e.preventDefault();
+                this.value = "";
+                return false;
         }
     },
 
@@ -6915,16 +6968,11 @@ let playerInfoMaster = {
         let input = selectionEntry.find(pim.weapon_name);
 
         let value = input.val().trim();
-        let valueLc = value.toLowerCase();
-        let aliases = lang.text.valueSignatureWeaponAliases.split("|");
-        var isAlias = false;
-        for (var i=0; i<aliases.length; i++) if (valueLc == aliases[i].toLowerCase()) {
-            isAlias = true;
-            break;
-        }
-        if (isAlias || valueLc == "/") {
+        var isAlias = pim.isSignatureWeaponAlias(value);
+        if (isAlias || value == "/") {
             pim.setWeaponIsSignature(selectionEntry);
         } else {
+            //pim.weaponFiltered = pim.checkWeaponName(selectionEntry);
             pim.checkWeaponName(selectionEntry);
             pim.releaseSecondsForAdds();
         }
@@ -6941,14 +6989,66 @@ let playerInfoMaster = {
         let weaponId = selectionEntry.attr(pim.weapon);
 
         if (weaponId != null && weaponId != "") {
-            let found = pim.weapons[info.weapon].find((item, index) => item.id == weaponId);
+            if (!pim.isSignatureWeaponAlias(value)) {
+                let found = pim.weapons[info.weapon].find((item, index) => item.id == weaponId);
 
-            if (found != null) {
-                for (i=0; i<found.aliases[loca].length; i++) if (found.aliases[loca][i].indexOf(value) == 0) {
-                    self.val(found.aliases[loca][i]);
-                    break;
+                if (found != null) {
+                    var fullWord = null;
+                    for (i=0; i<found.aliases[loca].length; i++) if (found.aliases[loca][i].indexOf(value) == 0) {
+                        fullWord = found.aliases[loca][i];
+                        break;
+                    }
+                    if (fullWord != null) self.val(fullWord);
+                    else {
+                        let weaponName = found.name[loca];
+                        if (weaponName.indexOf(value) !== 0) {
+                            let weaponAlias = found.aliases[loca][0];
+                            self.val(weaponAlias != null && weaponAlias.length > 0 ? weaponAlias : weaponName);
+                        }
+                    }
                 }
             }
+        }
+        self.attr(pim.index, null);
+        this.weaponFiltered = null;
+    },
+
+    isSignatureWeaponAlias(value) {
+        let valueLc = value.toLowerCase();
+        let aliases = lang.text.valueSignatureWeaponAliases.split("|");
+        for (var i=0; i<aliases.length; i++) if (valueLc == aliases[i].toLowerCase()) {
+            return true;
+            break;
+        }
+        return false;
+    },
+
+    setWeaponSelectionBy(input, prev) {
+        if (this.weaponFiltered != null) {
+            let filtered = this.weaponFiltered;
+            let filteredLength = filtered.length;
+            let selectionEntry = input.closest(this.selection_entry);
+            var index = parseInt(input.attr(this.index));
+            if (isNaN(index)) {
+                let weaponId = selectionEntry.attr(this.weapon);
+                index = null;
+                if (weaponId != null && weaponId != "") {
+                    for (var i in filtered) if (filtered[i].id == weaponId) {
+                        index = i;
+                        break;
+                    }
+                }
+                if (index == null) index = prev ? filteredLength - 1 : 0;
+            }
+            else index = parseInt(index);
+            let target = prev ? (index < 0 ? filteredLength - 1 : index - 1) : (index >= filteredLength ? 0 : index + 1);
+            let weapon = filtered[target];
+            if (weapon != null) {
+                this.setWeaponIn(selectionEntry, weapon);
+                let weaponAlias = weapon.aliases[loca][0];
+                input.val(weaponAlias != null && weaponAlias.length > 0 ? weaponAlias : weapon.name[loca]);
+            }
+            input.attr(this.index, target);
         }
     },
 
@@ -6965,16 +7065,11 @@ let playerInfoMaster = {
     },
 
     checkWeaponName: function(selectionEntry) {
-        let weaponIcon = selectionEntry.find(this.entry_weapon_icon);
-        let refine = selectionEntry.find(this.weapon_refine);
         let input = selectionEntry.find(this.weapon_name);
-
         let value = input.val().trim();
 
         if (value == "") {
-            selectionEntry.attr(this.weapon, "");
-            weaponIcon.css("--src", urlTpGif);
-            refine.val("");
+            this.setWeaponIn(selectionEntry);
             return;
         }
         
@@ -6984,38 +7079,55 @@ let playerInfoMaster = {
         if (info == null || info == "" || info == {}) return null;
 
         var found = null;
+        var filtered = null;
         if (value == lang.text.valueSignatureWeapon) {
             found = this.weapons[info.weapon].find((item, index) => {
                 return item.favority[0] == charId;
             });
-
-            if (found != null) {
-                selectionEntry.attr(this.weapon, found.id);
-                weaponIcon.css("--src", "url('" + getPath("images", "weapon_icon", found.res_icon) + "')")
-                refine.val("1");
-            } else {
-                selectionEntry.attr(this.weapon, "");
-                weaponIcon.css("--src", urlTpGif);
-                refine.val("");
-            }
         } else {
-            found = this.weapons[info.weapon].filter((item, index) => {
-                return item.name[loca].indexOf(value) == 0
-                    || item.name[loca].replace(/\b/ig, "").indexOf(value.replace(/\b/ig, "")) == 0
-                    || item.aliases[loca].find((alias, idx) => { return alias.indexOf(value) == 0; }) != null;
-            });
-
-            if (found != null && found.length > 0) {
-                selectionEntry.attr(this.weapon, found[0].id);
-                weaponIcon.css("--src", "url('" + getPath("images", "weapon_icon", found[0].res_icon) + "')")
-                refine.val("1");
-            } else {
-                selectionEntry.attr(this.weapon, "");
-                weaponIcon.css("--src", urlTpGif);
-                refine.val("");
-            }
+            filtered = this.searchWeapons(value, info.weapon);
         }
-        return found;
+
+        if (filtered != null && filtered.length > 0) found = filtered[0];
+        if (found != null) {
+            this.setWeaponIn(selectionEntry, found);
+        } else {
+            this.setWeaponIn(selectionEntry);
+        }
+
+        return filtered != null ? filtered : [found];
+    },
+
+    setWeaponIn(selectionEntry, weapon) {
+        let weaponIcon = selectionEntry.find(this.entry_weapon_icon);
+        let refine = selectionEntry.find(this.weapon_refine);
+
+        if (weapon != null) { 
+            selectionEntry.attr(this.weapon, weapon.id);
+            weaponIcon.css("--src", "url('" + getPath("images", "weapon_icon", weapon.res_icon) + "')")
+            refine.val("1");
+        } else {
+            selectionEntry.attr(this.weapon, "");
+            weaponIcon.css("--src", urlTpGif);
+            refine.val("");
+        }
+    },
+
+    searchWeapons(value, weaponType) {
+        let valuePressed = value.replace(/\b/ig, "");
+        return this.weapons[weaponType].filter((item, index) => {
+            return this.checkMatchAllLanguages(item.name, (text) => text.indexOf(value) == 0)
+                || this.checkMatchAllLanguages(item.name, (text) => text.replace(/\b/ig, "").match(new RegExp(valuePressed, "i")) != null)
+                || this.checkMatchAllLanguages(item.aliases, (aliases) => aliases.find((alias, idx) => { return alias.indexOf(value) == 0; }) != null);
+        });
+    },
+
+    checkMatchAllLanguages(langSet, matchChecker) {
+        for (var l in langSet) {
+            let text = langSet[l];
+            if (matchChecker(text)) return true;
+        }
+        return false;
     },
     
     preloadWeaponsInfo: function() {
@@ -8012,6 +8124,9 @@ let searchMaster = {
     listHost: null,
 
 
+    currentSearchRequest: null,//{ callback, searchFor: "weapon", from: playerInfoMaster, character: { id } };
+
+
     weaponSuggests: { "red": [], "blue": [] },
     
     init: function() {
@@ -8080,7 +8195,11 @@ let searchMaster = {
             master.initSearchInput();
         }
 
-        setTimeout(function() { searchMaster.resultMaster.fadeOut(100); }, 300);
+        let request = master.currentSearchRequest;
+        setTimeout(function() {
+            searchMaster.resultMaster.fadeOut(100);
+            if (master.currentSearchRequest == request) master.currentSearchRequest = null;
+        }, 300);
     },
 
     onInputChanges: function(e) {
@@ -8109,7 +8228,9 @@ let searchMaster = {
 
             case 27://Esc
                 e.preventDefault();
-                self.val("");
+                if (self.val().length < 1 && master.currentSearchRequest != null) {
+                    master.currentSearchRequest.onCancel();
+                } else self.val("");
                 return false;
 
             case 33://PgUp
@@ -8177,6 +8298,17 @@ let searchMaster = {
         }
     },
 
+    request: function(request) {
+        this.currentSearchRequest = request;
+        this.searchInput.focus();
+        if (request.searchWord != null) {
+            setTimeout(() => {
+                this.searchInput.val(request.searchWord);
+                this.checkUpdataResultByStep();
+            }, 10);
+        }
+    },
+
     getItems: function(query = "li") {
         return this.listHost.find(query);
     },
@@ -8211,7 +8343,10 @@ let searchMaster = {
 
         playSound("뽁");
 
-        sequenceMaster.onPick(id);
+        if (this.currentSearchRequest != null) {
+            this.currentSearchRequest.callback(info);
+            this.searchInput.blur();
+        } else sequenceMaster.onPick(id);
         this.searchInput.val("");
     },
 
@@ -8238,20 +8373,35 @@ let searchMaster = {
     },
 
     checkUpdataResultByStep: function() {
-        if (step < 0 || step >= rules.sequence.length) return;
-
-        let seq = rules.sequence[step];
-        let side = seq.side;
+        let isRequest;
+        let searchCase;
+        let side;
+        let entries;
+        if (this.currentSearchRequest != null) {
+            let request = this.currentSearchRequest;
+            isRequest = true;
+            searchCase = request.searchFor;
+            side = request.side;
+            entries = [charactersInfo.list[charactersInfo[request.character.id]]];
+        } else {
+            if (step < 0 || step >= rules.sequence.length) return;
+            isRequest = false;
+            let seq = rules.sequence[step];
+            searchCase = seq.pick;
+            side = seq.side;
+        }
         let counter = side == "blue" ? "red" : "blue";
+
 
         this.resultMaster.css("--current-side-color", "var(--color-side-" + side + ")");
         this.resultMaster.css("--counter-position", side == "red" ? "right" : "left");
 
-        switch (seq.pick) {
+        switch (searchCase) {
+            case "weapon":
             case "ban weapon":
+                let isBanWeapon = searchCase == "ban weapon";
                 let weaponTypes = {};
-                let entries = sideMaster.entryPicked[counter];
-                let currentSuggest = this.weaponSuggests[counter];
+                let currentSuggest = isRequest ? [] : this.weaponSuggests[isBanWeapon ? counter : side];
                 var checkLastPick = true;
                 for (var i=step+1; i<rules.sequence.length; i++) {
                     let cur = rules.sequence[i];
@@ -8262,6 +8412,7 @@ let searchMaster = {
                 }
 
                 if (currentSuggest.length < 1) {
+                    if (isBanWeapon) entries = sideMaster.entryPicked[isBanWeapon ? counter : side];
                     for (var i in entries) {
                         let entry = entries[i];
 
