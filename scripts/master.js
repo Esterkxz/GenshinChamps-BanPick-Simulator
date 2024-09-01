@@ -5654,7 +5654,7 @@ let playerInfoMaster = {
         "catalyst": []
     },
 
-    weaponFiltered: [],
+    weaponFiltered: null,
 
 
     init: function() {
@@ -6876,7 +6876,7 @@ let playerInfoMaster = {
         if (info == null || info == "" || info == {}) return;
         // if (this.value.length > 0) pim.weaponFiltered = pim.checkWeaponName(selectionEntry);
         // else
-        pim.weaponFiltered = pim.weapons[info.weapon].filter((info, index) => info.class != "unreleased");
+        pim.weaponFiltered = pim.weapons[info.weapon].filter((weapon, index) => weapon.class != "unreleased");
     },
 
     onKeydownWeaponName: function(e) {
