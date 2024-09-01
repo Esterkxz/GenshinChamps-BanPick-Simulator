@@ -258,7 +258,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "neuvillette": [9, 11, 12, 13, 13, 13, 16],
         "furina":      [6, 7, 8, 9, 10, 11, 13],
         "sigewinne":   [2, 3, 5, 5, 7, 8, 9],
-        "mualani":     [1, 3, 4, 5, 6, 7, 9],//[2, 4, 5, 6, 7, 8, 10],
+        "mualani":     [2, 4, 5, 6, 7, 8, 10],
 
         "qiqi":        [0, 0, 0, 0, 0, 0, 0],
         "ganyu":       [1, 2, 2, 3, 4, 4, 5],
