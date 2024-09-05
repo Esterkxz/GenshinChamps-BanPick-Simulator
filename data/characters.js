@@ -1304,8 +1304,8 @@ let charactersInfo = {
             "res_icon": "UI_AvatarIcon_Kachina.png",
             "res_vcut": "kachina_100_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "22%", "vHover": "22%" },
-            "res_wide": "kachina_100_gacha_splash.webp",
-            "res_wide_meta_pos": { "scale": "680%", "h": "53%", "v": "29%" },
+            "res_wide": "kachina_genshin_impact_art_render_by_deg5270_di3m20b-fullview.png",
+            "res_wide_meta_pos": { "scale": "480%", "h": "58.5%", "v": "32.5%" },
         },
         {
             "id": "mualani",
@@ -1319,8 +1319,8 @@ let charactersInfo = {
             "res_icon": "UI_AvatarIcon_Mualani.png",
             "res_vcut": "mualani_102_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "24%", "vHover": "26%" },
-            "res_wide": "mualani_102_gacha_splash.webp",
-            "res_wide_meta_pos": { "scale": "640%", "h": "56%", "v": "23%" },
+            "res_wide": "mualani_genshin_impact_art_render_by_deg5270_di3m213-fullview.png",
+            "res_wide_meta_pos": { "scale": "420%", "h": "58%", "v": "32%" },
         },
         {
             "comment": "temporary data for pre-official release",
