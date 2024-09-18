@@ -297,6 +297,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "emilie": "Emilie",
         "kachina": "Kachina",
         "mualani": "Mualani",
+        "kinich": "Kinich",
         "reserved": ""
     },
     "characters_short": {
@@ -387,6 +388,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "emilie": "Emilie",
         "kachina": "Kachina",
         "mualani": "Mualani",
+        "kinich": "Kinich",
         "reserved": ""
     },
     "weapons": {
@@ -444,6 +446,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "bw_arcdange": { "name": "Silvershower Heartstrings", "aliases": [""] },
         "pl_muguet": { "name": "Lumidouce Elegy", "aliases": [""] },
         "ct_mechapufferfish": { "name": "Surf's Up", "aliases": [""] },
+        "cm_emeraldsword": { "name": "Fang of the Mountain King", "aliases": [""] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }

@@ -144,6 +144,9 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "clorinde": false,
             "sigewinne": false,
             "emilie": false,
+            "kachina": false,
+            "mualani": false,
+            "kinich": false,
         },
         "": ""
     },
@@ -223,6 +226,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "lynette": true,
                 "charlotte": true,
                 "sethos": true,
+                "kachina": true,
                 },
             "": ""
         },
@@ -393,6 +397,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "neuvillette": true,
         "arlecchino": true,
         "sigewinne": true,
+        "mualani": true,
+        "kinich": true,
     },
 
     "global_banned": {

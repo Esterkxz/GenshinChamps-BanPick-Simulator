@@ -769,7 +769,11 @@ addEventListener('load', function() {
     } else document.querySelector("#cost_table_info").style.display = "none";
     
     document.getElementById("init_check").onclick = function (e) {
-        if (isPrebanRule) {
+        if (isCardyRule) {
+            getSelfbanChecked().forEach(input => {
+                input.checked = false;
+            });
+        } else if (isPrebanRule) {
             getPrebanChecked().forEach(input => {
                 input.checked = false;
             });

@@ -1323,6 +1323,21 @@ let charactersInfo = {
             "res_wide_meta_pos": { "scale": "420%", "h": "58%", "v": "32%" },
         },
         {
+            "id": "kinich",
+            "class": "limited",
+            "version": "5.0h",
+            "rarity": "5",
+            "weapon": "claymore",
+            "element": "dendro",
+            "continent": "natlan",
+            "res_back": "UI_AvatarIcon_Kinich@2x.png",
+            "res_icon": "UI_AvatarIcon_Kinich.png",
+            "res_vcut": "kinich_101_gacha_card.webp",
+            "res_vcut_meta_pos": { "vBasic": "24%", "vHover": "20%" },
+            "res_wide": "kinich_101_gacha_splash.webp",
+            "res_wide_meta_pos": { "scale": "700%", "h": "40%", "v": "33.5%" },
+        },
+        {
             "comment": "temporary data for pre-official release",
             "id": "reserved",
             "class": "",
@@ -1441,5 +1456,6 @@ let charactersInfo = {
     "emilie": 85,
     "kachina": 86,
     "mualani": 87,
+    "kinich": 88,
     "reserved": 8
 }

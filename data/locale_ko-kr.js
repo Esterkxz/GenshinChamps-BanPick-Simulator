@@ -296,6 +296,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "emilie": "에밀리",
         "kachina": "카치나",
         "mualani": "말라니",
+        "kinich": "키니치",
         "reserved": ""
     },
     "characters_short": {
@@ -386,6 +387,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "emilie": "에밀리",
         "kachina": "카치나",
         "mualani": "말라니",
+        "kinich": "키니치",
         "reserved": ""
     },
     "weapons": {
@@ -443,6 +445,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "bw_arcdange": { "name": "심금을 울리는 하얀 비", "aliases": ["심금", "하얀비"] },
         "pl_muguet": { "name": "등방울꽃의 애가", "aliases": ["등방울꽃", "애가"] },
         "ct_mechapufferfish": { "name": "서핑 타임", "aliases": ["서핑", "서타", "타임"] },
+        "cm_emeraldsword": { "name": "산왕의 엄니", "aliases": ["산왕", "엄니", "산엄"] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }

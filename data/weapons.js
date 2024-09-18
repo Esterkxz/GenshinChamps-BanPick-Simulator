@@ -705,6 +705,20 @@ weaponsInfo = {
             "res_vcut": "i_n14516_gacha_icon.webp"
         },
 
+        //Extra 18? - EmeraldSword
+        {
+            "id": "cm_emeraldsword",
+            "class": "limited",
+            "version": "5.0h",
+            "rarity": "5",
+            "type": "claymore",
+            "serise": "standalone",
+            "continent": "natlan",
+            "favority": ["kinich"],
+            "res_icon": "UI_EquipIcon_Claymore_EmeraldSword.png",
+            "res_vcut": "i_n12513_gacha_icon.webp"
+        },
+
         {
             "id": "reserved",
             "class": "",
