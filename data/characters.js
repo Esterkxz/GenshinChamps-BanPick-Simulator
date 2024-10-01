@@ -1334,8 +1334,8 @@ let charactersInfo = {
             "res_icon": "UI_AvatarIcon_Kinich.png",
             "res_vcut": "kinich_101_gacha_card.webp",
             "res_vcut_meta_pos": { "vBasic": "24%", "vHover": "20%" },
-            "res_wide": "kinich_101_gacha_splash.webp",
-            "res_wide_meta_pos": { "scale": "700%", "h": "40%", "v": "33.5%" },
+            "res_wide": "kinich_genshin_impact_art_render_by_deg5270_di7iays-fullview.png",
+            "res_wide_meta_pos": { "scale": "720%", "h": "58%", "v": "31.5%" },
         },
         {
             "comment": "temporary data for pre-official release",
