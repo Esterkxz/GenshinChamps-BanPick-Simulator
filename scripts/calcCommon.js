@@ -431,10 +431,10 @@ let calcSumCkecked = function() {
     } else if (isPrebanRule) {
         checkedLength = checkPreban();
     } else {
-        let checked = getChecked();
+        let checked = getSumChecked();
         var sum = 0;
-        for (var i=0; i<checkedLength.length; i++) {
-            let id = checkedLength[i].getAttribute("data-id");
+        for (var i=0; i<checked.length; i++) {
+            let id = checked[i].getAttribute("data-id");
             let constells = document.querySelector('input[data-cid="c_' + id + '"]');
             if (constells == null) continue;
             let cons = constells.value;
