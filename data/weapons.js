@@ -719,6 +719,20 @@ weaponsInfo = {
             "res_vcut": "i_n12513_gacha_icon.webp"
         },
 
+        //Extra 19? - XochitlsTube
+        {
+            "id": "sw_xochitlstube",
+            "class": "limited",
+            "version": "5.1f",
+            "rarity": "5",
+            "type": "sword",
+            "serise": "standalone",
+            "continent": "natlan",
+            "favority": ["xilonen"],
+            "res_icon": "UI_EquipIcon_Sword_XochitlsTube.png",
+            "res_vcut": "i_n11516_gacha_icon.webp"
+        },
+
         {
             "id": "reserved",
             "class": "",

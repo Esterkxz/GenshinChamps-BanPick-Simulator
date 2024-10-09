@@ -297,6 +297,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "kachina": "카치나",
         "mualani": "말라니",
         "kinich": "키니치",
+        "xilonen": "실로닌",
         "reserved": ""
     },
     "characters_short": {
@@ -388,6 +389,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "kachina": "카치나",
         "mualani": "말라니",
         "kinich": "키니치",
+        "xilonen": "실로닌",
         "reserved": ""
     },
     "weapons": {
@@ -446,6 +448,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "pl_muguet": { "name": "등방울꽃의 애가", "aliases": ["등방울꽃", "애가"] },
         "ct_mechapufferfish": { "name": "서핑 타임", "aliases": ["서핑", "서타", "타임"] },
         "cm_emeraldsword": { "name": "산왕의 엄니", "aliases": ["산왕", "엄니", "산엄"] },
+        "sw_xochitlstube": { "name": "바위산을 맴도는 노래", "aliases": ["바위산", "바맴", "바맴노"] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }

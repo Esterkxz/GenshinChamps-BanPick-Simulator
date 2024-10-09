@@ -1338,10 +1338,25 @@ let charactersInfo = {
             "res_wide_meta_pos": { "scale": "720%", "h": "58%", "v": "31.5%" },
         },
         {
+            "id": "xilonen",
+            "class": "limited",
+            "version": "5.1f",
+            "rarity": "5",
+            "weapon": "sword",
+            "element": "geo",
+            "continent": "natlan",
+            "res_back": "UI_AvatarIcon_Xilonen@3x.png",
+            "res_icon": "UI_AvatarIcon_Xilonen.png",
+            "res_vcut": "xilonen_103_gacha_card.webp",
+            "res_vcut_meta_pos": { "vBasic": "22%", "vHover": "19%" },
+            "res_wide": "xilonen_genshin_impact_art_render_by_deg5270_dibqt38-fullview.png",
+            "res_wide_meta_pos": { "scale": "360%", "h": "60%", "v": "32%" },
+        },
+        {
             "comment": "temporary data for pre-official release",
             "id": "reserved",
             "class": "",
-            "version": "4.",
+            "version": "5.",
             "rarity": "",
             "weapon": "",
             "element": "",
@@ -1457,5 +1472,6 @@ let charactersInfo = {
     "kachina": 86,
     "mualani": 87,
     "kinich": 88,
+    "xilonen": 89,
     "reserved": 8
 }

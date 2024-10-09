@@ -298,6 +298,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "kachina": "Kachina",
         "mualani": "Mualani",
         "kinich": "Kinich",
+        "xilonen": "Xilonen",
         "reserved": ""
     },
     "characters_short": {
@@ -389,6 +390,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "kachina": "Kachina",
         "mualani": "Mualani",
         "kinich": "Kinich",
+        "xilonen": "Xilonen",
         "reserved": ""
     },
     "weapons": {
@@ -447,6 +449,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "pl_muguet": { "name": "Lumidouce Elegy", "aliases": [""] },
         "ct_mechapufferfish": { "name": "Surf's Up", "aliases": [""] },
         "cm_emeraldsword": { "name": "Fang of the Mountain King", "aliases": [""] },
+        "sw_xochitlstube": { "name": "Peak Patrol Song", "aliases": [""] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }
