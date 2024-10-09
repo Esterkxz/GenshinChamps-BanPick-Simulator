@@ -924,7 +924,7 @@ let sequenceMaster = {
         entry.setAttribute("class", "versus_entry");
         entry.setAttribute("data-show", "0");
         entry.setAttribute("data-rarity", info.rarity);
-        var src = "--src: url('" + getPath("images", "character_back", info.res_back) + "'); ";
+        var src = "--src: url('" + getPath("images", "character_back", info.res_back) + "'); --facial-center: " + info.res_back_meta_pos.facialCenter + "; ";
         entry.setAttribute("style", src);
         let bg = document.createElement("div");
         bg.setAttribute("class", "bg_disc");
