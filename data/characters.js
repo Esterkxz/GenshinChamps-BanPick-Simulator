@@ -510,7 +510,7 @@ let charactersInfo = {
             "res_back_meta_pos": { "facialCenter": "46.5%" },
             "res_icon": "UI_AvatarIcon_Rosaria.png",
             "res_vcut": "rosaria_045_gacha_card.webp",
-            "res_vcut_meta_pos": { "vBasic": "23%", "vHover": "46.5%" },
+            "res_vcut_meta_pos": { "vBasic": "23%", "vHover": "28%" },
             "res_wide": "rosaria_1_2_genshin_impact_portrait_render_by_deg5270_dezvgjw-fullview.png",
             "res_wide_meta_pos": { "scale": "560%", "h": "53.5%", "v": "26.5%" },
         },
