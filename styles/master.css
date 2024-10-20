@@ -787,11 +787,13 @@ div#elements_pool div.pool_element_area div.each_element_pool_area[data-rarity="
 div#elements_pool div.pool_element_area div.each_element_pool_area[data-rarity="4"] ul.each_element_pool { flex-wrap: wrap; top: 0; }
 div#elements_pool div.pool_element_area[data-element="switchable"] { position: absolute; top: 0; bottom: 0; left: 0; right: 0; height: 0; max-width: unset; margin: auto; }
 div#elements_pool[data-char-visual-res-type="icon"] div.pool_element_area[data-element="switchable"] div.each_element_pool_area { position: absolute; top: calc(var(--char-icon-size) / 2 * -1); height: auto; }
-div#elements_pool[data-char-visual-res-type="vcut"] div.pool_element_area[data-element="switchable"] div.each_element_pool_area { position: absolute; top: calc(((var(--char-card-height-max) / 2) + 4px) * -1); height: auto; }
+div#elements_pool[data-char-visual-res-type="vcut"] div.pool_element_area[data-element="switchable"] div.each_element_pool_area { position: absolute; top: calc(((var(--char-card-height-max) / 2) + 4px) * -1); height: auto; transition-timing-function: ease; transition-duration: 0.5s; will-change: auto; }
 div#elements_pool[data-char-visual-res-type="icon"] div.pool_element_area[data-element="switchable"] div.each_element_pool_area[data-treveler="0"] { left: calc(var(--char-icon-size) * -1); }
 div#elements_pool[data-char-visual-res-type="icon"] div.pool_element_area[data-element="switchable"] div.each_element_pool_area[data-treveler="1"] { right: calc(var(--char-icon-size) * -1); }
 div#elements_pool[data-char-visual-res-type="vcut"] div.pool_element_area[data-element="switchable"] div.each_element_pool_area[data-treveler="0"] { left: calc((var(--char-icon-size) + 4px) * -1); }
+div#elements_pool[data-char-visual-res-type="vcut"] div.pool_element_area[data-element="switchable"]:not(:hover) div.each_element_pool_area[data-treveler="0"] { left: -24px; }
 div#elements_pool[data-char-visual-res-type="vcut"] div.pool_element_area[data-element="switchable"] div.each_element_pool_area[data-treveler="1"] { right: calc((var(--char-icon-size) + 4px) * -1); }
+div#elements_pool[data-char-visual-res-type="vcut"] div.pool_element_area[data-element="switchable"]:not(:hover) div.each_element_pool_area[data-treveler="1"] { right: -24px; }
 div#elements_pool div.pool_element_area[data-element="switchable"] div.each_element_pool_area ul.each_element_pool { width: auto; height: auto; }
 div#elements_pool div.pool_element_area[data-element="switchable"] div.each_element_pool_area[data-treveler="0"] ul.each_element_pool { }
 div#elements_pool div.pool_element_area[data-element="switchable"] div.each_element_pool_area[data-treveler="1"] ul.each_element_pool { }
