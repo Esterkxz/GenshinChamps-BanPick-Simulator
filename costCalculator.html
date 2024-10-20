@@ -7,7 +7,16 @@
         <link rel="stylesheet" type="text/css" href="./styles/common.css">
         <style>
 
-body { font-family: '맑은 고딕', 'Malgun Gothic', 'Noto Sans KR', NotoSansKR, '나눔고딕', 'Nanum Gothic', NanumGothic, 'Open Sans', '돋움', Dotum, 'Apple SD 산돌고딕 Neo', 'Apple SD Gothic Neo', AppleGothic, Arial, Helvetica, sans-serif; }
+body { margin: 0; font-family: '맑은 고딕', 'Malgun Gothic', 'Noto Sans KR', NotoSansKR, '나눔고딕', 'Nanum Gothic', NanumGothic, 'Open Sans', '돋움', Dotum, 'Apple SD 산돌고딕 Neo', 'Apple SD Gothic Neo', AppleGothic, Arial, Helvetica, sans-serif; }
+
+div.tab_area { position: relative; width: 566px; margin: 8px auto 0; }
+div.tab_area > div.tabs { display: flex; flex-flow: row nowrap; width: 100%; margin: 0; padding: 0; list-style: none; }
+div.tab_area > div.tabs > a { --radius: 12px; display: flex; flex-flow: row nowrap; width: fit-content; height: 48px; flex-grow: 1; flex-shrink: 1; padding: 4px; justify-content: center; align-items: center; background-color: rgb(0 0 0 / 5%); color: #666; font-size: 18px; font-weight: 600; text-align: center; text-decoration: none; transition-duration: 0.3s; }
+div.tab_area > div.tabs > a:first-child { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
+div.tab_area > div.tabs > a:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+div.tab_area > div.tabs > a[data-current="1"] { width: max-content; flex-shrink: 0; background-color: rgb(34 200 240 / 25%); color: #444; }
+div.tab_area > div.tabs > a:hover { color: #444; }
+div.tab_area > div.tabs > a > span { }
 
 div.note { display: table; margin: 25px auto; }
 div.subnote { display: table; margin: 10px auto; }
@@ -102,6 +111,13 @@ var lang;
     </head>
     <body>
         <div lang="en">
+            <div class="tab_area">
+                <div class="tabs">
+                    <a data-current="1" href="./costCalculator.html"><span>ArdyCup cost calculator</span></a>
+                    <a data-current="" href="./blindedBanSelector.html"><span>ArdyCup blinded ban selector</span></a>
+                    <a data-current="" href="./cardySelfBanSelector.html"><span>CardyCup calculator<br/>(self ban selector)</span></a>
+                </div>
+            </div>
             <div class="note">
                 <p>
                     <span>◆ Refer to <a target="_blank" href="https://docs.google.com/spreadsheets/d/12Dg_OWHA0QBD9QeXj-JUNHj6DATnw2cMwETFVhYns0k/edit#gid=1397116232">the ArdyCup character cost table</a></span>
@@ -246,6 +262,13 @@ var lang;
             </div>
         </div>
         <div lang="ko">
+            <div class="tab_area">
+                <div class="tabs">
+                    <a data-current="1" href="./costCalculator.html"><span>아디컵 코스트 계산기</span></a>
+                    <a data-current="" href="./blindedBanSelector.html"><span>아디컵 블라인드 밴 선택기</span></a>
+                    <a data-current="" href="./cardySelfBanSelector.html"><span>카디컵 계산기<br/>(다이어트 선택기)</span></a>
+                </div>
+            </div>
             <div class="note">
                 <p>
                     <span>◆ <a target="_blank" href="https://docs.google.com/spreadsheets/d/12Dg_OWHA0QBD9QeXj-JUNHj6DATnw2cMwETFVhYns0k/edit#gid=1397116232">아디컵 캐릭터 코스트 테이블</a> 참조</span>
