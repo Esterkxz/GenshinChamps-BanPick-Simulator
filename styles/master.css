@@ -771,8 +771,9 @@ div#ban_card_pool div.ban_card_grade_area div.middle_position_holder > div.each_
 div#ban_card_pool div.ban_card_grade_area div.middle_position_holder > div.each_grade_element_area ul.each_grade_element_pool { width: auto; height: auto; }
 
 /* div#elements_pool { position: relative; display: flex; flex-direction: row; flex-wrap: wrap; height: 580px; max-width: 1280px; margin: 8px auto; overflow: visible; } */
-div#elements_pool { --extend: 110px; position: relative; display: flex; flex-direction: row; flex-wrap: wrap; width: calc(100% + var(--extend)); height: 610px; margin: 8px calc(var(--extend) / 2 * -1); overflow: visible; }
+div#elements_pool { --extend: 110px; position: relative; display: flex; flex-direction: row; flex-wrap: wrap; left: calc(var(--extend) / 2 * -1); right: calc(var(--extend) / 2 * -1); width: calc(100% + var(--extend)); height: 610px; max-width: 1428px; margin: 8px auto; overflow: visible; transition-timing-function: ease; transition-duration: 0.9s; will-change: auto; }
 body:not([data-rule-type="extra"], [data-rule-type="cardy"]) div#elements_pool { display: none; }
+div#center_area[data-wide="1"] div#elements_pool { left: 0; right: 0; }
 div#elements_pool div.pool_element_area { --pool-width: 204px; position: relative; display: flex; flex-direction: column; flex-wrap: nowrap; flex-grow: 1; height: 100%; max-width: calc(100% / 7); }
 div#elements_pool div.pool_element_area:not([data-element="switchable"]) { width: var(--pool-width); }
 div#elements_pool div.pool_element_area div.element_icon_area { --icon-size: 64px; --adjust-height: -50px; --height: calc(var(--icon-size) + var(--adjust-height)); position: relative; left: 0; right: 0; width: fit-content; height: var(--height); margin: 4px auto; }
