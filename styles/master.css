@@ -731,6 +731,7 @@ div#simple_ban_card_pool { --grade-divider-border-width: 12px; height: 600px; ma
 body:not([data-rule-type="ban card"]) div#simple_ban_card_pool { display: none; }
 div#simple_ban_card_pool div.ban_card_grade_area { position: relative; --icon-src-size: 64px; margin: 10px 0; border-top: dotted 0px var(--plain-text-color); transition-duration: 0.3s; transition-timing-function: ease; will-change: auto; }
 div#simple_ban_card_pool div.ban_card_grade_area.global_banned { position: absolute; z-index: 1; top: 350px; right: -60px; width: fit-content; /* width: -webkit-fill-available; height: 0px; margin: -20px auto 0 !important; */ will-change: auto; }
+div#center_area[data-wide="1"] div#simple_ban_card_pool div.ban_card_grade_area.global_banned { right: 0; }
 div#simple_ban_card_pool div.ban_card_grade_area.global_banned:hover { /* translate: 0 -76px; */ transition-duration: 0.5s; }
 div#simple_ban_card_pool div.ban_card_grade_area.global_banned::before { content: attr(data-area-title); position: absolute; top: 0; bottom: 0; left: -64px; width: max-content; height: fit-content; margin: auto; color: rgba(var(--plain-text-color) / 80%); font-size: 16px; font-weight: bold; text-shadow: 0 0 6px rgb(var(--color-important)); rotate: 270deg; }
 div#simple_ban_card_pool[data-league="0"] div.ban_card_grade_area[data-ban-card-grade="0"] { border-top-width: var(--grade-divider-border-width); }
