@@ -1966,7 +1966,7 @@ let poolMaster = {
             let acc = i == alters.length ? rules.ban_card_excepted : (i == alters.length + 1 ? rules.global_banned : alt.ban_card_accure);
 
             let set = [{}, {}];
-            for (id in acc) {
+            for (var id in acc) {
                 let info = charactersInfo.list[charactersInfo[id]];
                 if (info == null) continue;
                 let rar = info.rarity == "5" ? "5" : "4";
@@ -1974,9 +1974,9 @@ let poolMaster = {
                 set[rar == "5" ? 0 : 1][id] = info;
             }
 
-            for (rar in set) {
+            for (var rar in set) {
                 let list = set[rar];
-                for (id in list) {
+                for (var id in list) {
                     let bancard = table[id];
                     let info = list[id];
 
@@ -1987,6 +1987,8 @@ let poolMaster = {
                     } else {
                         item = this.buildCharacterItem(info, bancard);
                     }
+                    let exist = this.eachGradeArea.find(this.character + "[" + this.id + "='" + id + "']");
+                    if (exist.length > 0) exist.remove();
                     this.eachGradeArea.filter('[' + this.ban_card_grade + '="' + i + '"]').find("ul." + this.each_grade_pool).append(item);
                 }
             }
@@ -7550,7 +7552,7 @@ let globalBanMaster = {
         let parent = pool.parent();
 
         if (pool != null && rules.global_banned != null && Object.keys(rules.global_banned).length > 0 && rules.apply_dynamic_global_ban) {
-            for (id in rules.global_banned) {
+            for (var id in rules.global_banned) {
 
                 let item = poolMaster.eachCharacters.filter("[" + poolMaster.id + "='" + id + "']");
                 item.remove();
