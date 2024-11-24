@@ -13,7 +13,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 * this file is rule data reference and basic standard for cost game.\n\
     ",
     "rule_title": "아디컵 룰북",
-    "rule_version": "v.0.3.0",
+    "rule_version": "v.0.3.3",
 
     "rule_type": "cost",
 
@@ -28,20 +28,19 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "apply_dynamic_global_ban": true,
         "sequence": [
             { "side": "red", "pick": 'ban', "amount": "1" },
-            { "side": "blue", "pick": 'ban', "amount": "1" },
+            { "side": "blue", "pick": 'ban', "amount": "2" },
+            { "side": "red", "pick": 'ban', "amount": "1" },
             { "side": "red", "pick": 'entry', "amount": "1" },
             { "side": "blue", "pick": 'entry', "amount": "2" },
             { "side": "red", "pick": 'entry', "amount": "2" },
             { "side": "blue", "pick": 'entry', "amount": "1" },
             { "side": "blue", "pick": 'ban', "amount": "1" },
-            { "side": "red", "pick": 'ban', "amount": "1" },
+            { "side": "red", "pick": 'ban', "amount": "2" },
+            { "side": "blue", "pick": 'ban', "amount": "1" },
             { "side": "blue", "pick": 'entry', "amount": "1" },
             { "side": "red", "pick": 'entry', "amount": "2" },
             { "side": "blue", "pick": 'entry', "amount": "2" },
-            { "side": "red", "pick": 'entry', "amount": "1" },
-            { "side": "red", "pick": 'ban', "amount": "1" },
-            { "side": "blue", "pick": 'ban', "amount": "1" },
-            { "side": "red", "pick": 'entry', "amount": "1" },
+            { "side": "red", "pick": 'entry', "amount": "2" },
             { "side": "blue", "pick": 'entry', "amount": "2" },
             { "side": "red", "pick": 'entry', "amount": "1" },
             { "side": "blue", "pick": 'entry', "amount": "0" },
@@ -243,57 +242,58 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
     "cost_table": {
         "diluc":       [0, 0, 0, 0, 0, 0, 0],
         "klee":        [1, 1, 2, 2, 2, 2, 2],
-        "hutao":       [2, 4, 4, 4, 4, 4, 4],
-        "yoimiya":     [1, 1, 1, 1, 1, 1, 3],
-        "dehya":       [1, 1, 1, 1, 1, 1, 1],
+        "hutao":       [1, 4, 4, 4, 4, 4, 4],
+        "yoimiya":     [1, 1, 1, 1, 1, 1, 4],
+        "dehya":       [2, 2, 2, 2, 2, 2, 2],
         "lyney":       [6, 7, 8, 9, 10, 11, 13],
         "arlecchino":  [8, 10, 11, 12, 13, 13, 16],
 
         "mona":        [0, 0, 0, 0, 0, 0, 0],
         "tartaglia":   [1, 1, 1, 1, 1, 1, 1],
         "kokomi":      [2, 2, 2, 2, 2, 2, 2],
-        "ayato":       [1, 2, 3, 4, 5, 6, 8],
+        "ayato":       [0, 1, 2, 3, 4, 5, 7],
         "yelan":       [4, 5, 6, 7, 8, 9, 11],
         "nilou":       [3, 3, 5, 5, 5, 5, 7],
-        "neuvillette": [10, 12, 13, 15, 16, 16, 18],
-        "furina":      [5, 6, 7, 8, 9, 10, 11],
-        "sigewinne":   [2, 3, 5, 5, 7, 8, 9],
-        "mualani":     [5, 7, 9, 11, 11, 11, 13],
+        "neuvillette": [9, 11, 12, 14, 15, 15, 17],
+        "furina":      [5, 6, 7, 8, 9, 10, 12],
+        "sigewinne":   [2, 3, 4, 4, 7, 8, 9],
+        "mualani":     [4, 7, 9, 11, 11, 11, 14],
 
         "qiqi":        [0, 0, 0, 0, 0, 0, 0],
-        "ganyu":       [0, 0, 0, 0, 0, 0, 0],
+        "ganyu":       [0, 0, 0, 0, 0, 0, 1],
         "eula":        [0, 0, 0, 0, 0, 0, 0],
-        "ayaka":       [1, 1, 2, 3, 5, 5, 6],
+        "ayaka":       [1, 1, 3, 4, 6, 6, 8],
         "aloy":        [0, 0, 0, 0, 0, 0, 0],
-        "shenhe":      [2, 3, 4, 4, 4, 4, 6],
-        "wriothesley": [2, 5, 6, 7, 8, 9, 12],
+        "shenhe":      [2, 3, 4, 5, 5, 5, 7],
+        "wriothesley": [1, 3, 4, 5, 6, 7, 12],
 
         "keqing":      [0, 0, 0, 0, 0, 0, 0],
         "shogun":      [2, 3, 5, 6, 6, 6, 6],
-        "yae":         [2, 3, 4, 5, 6, 6, 8],
+        "yae":         [3, 3, 4, 5, 6, 6, 8],
         "cyno":        [0, 0, 0, 0, 0, 0, 0],
-        "clorinde":    [2, 6, 10, 11, 12, 13, 15],
+        "clorinde":    [3, 6, 10, 11, 12, 13, 15],
 
         "jean":        [0, 0, 0, 0, 0, 0, 0],
         "venti":       [2, 2, 2, 2, 2, 2, 2],
         "xiao":        [1, 2, 2, 2, 2, 2, 2],
         "kazuha":      [4, 4, 5, 5, 5, 5, 6],
-        "wanderer":    [1, 2, 3, 5, 5, 5, 9],
-        "liuyun":      [4, 5, 7, 7, 7, 7, 7],
+        "wanderer":    [1, 2, 3, 4, 5, 5, 10],
+        "liuyun":      [3, 4, 7, 7, 7, 7, 7],
+        "chasca":      [7, 8, 9, 9, 10, 11, 15],
 
         "zhongli":     [3, 3, 3, 3, 3, 3, 3],
         "albedo":      [0, 0, 0, 0, 0, 0, 0],
-        "itto":        [0, 0, 0, 0, 0, 0, 0],
+        "itto":        [0, 0, 1, 1, 2, 2, 2],
         "navia":       [4, 5, 6, 7, 8, 8, 13],
-        "chiori":      [1, 2, 3, 4, 5, 6, 11],
-        "xilonen":     [4, 4, 5, 5, 6, 6, 7],
+        "chiori":      [1, 3, 4, 5, 6, 7, 12],
+        "xilonen":     [5, 5, 7, 7, 8, 8, 8],
 
         "tighnari":    [1, 2, 3, 4, 4, 4, 6],
         "nahida":      [5, 5, 6, 7, 8, 8, 10],
-        "alhaitham":   [3, 3, 3, 3, 4, 4, 5],
+        "alhaitham":   [3, 3, 3, 3, 4, 4, 6],
         "baizhu":      [2, 2, 3, 3, 3, 3, 4],
-        "emilie":      [5, 6, 8, 9, 10, 10, 12],
-        "kinich":      [5, 7, 9, 11, 12, 12, 13],
+        "emilie":      [4, 5, 7, 8, 9, 9, 11],
+        "kinich":      [4, 7, 9, 11, 12, 12, 14],
 
         "treveler":    [1, 1, 1, 1, 1, 1, 1],
         
@@ -314,7 +314,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "kaeya":        1,
         "diona":        1,
         "rosaria":      1,
-        "chongyun":     0,
+        "chongyun":     1,
         "layla":        1,
         "mika":         0,
         "freminet":     0,
@@ -328,6 +328,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "shinobu":      2,
         "dori":         1,
         "sethos":       1,
+        "olorun":       2,
 
         "sucrose":      2,
         "sayu":         0,
@@ -337,14 +338,14 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 
         "noelle":       0,
         "ningguang":    0,
-        "gorou":        1,
+        "gorou":        2,
         "yunjin":       1,
         "kachina":      2,
 
         "collei":       1,
         "yaoyao":       1,
         "kaveh":        0,
-        "kirara":       1,
+        "kirara":       2,
 
         "": []
     },
@@ -380,6 +381,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
 벤티	5	5	10	10	10	10	15
 소	10	12	12	13	13	15	30
 한운	20	22	60	60	60	60	65
+차스카	35	60	65	70	80	90	130
 파루잔	0	0	0	0	0	0	10
 아를레키노	50	85	95	105	106	107	160
 가명	0	0	0	0	0	0	25

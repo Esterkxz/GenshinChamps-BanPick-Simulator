@@ -733,6 +733,20 @@ weaponsInfo = {
             "res_vcut": "i_n11516_gacha_icon.webp"
         },
 
+        //Extra 20? - Qoyllorsnova
+        {
+            "id": "bw_qoyllorsnova",
+            "class": "limited",
+            "version": "5.2f",
+            "rarity": "5",
+            "type": "bow",
+            "serise": "standalone",
+            "continent": "natlan",
+            "favority": ["chasca"],
+            "res_icon": "UI_EquipIcon_Bow_Qoyllorsnova.png",
+            "res_vcut": "i_n15514_gacha_icon.webp"
+        },
+
         {
             "id": "reserved",
             "class": "",

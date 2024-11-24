@@ -298,6 +298,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "mualani": "말라니",
         "kinich": "키니치",
         "xilonen": "실로닌",
+        "olorun": "올로룬",
+        "chasca": "차스카",
         "reserved": ""
     },
     "characters_short": {
@@ -390,6 +392,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "mualani": "말라니",
         "kinich": "키니치",
         "xilonen": "실로닌",
+        "olorun": "올로룬",
+        "chasca": "차스카",
         "reserved": ""
     },
     "weapons": {
@@ -449,6 +453,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "ct_mechapufferfish": { "name": "서핑 타임", "aliases": ["서핑", "서타", "타임"] },
         "cm_emeraldsword": { "name": "산왕의 엄니", "aliases": ["산왕", "엄니", "산엄"] },
         "sw_xochitlstube": { "name": "바위산을 맴도는 노래", "aliases": ["바위산", "바맴", "바맴노"] },
+        "bw_qoyllorsnova": { "name": "붉은 깃 별독수리", "aliases": ["붉은깃", "별독수리", "붉깃별"] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }

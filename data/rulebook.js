@@ -148,6 +148,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "mualani": false,
             "kinich": false,
             "xilonen": false,
+            "olorun": false,
+            "chasca": false,
         },
         "": ""
     },
@@ -228,6 +230,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "charlotte": true,
                 "sethos": true,
                 "kachina": true,
+                "olorun": true,
                 },
             "": ""
         },
@@ -401,6 +404,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "mualani": true,
         "kinich": true,
         "xilonen": true,
+        "chasca": true,
     },
 
     "global_banned": {

@@ -299,6 +299,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "mualani": "Mualani",
         "kinich": "Kinich",
         "xilonen": "Xilonen",
+        "olorun": "Olorun",
+        "chasca": "Chasca",
         "reserved": ""
     },
     "characters_short": {
@@ -391,6 +393,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "mualani": "Mualani",
         "kinich": "Kinich",
         "xilonen": "Xilonen",
+        "olorun": "Olorun",
+        "chasca": "Chasca",
         "reserved": ""
     },
     "weapons": {
@@ -450,6 +454,7 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "ct_mechapufferfish": { "name": "Surf's Up", "aliases": [""] },
         "cm_emeraldsword": { "name": "Fang of the Mountain King", "aliases": [""] },
         "sw_xochitlstube": { "name": "Peak Patrol Song", "aliases": [""] },
+        "bw_qoyllorsnova": { "name": "Astral Vulture's Crimson Plumage", "aliases": [""] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }
