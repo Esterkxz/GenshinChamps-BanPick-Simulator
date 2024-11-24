@@ -30,7 +30,7 @@ SOFTWARE.
 //
 // The JSON based lite code format
 //
-// v0.3 / release 2024.07.21
+// v0.5 / release 2024.10.25
 //
 // Take to be liten from JSON code to smaller converted characters for like as BASE64.
 //
@@ -93,12 +93,14 @@ let Jcodd = {
      * @return {string} json
      */
     toJson: function (codd) {
+        //unescape
+        let p1 = this.unescape(codd);//unescape(codd);//=> deprecated
         //Assign ""
-        let p1 = codd.replace(/([\{\,])([^\"\:]*)\:/g, '$1"$2":');
+        let p2 = p1.replace(/(\{|\}\,|\]\,|\"\,|[\-0-9]+\,)([^\"\{\}\[\]\,\:]*)\:/g, '$1"$2":');
         //Convert n to null
-        let p2 = p1.replace(/([\[\,\:])n([\]\,\}])/g, "$1null$2").replace(/([\[\,\:])n([\]\,\}])/g, "$1null$2");
+        let p3 = p2.replace(/([\[\,\:])n([\]\,\}])/g, "$1null$2").replace(/([\[\,\:])n([\]\,\}])/g, "$1null$2");
 
-        return p2;
+        return p3;
     },
 
     /**
@@ -118,7 +120,7 @@ let Jcodd = {
      * Return to be escaped unicode character from char code
      * 
      * @param {Integer} cc  Char Code
-     * 4
+     * 
      * @returns {String} escaped
      */
     esc: function (cc) {
@@ -135,7 +137,7 @@ let Jcodd = {
      * Return to be escaped unicode characters in string
      * 
      * @param {String} str
-     * 4
+     * 
      * @returns {String} escaped
      */
     escape: function (str) {
@@ -144,6 +146,19 @@ let Jcodd = {
             escaped += this.esc(str.charCodeAt(i));
         }
         return escaped;
+    },
+
+    /**
+     * Return to be unescaped unicode characters in string
+     * 
+     * @param {String} str
+     * 
+     * @returns {String} unescaped
+     */
+    unescape: function (str) {
+        return str.replace(/%u([\dA-F]{4})/gi, (match, block) => 
+            String.fromCharCode(parseInt(block, 16))
+        );
     },
 }
 
