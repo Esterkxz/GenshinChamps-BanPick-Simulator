@@ -60,7 +60,13 @@
     font-weight: 800;
     src: url('../fonts/Lato/Lato-BlackItalic.ttf');
 }
-/* Main font CJK - Nato Sans */
+/* Main font - SUIT */
+@font-face {
+	font-family: 'SUIT';
+	font-weight: 100 900;
+	src: url('../fonts/SUIT/SUIT-Variable.woff2') format('woff2-variations');
+}
+/* Fallback font CJK - Nato Sans */
 @font-face {
     font-family: 'Noto Sans KR';
     font-style: normal;

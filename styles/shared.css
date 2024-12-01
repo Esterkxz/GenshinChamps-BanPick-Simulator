@@ -115,20 +115,25 @@
     --character-bg-class-4: url('../images/character_iconic_class_back/roleStarBg4.1ef36788.png');
     --character-bg-class-5: url('../images/character_iconic_class_back/roleStarBg5.0d5963fb.png');
     --character-bg-class-5-1: url('../images/character_iconic_class_back/roleStarBg105.47d63f00.png');
-    
 
-    --font-basic-common: '맑은 고딕', 'Malgun Gothic', 'Noto Sans KR', NotoSansKR, '나눔고딕', 'Nanum Gothic', NanumGothic, 'Open Sans', '돋움', Dotum, 'Apple SD 산돌고딕 Neo', 'Apple SD Gothic Neo', AppleGothic, Arial, Helvetica, sans-serif;
-    --font-arial-common: Arial, 'Noto Sans KR', NotoSansKR, '맑은 고딕', 'Malgun Gothic', '나눔고딕', 'Nanum Gothic', NanumGothic, 'Open Sans', '돋움', Dotum, 'Apple SD 산돌고딕 Neo', 'Apple SD Gothic Neo', AppleGothic, Helvetica, sans-serif;
+
+    --font-basic-common: 'SUIT', '맑은 고딕', 'Malgun Gothic', 'Noto Sans KR', NotoSansKR, '나눔고딕', 'Nanum Gothic', NanumGothic, 'Open Sans', '돋움', Dotum, 'Apple SD 산돌고딕 Neo', 'Apple SD Gothic Neo', AppleGothic, Arial, Helvetica, sans-serif;
+    --font-arial-common: 'SUIT', Arial, 'Noto Sans KR', NotoSansKR, '맑은 고딕', 'Malgun Gothic', '나눔고딕', 'Nanum Gothic', NanumGothic, 'Open Sans', '돋움', Dotum, 'Apple SD 산돌고딕 Neo', 'Apple SD Gothic Neo', AppleGothic, Helvetica, sans-serif;
 }
 
 /* font apply */
 body {
     font-family: var(--font-basic-common);
     -webkit-font-smoothing: subpixel-antialiased;
+    line-height: 1em;
+}
+:before, :after {
+    line-height: 1em;
 }
 input, textarea, select, button, table {
     font-family: var(--font-arial-common);
     -webkit-font-smoothing: subpixel-antialiased;
+    line-height: 1em;
 }
 
 /* basic */
