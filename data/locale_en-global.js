@@ -301,6 +301,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "xilonen": "Xilonen",
         "olorun": "Olorun",
         "chasca": "Chasca",
+        "mavuika": "Mavuika",
+        "citlali": "Citlali",
         "reserved": ""
     },
     "characters_short": {
@@ -395,6 +397,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "xilonen": "Xilonen",
         "olorun": "Olorun",
         "chasca": "Chasca",
+        "mavuika": "Mavuika",
+        "citlali": "Citlali",
         "reserved": ""
     },
     "weapons": {
@@ -455,6 +459,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "cm_emeraldsword": { "name": "Fang of the Mountain King", "aliases": [""] },
         "sw_xochitlstube": { "name": "Peak Patrol Song", "aliases": [""] },
         "bw_qoyllorsnova": { "name": "Astral Vulture's Crimson Plumage", "aliases": [""] },
+        "cm_radiancesword": { "name": "A Thousand Blazing Suns", "aliases": [""] },
+        "ct_figurines": { "name": "Starcaller's Watch", "aliases": [""] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }

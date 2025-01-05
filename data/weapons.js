@@ -747,11 +747,39 @@ weaponsInfo = {
             "res_vcut": "i_n15514_gacha_icon.webp"
         },
 
+        //Radiance serise
+        {
+            "id": "cm_radiancesword",
+            "class": "limited",
+            "version": "5.3f",
+            "rarity": "5",
+            "type": "claymore",
+            "serise": "radiance",
+            "continent": "natlan",
+            "favority": ["mavuika", "diluc"],
+            "res_icon": "UI_EquipIcon_Claymore_RadianceSword.png",
+            "res_vcut": "i_n12514_gacha_icon.webp"
+        },
+
+        //Extra 21? - Figurines
+        {
+            "id": "ct_figurines",
+            "class": "limited",
+            "version": "5.3f",
+            "rarity": "5",
+            "type": "catalyst",
+            "serise": "standalone",
+            "continent": "natlan",
+            "favority": ["citlali"],
+            "res_icon": "UI_EquipIcon_Catalyst_Figurines.png",
+            "res_vcut": "i_n14517_gacha_icon.webp"
+        },
+
         {
             "id": "reserved",
-            "class": "",
+            "class": "limited",
             "version": "",
-            "rarity": "",
+            "rarity": "5",
             "type": "",
             "continent": "",
             "favority": [""],

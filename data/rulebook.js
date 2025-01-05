@@ -150,7 +150,9 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
             "xilonen": false,
             "olorun": false,
             "chasca": false,
-        },
+            "mavuika": false,
+            "citlali": false,
+            },
         "": ""
     },
 
@@ -348,6 +350,7 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
                 "chiori": true,
                 "clorinde": true,
                 "emilie": true,
+                "citlali": true,
             },
             "": ""
         },
@@ -405,7 +408,8 @@ Rule data created by Esterisk (에스터1z / Ester1z) \n\
         "kinich": true,
         "xilonen": true,
         "chasca": true,
-    },
+        "mavuika": true,
+},
 
     "global_banned": {
         // "neuvillette": true,

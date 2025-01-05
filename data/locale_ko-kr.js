@@ -300,6 +300,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "xilonen": "실로닌",
         "olorun": "올로룬",
         "chasca": "차스카",
+        "mavuika": "마비카",
+        "citlali": "시틀라리",
         "reserved": ""
     },
     "characters_short": {
@@ -394,6 +396,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "xilonen": "실로닌",
         "olorun": "올로룬",
         "chasca": "차스카",
+        "mavuika": "마비카",
+        "citlali": "시틀라리",
         "reserved": ""
     },
     "weapons": {
@@ -454,6 +458,8 @@ This language works by Esterisk (에스터1z / Ester1z)\n\
         "cm_emeraldsword": { "name": "산왕의 엄니", "aliases": ["산왕", "엄니", "산엄"] },
         "sw_xochitlstube": { "name": "바위산을 맴도는 노래", "aliases": ["바위산", "바맴", "바맴노"] },
         "bw_qoyllorsnova": { "name": "붉은 깃 별독수리", "aliases": ["붉은깃", "별독수리", "붉깃별"] },
+        "cm_radiancesword": { "name": "타오르는 천 개의 태양", "aliases": ["태양", "타오르는", "타천태"] },
+        "ct_figurines": { "name": "별지기의 시선", "aliases": ["별지기", "시선", "별시선"] },
         "reserved": { "name": "", "aliases": [""] }
     }
 }
